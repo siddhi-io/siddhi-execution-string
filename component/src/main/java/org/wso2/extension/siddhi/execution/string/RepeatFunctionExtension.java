@@ -43,11 +43,11 @@ public class RepeatFunctionExtension extends FunctionExecutor {
         }
         if (attributeExpressionExecutors[0].getReturnType() != Attribute.Type.STRING) {
             throw new ExecutionPlanValidationException("Invalid parameter type found for the first argument of str:repeat() function, " +
-                    "required "+Attribute.Type.STRING+", but found "+attributeExpressionExecutors[0].getReturnType().toString());
+                    "required " + Attribute.Type.STRING + ", but found " + attributeExpressionExecutors[0].getReturnType().toString());
         }
         if (attributeExpressionExecutors[1].getReturnType() != Attribute.Type.INT) {
             throw new ExecutionPlanValidationException("Invalid parameter type found for the second argument of str:repeat() function, " +
-                    "required "+Attribute.Type.INT+", but found "+attributeExpressionExecutors[1].getReturnType().toString());
+                    "required " + Attribute.Type.INT + ", but found " + attributeExpressionExecutors[1].getReturnType().toString());
         }
     }
 

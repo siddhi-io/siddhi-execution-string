@@ -40,9 +40,9 @@ public class RegexpFunctionExtension extends FunctionExecutor {
     Attribute.Type returnType = Attribute.Type.BOOL;
 
     //state-variables
-    boolean isRegexConstant = false;
-    String regexConstant;
-    Pattern patternConstant;
+    private boolean isRegexConstant = false;
+    private String regexConstant;
+    private Pattern patternConstant;
 
     @Override
     protected void init(ExpressionExecutor[] attributeExpressionExecutors, ExecutionPlanContext executionPlanContext) {
@@ -52,13 +52,13 @@ public class RegexpFunctionExtension extends FunctionExecutor {
         }
         if (attributeExpressionExecutors[0].getReturnType() != Attribute.Type.STRING) {
             throw new ExecutionPlanValidationException("Invalid parameter type found for the first argument of str:regexp() function, " +
-                    "required "+Attribute.Type.STRING+", but found "+attributeExpressionExecutors[0].getReturnType().toString());
+                    "required " + Attribute.Type.STRING + ", but found " + attributeExpressionExecutors[0].getReturnType().toString());
         }
         if (attributeExpressionExecutors[1].getReturnType() != Attribute.Type.STRING) {
             throw new ExecutionPlanValidationException("Invalid parameter type found for the second argument of str:regexp() function, " +
-                    "required "+Attribute.Type.STRING+", but found "+attributeExpressionExecutors[1].getReturnType().toString());
+                    "required " + Attribute.Type.STRING + ", but found " + attributeExpressionExecutors[1].getReturnType().toString());
         }
-        if(attributeExpressionExecutors[1] instanceof ConstantExpressionExecutor){
+        if (attributeExpressionExecutors[1] instanceof ConstantExpressionExecutor) {
             isRegexConstant = true;
             regexConstant = (String) ((ConstantExpressionExecutor) attributeExpressionExecutors[1]).getValue();
             patternConstant = Pattern.compile(regexConstant);
@@ -79,7 +79,7 @@ public class RegexpFunctionExtension extends FunctionExecutor {
         }
         String source = (String) data[0];
 
-        if(!isRegexConstant){
+        if (!isRegexConstant) {
             regex = (String) data[1];
             pattern = Pattern.compile(regex);
             matcher = pattern.matcher(source);

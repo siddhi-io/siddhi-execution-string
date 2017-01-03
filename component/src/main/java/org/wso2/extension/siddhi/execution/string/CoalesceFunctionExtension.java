@@ -30,7 +30,7 @@ import org.wso2.siddhi.query.api.exception.ExecutionPlanValidationException;
 * Accept Type(s): Arguments can be of any type, given that the argument count is more than zero and all the arguments are of the same type.
 * Return Type(s): Same type as the input
 * */
-public class CoalesceFunctionExtension extends FunctionExecutor{
+public class CoalesceFunctionExtension extends FunctionExecutor {
 
     private Attribute.Type returnType;
 
@@ -45,9 +45,9 @@ public class CoalesceFunctionExtension extends FunctionExecutor{
         for (ExpressionExecutor expressionExecutor : attributeExpressionExecutors) {
             attributeCount++;
             if (type != expressionExecutor.getReturnType()) {
-                throw new ExecutionPlanValidationException("Invalid parameter type found for the "+attributeCount+
-                        "'th argument of str:coalesce() function, required "+type+", but found "
-                        +attributeExpressionExecutors[attributeCount-1].getReturnType().toString());
+                throw new ExecutionPlanValidationException("Invalid parameter type found for the " + attributeCount +
+                        "'th argument of str:coalesce() function, required " + type + ", but found "
+                        + attributeExpressionExecutors[attributeCount - 1].getReturnType().toString());
             }
         }
         returnType = type;

@@ -43,15 +43,15 @@ public class ReplaceAllFunctionExtension extends FunctionExecutor {
         }
         if (attributeExpressionExecutors[0].getReturnType() != Attribute.Type.STRING) {
             throw new ExecutionPlanValidationException("Invalid parameter type found for the first argument of str:replaceAll() function, " +
-                    "required "+Attribute.Type.STRING+", but found "+attributeExpressionExecutors[0].getReturnType().toString());
+                    "required " + Attribute.Type.STRING + ", but found " + attributeExpressionExecutors[0].getReturnType().toString());
         }
         if (attributeExpressionExecutors[1].getReturnType() != Attribute.Type.STRING) {
             throw new ExecutionPlanValidationException("Invalid parameter type found for the second argument of str:replaceAll() function, " +
-                    "required "+Attribute.Type.STRING+", but found "+attributeExpressionExecutors[1].getReturnType().toString());
+                    "required " + Attribute.Type.STRING + ", but found " + attributeExpressionExecutors[1].getReturnType().toString());
         }
         if (attributeExpressionExecutors[2].getReturnType() != Attribute.Type.STRING) {
             throw new ExecutionPlanValidationException("Invalid parameter type found for the third argument of str:replaceAll() function, " +
-                    "required "+Attribute.Type.STRING+", but found "+attributeExpressionExecutors[2].getReturnType().toString());
+                    "required " + Attribute.Type.STRING + ", but found " + attributeExpressionExecutors[2].getReturnType().toString());
         }
     }
 

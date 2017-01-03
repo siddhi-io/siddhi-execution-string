@@ -39,60 +39,60 @@ public class SubstrFunctionExtension extends FunctionExecutor {
 
     Attribute.Type returnType = Attribute.Type.STRING;
 
-   /*
-   * Sub-string Types are as follows:
-   * ONE: str:substr(<string sourceText> , <int beginIndex>)
-   * TWO: str:substr(<string sourceText> , <int beginIndex>, <int length>)
-   * THREE: str:substr(<string sourceText> , <string regex>)
-   * FOUR: str:substr(<string sourceText> , <string regex>, <int groupNumber>)
-   * */
-    public enum SubstrType {
+    /*
+    * Sub-string Types are as follows:
+    * ONE: str:substr(<string sourceText> , <int beginIndex>)
+    * TWO: str:substr(<string sourceText> , <int beginIndex>, <int length>)
+    * THREE: str:substr(<string sourceText> , <string regex>)
+    * FOUR: str:substr(<string sourceText> , <string regex>, <int groupNumber>)
+    * */
+    private enum SubstrType {
         ONE, TWO, THREE, FOUR
     }
 
     //state-variables
-    boolean isRegexConstant = false;
-    String regexConstant;
-    Pattern patternConstant;
-    SubstrType substrType;
+    private boolean isRegexConstant = false;
+    private String regexConstant;
+    private Pattern patternConstant;
+    private SubstrType substrType;
 
     @Override
     protected void init(ExpressionExecutor[] attributeExpressionExecutors, ExecutionPlanContext executionPlanContext) {
         if (attributeExpressionExecutors[0].getReturnType() != Attribute.Type.STRING) {
             throw new ExecutionPlanValidationException("Invalid parameter type found for the first argument of str:substr() function, " +
-                    "required "+Attribute.Type.STRING+", but found "+attributeExpressionExecutors[0].getReturnType().toString());
+                    "required " + Attribute.Type.STRING + ", but found " + attributeExpressionExecutors[0].getReturnType().toString());
         }
         if (attributeExpressionExecutors.length == 2) {
-            if(attributeExpressionExecutors[1].getReturnType() == Attribute.Type.INT){
+            if (attributeExpressionExecutors[1].getReturnType() == Attribute.Type.INT) {
                 substrType = SubstrType.ONE;
-            } else if(attributeExpressionExecutors[1].getReturnType() == Attribute.Type.STRING){
+            } else if (attributeExpressionExecutors[1].getReturnType() == Attribute.Type.STRING) {
                 substrType = SubstrType.THREE;
-                if(attributeExpressionExecutors[1] instanceof ConstantExpressionExecutor){
+                if (attributeExpressionExecutors[1] instanceof ConstantExpressionExecutor) {
                     isRegexConstant = true;
                     regexConstant = (String) ((ConstantExpressionExecutor) attributeExpressionExecutors[1]).getValue();
                     patternConstant = Pattern.compile(regexConstant);
                 }
             } else {
                 throw new ExecutionPlanValidationException("Invalid parameter type found for the second argument of str:substr() function, " +
-                        "required "+Attribute.Type.STRING+" or "+Attribute.Type.INT+", but found "+attributeExpressionExecutors[1].getReturnType().toString());
+                        "required " + Attribute.Type.STRING + " or " + Attribute.Type.INT + ", but found " + attributeExpressionExecutors[1].getReturnType().toString());
             }
         } else if (attributeExpressionExecutors.length == 3) {
             if (attributeExpressionExecutors[2].getReturnType() != Attribute.Type.INT) {
                 throw new ExecutionPlanValidationException("Invalid parameter type found for the third argument of str:substr() function, " +
-                        "required "+Attribute.Type.INT+", but found "+attributeExpressionExecutors[2].getReturnType().toString());
+                        "required " + Attribute.Type.INT + ", but found " + attributeExpressionExecutors[2].getReturnType().toString());
             }
-            if(attributeExpressionExecutors[1].getReturnType() == Attribute.Type.INT){
+            if (attributeExpressionExecutors[1].getReturnType() == Attribute.Type.INT) {
                 substrType = SubstrType.TWO;
-            } else if(attributeExpressionExecutors[1].getReturnType() == Attribute.Type.STRING){
+            } else if (attributeExpressionExecutors[1].getReturnType() == Attribute.Type.STRING) {
                 substrType = SubstrType.FOUR;
-                if(attributeExpressionExecutors[1] instanceof ConstantExpressionExecutor){
+                if (attributeExpressionExecutors[1] instanceof ConstantExpressionExecutor) {
                     isRegexConstant = true;
                     regexConstant = (String) ((ConstantExpressionExecutor) attributeExpressionExecutors[1]).getValue();
                     patternConstant = Pattern.compile(regexConstant);
                 }
             } else {
                 throw new ExecutionPlanValidationException("Invalid parameter type found for the second argument of str:substr() function, " +
-                        "required "+Attribute.Type.STRING+" or "+Attribute.Type.INT+", but found "+attributeExpressionExecutors[1].getReturnType().toString());
+                        "required " + Attribute.Type.STRING + " or " + Attribute.Type.INT + ", but found " + attributeExpressionExecutors[1].getReturnType().toString());
             }
         } else {
             throw new ExecutionPlanValidationException("Invalid no of Arguments passed to str:substr() function, required 2 or 3, but found "
@@ -132,7 +132,7 @@ public class SubstrFunctionExtension extends FunctionExecutor {
                 output = source.substring(beginIndex, (beginIndex + length));
                 break;
             case THREE:
-                if(!isRegexConstant){
+                if (!isRegexConstant) {
                     regex = (String) data[1];
                     pattern = Pattern.compile(regex);
                     matcher = pattern.matcher(source);
@@ -151,7 +151,7 @@ public class SubstrFunctionExtension extends FunctionExecutor {
                     throw new ExecutionPlanRuntimeException("Invalid input given to str:substr() function. Third argument cannot be null");
                 }
                 groupNo = (Integer) data[2];
-                if(!isRegexConstant){
+                if (!isRegexConstant) {
                     regex = (String) data[1];
                     pattern = Pattern.compile(regex);
                     matcher = pattern.matcher(source);
