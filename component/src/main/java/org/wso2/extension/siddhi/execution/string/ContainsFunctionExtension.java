@@ -32,8 +32,8 @@ import org.wso2.siddhi.query.api.exception.ExecutionPlanValidationException;
  * searchingSequence - the sequence to search for. eg: "WSO2"
  * inputSequence - the input string eg: "21 products are produced by WSO2 currently"
  * Accept Type(s) for contains(inputSequence, searchingSequence);
- *         inputSequence : STRING
- *         searchingSequence : STRING
+ * inputSequence : STRING
+ * searchingSequence : STRING
  * Return Type(s): BOOLEAN
  */
 public class ContainsFunctionExtension extends FunctionExecutor {
@@ -48,20 +48,20 @@ public class ContainsFunctionExtension extends FunctionExecutor {
         }
         if (attributeExpressionExecutors[0].getReturnType() != Attribute.Type.STRING) {
             throw new ExecutionPlanValidationException("Invalid parameter type found for the first argument of " +
-                    "str:contains() function, required "+Attribute.Type.STRING+", " +
-                    "but found "+attributeExpressionExecutors[0].getReturnType().toString());
+                    "str:contains() function, required " + Attribute.Type.STRING + ", " +
+                    "but found " + attributeExpressionExecutors[0].getReturnType().toString());
         }
         if (attributeExpressionExecutors[1].getReturnType() != Attribute.Type.STRING) {
             throw new ExecutionPlanValidationException("Invalid parameter type found for the second argument of " +
-                    "str:contains() function, required "+Attribute.Type.STRING+", " +
-                    "but found "+attributeExpressionExecutors[1].getReturnType().toString());
+                    "str:contains() function, required " + Attribute.Type.STRING + ", " +
+                    "but found " + attributeExpressionExecutors[1].getReturnType().toString());
         }
     }
 
     @Override
     protected Object execute(Object[] data) {
         if (data[0] == null) {
-            if(log.isDebugEnabled()){
+            if (log.isDebugEnabled()) {
                 log.warn("Invalid input given to str:contains() function. First argument cannot be null, returning false");
             }
             return false;

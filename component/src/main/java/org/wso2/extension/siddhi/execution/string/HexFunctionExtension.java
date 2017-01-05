@@ -28,7 +28,7 @@ import org.wso2.siddhi.query.api.exception.ExecutionPlanValidationException;
 /**
  * hex(a)
  * Returns a hexadecimal string representation of str,
- *   where each byte of each character in str is converted to two hexadecimal digits.
+ * where each byte of each character in str is converted to two hexadecimal digits.
  * Accept Type(s): STRING
  * Return Type(s): STRING
  */
@@ -57,8 +57,8 @@ public class HexFunctionExtension extends FunctionExecutor {
         if (data != null) {
             char[] chars = ((String) data).toCharArray();
             StringBuilder sb = new StringBuilder();
-            for(char c: chars){
-                sb.append(Integer.toHexString((int)c));
+            for (char c : chars) {
+                sb.append(Integer.toHexString((int) c));
             }
             return sb.toString();
         } else {

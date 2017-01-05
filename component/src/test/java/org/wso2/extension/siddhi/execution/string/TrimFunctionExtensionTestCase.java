@@ -80,9 +80,9 @@ public class TrimFunctionExtensionTestCase {
 
         InputHandler inputHandler = executionPlanRuntime.getInputHandler("inputStream");
         executionPlanRuntime.start();
-        inputHandler.send(new Object[]{"  AbCDefghiJ KLMN  ", 700f, 100l});
-        inputHandler.send(new Object[]{"ertyut     ", 60.5f, 200l});
-        inputHandler.send(new Object[]{"", 60.5f, 200l});
+        inputHandler.send(new Object[]{"  AbCDefghiJ KLMN  ", 700f, 100L});
+        inputHandler.send(new Object[]{"ertyut     ", 60.5f, 200L});
+        inputHandler.send(new Object[]{"", 60.5f, 200L});
         SiddhiTestHelper.waitForEvents(100, 3, count, 60000);
         Assert.assertEquals(3, count.get());
         Assert.assertTrue(eventArrived);

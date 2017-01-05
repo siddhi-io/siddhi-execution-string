@@ -77,9 +77,9 @@ public class CharAtFunctionExtensionTestCase {
 
         InputHandler inputHandler = executionPlanRuntime.getInputHandler("inputStream");
         executionPlanRuntime.start();
-        inputHandler.send(new Object[]{"IBM", 700f, 100l});
-        inputHandler.send(new Object[]{"WSO2", 60.5f, 200l});
-        inputHandler.send(new Object[]{"XYZ", 60.5f, 200l});
+        inputHandler.send(new Object[]{"IBM", 700f, 100L});
+        inputHandler.send(new Object[]{"WSO2", 60.5f, 200L});
+        inputHandler.send(new Object[]{"XYZ", 60.5f, 200L});
         SiddhiTestHelper.waitForEvents(100, 3, count, 60000);
         Assert.assertEquals(3, count.get());
         Assert.assertTrue(eventArrived);
@@ -121,9 +121,9 @@ public class CharAtFunctionExtensionTestCase {
 
         InputHandler inputHandler = executionPlanRuntime.getInputHandler("inputStream");
         executionPlanRuntime.start();
-        inputHandler.send(new Object[]{"IBM", 700f, 100l, 1});
-        inputHandler.send(new Object[]{"WSO2", 60.5f, 200l, 0});
-        inputHandler.send(new Object[]{"XYZ", 60.5f, 200l, 2});
+        inputHandler.send(new Object[]{"IBM", 700f, 100L, 1});
+        inputHandler.send(new Object[]{"WSO2", 60.5f, 200L, 0});
+        inputHandler.send(new Object[]{"XYZ", 60.5f, 200L, 2});
         SiddhiTestHelper.waitForEvents(100, 3, count, 60000);
         Assert.assertEquals(3, count.get());
         Assert.assertTrue(eventArrived);

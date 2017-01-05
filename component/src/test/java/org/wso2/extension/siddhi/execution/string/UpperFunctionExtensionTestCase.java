@@ -78,9 +78,9 @@ public class UpperFunctionExtensionTestCase {
 
         InputHandler inputHandler = executionPlanRuntime.getInputHandler("inputStream");
         executionPlanRuntime.start();
-        inputHandler.send(new Object[]{"AbCDefghiJ KLMNaaaaaaaaaa", 700f, 100l});
-        inputHandler.send(new Object[]{"123456XyZ abC 78aaaaaa", 60.5f, 200l});
-        inputHandler.send(new Object[]{"Hello Worldaaaa", 60.5f, 200l});
+        inputHandler.send(new Object[]{"AbCDefghiJ KLMNaaaaaaaaaa", 700f, 100L});
+        inputHandler.send(new Object[]{"123456XyZ abC 78aaaaaa", 60.5f, 200L});
+        inputHandler.send(new Object[]{"Hello Worldaaaa", 60.5f, 200L});
         SiddhiTestHelper.waitForEvents(100, 3, count, 60000);
         Assert.assertEquals(3, count.get());
         Assert.assertTrue(eventArrived);

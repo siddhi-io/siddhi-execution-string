@@ -43,11 +43,11 @@ public class CharAtFunctionExtension extends FunctionExecutor {
         }
         if (attributeExpressionExecutors[0].getReturnType() != Attribute.Type.STRING) {
             throw new ExecutionPlanValidationException("Invalid parameter type found for the first argument of str:charat() function, " +
-                    "required "+Attribute.Type.STRING+", but found "+attributeExpressionExecutors[0].getReturnType().toString());
+                    "required " + Attribute.Type.STRING + ", but found " + attributeExpressionExecutors[0].getReturnType().toString());
         }
         if (attributeExpressionExecutors[1].getReturnType() != Attribute.Type.INT) {
             throw new ExecutionPlanValidationException("Invalid parameter type found for the second argument of str:charat() function, " +
-                    "required "+Attribute.Type.INT+", but found "+attributeExpressionExecutors[1].getReturnType().toString());
+                    "required " + Attribute.Type.INT + ", but found " + attributeExpressionExecutors[1].getReturnType().toString());
         }
     }
 
@@ -64,8 +64,8 @@ public class CharAtFunctionExtension extends FunctionExecutor {
         try {
             return String.valueOf(source.charAt(index));
         } catch (IndexOutOfBoundsException e) {
-            throw new ExecutionPlanRuntimeException("Index argument "+index+
-                    " is negative or not less than the length of the given string "+source, e);
+            throw new ExecutionPlanRuntimeException("Index argument " + index +
+                    " is negative or not less than the length of the given string " + source, e);
         }
     }
 

@@ -81,9 +81,9 @@ public class ReplaceFirstFunctionExtensionTestCase {
 
         InputHandler inputHandler = executionPlanRuntime.getInputHandler("inputStream");
         executionPlanRuntime.start();
-        inputHandler.send(new Object[]{"hello hi hello", 700f, 100l});
-        inputHandler.send(new Object[]{"WSO2 hi hello", 60.5f, 200l});
-        inputHandler.send(new Object[]{"WSO2 cep", 60.5f, 200l});
+        inputHandler.send(new Object[]{"hello hi hello", 700f, 100L});
+        inputHandler.send(new Object[]{"WSO2 hi hello", 60.5f, 200L});
+        inputHandler.send(new Object[]{"WSO2 cep", 60.5f, 200L});
         SiddhiTestHelper.waitForEvents(100, 3, count, 60000);
         Assert.assertEquals(3, count.get());
         Assert.assertTrue(eventArrived);
@@ -176,9 +176,9 @@ public class ReplaceFirstFunctionExtensionTestCase {
 
         InputHandler inputHandler = executionPlanRuntime.getInputHandler("inputStream");
         executionPlanRuntime.start();
-        inputHandler.send(new Object[]{"hello WSO2 A hi hello", 700f, 100l});
-        inputHandler.send(new Object[]{"WSO2 hi helloA ", 60.5f, 200l});
-        inputHandler.send(new Object[]{"WSO2 cep", 60.5f, 200l});
+        inputHandler.send(new Object[]{"hello WSO2 A hi hello", 700f, 100L});
+        inputHandler.send(new Object[]{"WSO2 hi helloA ", 60.5f, 200L});
+        inputHandler.send(new Object[]{"WSO2 cep", 60.5f, 200L});
         SiddhiTestHelper.waitForEvents(100, 3, count, 60000);
         Assert.assertEquals(3, count.get());
         Assert.assertTrue(eventArrived);

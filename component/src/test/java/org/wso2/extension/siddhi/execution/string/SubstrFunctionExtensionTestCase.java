@@ -80,9 +80,9 @@ public class SubstrFunctionExtensionTestCase {
 
         InputHandler inputHandler = executionPlanRuntime.getInputHandler("inputStream");
         executionPlanRuntime.start();
-        inputHandler.send(new Object[]{"AbCDefghiJ KLMN", 700f, 100l});
-        inputHandler.send(new Object[]{" ertyut", 60.5f, 200l});
-        inputHandler.send(new Object[]{"Hello", 60.5f, 200l});
+        inputHandler.send(new Object[]{"AbCDefghiJ KLMN", 700f, 100L});
+        inputHandler.send(new Object[]{" ertyut", 60.5f, 200L});
+        inputHandler.send(new Object[]{"Hello", 60.5f, 200L});
         SiddhiTestHelper.waitForEvents(100, 3, count, 60000);
         Assert.assertEquals(3, count.get());
         Assert.assertTrue(eventArrived);
@@ -126,9 +126,9 @@ public class SubstrFunctionExtensionTestCase {
 
         InputHandler inputHandler = executionPlanRuntime.getInputHandler("inputStream");
         executionPlanRuntime.start();
-        inputHandler.send(new Object[]{"AbCDefghiJ KLMN", 700f, 100l});
-        inputHandler.send(new Object[]{" ertyut", 60.5f, 200l});
-        inputHandler.send(new Object[]{"Helloooo", 60.5f, 200l});
+        inputHandler.send(new Object[]{"AbCDefghiJ KLMN", 700f, 100L});
+        inputHandler.send(new Object[]{" ertyut", 60.5f, 200L});
+        inputHandler.send(new Object[]{"Helloooo", 60.5f, 200L});
         SiddhiTestHelper.waitForEvents(100, 3, count, 60000);
         Assert.assertEquals(3, count.get());
         Assert.assertTrue(eventArrived);
@@ -172,9 +172,9 @@ public class SubstrFunctionExtensionTestCase {
 
         InputHandler inputHandler = executionPlanRuntime.getInputHandler("inputStream");
         executionPlanRuntime.start();
-        inputHandler.send(new Object[]{"WSO2D efghiJ KLMN", 700f, 100l});
-        inputHandler.send(new Object[]{" ertWSO2yut", 60.5f, 200l});
-        inputHandler.send(new Object[]{"Helloooo", 60.5f, 200l});
+        inputHandler.send(new Object[]{"WSO2D efghiJ KLMN", 700f, 100L});
+        inputHandler.send(new Object[]{" ertWSO2yut", 60.5f, 200L});
+        inputHandler.send(new Object[]{"Helloooo", 60.5f, 200L});
         SiddhiTestHelper.waitForEvents(100, 3, count, 60000);
         Assert.assertEquals(3, count.get());
         Assert.assertTrue(eventArrived);
@@ -218,9 +218,9 @@ public class SubstrFunctionExtensionTestCase {
 
         InputHandler inputHandler = executionPlanRuntime.getInputHandler("inputStream");
         executionPlanRuntime.start();
-        inputHandler.send(new Object[]{"hello hi hWSO2 hiA ello", 700f, 100l});
-        inputHandler.send(new Object[]{"WSO2 hiA WSO2 hellAo", 60.5f, 200l});
-        inputHandler.send(new Object[]{"WSO2 cep WSO2 XX E hi hA WSO2 heAllo", 60.5f, 200l});
+        inputHandler.send(new Object[]{"hello hi hWSO2 hiA ello", 700f, 100L});
+        inputHandler.send(new Object[]{"WSO2 hiA WSO2 hellAo", 60.5f, 200L});
+        inputHandler.send(new Object[]{"WSO2 cep WSO2 XX E hi hA WSO2 heAllo", 60.5f, 200L});
         SiddhiTestHelper.waitForEvents(100, 3, count, 60000);
         Assert.assertEquals(3, count.get());
         Assert.assertTrue(eventArrived);

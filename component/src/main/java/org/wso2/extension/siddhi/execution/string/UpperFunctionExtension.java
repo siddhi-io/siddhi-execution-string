@@ -43,7 +43,7 @@ public class UpperFunctionExtension extends FunctionExecutor {
         }
         if (attributeExpressionExecutors[0].getReturnType() != Attribute.Type.STRING) {
             throw new ExecutionPlanValidationException("Invalid parameter type found for str:upper() function, required "
-                    +Attribute.Type.STRING+", but found "+attributeExpressionExecutors[0].getReturnType().toString());
+                    + Attribute.Type.STRING + ", but found " + attributeExpressionExecutors[0].getReturnType().toString());
         }
     }
 

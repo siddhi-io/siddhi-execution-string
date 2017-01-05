@@ -42,8 +42,8 @@ public class LengthFunctionExtension extends FunctionExecutor {
                     "Required 1. Found " + attributeExpressionExecutors.length);
         } else if (attributeExpressionExecutors[0].getReturnType() != Attribute.Type.STRING) {
             throw new ExecutionPlanValidationException(
-                    "Invalid parameter type found for str:length() function, required "+Attribute.Type.STRING+ ", " +
-                            "but found "+attributeExpressionExecutors[0].getReturnType());
+                    "Invalid parameter type found for str:length() function, required " + Attribute.Type.STRING + ", " +
+                            "but found " + attributeExpressionExecutors[0].getReturnType());
         }
     }
 

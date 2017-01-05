@@ -33,7 +33,7 @@ import org.wso2.siddhi.query.api.exception.ExecutionPlanValidationException;
 * Accept Type(s): STRING
 * Return Type(s): STRING
 */
-public class UnhexFunctionExtension extends FunctionExecutor{
+public class UnhexFunctionExtension extends FunctionExecutor {
     @Override
     protected void init(ExpressionExecutor[] attributeExpressionExecutors, ExecutionPlanContext executionPlanContext) {
         if (attributeExpressionExecutors.length != 1) {
@@ -42,7 +42,7 @@ public class UnhexFunctionExtension extends FunctionExecutor{
         }
         if (attributeExpressionExecutors[0].getReturnType() != Attribute.Type.STRING) {
             throw new ExecutionPlanValidationException("Invalid parameter type found for the argument of math:unhex() function, " +
-                    "required "+Attribute.Type.STRING+" but found "+attributeExpressionExecutors[0].getReturnType().toString());
+                    "required " + Attribute.Type.STRING + " but found " + attributeExpressionExecutors[0].getReturnType().toString());
         }
     }
 
@@ -56,9 +56,9 @@ public class UnhexFunctionExtension extends FunctionExecutor{
         if (data != null) {
             String inputStr = (String) data;
             StringBuilder stringBuilderOut = new StringBuilder();
-            for(int i=0; i<inputStr.length(); i=i+2){
-                String hexValue = inputStr.substring(i,i+2);
-                int decimalValue = Integer.parseInt(hexValue,16);
+            for (int i = 0; i < inputStr.length(); i = i + 2) {
+                String hexValue = inputStr.substring(i, i + 2);
+                int decimalValue = Integer.parseInt(hexValue, 16);
                 stringBuilderOut.append(Character.toChars(decimalValue));
             }
             return stringBuilderOut.toString();
