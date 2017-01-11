@@ -71,7 +71,6 @@
                         <Bundle-SymbolicName>${project.artifactId}</Bundle-SymbolicName>
                         <Bundle-Name>${project.artifactId}</Bundle-Name>
                         <Export-Package>
-                            org.wso2.extension.siddhi.execution.string,
                             org.wso2.extension.siddhi.execution.string.*
                         </Export-Package>
                         <Import-Package>
