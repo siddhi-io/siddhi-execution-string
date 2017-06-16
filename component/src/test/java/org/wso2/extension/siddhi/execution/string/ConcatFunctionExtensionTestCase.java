@@ -18,12 +18,12 @@
 
 package org.wso2.extension.siddhi.execution.string;
 
-import junit.framework.Assert;
 import org.apache.log4j.Logger;
-import org.junit.Before;
-import org.junit.Test;
+import org.testng.AssertJUnit;
+import org.testng.annotations.BeforeMethod;
+import org.testng.annotations.Test;
 import org.wso2.extension.siddhi.execution.string.test.util.SiddhiTestHelper;
-import org.wso2.siddhi.core.ExecutionPlanRuntime;
+import org.wso2.siddhi.core.SiddhiAppRuntime;
 import org.wso2.siddhi.core.SiddhiManager;
 import org.wso2.siddhi.core.event.Event;
 import org.wso2.siddhi.core.query.output.callback.QueryCallback;
@@ -33,11 +33,11 @@ import org.wso2.siddhi.core.util.EventPrinter;
 import java.util.concurrent.atomic.AtomicInteger;
 
 public class ConcatFunctionExtensionTestCase {
-    static final Logger log = Logger.getLogger(ConcatFunctionExtensionTestCase.class);
+    static final Logger LOGGER = Logger.getLogger(ConcatFunctionExtensionTestCase.class);
     private AtomicInteger count = new AtomicInteger(0);
     private volatile boolean eventArrived;
 
-    @Before
+    @BeforeMethod
     public void init() {
         count.set(0);
         eventArrived = false;
@@ -45,44 +45,45 @@ public class ConcatFunctionExtensionTestCase {
 
     @Test
     public void testCoalesceFunctionExtension() throws InterruptedException {
-        log.info("ConcatFunctionExtension TestCase");
+        LOGGER.info("ConcatFunctionExtension TestCase");
         SiddhiManager siddhiManager = new SiddhiManager();
 
         String inStreamDefinition = "define stream inputStream (symbol1 string, symbol2 string, symbol3 string);";
-        String query = ("@info(name = 'query1') from inputStream select symbol1 , str:concat(symbol1,symbol2,symbol3) as concatString " +
+        String query = ("@info(name = 'query1') from inputStream select symbol1 , " +
+                "str:concat(symbol1,symbol2,symbol3) as concatString " +
                 "insert into outputStream;");
-        ExecutionPlanRuntime executionPlanRuntime = siddhiManager.createExecutionPlanRuntime(inStreamDefinition + query);
+        SiddhiAppRuntime siddhiAppRuntime = siddhiManager.createSiddhiAppRuntime(inStreamDefinition + query);
 
-        executionPlanRuntime.addCallback("query1", new QueryCallback() {
+        siddhiAppRuntime.addCallback("query1", new QueryCallback() {
             @Override
             public void receive(long timeStamp, Event[] inEvents, Event[] removeEvents) {
                 EventPrinter.print(timeStamp, inEvents, removeEvents);
                 for (Event event : inEvents) {
                     count.incrementAndGet();
                     if (count.get() == 1) {
-                        Assert.assertEquals("AAACCC", event.getData(1));
+                        AssertJUnit.assertEquals("AAACCC", event.getData(1));
                         eventArrived = true;
                     }
                     if (count.get() == 2) {
-                        Assert.assertEquals("123$%$6789", event.getData(1));
+                        AssertJUnit.assertEquals("123$%$6789", event.getData(1));
                         eventArrived = true;
                     }
                     if (count.get() == 3) {
-                        Assert.assertEquals("D5338JU^XYZ", event.getData(1));
+                        AssertJUnit.assertEquals("D5338JU^XYZ", event.getData(1));
                         eventArrived = true;
                     }
                 }
             }
         });
 
-        InputHandler inputHandler = executionPlanRuntime.getInputHandler("inputStream");
-        executionPlanRuntime.start();
+        InputHandler inputHandler = siddhiAppRuntime.getInputHandler("inputStream");
+        siddhiAppRuntime.start();
         inputHandler.send(new Object[]{"AAA", null, "CCC"});
         inputHandler.send(new Object[]{"123", "$%$6", "789"});
         inputHandler.send(new Object[]{"D533", "8JU^", "XYZ"});
         SiddhiTestHelper.waitForEvents(100, 3, count, 60000);
-        Assert.assertEquals(3, count.get());
-        Assert.assertTrue(eventArrived);
-        executionPlanRuntime.shutdown();
+        AssertJUnit.assertEquals(3, count.get());
+        AssertJUnit.assertTrue(eventArrived);
+        siddhiAppRuntime.shutdown();
     }
 }

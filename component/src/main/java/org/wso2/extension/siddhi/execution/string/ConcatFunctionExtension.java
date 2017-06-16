@@ -18,26 +18,44 @@
 
 package org.wso2.extension.siddhi.execution.string;
 
-import org.wso2.siddhi.core.config.ExecutionPlanContext;
+import org.wso2.siddhi.annotation.Example;
+import org.wso2.siddhi.annotation.Extension;
+import org.wso2.siddhi.annotation.ReturnAttribute;
+import org.wso2.siddhi.annotation.util.DataType;
+import org.wso2.siddhi.core.config.SiddhiAppContext;
 import org.wso2.siddhi.core.executor.ExpressionExecutor;
 import org.wso2.siddhi.core.executor.function.FunctionExecutor;
+import org.wso2.siddhi.core.util.config.ConfigReader;
 import org.wso2.siddhi.query.api.definition.Attribute;
-import org.wso2.siddhi.query.api.exception.ExecutionPlanValidationException;
+import org.wso2.siddhi.query.api.exception.SiddhiAppValidationException;
 
-/*
-* concat(string1, string2, ..., stringN)
-* Returns a string that is the result of concatenating two or more string values.
-* Accept Type(s): STRING. There should be at least two arguments.
-* Return Type(s): STRING
-* */
+import java.util.Map;
+
+/**
+ * concat(string1, string2, ..., stringN)
+ * Returns a string that is the result of concatenating two or more string values.
+ * Accept Type(s): STRING. There should be at least two arguments.
+ * Return Type(s): STRING
+ */
+
+@Extension(
+        name = "concat",
+        namespace = "str",
+        description = "Returns a string that is the result of concatenating two or more string values.",
+        returnAttributes = @ReturnAttribute(
+                description = "TBD",
+                type = {DataType.STRING}),
+        examples = @Example(description = "TBD", syntax = "TBD")
+)
 public class ConcatFunctionExtension extends FunctionExecutor {
 
     private Attribute.Type returnType = Attribute.Type.STRING;
 
     @Override
-    protected void init(ExpressionExecutor[] attributeExpressionExecutors, ExecutionPlanContext executionPlanContext) {
+    protected void init(ExpressionExecutor[] attributeExpressionExecutors, ConfigReader configReader,
+                        SiddhiAppContext siddhiAppContext) {
         if (attributeExpressionExecutors.length < 2) {
-            throw new ExecutionPlanValidationException("str:concat() function requires at least two arguments, " +
+            throw new SiddhiAppValidationException("str:concat() function requires at least two arguments, " +
                     "but found only " + attributeExpressionExecutors.length);
         }
     }
@@ -74,12 +92,12 @@ public class ConcatFunctionExtension extends FunctionExecutor {
     }
 
     @Override
-    public Object[] currentState() {
+    public Map<String, Object> currentState() {
         return null;    //No states
     }
 
     @Override
-    public void restoreState(Object[] state) {
-        //Nothing to be done
+    public void restoreState(Map<String, Object> map) {
+
     }
 }

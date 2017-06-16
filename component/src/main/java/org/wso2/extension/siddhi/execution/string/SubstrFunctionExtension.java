@@ -18,38 +18,43 @@
 
 package org.wso2.extension.siddhi.execution.string;
 
-import org.wso2.siddhi.core.config.ExecutionPlanContext;
-import org.wso2.siddhi.core.exception.ExecutionPlanRuntimeException;
+import org.wso2.siddhi.annotation.Example;
+import org.wso2.siddhi.annotation.Extension;
+import org.wso2.siddhi.annotation.ReturnAttribute;
+import org.wso2.siddhi.annotation.util.DataType;
+import org.wso2.siddhi.core.config.SiddhiAppContext;
+import org.wso2.siddhi.core.exception.SiddhiAppRuntimeException;
 import org.wso2.siddhi.core.executor.ConstantExpressionExecutor;
 import org.wso2.siddhi.core.executor.ExpressionExecutor;
 import org.wso2.siddhi.core.executor.function.FunctionExecutor;
+import org.wso2.siddhi.core.util.config.ConfigReader;
 import org.wso2.siddhi.query.api.definition.Attribute;
-import org.wso2.siddhi.query.api.exception.ExecutionPlanValidationException;
+import org.wso2.siddhi.query.api.exception.SiddhiAppValidationException;
 
+import java.util.Map;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 /**
- * substr(sourceText, beginIndex) or substr(sourceText, beginIndex, length) or substr(sourceText, regex) or substr(sourceText, regex, groupNumber)
+ * substr(sourceText, beginIndex) or substr(sourceText, beginIndex, length) or substr(sourceText, regex)
+ * or substr(sourceText, regex, groupNumber)
  * Returns a new string that is a substring of this string.
  * Accept Type(s): (STRING,INT) or (STRING,INT,INT) or (STRING,STRING) or (STRING,STRING,INT)
  * Return Type(s): STRING
  */
+
+@Extension(
+        name = "substr",
+        namespace = "str",
+        description = "Returns a new string that is a substring of this string",
+        returnAttributes = @ReturnAttribute(
+                description = "TBD",
+                type = {DataType.STRING}),
+        examples = @Example(description = "TBD", syntax = "TBD")
+)
 public class SubstrFunctionExtension extends FunctionExecutor {
 
     Attribute.Type returnType = Attribute.Type.STRING;
-
-    /*
-    * Sub-string Types are as follows:
-    * ONE: str:substr(<string sourceText> , <int beginIndex>)
-    * TWO: str:substr(<string sourceText> , <int beginIndex>, <int length>)
-    * THREE: str:substr(<string sourceText> , <string regex>)
-    * FOUR: str:substr(<string sourceText> , <string regex>, <int groupNumber>)
-    * */
-    private enum SubstrType {
-        ONE, TWO, THREE, FOUR
-    }
-
     //state-variables
     private boolean isRegexConstant = false;
     private String regexConstant;
@@ -57,10 +62,12 @@ public class SubstrFunctionExtension extends FunctionExecutor {
     private SubstrType substrType;
 
     @Override
-    protected void init(ExpressionExecutor[] attributeExpressionExecutors, ExecutionPlanContext executionPlanContext) {
+    protected void init(ExpressionExecutor[] attributeExpressionExecutors, ConfigReader configReader,
+                        SiddhiAppContext siddhiAppContext) {
         if (attributeExpressionExecutors[0].getReturnType() != Attribute.Type.STRING) {
-            throw new ExecutionPlanValidationException("Invalid parameter type found for the first argument of str:substr() function, " +
-                    "required " + Attribute.Type.STRING + ", but found " + attributeExpressionExecutors[0].getReturnType().toString());
+            throw new SiddhiAppValidationException("Invalid parameter type found for the first argument of " +
+                    "str:substr() function, " + "required " + Attribute.Type.STRING + ", but found " +
+                    attributeExpressionExecutors[0].getReturnType().toString());
         }
         if (attributeExpressionExecutors.length == 2) {
             if (attributeExpressionExecutors[1].getReturnType() == Attribute.Type.INT) {
@@ -73,13 +80,15 @@ public class SubstrFunctionExtension extends FunctionExecutor {
                     patternConstant = Pattern.compile(regexConstant);
                 }
             } else {
-                throw new ExecutionPlanValidationException("Invalid parameter type found for the second argument of str:substr() function, " +
-                        "required " + Attribute.Type.STRING + " or " + Attribute.Type.INT + ", but found " + attributeExpressionExecutors[1].getReturnType().toString());
+                throw new SiddhiAppValidationException("Invalid parameter type found for the second argument of " +
+                        "str:substr() function, " + "required " + Attribute.Type.STRING + " or " + Attribute.Type.INT +
+                        ", but found " + attributeExpressionExecutors[1].getReturnType().toString());
             }
         } else if (attributeExpressionExecutors.length == 3) {
             if (attributeExpressionExecutors[2].getReturnType() != Attribute.Type.INT) {
-                throw new ExecutionPlanValidationException("Invalid parameter type found for the third argument of str:substr() function, " +
-                        "required " + Attribute.Type.INT + ", but found " + attributeExpressionExecutors[2].getReturnType().toString());
+                throw new SiddhiAppValidationException("Invalid parameter type found for the third argument of " +
+                        "str:substr() function, " + "required " + Attribute.Type.INT + ", but found " +
+                        attributeExpressionExecutors[2].getReturnType().toString());
             }
             if (attributeExpressionExecutors[1].getReturnType() == Attribute.Type.INT) {
                 substrType = SubstrType.TWO;
@@ -91,11 +100,13 @@ public class SubstrFunctionExtension extends FunctionExecutor {
                     patternConstant = Pattern.compile(regexConstant);
                 }
             } else {
-                throw new ExecutionPlanValidationException("Invalid parameter type found for the second argument of str:substr() function, " +
-                        "required " + Attribute.Type.STRING + " or " + Attribute.Type.INT + ", but found " + attributeExpressionExecutors[1].getReturnType().toString());
+                throw new SiddhiAppValidationException("Invalid parameter type found for the second argument of " +
+                        "str:substr() function, " + "required " + Attribute.Type.STRING + " or " + Attribute.Type.INT +
+                        ", but found " + attributeExpressionExecutors[1].getReturnType().toString());
             }
         } else {
-            throw new ExecutionPlanValidationException("Invalid no of Arguments passed to str:substr() function, required 2 or 3, but found "
+            throw new SiddhiAppValidationException("Invalid no of Arguments passed to str:substr() function, " +
+                    "required 2 or 3, but found "
                     + attributeExpressionExecutors.length);
         }
     }
@@ -111,10 +122,12 @@ public class SubstrFunctionExtension extends FunctionExecutor {
         Matcher matcher;
 
         if (data[0] == null) {
-            throw new ExecutionPlanRuntimeException("Invalid input given to str:substr() function. First argument cannot be null");
+            throw new SiddhiAppRuntimeException("Invalid input given to str:substr() function. " +
+                    "First argument cannot be null");
         }
         if (data[1] == null) {
-            throw new ExecutionPlanRuntimeException("Invalid input given to str:substr() function. Second argument cannot be null");
+            throw new SiddhiAppRuntimeException("Invalid input given to str:substr() function. " +
+                    "Second argument cannot be null");
         }
         String source = (String) data[0];
 
@@ -125,7 +138,8 @@ public class SubstrFunctionExtension extends FunctionExecutor {
                 break;
             case TWO:
                 if (data[2] == null) {
-                    throw new ExecutionPlanRuntimeException("Invalid input given to str:substr() function. Third argument cannot be null");
+                    throw new SiddhiAppRuntimeException("Invalid input given to str:substr() function. " +
+                            "Third argument cannot be null");
                 }
                 beginIndex = (Integer) data[1];
                 length = (Integer) data[2];
@@ -148,7 +162,8 @@ public class SubstrFunctionExtension extends FunctionExecutor {
                 break;
             case FOUR:
                 if (data[2] == null) {
-                    throw new ExecutionPlanRuntimeException("Invalid input given to str:substr() function. Third argument cannot be null");
+                    throw new SiddhiAppRuntimeException("Invalid input given to str:substr() function. " +
+                            "Third argument cannot be null");
                 }
                 groupNo = (Integer) data[2];
                 if (!isRegexConstant) {
@@ -171,7 +186,8 @@ public class SubstrFunctionExtension extends FunctionExecutor {
 
     @Override
     protected Object execute(Object data) {
-        return null;  //Since the substr function takes in at least 2 parameters, this method does not get called. Hence, not implemented.
+        return null;  //Since the substr function takes in at least 2 parameters, this method does not get called.
+        // Hence, not implemented.
     }
 
     @Override
@@ -190,15 +206,23 @@ public class SubstrFunctionExtension extends FunctionExecutor {
     }
 
     @Override
-    public Object[] currentState() {
-        return new Object[]{isRegexConstant, regexConstant, patternConstant, substrType};
+    public Map<String, Object> currentState() {
+        return null;    //No need to maintain a state.
     }
 
     @Override
-    public void restoreState(Object[] state) {
-        isRegexConstant = (Boolean) state[0];
-        regexConstant = (String) state[1];
-        patternConstant = (Pattern) state[2];
-        substrType = (SubstrType) state[3];
+    public void restoreState(Map<String, Object> map) {
+
+    }
+
+    /*
+    * Sub-string Types are as follows:
+    * ONE: str:substr(<string sourceText> , <int beginIndex>)
+    * TWO: str:substr(<string sourceText> , <int beginIndex>, <int length>)
+    * THREE: str:substr(<string sourceText> , <string regex>)
+    * FOUR: str:substr(<string sourceText> , <string regex>, <int groupNumber>)
+    * */
+    private enum SubstrType {
+        ONE, TWO, THREE, FOUR
     }
 }

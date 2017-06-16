@@ -18,12 +18,12 @@
 
 package org.wso2.extension.siddhi.execution.string;
 
-import junit.framework.Assert;
 import org.apache.log4j.Logger;
-import org.junit.Before;
-import org.junit.Test;
+import org.testng.AssertJUnit;
+import org.testng.annotations.BeforeMethod;
+import org.testng.annotations.Test;
 import org.wso2.extension.siddhi.execution.string.test.util.SiddhiTestHelper;
-import org.wso2.siddhi.core.ExecutionPlanRuntime;
+import org.wso2.siddhi.core.SiddhiAppRuntime;
 import org.wso2.siddhi.core.SiddhiManager;
 import org.wso2.siddhi.core.event.Event;
 import org.wso2.siddhi.core.query.output.callback.QueryCallback;
@@ -33,11 +33,11 @@ import org.wso2.siddhi.core.util.EventPrinter;
 import java.util.concurrent.atomic.AtomicInteger;
 
 public class CoalesceFunctionExtensionTestCase {
-    static final Logger log = Logger.getLogger(CoalesceFunctionExtensionTestCase.class);
+    static final Logger LOGGER = Logger.getLogger(CoalesceFunctionExtensionTestCase.class);
     private AtomicInteger count = new AtomicInteger(0);
     private volatile boolean eventArrived;
 
-    @Before
+    @BeforeMethod
     public void init() {
         count.set(0);
         eventArrived = false;
@@ -45,49 +45,50 @@ public class CoalesceFunctionExtensionTestCase {
 
     @Test
     public void testCoalesceFunctionExtension() throws InterruptedException {
-        log.info("CoalesceFunctionExtension TestCase");
+        LOGGER.info("CoalesceFunctionExtension TestCase");
         SiddhiManager siddhiManager = new SiddhiManager();
 
         String inStreamDefinition = "define stream inputStream (symbol1 string, symbol2 string, symbol3 string);";
-        String query = ("@info(name = 'query1') from inputStream select symbol1 , str:coalesce(symbol1,symbol2,symbol3) as coalescedString " +
+        String query = ("@info(name = 'query1') from inputStream select symbol1 , " +
+                "str:coalesce(symbol1,symbol2,symbol3) as coalescedString " +
                 "insert into outputStream;");
-        ExecutionPlanRuntime executionPlanRuntime = siddhiManager.createExecutionPlanRuntime(inStreamDefinition + query);
+        SiddhiAppRuntime siddhiAppRuntime = siddhiManager.createSiddhiAppRuntime(inStreamDefinition + query);
 
-        executionPlanRuntime.addCallback("query1", new QueryCallback() {
+        siddhiAppRuntime.addCallback("query1", new QueryCallback() {
             @Override
             public void receive(long timeStamp, Event[] inEvents, Event[] removeEvents) {
                 EventPrinter.print(timeStamp, inEvents, removeEvents);
                 for (Event event : inEvents) {
                     count.incrementAndGet();
                     if (count.get() == 1) {
-                        Assert.assertEquals("BBB", event.getData(1));
+                        AssertJUnit.assertEquals("BBB", event.getData(1));
                         eventArrived = true;
                     }
                     if (count.get() == 2) {
-                        Assert.assertEquals("123", event.getData(1));
+                        AssertJUnit.assertEquals("123", event.getData(1));
                         eventArrived = true;
                     }
                     if (count.get() == 3) {
-                        Assert.assertEquals("XYZ", event.getData(1));
+                        AssertJUnit.assertEquals("XYZ", event.getData(1));
                         eventArrived = true;
                     }
                     if (count.get() == 4) {
-                        Assert.assertEquals(null, event.getData(1));
+                        AssertJUnit.assertEquals(null, event.getData(1));
                         eventArrived = true;
                     }
                 }
             }
         });
 
-        InputHandler inputHandler = executionPlanRuntime.getInputHandler("inputStream");
-        executionPlanRuntime.start();
+        InputHandler inputHandler = siddhiAppRuntime.getInputHandler("inputStream");
+        siddhiAppRuntime.start();
         inputHandler.send(new Object[]{null, "BBB", "CCC"});
         inputHandler.send(new Object[]{"123", null, "789"});
         inputHandler.send(new Object[]{null, null, "XYZ"});
         inputHandler.send(new Object[]{null, null, null});
         SiddhiTestHelper.waitForEvents(100, 4, count, 60000);
-        Assert.assertEquals(4, count.get());
-        Assert.assertTrue(eventArrived);
-        executionPlanRuntime.shutdown();
+        AssertJUnit.assertEquals(4, count.get());
+        AssertJUnit.assertTrue(eventArrived);
+        siddhiAppRuntime.shutdown();
     }
 }

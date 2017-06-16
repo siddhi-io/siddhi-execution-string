@@ -17,12 +17,19 @@
  */
 package org.wso2.extension.siddhi.execution.string;
 
-import org.wso2.siddhi.core.config.ExecutionPlanContext;
-import org.wso2.siddhi.core.exception.ExecutionPlanRuntimeException;
+import org.wso2.siddhi.annotation.Example;
+import org.wso2.siddhi.annotation.Extension;
+import org.wso2.siddhi.annotation.ReturnAttribute;
+import org.wso2.siddhi.annotation.util.DataType;
+import org.wso2.siddhi.core.config.SiddhiAppContext;
+import org.wso2.siddhi.core.exception.SiddhiAppRuntimeException;
 import org.wso2.siddhi.core.executor.ExpressionExecutor;
 import org.wso2.siddhi.core.executor.function.FunctionExecutor;
+import org.wso2.siddhi.core.util.config.ConfigReader;
 import org.wso2.siddhi.query.api.definition.Attribute;
-import org.wso2.siddhi.query.api.exception.ExecutionPlanValidationException;
+import org.wso2.siddhi.query.api.exception.SiddhiAppValidationException;
+
+import java.util.Map;
 
 /**
  * equalsIgnoreCase(string, compareTo)
@@ -30,6 +37,16 @@ import org.wso2.siddhi.query.api.exception.ExecutionPlanValidationException;
  * Accept Type(s): (STRING,STRING)
  * Return Type(s): BOOL
  */
+
+@Extension(
+        name = "equalsIgnoreCase",
+        namespace = "str",
+        description = "Compares two strings lexicographically.",
+        returnAttributes = @ReturnAttribute(
+                description = "TBD",
+                type = {DataType.BOOL}),
+        examples = @Example(description = "TBD", syntax = "TBD")
+)
 public class EqualsIgnoreCaseFunctionExtension extends FunctionExecutor {
     Attribute.Type returnType = Attribute.Type.BOOL;
 
@@ -49,30 +66,31 @@ public class EqualsIgnoreCaseFunctionExtension extends FunctionExecutor {
     }
 
     @Override
-    public Object[] currentState() {
-        return null;
+    public Map<String, Object> currentState() {
+        return null;    //No need to maintain a state.
     }
 
     @Override
-    public void restoreState(Object[] state) {
+    public void restoreState(Map<String, Object> map) {
 
     }
 
     @Override
-    protected void init(ExpressionExecutor[] attributeExpressionExecutors, ExecutionPlanContext executionPlanContext) {
+    protected void init(ExpressionExecutor[] attributeExpressionExecutors, ConfigReader configReader,
+                        SiddhiAppContext siddhiAppContext) {
         if (attributeExpressionExecutors.length != 2) {
-            throw new ExecutionPlanValidationException(
+            throw new SiddhiAppValidationException(
                     "Invalid no of arguments passed to str:equalsIgnoreCase() function, " + "required 2, but found "
                             + attributeExpressionExecutors.length);
         }
         if (attributeExpressionExecutors[0].getReturnType() != Attribute.Type.STRING) {
-            throw new ExecutionPlanValidationException(
+            throw new SiddhiAppValidationException(
                     "Invalid parameter type found for the first argument of str:equalsIgnoreCase() function, "
                             + "required " + Attribute.Type.STRING + ", but found "
                             + attributeExpressionExecutors[0].getReturnType().toString());
         }
         if (attributeExpressionExecutors[1].getReturnType() != Attribute.Type.STRING) {
-            throw new ExecutionPlanValidationException(
+            throw new SiddhiAppValidationException(
                     "Invalid parameter type found for the second argument of str:equalsIgnoreCase()) function, "
                             + "required " + Attribute.Type.STRING + ", but found "
                             + attributeExpressionExecutors[1].getReturnType().toString());
@@ -83,7 +101,7 @@ public class EqualsIgnoreCaseFunctionExtension extends FunctionExecutor {
     @Override
     protected Object execute(Object[] data) {
         if (data[0] == null) {
-            throw new ExecutionPlanRuntimeException(
+            throw new SiddhiAppRuntimeException(
                     "Invalid input given to str:equalsIgnoreCase() function. First argument cannot be null");
         }
         String source = (String) data[0];

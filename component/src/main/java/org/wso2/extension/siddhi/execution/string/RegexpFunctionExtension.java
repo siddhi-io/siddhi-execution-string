@@ -18,14 +18,20 @@
 
 package org.wso2.extension.siddhi.execution.string;
 
-import org.wso2.siddhi.core.config.ExecutionPlanContext;
-import org.wso2.siddhi.core.exception.ExecutionPlanRuntimeException;
+import org.wso2.siddhi.annotation.Example;
+import org.wso2.siddhi.annotation.Extension;
+import org.wso2.siddhi.annotation.ReturnAttribute;
+import org.wso2.siddhi.annotation.util.DataType;
+import org.wso2.siddhi.core.config.SiddhiAppContext;
+import org.wso2.siddhi.core.exception.SiddhiAppRuntimeException;
 import org.wso2.siddhi.core.executor.ConstantExpressionExecutor;
 import org.wso2.siddhi.core.executor.ExpressionExecutor;
 import org.wso2.siddhi.core.executor.function.FunctionExecutor;
+import org.wso2.siddhi.core.util.config.ConfigReader;
 import org.wso2.siddhi.query.api.definition.Attribute;
-import org.wso2.siddhi.query.api.exception.ExecutionPlanValidationException;
+import org.wso2.siddhi.query.api.exception.SiddhiAppValidationException;
 
+import java.util.Map;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -35,6 +41,16 @@ import java.util.regex.Pattern;
  * Accept Type(s): (STRING,STRING)
  * Return Type(s): BOOLEAN
  */
+
+@Extension(
+        name = "regexp",
+        namespace = "str",
+        description = "Tells whether or not this 'string' matches the given regular expression 'regex'.",
+        returnAttributes = @ReturnAttribute(
+                description = "TBD",
+                type = {DataType.BOOL}),
+        examples = @Example(description = "TBD", syntax = "TBD")
+)
 public class RegexpFunctionExtension extends FunctionExecutor {
 
     Attribute.Type returnType = Attribute.Type.BOOL;
@@ -45,18 +61,23 @@ public class RegexpFunctionExtension extends FunctionExecutor {
     private Pattern patternConstant;
 
     @Override
-    protected void init(ExpressionExecutor[] attributeExpressionExecutors, ExecutionPlanContext executionPlanContext) {
+    protected void init(ExpressionExecutor[] attributeExpressionExecutors, ConfigReader configReader,
+                        SiddhiAppContext siddhiAppContext) {
         if (attributeExpressionExecutors.length != 2) {
-            throw new ExecutionPlanValidationException("Invalid no of arguments passed to str:regexp() function, required 2, " +
-                    "but found " + attributeExpressionExecutors.length);
+            throw new SiddhiAppValidationException("Invalid no of arguments passed to str:regexp() function, " +
+                    "required 2, " + "but found " + attributeExpressionExecutors.length);
         }
         if (attributeExpressionExecutors[0].getReturnType() != Attribute.Type.STRING) {
-            throw new ExecutionPlanValidationException("Invalid parameter type found for the first argument of str:regexp() function, " +
-                    "required " + Attribute.Type.STRING + ", but found " + attributeExpressionExecutors[0].getReturnType().toString());
+            throw new SiddhiAppValidationException("Invalid parameter type found for the first argument of " +
+                    "str:regexp() function, " +
+                    "required " + Attribute.Type.STRING + ", but found " + attributeExpressionExecutors[0].
+                    getReturnType().toString());
         }
         if (attributeExpressionExecutors[1].getReturnType() != Attribute.Type.STRING) {
-            throw new ExecutionPlanValidationException("Invalid parameter type found for the second argument of str:regexp() function, " +
-                    "required " + Attribute.Type.STRING + ", but found " + attributeExpressionExecutors[1].getReturnType().toString());
+            throw new SiddhiAppValidationException("Invalid parameter type found for the second argument of " +
+                    "str:regexp() function, " +
+                    "required " + Attribute.Type.STRING + ", but found " + attributeExpressionExecutors[1].
+                    getReturnType().toString());
         }
         if (attributeExpressionExecutors[1] instanceof ConstantExpressionExecutor) {
             isRegexConstant = true;
@@ -72,10 +93,12 @@ public class RegexpFunctionExtension extends FunctionExecutor {
         Matcher matcher;
 
         if (data[0] == null) {
-            throw new ExecutionPlanRuntimeException("Invalid input given to str:regexp() function. First argument cannot be null");
+            throw new SiddhiAppRuntimeException("Invalid input given to str:regexp() function. First argument " +
+                    "cannot be null");
         }
         if (data[1] == null) {
-            throw new ExecutionPlanRuntimeException("Invalid input given to str:regexp() function. Second argument cannot be null");
+            throw new SiddhiAppRuntimeException("Invalid input given to str:regexp() function. Second argument " +
+                    "cannot be null");
         }
         String source = (String) data[0];
 
@@ -93,7 +116,8 @@ public class RegexpFunctionExtension extends FunctionExecutor {
 
     @Override
     protected Object execute(Object data) {
-        return null;  //Since the regexp function takes in 2 parameters, this method does not get called. Hence, not implemented.
+        return null;  //Since the regexp function takes in 2 parameters, this method does not get called. Hence,
+        // not implemented.
     }
 
     @Override
@@ -112,14 +136,12 @@ public class RegexpFunctionExtension extends FunctionExecutor {
     }
 
     @Override
-    public Object[] currentState() {
-        return new Object[]{isRegexConstant, regexConstant, patternConstant};
+    public Map<String, Object> currentState() {
+        return null;    //No need to maintain a state.
     }
 
     @Override
-    public void restoreState(Object[] state) {
-        isRegexConstant = (Boolean) state[0];
-        regexConstant = (String) state[1];
-        patternConstant = (Pattern) state[2];
+    public void restoreState(Map<String, Object> map) {
+
     }
 }

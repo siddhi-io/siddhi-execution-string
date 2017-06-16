@@ -18,12 +18,19 @@
 
 package org.wso2.extension.siddhi.execution.string;
 
-import org.wso2.siddhi.core.config.ExecutionPlanContext;
-import org.wso2.siddhi.core.exception.ExecutionPlanRuntimeException;
+import org.wso2.siddhi.annotation.Example;
+import org.wso2.siddhi.annotation.Extension;
+import org.wso2.siddhi.annotation.ReturnAttribute;
+import org.wso2.siddhi.annotation.util.DataType;
+import org.wso2.siddhi.core.config.SiddhiAppContext;
+import org.wso2.siddhi.core.exception.SiddhiAppRuntimeException;
 import org.wso2.siddhi.core.executor.ExpressionExecutor;
 import org.wso2.siddhi.core.executor.function.FunctionExecutor;
+import org.wso2.siddhi.core.util.config.ConfigReader;
 import org.wso2.siddhi.query.api.definition.Attribute;
-import org.wso2.siddhi.query.api.exception.ExecutionPlanValidationException;
+import org.wso2.siddhi.query.api.exception.SiddhiAppValidationException;
+
+import java.util.Map;
 
 /**
  * length(string)
@@ -31,31 +38,44 @@ import org.wso2.siddhi.query.api.exception.ExecutionPlanValidationException;
  * Accept Type(s): STRING
  * Return Type(s): INT
  */
+
+@Extension(
+        name = "length",
+        namespace = "str",
+        description = "Returns the length of this string.",
+        returnAttributes = @ReturnAttribute(
+                description = "TBD",
+                type = {DataType.INT}),
+        examples = @Example(description = "TBD", syntax = "TBD")
+)
 public class LengthFunctionExtension extends FunctionExecutor {
 
     Attribute.Type returnType = Attribute.Type.INT;
 
     @Override
-    protected void init(ExpressionExecutor[] attributeExpressionExecutors, ExecutionPlanContext executionPlanContext) {
+    protected void init(ExpressionExecutor[] attributeExpressionExecutors, ConfigReader configReader,
+                        SiddhiAppContext siddhiAppContext) {
         if (attributeExpressionExecutors.length != 1) {
-            throw new ExecutionPlanValidationException("Invalid no of arguments passed to str:length() function. " +
+            throw new SiddhiAppValidationException("Invalid no of arguments passed to str:length() function. " +
                     "Required 1. Found " + attributeExpressionExecutors.length);
         } else if (attributeExpressionExecutors[0].getReturnType() != Attribute.Type.STRING) {
-            throw new ExecutionPlanValidationException(
-                    "Invalid parameter type found for str:length() function, required " + Attribute.Type.STRING + ", " +
-                            "but found " + attributeExpressionExecutors[0].getReturnType());
+            throw new SiddhiAppValidationException(
+                    "Invalid parameter type found for str:length() function, required " + Attribute.Type.STRING +
+                            ", " + "but found " + attributeExpressionExecutors[0].getReturnType());
         }
     }
 
     @Override
     protected Object execute(Object[] data) {
-        return null;  //Since the length function takes in only 1 parameter, this method does not get called. Hence, not implemented.
+        return null;  //Since the length function takes in only 1 parameter, this method does not get called.
+        // Hence, not implemented.
     }
 
     @Override
     protected Object execute(Object data) {
         if (data == null) {
-            throw new ExecutionPlanRuntimeException("Invalid input given to str:length() function. The argument cannot be null");
+            throw new SiddhiAppRuntimeException("Invalid input given to str:length() function. " +
+                    "The argument cannot be null");
         }
         return data.toString().length();
     }
@@ -76,12 +96,12 @@ public class LengthFunctionExtension extends FunctionExecutor {
     }
 
     @Override
-    public Object[] currentState() {
+    public Map<String, Object> currentState() {
         return null;    //No need to maintain a state.
     }
 
     @Override
-    public void restoreState(Object[] state) {
-        //Since there's no need to maintain a state, nothing needs to be done here.
+    public void restoreState(Map<String, Object> map) {
+
     }
 }

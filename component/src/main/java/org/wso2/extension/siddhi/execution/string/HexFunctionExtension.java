@@ -18,12 +18,19 @@
 
 package org.wso2.extension.siddhi.execution.string;
 
-import org.wso2.siddhi.core.config.ExecutionPlanContext;
-import org.wso2.siddhi.core.exception.ExecutionPlanRuntimeException;
+import org.wso2.siddhi.annotation.Example;
+import org.wso2.siddhi.annotation.Extension;
+import org.wso2.siddhi.annotation.ReturnAttribute;
+import org.wso2.siddhi.annotation.util.DataType;
+import org.wso2.siddhi.core.config.SiddhiAppContext;
+import org.wso2.siddhi.core.exception.SiddhiAppRuntimeException;
 import org.wso2.siddhi.core.executor.ExpressionExecutor;
 import org.wso2.siddhi.core.executor.function.FunctionExecutor;
+import org.wso2.siddhi.core.util.config.ConfigReader;
 import org.wso2.siddhi.query.api.definition.Attribute;
-import org.wso2.siddhi.query.api.exception.ExecutionPlanValidationException;
+import org.wso2.siddhi.query.api.exception.SiddhiAppValidationException;
+
+import java.util.Map;
 
 /**
  * hex(a)
@@ -32,24 +39,37 @@ import org.wso2.siddhi.query.api.exception.ExecutionPlanValidationException;
  * Accept Type(s): STRING
  * Return Type(s): STRING
  */
+
+@Extension(
+        name = "hex",
+        namespace = "str",
+        description = "Returns a hexadecimal string representation of str,\n" +
+                " where each byte of each character in str is converted to two hexadecimal digits",
+        returnAttributes = @ReturnAttribute(
+                description = "TBD",
+                type = {DataType.BOOL}),
+        examples = @Example(description = "TBD", syntax = "TBD")
+)
 public class HexFunctionExtension extends FunctionExecutor {
 
     @Override
-    protected void init(ExpressionExecutor[] attributeExpressionExecutors, ExecutionPlanContext executionPlanContext) {
+    protected void init(ExpressionExecutor[] attributeExpressionExecutors, ConfigReader configReader,
+                        SiddhiAppContext siddhiAppContext) {
         if (attributeExpressionExecutors.length != 1) {
-            throw new ExecutionPlanValidationException("Invalid no of arguments passed to str:hex() function, " +
+            throw new SiddhiAppValidationException("Invalid no of arguments passed to str:hex() function, " +
                     "required 1, but found " + attributeExpressionExecutors.length);
         }
         Attribute.Type attributeType = attributeExpressionExecutors[0].getReturnType();
         if (attributeType != Attribute.Type.STRING) {
-            throw new ExecutionPlanValidationException("Invalid parameter type found for the argument of str:hex() function, " +
-                    "required " + Attribute.Type.STRING + "but found " + attributeType.toString());
+            throw new SiddhiAppValidationException("Invalid parameter type found for the argument of str:hex() " +
+                    "function, " + "required " + Attribute.Type.STRING + "but found " + attributeType.toString());
         }
     }
 
     @Override
     protected Object execute(Object[] data) {
-        return null;  //Since the hex function takes in only 1 parameter, this method does not get called. Hence, not implemented.
+        return null;  //Since the hex function takes in only 1 parameter, this method does not get called. Hence,
+        // not implemented.
     }
 
     @Override
@@ -62,7 +82,7 @@ public class HexFunctionExtension extends FunctionExecutor {
             }
             return sb.toString();
         } else {
-            throw new ExecutionPlanRuntimeException("Input to the str:hex() function cannot be null");
+            throw new SiddhiAppRuntimeException("Input to the str:hex() function cannot be null");
         }
     }
 
@@ -82,12 +102,12 @@ public class HexFunctionExtension extends FunctionExecutor {
     }
 
     @Override
-    public Object[] currentState() {
-        return null;    //No need to maintain state.
+    public Map<String, Object> currentState() {
+        return null;    //No need to maintain a state.
     }
 
     @Override
-    public void restoreState(Object[] state) {
-        //Since there's no need to maintain a state, nothing needs to be done here.
+    public void restoreState(Map<String, Object> map) {
+
     }
 }

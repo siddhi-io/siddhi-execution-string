@@ -18,34 +18,54 @@
 
 package org.wso2.extension.siddhi.execution.string;
 
-import org.wso2.siddhi.core.config.ExecutionPlanContext;
+import org.wso2.siddhi.annotation.Example;
+import org.wso2.siddhi.annotation.Extension;
+import org.wso2.siddhi.annotation.ReturnAttribute;
+import org.wso2.siddhi.annotation.util.DataType;
+import org.wso2.siddhi.core.config.SiddhiAppContext;
 import org.wso2.siddhi.core.executor.ExpressionExecutor;
 import org.wso2.siddhi.core.executor.function.FunctionExecutor;
+import org.wso2.siddhi.core.util.config.ConfigReader;
 import org.wso2.siddhi.query.api.definition.Attribute;
-import org.wso2.siddhi.query.api.exception.ExecutionPlanValidationException;
+import org.wso2.siddhi.query.api.exception.SiddhiAppValidationException;
 
-/*
-* coalesce(arg1,arg2,...,argN)
-* returns the value of the first of its input parameters that is not NULL
-* Accept Type(s): Arguments can be of any type, given that the argument count is more than zero and all the arguments are of the same type.
-* Return Type(s): Same type as the input
-* */
+import java.util.Map;
+
+/**
+ * coalesce(arg1,arg2,...,argN)
+ * returns the value of the first of its input parameters that is not NULL
+ * Accept Type(s): Arguments can be of any type, given that the argument count is more than zero and all the
+ * arguments are of the same type.
+ * Return Type(s): Same type as the input
+ */
+
+@Extension(
+        name = "coalesce",
+        namespace = "str",
+        description = "Returns the value of the first of its input parameters that is not NULL",
+        returnAttributes = @ReturnAttribute(
+                description = "TBD",
+                type = {DataType.INT, DataType.LONG, DataType.DOUBLE, DataType.FLOAT,
+                        DataType.STRING, DataType.BOOL, DataType.OBJECT}),
+        examples = @Example(description = "TBD", syntax = "TBD")
+)
 public class CoalesceFunctionExtension extends FunctionExecutor {
 
     private Attribute.Type returnType;
 
     @Override
-    protected void init(ExpressionExecutor[] attributeExpressionExecutors, ExecutionPlanContext executionPlanContext) {
+    protected void init(ExpressionExecutor[] attributeExpressionExecutors, ConfigReader configReader,
+                        SiddhiAppContext siddhiAppContext) {
         int attributeCount = 0;
         if (attributeExpressionExecutors.length == 0) {
-            throw new ExecutionPlanValidationException("str:coalesce() function requires at least one argument, but found only " +
-                    attributeExpressionExecutors.length);
+            throw new SiddhiAppValidationException("str:coalesce() function requires at least one argument, " +
+                    "but found only " + attributeExpressionExecutors.length);
         }
         Attribute.Type type = attributeExpressionExecutors[0].getReturnType();
         for (ExpressionExecutor expressionExecutor : attributeExpressionExecutors) {
             attributeCount++;
             if (type != expressionExecutor.getReturnType()) {
-                throw new ExecutionPlanValidationException("Invalid parameter type found for the " + attributeCount +
+                throw new SiddhiAppValidationException("Invalid parameter type found for the " + attributeCount +
                         "'th argument of str:coalesce() function, required " + type + ", but found "
                         + attributeExpressionExecutors[attributeCount - 1].getReturnType().toString());
             }
@@ -84,12 +104,12 @@ public class CoalesceFunctionExtension extends FunctionExecutor {
     }
 
     @Override
-    public Object[] currentState() {
-        return null; //No state
+    public Map<String, Object> currentState() {
+        return null;    //No need to maintain a state.
     }
 
     @Override
-    public void restoreState(Object[] state) {
-        //Nothing to be done
+    public void restoreState(Map<String, Object> map) {
+
     }
 }

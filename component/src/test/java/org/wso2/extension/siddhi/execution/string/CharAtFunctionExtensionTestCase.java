@@ -18,26 +18,26 @@
 
 package org.wso2.extension.siddhi.execution.string;
 
-import junit.framework.Assert;
 import org.apache.log4j.Logger;
-import org.junit.Before;
-import org.junit.Test;
-import org.wso2.siddhi.core.ExecutionPlanRuntime;
+import org.testng.AssertJUnit;
+import org.testng.annotations.BeforeMethod;
+import org.testng.annotations.Test;
+import org.wso2.extension.siddhi.execution.string.test.util.SiddhiTestHelper;
+import org.wso2.siddhi.core.SiddhiAppRuntime;
 import org.wso2.siddhi.core.SiddhiManager;
 import org.wso2.siddhi.core.event.Event;
 import org.wso2.siddhi.core.query.output.callback.QueryCallback;
 import org.wso2.siddhi.core.stream.input.InputHandler;
 import org.wso2.siddhi.core.util.EventPrinter;
-import org.wso2.extension.siddhi.execution.string.test.util.SiddhiTestHelper;
 
 import java.util.concurrent.atomic.AtomicInteger;
 
 public class CharAtFunctionExtensionTestCase {
-    static final Logger log = Logger.getLogger(CharAtFunctionExtensionTestCase.class);
+    static final Logger LOGGER = Logger.getLogger(CharAtFunctionExtensionTestCase.class);
     private AtomicInteger count = new AtomicInteger(0);
     private volatile boolean eventArrived;
 
-    @Before
+    @BeforeMethod
     public void init() {
         count.set(0);
         eventArrived = false;
@@ -45,73 +45,73 @@ public class CharAtFunctionExtensionTestCase {
 
     @Test
     public void testCharAtFunctionExtension() throws InterruptedException {
-        log.info("CharAtFunctionExtension TestCase");
+        LOGGER.info("CharAtFunctionExtension TestCase");
         SiddhiManager siddhiManager = new SiddhiManager();
 
         String inStreamDefinition = "define stream inputStream (symbol string, price long, volume long);";
         String query = ("@info(name = 'query1') from inputStream select symbol , str:charAt(symbol,1) as charAt " +
                 "insert into outputStream;");
-        ExecutionPlanRuntime executionPlanRuntime = siddhiManager.createExecutionPlanRuntime(inStreamDefinition + query);
+        SiddhiAppRuntime siddhiAppRuntime = siddhiManager.createSiddhiAppRuntime(inStreamDefinition + query);
 
-        executionPlanRuntime.addCallback("query1", new QueryCallback() {
+        siddhiAppRuntime.addCallback("query1", new QueryCallback() {
             @Override
             public void receive(long timeStamp, Event[] inEvents, Event[] removeEvents) {
                 EventPrinter.print(timeStamp, inEvents, removeEvents);
                 for (Event event : inEvents) {
                     count.incrementAndGet();
                     if (count.get() == 1) {
-                        Assert.assertEquals("B", event.getData(1));
+                        AssertJUnit.assertEquals("B", event.getData(1));
                         eventArrived = true;
                     }
                     if (count.get() == 2) {
-                        Assert.assertEquals("S", event.getData(1));
+                        AssertJUnit.assertEquals("S", event.getData(1));
                         eventArrived = true;
                     }
                     if (count.get() == 3) {
-                        Assert.assertEquals("Y", event.getData(1));
+                        AssertJUnit.assertEquals("Y", event.getData(1));
                         eventArrived = true;
                     }
                 }
             }
         });
 
-        InputHandler inputHandler = executionPlanRuntime.getInputHandler("inputStream");
-        executionPlanRuntime.start();
+        InputHandler inputHandler = siddhiAppRuntime.getInputHandler("inputStream");
+        siddhiAppRuntime.start();
         inputHandler.send(new Object[]{"IBM", 700f, 100L});
         inputHandler.send(new Object[]{"WSO2", 60.5f, 200L});
         inputHandler.send(new Object[]{"XYZ", 60.5f, 200L});
         SiddhiTestHelper.waitForEvents(100, 3, count, 60000);
-        Assert.assertEquals(3, count.get());
-        Assert.assertTrue(eventArrived);
-        executionPlanRuntime.shutdown();
+        AssertJUnit.assertEquals(3, count.get());
+        AssertJUnit.assertTrue(eventArrived);
+        siddhiAppRuntime.shutdown();
     }
 
     @Test
     public void testCharAtFunctionExtensionVariableIndex() throws InterruptedException {
-        log.info("CharAtFunctionExtension Test Case for Variable Index scenario");
+        LOGGER.info("CharAtFunctionExtension Test Case for Variable Index scenario");
         SiddhiManager siddhiManager = new SiddhiManager();
 
         String inStreamDefinition = "define stream inputStream (symbol string, price long, volume long, times int);";
-        String query = ("@info(name = 'query1') from inputStream select symbol , str:charAt(symbol,times) as charAt, times " +
-                "insert into outputStream;");
-        ExecutionPlanRuntime executionPlanRuntime = siddhiManager.createExecutionPlanRuntime(inStreamDefinition + query);
+        String query = ("@info(name = 'query1') from inputStream select symbol , str:charAt(symbol,times) as charAt, " +
+                "times " + "insert into outputStream;");
+        SiddhiAppRuntime siddhiAppRuntime = siddhiManager.createSiddhiAppRuntime(inStreamDefinition + query);
 
-        executionPlanRuntime.addCallback("query1", new QueryCallback() {
+        siddhiAppRuntime.addCallback("query1", new QueryCallback() {
             @Override
             public void receive(long timeStamp, Event[] inEvents, Event[] removeEvents) {
                 EventPrinter.print(timeStamp, inEvents, removeEvents);
                 for (Event event : inEvents) {
                     count.incrementAndGet();
                     if (count.get() == 1) {
-                        Assert.assertEquals("B", event.getData(1));
+                        AssertJUnit.assertEquals("B", event.getData(1));
                         eventArrived = true;
                     }
                     if (count.get() == 2) {
-                        Assert.assertEquals("W", event.getData(1));
+                        AssertJUnit.assertEquals("W", event.getData(1));
                         eventArrived = true;
                     }
                     if (count.get() == 3) {
-                        Assert.assertEquals("Z", event.getData(1));
+                        AssertJUnit.assertEquals("Z", event.getData(1));
                         eventArrived = true;
                     }
                 }
@@ -119,14 +119,14 @@ public class CharAtFunctionExtensionTestCase {
             }
         });
 
-        InputHandler inputHandler = executionPlanRuntime.getInputHandler("inputStream");
-        executionPlanRuntime.start();
+        InputHandler inputHandler = siddhiAppRuntime.getInputHandler("inputStream");
+        siddhiAppRuntime.start();
         inputHandler.send(new Object[]{"IBM", 700f, 100L, 1});
         inputHandler.send(new Object[]{"WSO2", 60.5f, 200L, 0});
         inputHandler.send(new Object[]{"XYZ", 60.5f, 200L, 2});
         SiddhiTestHelper.waitForEvents(100, 3, count, 60000);
-        Assert.assertEquals(3, count.get());
-        Assert.assertTrue(eventArrived);
-        executionPlanRuntime.shutdown();
+        AssertJUnit.assertEquals(3, count.get());
+        AssertJUnit.assertTrue(eventArrived);
+        siddhiAppRuntime.shutdown();
     }
 }

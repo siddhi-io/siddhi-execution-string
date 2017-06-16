@@ -18,26 +18,26 @@
 
 package org.wso2.extension.siddhi.execution.string;
 
-import junit.framework.Assert;
 import org.apache.log4j.Logger;
-import org.junit.Before;
-import org.junit.Test;
-import org.wso2.siddhi.core.ExecutionPlanRuntime;
+import org.testng.AssertJUnit;
+import org.testng.annotations.BeforeMethod;
+import org.testng.annotations.Test;
+import org.wso2.extension.siddhi.execution.string.test.util.SiddhiTestHelper;
+import org.wso2.siddhi.core.SiddhiAppRuntime;
 import org.wso2.siddhi.core.SiddhiManager;
 import org.wso2.siddhi.core.event.Event;
 import org.wso2.siddhi.core.query.output.callback.QueryCallback;
 import org.wso2.siddhi.core.stream.input.InputHandler;
 import org.wso2.siddhi.core.util.EventPrinter;
-import org.wso2.extension.siddhi.execution.string.test.util.SiddhiTestHelper;
 
 import java.util.concurrent.atomic.AtomicInteger;
 
 public class ReverseFunctionExtensionTestCase {
-    static final Logger log = Logger.getLogger(ReverseFunctionExtensionTestCase.class);
+    static final Logger LOGGER = Logger.getLogger(ReverseFunctionExtensionTestCase.class);
     private AtomicInteger count = new AtomicInteger(0);
     private volatile boolean eventArrived;
 
-    @Before
+    @BeforeMethod
     public void init() {
         count.set(0);
         eventArrived = false;
@@ -45,44 +45,45 @@ public class ReverseFunctionExtensionTestCase {
 
     @Test
     public void testReverseFunctionExtension() throws InterruptedException {
-        log.info("ReverseFunctionExtension TestCase");
+        LOGGER.info("ReverseFunctionExtension TestCase");
         SiddhiManager siddhiManager = new SiddhiManager();
 
         String inStreamDefinition = "define stream inputStream (symbol string, price long, volume long);";
-        String query = ("@info(name = 'query1') from inputStream select symbol , str:reverse(symbol) as symbolReversed " +
+        String query = ("@info(name = 'query1') from inputStream select symbol , " +
+                "str:reverse(symbol) as symbolReversed " +
                 "insert into outputStream;");
-        ExecutionPlanRuntime executionPlanRuntime = siddhiManager.createExecutionPlanRuntime(inStreamDefinition + query);
+        SiddhiAppRuntime siddhiAppRuntime = siddhiManager.createSiddhiAppRuntime(inStreamDefinition + query);
 
-        executionPlanRuntime.addCallback("query1", new QueryCallback() {
+        siddhiAppRuntime.addCallback("query1", new QueryCallback() {
             @Override
             public void receive(long timeStamp, Event[] inEvents, Event[] removeEvents) {
                 EventPrinter.print(timeStamp, inEvents, removeEvents);
                 for (Event event : inEvents) {
                     count.incrementAndGet();
                     if (count.get() == 1) {
-                        Assert.assertEquals("NMLK JihgfeDCbA", event.getData(1));
+                        AssertJUnit.assertEquals("NMLK JihgfeDCbA", event.getData(1));
                         eventArrived = true;
                     }
                     if (count.get() == 2) {
-                        Assert.assertEquals("87654321", event.getData(1));
+                        AssertJUnit.assertEquals("87654321", event.getData(1));
                         eventArrived = true;
                     }
                     if (count.get() == 3) {
-                        Assert.assertEquals("dlroW olleH", event.getData(1));
+                        AssertJUnit.assertEquals("dlroW olleH", event.getData(1));
                         eventArrived = true;
                     }
                 }
             }
         });
 
-        InputHandler inputHandler = executionPlanRuntime.getInputHandler("inputStream");
-        executionPlanRuntime.start();
+        InputHandler inputHandler = siddhiAppRuntime.getInputHandler("inputStream");
+        siddhiAppRuntime.start();
         inputHandler.send(new Object[]{"AbCDefghiJ KLMN", 700f, 100L});
         inputHandler.send(new Object[]{"12345678", 60.5f, 200L});
         inputHandler.send(new Object[]{"Hello World", 60.5f, 200L});
         SiddhiTestHelper.waitForEvents(100, 3, count, 60000);
-        Assert.assertEquals(3, count.get());
-        Assert.assertTrue(eventArrived);
-        executionPlanRuntime.shutdown();
+        AssertJUnit.assertEquals(3, count.get());
+        AssertJUnit.assertTrue(eventArrived);
+        siddhiAppRuntime.shutdown();
     }
 }

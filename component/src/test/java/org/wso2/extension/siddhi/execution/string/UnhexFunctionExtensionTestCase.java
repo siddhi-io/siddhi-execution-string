@@ -19,11 +19,11 @@
 package org.wso2.extension.siddhi.execution.string;
 
 import org.apache.log4j.Logger;
-import org.junit.Assert;
-import org.junit.Before;
-import org.junit.Test;
+import org.testng.AssertJUnit;
+import org.testng.annotations.BeforeMethod;
+import org.testng.annotations.Test;
 import org.wso2.extension.siddhi.execution.string.test.util.SiddhiTestHelper;
-import org.wso2.siddhi.core.ExecutionPlanRuntime;
+import org.wso2.siddhi.core.SiddhiAppRuntime;
 import org.wso2.siddhi.core.SiddhiManager;
 import org.wso2.siddhi.core.event.Event;
 import org.wso2.siddhi.core.query.output.callback.QueryCallback;
@@ -33,29 +33,28 @@ import org.wso2.siddhi.core.util.EventPrinter;
 import java.util.concurrent.atomic.AtomicInteger;
 
 public class UnhexFunctionExtensionTestCase {
-    private static Logger logger = Logger.getLogger(UnhexFunctionExtensionTestCase.class);
+    protected static SiddhiManager siddhiManager;
+    private static final Logger LOGGER = Logger.getLogger(UnhexFunctionExtensionTestCase.class);
     private AtomicInteger count = new AtomicInteger(0);
 
-    protected static SiddhiManager siddhiManager;
-
-    @Before
+    @BeforeMethod
     public void init() {
         count.set(0);
     }
 
     @Test
     public void testProcess() throws Exception {
-        logger.info("UnhexFunctionExtension TestCase");
+        LOGGER.info("UnhexFunctionExtension TestCase");
 
         siddhiManager = new SiddhiManager();
         String inValueStream = "define stream InValueStream (inValue string);";
 
-        String eventFuseExecutionPlan = ("@info(name = 'query1') from InValueStream "
+        String eventFuseSiddhiApp = ("@info(name = 'query1') from InValueStream "
                 + "select str:unhex(inValue) as unhexString "
                 + "insert into OutMediationStream;");
-        ExecutionPlanRuntime executionPlanRuntime = siddhiManager.createExecutionPlanRuntime(inValueStream + eventFuseExecutionPlan);
+        SiddhiAppRuntime siddhiAppRuntime = siddhiManager.createSiddhiAppRuntime(inValueStream + eventFuseSiddhiApp);
 
-        executionPlanRuntime.addCallback("query1", new QueryCallback() {
+        siddhiAppRuntime.addCallback("query1", new QueryCallback() {
             @Override
             public void receive(long timeStamp, Event[] inEvents,
                                 Event[] removeEvents) {
@@ -64,15 +63,15 @@ public class UnhexFunctionExtensionTestCase {
                 for (Event event : inEvents) {
                     count.incrementAndGet();
                     result = (String) event.getData(0);
-                    Assert.assertEquals("MySQL", result);
+                    AssertJUnit.assertEquals("MySQL", result);
                 }
             }
         });
-        InputHandler inputHandler = executionPlanRuntime
+        InputHandler inputHandler = siddhiAppRuntime
                 .getInputHandler("InValueStream");
-        executionPlanRuntime.start();
+        siddhiAppRuntime.start();
         inputHandler.send(new Object[]{"4d7953514c"});
         SiddhiTestHelper.waitForEvents(1000, 1, count, 60000);
-        executionPlanRuntime.shutdown();
+        siddhiAppRuntime.shutdown();
     }
 }

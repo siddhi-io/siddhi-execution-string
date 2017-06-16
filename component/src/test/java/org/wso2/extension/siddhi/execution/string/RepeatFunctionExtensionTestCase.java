@@ -18,12 +18,12 @@
 
 package org.wso2.extension.siddhi.execution.string;
 
-import junit.framework.Assert;
 import org.apache.log4j.Logger;
-import org.junit.Before;
-import org.junit.Test;
+import org.testng.AssertJUnit;
+import org.testng.annotations.BeforeMethod;
+import org.testng.annotations.Test;
 import org.wso2.extension.siddhi.execution.string.test.util.SiddhiTestHelper;
-import org.wso2.siddhi.core.ExecutionPlanRuntime;
+import org.wso2.siddhi.core.SiddhiAppRuntime;
 import org.wso2.siddhi.core.SiddhiManager;
 import org.wso2.siddhi.core.event.Event;
 import org.wso2.siddhi.core.query.output.callback.QueryCallback;
@@ -33,11 +33,11 @@ import org.wso2.siddhi.core.util.EventPrinter;
 import java.util.concurrent.atomic.AtomicInteger;
 
 public class RepeatFunctionExtensionTestCase {
-    static final Logger log = Logger.getLogger(RepeatFunctionExtensionTestCase.class);
+    static final Logger LOGGER = Logger.getLogger(RepeatFunctionExtensionTestCase.class);
     private AtomicInteger count = new AtomicInteger(0);
     private volatile boolean eventArrived;
 
-    @Before
+    @BeforeMethod
     public void init() {
         count.set(0);
         eventArrived = false;
@@ -45,95 +45,97 @@ public class RepeatFunctionExtensionTestCase {
 
     @Test
     public void testRepeatFunctionExtension() throws InterruptedException {
-        log.info("RepeatFunctionExtension TestCase");
+        LOGGER.info("RepeatFunctionExtension TestCase");
         SiddhiManager siddhiManager = new SiddhiManager();
 
         String inStreamDefinition = "define stream inputStream (symbol string, price long, volume long);";
 
         String query = (
-                "@info(name = 'query1') from inputStream select symbol , str:repeat(symbol, 3) as symbolRepeated3Times " +
+                "@info(name = 'query1') from inputStream select symbol , " +
+                        "str:repeat(symbol, 3) as symbolRepeated3Times " +
                         "insert into outputStream;"
         );
 
-        ExecutionPlanRuntime executionPlanRuntime = siddhiManager.createExecutionPlanRuntime(inStreamDefinition + query);
+        SiddhiAppRuntime siddhiAppRuntime = siddhiManager.createSiddhiAppRuntime(inStreamDefinition + query);
 
-        executionPlanRuntime.addCallback("query1", new QueryCallback() {
+        siddhiAppRuntime.addCallback("query1", new QueryCallback() {
             @Override
             public void receive(long timeStamp, Event[] inEvents, Event[] removeEvents) {
                 EventPrinter.print(timeStamp, inEvents, removeEvents);
                 for (Event event : inEvents) {
                     count.incrementAndGet();
                     if (count.get() == 1) {
-                        Assert.assertEquals("StRing 1StRing 1StRing 1", event.getData(1));
+                        AssertJUnit.assertEquals("StRing 1StRing 1StRing 1", event.getData(1));
                         eventArrived = true;
                     }
                     if (count.get() == 2) {
-                        Assert.assertEquals("StrInG 2StrInG 2StrInG 2", event.getData(1));
+                        AssertJUnit.assertEquals("StrInG 2StrInG 2StrInG 2", event.getData(1));
                         eventArrived = true;
                     }
                     if (count.get() == 3) {
-                        Assert.assertEquals("Str 3Str 3Str 3", event.getData(1));
+                        AssertJUnit.assertEquals("Str 3Str 3Str 3", event.getData(1));
                         eventArrived = true;
                     }
                 }
             }
         });
 
-        InputHandler inputHandler = executionPlanRuntime.getInputHandler("inputStream");
-        executionPlanRuntime.start();
+        InputHandler inputHandler = siddhiAppRuntime.getInputHandler("inputStream");
+        siddhiAppRuntime.start();
         inputHandler.send(new Object[]{"StRing 1", 700f, 100L});
         inputHandler.send(new Object[]{"StrInG 2", 60.5f, 200L});
         inputHandler.send(new Object[]{"Str 3", 60.5f, 200L});
         SiddhiTestHelper.waitForEvents(100, 3, count, 60000);
-        Assert.assertEquals(3, count.get());
-        Assert.assertTrue(eventArrived);
-        executionPlanRuntime.shutdown();
+        AssertJUnit.assertEquals(3, count.get());
+        AssertJUnit.assertTrue(eventArrived);
+        siddhiAppRuntime.shutdown();
     }
 
     @Test
     public void testRepeatFunctionExtensionVariableIndex() throws InterruptedException {
-        log.info("RepeatFunctionExtension - VariableIndex - TestCase");
+        LOGGER.info("RepeatFunctionExtension - VariableIndex - TestCase");
         SiddhiManager siddhiManager = new SiddhiManager();
 
         String inStreamDefinition = "define stream inputStream (symbol string, times int, volume long);";
 
         String query = (
-                "@info(name = 'query1') from inputStream select symbol , str:repeat(symbol, times) as symbolRepeatedIndexTimes " +
+                "@info(name = 'query1') from inputStream select symbol , " +
+                        "str:repeat(symbol, times) as symbolRepeatedIndexTimes " +
                         "insert into outputStream;"
         );
 
-        ExecutionPlanRuntime executionPlanRuntime = siddhiManager.createExecutionPlanRuntime(inStreamDefinition + query);
+        SiddhiAppRuntime siddhiAppRuntime = siddhiManager.createSiddhiAppRuntime(inStreamDefinition + query);
 
-        executionPlanRuntime.addCallback("query1", new QueryCallback() {
+        siddhiAppRuntime.addCallback("query1", new QueryCallback() {
             @Override
             public void receive(long timeStamp, Event[] inEvents, Event[] removeEvents) {
                 EventPrinter.print(timeStamp, inEvents, removeEvents);
                 for (Event event : inEvents) {
                     count.incrementAndGet();
                     if (count.get() == 1) {
-                        Assert.assertEquals("StRing 1StRing 1StRing 1", event.getData(1));
+                        AssertJUnit.assertEquals("StRing 1StRing 1StRing 1", event.getData(1));
                         eventArrived = true;
                     }
                     if (count.get() == 2) {
-                        Assert.assertEquals("StrInG 2StrInG 2", event.getData(1));
+                        AssertJUnit.assertEquals("StrInG 2StrInG 2", event.getData(1));
                         eventArrived = true;
                     }
                     if (count.get() == 3) {
-                        Assert.assertEquals("Str 3Str 3Str 3Str 3Str 3Str 3", event.getData(1));
+                        AssertJUnit.assertEquals("Str 3Str 3Str 3Str 3Str 3Str 3", event.getData(1));
                         eventArrived = true;
                     }
                 }
             }
         });
 
-        InputHandler inputHandler = executionPlanRuntime.getInputHandler("inputStream");
-        executionPlanRuntime.start();
+        InputHandler inputHandler = siddhiAppRuntime.getInputHandler("inputStream");
+        siddhiAppRuntime.start();
         inputHandler.send(new Object[]{"StRing 1", 3, 100L});
         inputHandler.send(new Object[]{"StrInG 2", 2, 200L});
         inputHandler.send(new Object[]{"Str 3", 6, 200L});
         SiddhiTestHelper.waitForEvents(100, 3, count, 60000);
-        Assert.assertEquals(3, count.get());
-        Assert.assertTrue(eventArrived);
-        executionPlanRuntime.shutdown();
+        AssertJUnit.assertEquals(3, count.get());
+        AssertJUnit.assertTrue(eventArrived);
+        siddhiAppRuntime.shutdown();
     }
 }

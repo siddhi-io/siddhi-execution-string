@@ -18,12 +18,19 @@
 
 package org.wso2.extension.siddhi.execution.string;
 
-import org.wso2.siddhi.core.config.ExecutionPlanContext;
-import org.wso2.siddhi.core.exception.ExecutionPlanRuntimeException;
+import org.wso2.siddhi.annotation.Example;
+import org.wso2.siddhi.annotation.Extension;
+import org.wso2.siddhi.annotation.ReturnAttribute;
+import org.wso2.siddhi.annotation.util.DataType;
+import org.wso2.siddhi.core.config.SiddhiAppContext;
+import org.wso2.siddhi.core.exception.SiddhiAppRuntimeException;
 import org.wso2.siddhi.core.executor.ExpressionExecutor;
 import org.wso2.siddhi.core.executor.function.FunctionExecutor;
+import org.wso2.siddhi.core.util.config.ConfigReader;
 import org.wso2.siddhi.query.api.definition.Attribute;
-import org.wso2.siddhi.query.api.exception.ExecutionPlanValidationException;
+import org.wso2.siddhi.query.api.exception.SiddhiAppValidationException;
+
+import java.util.Map;
 
 /**
  * repeat(string , times)
@@ -31,33 +38,48 @@ import org.wso2.siddhi.query.api.exception.ExecutionPlanValidationException;
  * Accept Type(s): (STRING,INT)
  * Return Type(s): STRING
  */
+
+@Extension(
+        name = "repeat",
+        namespace = "str",
+        description = "Repeats a string for a specified number of times.",
+        returnAttributes = @ReturnAttribute(
+                description = "TBD",
+                type = {DataType.STRING}),
+        examples = @Example(description = "TBD", syntax = "TBD")
+)
 public class RepeatFunctionExtension extends FunctionExecutor {
 
     Attribute.Type returnType = Attribute.Type.STRING;
 
     @Override
-    protected void init(ExpressionExecutor[] attributeExpressionExecutors, ExecutionPlanContext executionPlanContext) {
+    protected void init(ExpressionExecutor[] attributeExpressionExecutors, ConfigReader configReader,
+                        SiddhiAppContext siddhiAppContext) {
         if (attributeExpressionExecutors.length != 2) {
-            throw new ExecutionPlanValidationException("Invalid no of arguments passed to str:repeat() function, required 2, " +
-                    "but found " + attributeExpressionExecutors.length);
+            throw new SiddhiAppValidationException("Invalid no of arguments passed to str:repeat() function, " +
+                    "required 2, " + "but found " + attributeExpressionExecutors.length);
         }
         if (attributeExpressionExecutors[0].getReturnType() != Attribute.Type.STRING) {
-            throw new ExecutionPlanValidationException("Invalid parameter type found for the first argument of str:repeat() function, " +
-                    "required " + Attribute.Type.STRING + ", but found " + attributeExpressionExecutors[0].getReturnType().toString());
+            throw new SiddhiAppValidationException("Invalid parameter type found for the first argument of " +
+                    "str:repeat() function, " + "required " + Attribute.Type.STRING + ", but found " +
+                    attributeExpressionExecutors[0].getReturnType().toString());
         }
         if (attributeExpressionExecutors[1].getReturnType() != Attribute.Type.INT) {
-            throw new ExecutionPlanValidationException("Invalid parameter type found for the second argument of str:repeat() function, " +
-                    "required " + Attribute.Type.INT + ", but found " + attributeExpressionExecutors[1].getReturnType().toString());
+            throw new SiddhiAppValidationException("Invalid parameter type found for the second argument of " +
+                    "str:repeat() function, " + "required " + Attribute.Type.INT + ", but found " +
+                    attributeExpressionExecutors[1].getReturnType().toString());
         }
     }
 
     @Override
     protected Object execute(Object[] data) {
         if (data[0] == null) {
-            throw new ExecutionPlanRuntimeException("Invalid input given to str:repeat() function. First argument cannot be null");
+            throw new SiddhiAppRuntimeException("Invalid input given to str:repeat() function. " +
+                    "First argument cannot be null");
         }
         if (data[1] == null) {
-            throw new ExecutionPlanRuntimeException("Invalid input given to str:repeat() function. Second argument cannot be null");
+            throw new SiddhiAppRuntimeException("Invalid input given to str:repeat() function. " +
+                    "Second argument cannot be null");
         }
         String source = (String) data[0];
         int times = (Integer) data[1];
@@ -70,7 +92,8 @@ public class RepeatFunctionExtension extends FunctionExecutor {
 
     @Override
     protected Object execute(Object data) {
-        return null;  //Since the charAt function takes in 2 parameters, this method does not get called. Hence, not implemented.
+        return null;  //Since the charAt function takes in 2 parameters, this method does not get called.
+        // Hence, not implemented.
     }
 
     @Override
@@ -89,13 +112,13 @@ public class RepeatFunctionExtension extends FunctionExecutor {
     }
 
     @Override
-    public Object[] currentState() {
+    public Map<String, Object> currentState() {
         return null;    //No need to maintain a state.
     }
 
     @Override
-    public void restoreState(Object[] state) {
-        //Since there's no need to maintain a state, nothing needs to be done here.
+    public void restoreState(Map<String, Object> map) {
+
     }
 }
 
