@@ -30,7 +30,7 @@
     <artifactId>siddhi-execution-string-parent</artifactId>
     <version>4.0.0-SNAPSHOT</version>
     <packaging>pom</packaging>
-    <name>WSO2 Siddhi Execution String Extension Parent</name>
+    <name>Siddhi Execution String Extension Parent</name>
     <url>http://wso2.org</url>
 
     <profiles>
