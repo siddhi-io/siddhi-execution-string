@@ -1,0 +1,524 @@
+{
+    "docs": [
+        {
+            "location": "/", 
+            "text": "WSO2 Extension Siddhi Execution String\n\n\nThis extension provides basic string handling capabilities such as con-cat, length, convert to lowercase, replace all, etc. String extension can be used in a query as follows. \nFollowing are the functions of the String extension.\n\n\n\n\nChar At function\n\n\nCoalesce function\n\n\nConcatenation function\n\n\nContains function\n\n\nEquals Ignore Case function\n\n\nHexadecimal function\n\n\nLength function\n\n\nLower Case function\n\n\nRegular Expression function\n\n\nRepeat function\n\n\nReplace All function\n\n\nReplace First function\n\n\nReverse function\n\n\nSplit function\n\n\nString Compare function\n\n\nSub String function\n\n\nTrim function\n\n\nUnhexadecimal function\n\n\nUpper Case function\n\n\n\n\nAPI Docs:\n\n\n\n\n4.0.1-SNAPSHOT", 
+            "title": "Welcome to WSO2 Siddhi Execution String"
+        }, 
+        {
+            "location": "/#wso2-extension-siddhi-execution-string", 
+            "text": "This extension provides basic string handling capabilities such as con-cat, length, convert to lowercase, replace all, etc. String extension can be used in a query as follows. \nFollowing are the functions of the String extension.   Char At function  Coalesce function  Concatenation function  Contains function  Equals Ignore Case function  Hexadecimal function  Length function  Lower Case function  Regular Expression function  Repeat function  Replace All function  Replace First function  Reverse function  Split function  String Compare function  Sub String function  Trim function  Unhexadecimal function  Upper Case function", 
+            "title": "WSO2 Extension Siddhi Execution String"
+        }, 
+        {
+            "location": "/#api-docs", 
+            "text": "4.0.1-SNAPSHOT", 
+            "title": "API Docs:"
+        }, 
+        {
+            "location": "/about/license/", 
+            "text": "Copyright (c) 2017 WSO2 Inc. (\nhttp://www.wso2.org\n) All Rights Reserved.\n\n\nWSO2 Inc. licenses this file to you under the Apache License,\nVersion 2.0 (the \"License\"); you may not use this file except\nin compliance with the License.\nYou may obtain a copy of the License at\n\n\nhttp://www.apache.org/licenses/LICENSE-2.0\n\n\nUnless required by applicable law or agreed to in writing,\nsoftware distributed under the License is distributed on an\n\"AS IS\" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY\nKIND, either express or implied.  See the License for the\nspecific language governing permissions and limitations\nunder the License.\n\n\n-------------------------------------------------------------------------\n                              Apache License\n                        Version 2.0, January 2004\n                     http://www.apache.org/licenses/\n\n\nTERMS AND CONDITIONS FOR USE, REPRODUCTION, AND DISTRIBUTION\n\n1. Definitions.\n\n   \nLicense\n shall mean the terms and conditions for use, reproduction,\n   and distribution as defined by Sections 1 through 9 of this document.\n\n   \nLicensor\n shall mean the copyright owner or entity authorized by\n   the copyright owner that is granting the License.\n\n   \nLegal Entity\n shall mean the union of the acting entity and all\n   other entities that control, are controlled by, or are under common\n   control with that entity. For the purposes of this definition,\n   \ncontrol\n means (i) the power, direct or indirect, to cause the\n   direction or management of such entity, whether by contract or\n   otherwise, or (ii) ownership of fifty percent (50%) or more of the\n   outstanding shares, or (iii) beneficial ownership of such entity.\n\n   \nYou\n (or \nYour\n) shall mean an individual or Legal Entity\n   exercising permissions granted by this License.\n\n   \nSource\n form shall mean the preferred form for making modifications,\n   including but not limited to software source code, documentation\n   source, and configuration files.\n\n   \nObject\n form shall mean any form resulting from mechanical\n   transformation or translation of a Source form, including but\n   not limited to compiled object code, generated documentation,\n   and conversions to other media types.\n\n   \nWork\n shall mean the work of authorship, whether in Source or\n   Object form, made available under the License, as indicated by a\n   copyright notice that is included in or attached to the work\n   (an example is provided in the Appendix below).\n\n   \nDerivative Works\n shall mean any work, whether in Source or Object\n   form, that is based on (or derived from) the Work and for which the\n   editorial revisions, annotations, elaborations, or other modifications\n   represent, as a whole, an original work of authorship. For the purposes\n   of this License, Derivative Works shall not include works that remain\n   separable from, or merely link (or bind by name) to the interfaces of,\n   the Work and Derivative Works thereof.\n\n   \nContribution\n shall mean any work of authorship, including\n   the original version of the Work and any modifications or additions\n   to that Work or Derivative Works thereof, that is intentionally\n   submitted to Licensor for inclusion in the Work by the copyright owner\n   or by an individual or Legal Entity authorized to submit on behalf of\n   the copyright owner. For the purposes of this definition, \nsubmitted\n\n   means any form of electronic, verbal, or written communication sent\n   to the Licensor or its representatives, including but not limited to\n   communication on electronic mailing lists, source code control systems,\n   and issue tracking systems that are managed by, or on behalf of, the\n   Licensor for the purpose of discussing and improving the Work, but\n   excluding communication that is conspicuously marked or otherwise\n   designated in writing by the copyright owner as \nNot a Contribution.\n\n\n   \nContributor\n shall mean Licensor and any individual or Legal Entity\n   on behalf of whom a Contribution has been received by Licensor and\n   subsequently incorporated within the Work.\n\n2. Grant of Copyright License. Subject to the terms and conditions of\n   this License, each Contributor hereby grants to You a perpetual,\n   worldwide, non-exclusive, no-charge, royalty-free, irrevocable\n   copyright license to reproduce, prepare Derivative Works of,\n   publicly display, publicly perform, sublicense, and distribute the\n   Work and such Derivative Works in Source or Object form.\n\n3. Grant of Patent License. Subject to the terms and conditions of\n   this License, each Contributor hereby grants to You a perpetual,\n   worldwide, non-exclusive, no-charge, royalty-free, irrevocable\n   (except as stated in this section) patent license to make, have made,\n   use, offer to sell, sell, import, and otherwise transfer the Work,\n   where such license applies only to those patent claims licensable\n   by such Contributor that are necessarily infringed by their\n   Contribution(s) alone or by combination of their Contribution(s)\n   with the Work to which such Contribution(s) was submitted. If You\n   institute patent litigation against any entity (including a\n   cross-claim or counterclaim in a lawsuit) alleging that the Work\n   or a Contribution incorporated within the Work constitutes direct\n   or contributory patent infringement, then any patent licenses\n   granted to You under this License for that Work shall terminate\n   as of the date such litigation is filed.\n\n4. Redistribution. You may reproduce and distribute copies of the\n   Work or Derivative Works thereof in any medium, with or without\n   modifications, and in Source or Object form, provided that You\n   meet the following conditions:\n\n   (a) You must give any other recipients of the Work or\n       Derivative Works a copy of this License; and\n\n   (b) You must cause any modified files to carry prominent notices\n       stating that You changed the files; and\n\n   (c) You must retain, in the Source form of any Derivative Works\n       that You distribute, all copyright, patent, trademark, and\n       attribution notices from the Source form of the Work,\n       excluding those notices that do not pertain to any part of\n       the Derivative Works; and\n\n   (d) If the Work includes a \nNOTICE\n text file as part of its\n       distribution, then any Derivative Works that You distribute must\n       include a readable copy of the attribution notices contained\n       within such NOTICE file, excluding those notices that do not\n       pertain to any part of the Derivative Works, in at least one\n       of the following places: within a NOTICE text file distributed\n       as part of the Derivative Works; within the Source form or\n       documentation, if provided along with the Derivative Works; or,\n       within a display generated by the Derivative Works, if and\n       wherever such third-party notices normally appear. The contents\n       of the NOTICE file are for informational purposes only and\n       do not modify the License. You may add Your own attribution\n       notices within Derivative Works that You distribute, alongside\n       or as an addendum to the NOTICE text from the Work, provided\n       that such additional attribution notices cannot be construed\n       as modifying the License.\n\n   You may add Your own copyright statement to Your modifications and\n   may provide additional or different license terms and conditions\n   for use, reproduction, or distribution of Your modifications, or\n   for any such Derivative Works as a whole, provided Your use,\n   reproduction, and distribution of the Work otherwise complies with\n   the conditions stated in this License.\n\n5. Submission of Contributions. Unless You explicitly state otherwise,\n   any Contribution intentionally submitted for inclusion in the Work\n   by You to the Licensor shall be under the terms and conditions of\n   this License, without any additional terms or conditions.\n   Notwithstanding the above, nothing herein shall supersede or modify\n   the terms of any separate license agreement you may have executed\n   with Licensor regarding such Contributions.\n\n6. Trademarks. This License does not grant permission to use the trade\n   names, trademarks, service marks, or product names of the Licensor,\n   except as required for reasonable and customary use in describing the\n   origin of the Work and reproducing the content of the NOTICE file.\n\n7. Disclaimer of Warranty. Unless required by applicable law or\n   agreed to in writing, Licensor provides the Work (and each\n   Contributor provides its Contributions) on an \nAS IS\n BASIS,\n   WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or\n   implied, including, without limitation, any warranties or conditions\n   of TITLE, NON-INFRINGEMENT, MERCHANTABILITY, or FITNESS FOR A\n   PARTICULAR PURPOSE. You are solely responsible for determining the\n   appropriateness of using or redistributing the Work and assume any\n   risks associated with Your exercise of permissions under this License.\n\n8. Limitation of Liability. In no event and under no legal theory,\n   whether in tort (including negligence), contract, or otherwise,\n   unless required by applicable law (such as deliberate and grossly\n   negligent acts) or agreed to in writing, shall any Contributor be\n   liable to You for damages, including any direct, indirect, special,\n   incidental, or consequential damages of any character arising as a\n   result of this License or out of the use or inability to use the\n   Work (including but not limited to damages for loss of goodwill,\n   work stoppage, computer failure or malfunction, or any and all\n   other commercial damages or losses), even if such Contributor\n   has been advised of the possibility of such damages.\n\n9. Accepting Warranty or Additional Liability. While redistributing\n   the Work or Derivative Works thereof, You may choose to offer,\n   and charge a fee for, acceptance of support, warranty, indemnity,\n   or other liability obligations and/or rights consistent with this\n   License. However, in accepting such obligations, You may act only\n   on Your own behalf and on Your sole responsibility, not on behalf\n   of any other Contributor, and only if You agree to indemnify,\n   defend, and hold each Contributor harmless for any liability\n   incurred by, or claims asserted against, such Contributor by reason\n   of your accepting any such warranty or additional liability.\n\nEND OF TERMS AND CONDITIONS", 
+            "title": "License"
+        }, 
+        {
+            "location": "/api/4.0.1-SNAPSHOT/", 
+            "text": "Str\n\n\nhex \n(Function)\n\n\nReturns a hexadecimal string representation of str,\nwhere each byte of each character in str is converted to two hexadecimal digits\n\n\n\nSyntax\n\n\nSTRING\n hex(\nSTRING\n input.string)\n\n\n\n\nQuery Parameters\n\n\n\n    \n\n        \nName\n\n        \nDescription\n\n        \nDefault Value\n\n        \nPossible Types\n\n        \nOptional\n\n        \nDynamic\n\n    \n\n    \n\n        \ninput.string\n\n        \nInput string to find out the hexadecimal value.\n\n        \n\n        \nSTRING\n\n        \nNo\n\n        \nNo\n\n    \n\n\n\n\n\nExamples\n\n\nExample 1\n\n\nhex(\nMySQL\n) \n\n\n\n\nThis will return the hexadecimal value of the input.string. In this case, out put will be \"4d7953514c\".\n\n\n\nlower \n(Function)\n\n\nConverts the capital letters in the input string to the equivalent simple letters.\n\n\n\nSyntax\n\n\nSTRING\n lower(\nSTRING\n input.string)\n\n\n\n\nQuery Parameters\n\n\n\n    \n\n        \nName\n\n        \nDescription\n\n        \nDefault Value\n\n        \nPossible Types\n\n        \nOptional\n\n        \nDynamic\n\n    \n\n    \n\n        \ninput.string\n\n        \nInput string to convert in to the lower case(equivalent simple letters).\n\n        \n\n        \nSTRING\n\n        \nNo\n\n        \nNo\n\n    \n\n\n\n\n\nExamples\n\n\nExample 1\n\n\nlower(\nWSO2 cep \n)\n\n\n\n\nThis will convert the capital letters in the input.string to the equivalent simple letters. In this case, output will be \"wso2 cep \".\n\n\n\nsplit \n(Function)\n\n\nSplits the source String by splitCharacter and return the string in the index given by returnedOutputPosition .\n\n\n\nSyntax\n\n\nSTRING\n split(\nSTRING\n input.string, \nSTRING\n split.string, \nINT\n group.number)\n\n\n\n\nQuery Parameters\n\n\n\n    \n\n        \nName\n\n        \nDescription\n\n        \nDefault Value\n\n        \nPossible Types\n\n        \nOptional\n\n        \nDynamic\n\n    \n\n    \n\n        \ninput.string\n\n        \nInput string that get replaced.\n\n        \n\n        \nSTRING\n\n        \nNo\n\n        \nNo\n\n    \n\n    \n\n        \nsplit.string\n\n        \nString value used to split the input.string.\n\n        \n\n        \nSTRING\n\n        \nNo\n\n        \nNo\n\n    \n\n    \n\n        \ngroup.number\n\n        \nIndex of the splitted group\n\n        \n\n        \nINT\n\n        \nNo\n\n        \nNo\n\n    \n\n\n\n\n\nExamples\n\n\nExample 1\n\n\nsplit(\nWSO2,ABM,NSFT\n, \n,\n, 0)\n\n\n\n\nThis will splits the given input.string by given split.string and returns the string in the index given by group.number. In this case, output will be \"WSO2\".\n\n\n\nupper \n(Function)\n\n\nConverts the simple letters in the input string to the equivalent capital/block letters.\n\n\n\nSyntax\n\n\nSTRING\n upper(\nSTRING\n input.string)\n\n\n\n\nQuery Parameters\n\n\n\n    \n\n        \nName\n\n        \nDescription\n\n        \nDefault Value\n\n        \nPossible Types\n\n        \nOptional\n\n        \nDynamic\n\n    \n\n    \n\n        \ninput.string\n\n        \nInput string to convert in to the upper case(equivalent capital/block letters).\n\n        \n\n        \nSTRING\n\n        \nNo\n\n        \nNo\n\n    \n\n\n\n\n\nExamples\n\n\nExample 1\n\n\nupper(\nHello World\n)\n\n\n\n\nThis will convert the simple letters in the input.string to theequivalent capital letters. In this case, output will be \"HELLO WORLD\".\n\n\n\ncoalesce \n(Function)\n\n\nReturns the value of the first of its input parameters that is not NULL\n\n\n\nSyntax\n\n\nINT|LONG|DOUBLE|FLOAT|STRING|BOOL|OBJECT\n coalesce(\nINT|LONG|DOUBLE|FLOAT|STRING|BOOL|OBJECT\n argn)\n\n\n\n\nQuery Parameters\n\n\n\n    \n\n        \nName\n\n        \nDescription\n\n        \nDefault Value\n\n        \nPossible Types\n\n        \nOptional\n\n        \nDynamic\n\n    \n\n    \n\n        \nargn\n\n        \nIt can have one or more input parameters in any data type.\n\n        \n\n        \nINT\nLONG\nDOUBLE\nFLOAT\nSTRING\nBOOL\nOBJECT\n\n        \nNo\n\n        \nNo\n\n    \n\n\n\n\n\nExamples\n\n\nExample 1\n\n\ncoalesce(null, \nBBB\n, \nCCC\n)\n\n\n\n\nThis will return the first input parameter that is not null. In this case, it will return \"BBB\"\n\n\n\nlength \n(Function)\n\n\nReturns the length of this string.\n\n\n\nSyntax\n\n\nINT\n length(\nSTRING\n input.string)\n\n\n\n\nQuery Parameters\n\n\n\n    \n\n        \nName\n\n        \nDescription\n\n        \nDefault Value\n\n        \nPossible Types\n\n        \nOptional\n\n        \nDynamic\n\n    \n\n    \n\n        \ninput.string\n\n        \nInput string to find out length.\n\n        \n\n        \nSTRING\n\n        \nNo\n\n        \nNo\n\n    \n\n\n\n\n\nExamples\n\n\nExample 1\n\n\nlength(\nHello World\n)\n\n\n\n\nThis will output the length of the provided string. In this case, output will be 11 .\n\n\n\ncontains \n(Function)\n\n\nThis method returns true if and only if this string contains the specified sequence of char values.\n\n\n\nSyntax\n\n\nBOOL\n contains(\nSTRING\n input.string, \nSTRING\n search.string)\n\n\n\n\nQuery Parameters\n\n\n\n    \n\n        \nName\n\n        \nDescription\n\n        \nDefault Value\n\n        \nPossible Types\n\n        \nOptional\n\n        \nDynamic\n\n    \n\n    \n\n        \ninput.string\n\n        \nInput string value.\n\n        \n\n        \nSTRING\n\n        \nNo\n\n        \nNo\n\n    \n\n    \n\n        \nsearch.string\n\n        \nString value that going to search in input.string.\n\n        \n\n        \nSTRING\n\n        \nNo\n\n        \nNo\n\n    \n\n\n\n\n\nExamples\n\n\nExample 1\n\n\ncontains(\n21 products are produced by WSO2 currently\n, \nWSO2\n)\n\n\n\n\nThis will return a boolean value as the output. In this case, it will return \"true\". \n\n\n\nreverse \n(Function)\n\n\nReturns the reverse ordered string of the input.\n\n\n\nSyntax\n\n\nSTRING\n reverse(\nSTRING\n input.string)\n\n\n\n\nQuery Parameters\n\n\n\n    \n\n        \nName\n\n        \nDescription\n\n        \nDefault Value\n\n        \nPossible Types\n\n        \nOptional\n\n        \nDynamic\n\n    \n\n    \n\n        \ninput.string\n\n        \nInput string that get reversed.\n\n        \n\n        \nSTRING\n\n        \nNo\n\n        \nNo\n\n    \n\n\n\n\n\nExamples\n\n\nExample 1\n\n\nreverse(\nHello World\n)\n\n\n\n\nThis will output a string value by reversing the incoming input.string. In this case, output will be \"dlroW olleH\".\n\n\n\nreplaceFirst \n(Function)\n\n\nReplaces the first substring of this string that matches the given expression with the given replacement.\n\n\n\nSyntax\n\n\nSTRING\n replaceFirst(\nSTRING\n input.string, \nSTRING\n regex, \nSTRING\n replacement.string)\n\n\n\n\nQuery Parameters\n\n\n\n    \n\n        \nName\n\n        \nDescription\n\n        \nDefault Value\n\n        \nPossible Types\n\n        \nOptional\n\n        \nDynamic\n\n    \n\n    \n\n        \ninput.string\n\n        \nInput string that get replaced.\n\n        \n\n        \nSTRING\n\n        \nNo\n\n        \nNo\n\n    \n\n    \n\n        \nregex\n\n        \nRegular expression used to match the input string.\n\n        \n\n        \nSTRING\n\n        \nNo\n\n        \nNo\n\n    \n\n    \n\n        \nreplacement.string\n\n        \nreplacement string that used.\n\n        \n\n        \nSTRING\n\n        \nNo\n\n        \nNo\n\n    \n\n\n\n\n\nExamples\n\n\nExample 1\n\n\nreplaceFirst(\nhello WSO2 A hello\n,  'WSO2(.*)A', 'XXXX')\n\n\n\n\nThis will return a string after replacing the first substring by given replacement string. In this case, output will be \"hello XXXX hello\".\n\n\n\ncharAt \n(Function)\n\n\nReturns the char value as a string value at the specified index.\n\n\n\nSyntax\n\n\nSTRING\n charAt(\nSTRING\n input.value, \nINT\n index)\n\n\n\n\nQuery Parameters\n\n\n\n    \n\n        \nName\n\n        \nDescription\n\n        \nDefault Value\n\n        \nPossible Types\n\n        \nOptional\n\n        \nDynamic\n\n    \n\n    \n\n        \ninput.value\n\n        \nThe input string that used to find the character.\n\n        \n\n        \nSTRING\n\n        \nNo\n\n        \nNo\n\n    \n\n    \n\n        \nindex\n\n        \nThe variable which specify the index.\n\n        \n\n        \nINT\n\n        \nNo\n\n        \nNo\n\n    \n\n\n\n\n\nExamples\n\n\nExample 1\n\n\ncharAt(\nWSO2\n, 1)\n\n\n\n\nThis will output the character which exists at index 1. In this case, it will output 'S'.\n\n\n\nreplaceAll \n(Function)\n\n\nReplaces each substring of this string that matches the given expression with the given replacement.\n\n\n\nSyntax\n\n\nSTRING\n replaceAll(\nSTRING\n input.string, \nSTRING\n regex, \nSTRING\n replacement.string)\n\n\n\n\nQuery Parameters\n\n\n\n    \n\n        \nName\n\n        \nDescription\n\n        \nDefault Value\n\n        \nPossible Types\n\n        \nOptional\n\n        \nDynamic\n\n    \n\n    \n\n        \ninput.string\n\n        \nInput string that get replaced.\n\n        \n\n        \nSTRING\n\n        \nNo\n\n        \nNo\n\n    \n\n    \n\n        \nregex\n\n        \nRegular expression used to match the input string.\n\n        \n\n        \nSTRING\n\n        \nNo\n\n        \nNo\n\n    \n\n    \n\n        \nreplacement.string\n\n        \nreplacement string that used.\n\n        \n\n        \nSTRING\n\n        \nNo\n\n        \nNo\n\n    \n\n\n\n\n\nExamples\n\n\nExample 1\n\n\nreplaceAll(\nhello hi hello\n,  'hello', 'test')\n\n\n\n\nReturns a string after replacing the substrings of the input string with the replacement string. In this case, output will be \"test hi test\" .\n\n\n\nstrcmp \n(Function)\n\n\nCompares two strings lexicographically.\n\n\n\nSyntax\n\n\nINT\n strcmp(\nSTRING\n arg1, \nSTRING\n arg2)\n\n\n\n\nQuery Parameters\n\n\n\n    \n\n        \nName\n\n        \nDescription\n\n        \nDefault Value\n\n        \nPossible Types\n\n        \nOptional\n\n        \nDynamic\n\n    \n\n    \n\n        \narg1\n\n        \nFirst input string argument.\n\n        \n\n        \nSTRING\n\n        \nNo\n\n        \nNo\n\n    \n\n    \n\n        \narg2\n\n        \nSecond input string argument that going to be compared with first argument in lexicographically.\n\n        \n\n        \nSTRING\n\n        \nNo\n\n        \nNo\n\n    \n\n\n\n\n\nExamples\n\n\nExample 1\n\n\nstrcmp(\nAbCDefghiJ KLMN\n, 'Hello')\n\n\n\n\nThis will compare two strings lexicographically and output an int value\n\n\n\nequalsIgnoreCase \n(Function)\n\n\nCompares two strings lexicographically.\n\n\n\nSyntax\n\n\nBOOL\n equalsIgnoreCase(\nSTRING\n arg1, \nSTRING\n arg2)\n\n\n\n\nQuery Parameters\n\n\n\n    \n\n        \nName\n\n        \nDescription\n\n        \nDefault Value\n\n        \nPossible Types\n\n        \nOptional\n\n        \nDynamic\n\n    \n\n    \n\n        \narg1\n\n        \nFirst input string argument.\n\n        \n\n        \nSTRING\n\n        \nNo\n\n        \nNo\n\n    \n\n    \n\n        \narg2\n\n        \nSecond input string argument that going to be compared with first argument.\n\n        \n\n        \nSTRING\n\n        \nNo\n\n        \nNo\n\n    \n\n\n\n\n\nExamples\n\n\nExample 1\n\n\nequalsIgnoreCase(\nWSO2\n, \nwso2\n)\n\n\n\n\nThis will return a boolean value as the output. In this case, it will return \"true\". \n\n\n\nconcat \n(Function)\n\n\nReturns a string that is the result of concatenating two or more string values.\n\n\n\nSyntax\n\n\nSTRING\n concat(\nSTRING\n argn)\n\n\n\n\nQuery Parameters\n\n\n\n    \n\n        \nName\n\n        \nDescription\n\n        \nDefault Value\n\n        \nPossible Types\n\n        \nOptional\n\n        \nDynamic\n\n    \n\n    \n\n        \nargn\n\n        \nIt can have two or more string type input parameters.\n\n        \n\n        \nSTRING\n\n        \nNo\n\n        \nNo\n\n    \n\n\n\n\n\nExamples\n\n\nExample 1\n\n\nconcat(\nD533\n, \n8JU^\n, \nXYZ\n)\n\n\n\n\nThis will return a string value by concatenating the given arguments. In this case, it will return \"D5338JU^XYZ\" as the output\n\n\n\nsubstr \n(Function)\n\n\nReturns a new string that is a substring of this string\n\n\n\nSyntax\n\n\nSTRING\n substr(\nSTRING\n input.string, \nINT\n begin.index, \nINT\n length, \nSTRING\n regex, \nINT\n group.number)\n\n\n\n\nQuery Parameters\n\n\n\n    \n\n        \nName\n\n        \nDescription\n\n        \nDefault Value\n\n        \nPossible Types\n\n        \nOptional\n\n        \nDynamic\n\n    \n\n    \n\n        \ninput.string\n\n        \nInput string to be processed.\n\n        \n\n        \nSTRING\n\n        \nNo\n\n        \nNo\n\n    \n\n    \n\n        \nbegin.index\n\n        \nStaring index to consider for the substring.\n\n        \n\n        \nINT\n\n        \nNo\n\n        \nNo\n\n    \n\n    \n\n        \nlength\n\n        \nLength of the substring.\n\n        \n\n        \nINT\n\n        \nNo\n\n        \nNo\n\n    \n\n    \n\n        \nregex\n\n        \nRegular expression used to match the input string..\n\n        \n\n        \nSTRING\n\n        \nNo\n\n        \nNo\n\n    \n\n    \n\n        \ngroup.number\n\n        \nRegex group number\n\n        \n\n        \nINT\n\n        \nNo\n\n        \nNo\n\n    \n\n\n\n\n\nExamples\n\n\nExample 1\n\n\nsubstr(\nAbCDefghiJ KLMN\n, 4)\n\n\n\n\nThis will output the substring based on the given begin.index. In this case, output will be \"efghiJ KLMN\".\n\n\n\nExample 2\n\n\nsubstr(\nAbCDefghiJ KLMN\n,  2, 4) \n\n\n\n\nThis will output the substring based on the given begin.index and length. In this case, output will be \"CDef\".\n\n\n\nExample 3\n\n\nsubstr(\nWSO2D efghiJ KLMN\n, '^WSO2(.*)')\n\n\n\n\nThis will output the substring by applying the regex. In this case, output will be \"WSO2D efghiJ KLMN\".\n\n\n\nExample 4\n\n\nsubstr(\nWSO2 cep WSO2 XX E hi hA WSO2 heAllo\n,  'WSO2(.*)A(.*)',  2)\n\n\n\n\nThis will output the substring by applying the regex and considering the group.number. In this case, output will be \" ello\".\n\n\n\nunhex \n(Function)\n\n\nunhex(str) interprets each pair of characters in the argument as a hexadecimal number\nand converts it to the byte represented by the number\n\n\n\nSyntax\n\n\nSTRING\n unhex(\nSTRING\n input.string)\n\n\n\n\nQuery Parameters\n\n\n\n    \n\n        \nName\n\n        \nDescription\n\n        \nDefault Value\n\n        \nPossible Types\n\n        \nOptional\n\n        \nDynamic\n\n    \n\n    \n\n        \ninput.string\n\n        \nHexadecimal input string that needs to be converted as string.\n\n        \n\n        \nSTRING\n\n        \nNo\n\n        \nNo\n\n    \n\n\n\n\n\nExamples\n\n\nExample 1\n\n\nunhex(\n4d7953514c\n)\n\n\n\n\nThis will convert the hexadecimal value as the string\n\n\n\ntrim \n(Function)\n\n\nReturns a copy of the string, with leading and trailing whitespace omitted\n\n\n\nSyntax\n\n\nSTRING\n trim(\nSTRING\n input.string)\n\n\n\n\nQuery Parameters\n\n\n\n    \n\n        \nName\n\n        \nDescription\n\n        \nDefault Value\n\n        \nPossible Types\n\n        \nOptional\n\n        \nDynamic\n\n    \n\n    \n\n        \ninput.string\n\n        \nInput string that needs to be trimmed.\n\n        \n\n        \nSTRING\n\n        \nNo\n\n        \nNo\n\n    \n\n\n\n\n\nExamples\n\n\nExample 1\n\n\ntrim(\n  AbCDefghiJ KLMN  \n)\n\n\n\n\nThis will return a copy of input.string, with the leading and/or trailing white-spaces omitted. In this case, output will be \"AbCDefghiJ KLMN\".\n\n\n\nregexp \n(Function)\n\n\nTells whether or not this 'string' matches the given regular expression 'regex'.\n\n\n\nSyntax\n\n\nBOOL\n regexp(\nSTRING\n input.string, \nSTRING\n regex)\n\n\n\n\nQuery Parameters\n\n\n\n    \n\n        \nName\n\n        \nDescription\n\n        \nDefault Value\n\n        \nPossible Types\n\n        \nOptional\n\n        \nDynamic\n\n    \n\n    \n\n        \ninput.string\n\n        \nInput string to match with the given regular expression.\n\n        \n\n        \nSTRING\n\n        \nNo\n\n        \nNo\n\n    \n\n    \n\n        \nregex\n\n        \nRegular expression used to match the input string..\n\n        \n\n        \nSTRING\n\n        \nNo\n\n        \nNo\n\n    \n\n\n\n\n\nExamples\n\n\nExample 1\n\n\nregexp(\nWSO2 abcdh\n, \nWSO(.*h)\n)\n\n\n\n\nThis will return a boolean value after matching regular expression for the given string. In this case, it will return \"true\" as the output.\n\n\n\nrepeat \n(Function)\n\n\nRepeats a string for a specified number of times.\n\n\n\nSyntax\n\n\nSTRING\n repeat(\nSTRING\n input.string, \nINT\n times)\n\n\n\n\nQuery Parameters\n\n\n\n    \n\n        \nName\n\n        \nDescription\n\n        \nDefault Value\n\n        \nPossible Types\n\n        \nOptional\n\n        \nDynamic\n\n    \n\n    \n\n        \ninput.string\n\n        \nInput string that is repeated number of times as defined by the user.\n\n        \n\n        \nSTRING\n\n        \nNo\n\n        \nNo\n\n    \n\n    \n\n        \ntimes\n\n        \nNo of times that input.string needs to be repeated .\n\n        \n\n        \nINT\n\n        \nNo\n\n        \nNo\n\n    \n\n\n\n\n\nExamples\n\n\nExample 1\n\n\nrepeat(\nStRing 1\n, 3)\n\n\n\n\nReturns a string value by repeating the string for number of times. In this case, output will be \"StRing 1StRing 1StRing 1\".", 
+            "title": "4.0.1-SNAPSHOT"
+        }, 
+        {
+            "location": "/api/4.0.1-SNAPSHOT/#str", 
+            "text": "", 
+            "title": "Str"
+        }, 
+        {
+            "location": "/api/4.0.1-SNAPSHOT/#hex-function", 
+            "text": "Returns a hexadecimal string representation of str, where each byte of each character in str is converted to two hexadecimal digits", 
+            "title": "hex (Function)"
+        }, 
+        {
+            "location": "/api/4.0.1-SNAPSHOT/#syntax", 
+            "text": "STRING  hex( STRING  input.string)", 
+            "title": "Syntax"
+        }, 
+        {
+            "location": "/api/4.0.1-SNAPSHOT/#query-parameters", 
+            "text": "Name \n         Description \n         Default Value \n         Possible Types \n         Optional \n         Dynamic \n     \n     \n         input.string \n         Input string to find out the hexadecimal value. \n         \n         STRING \n         No \n         No", 
+            "title": "Query Parameters"
+        }, 
+        {
+            "location": "/api/4.0.1-SNAPSHOT/#examples", 
+            "text": "", 
+            "title": "Examples"
+        }, 
+        {
+            "location": "/api/4.0.1-SNAPSHOT/#example-1", 
+            "text": "hex( MySQL )   This will return the hexadecimal value of the input.string. In this case, out put will be \"4d7953514c\".", 
+            "title": "Example 1"
+        }, 
+        {
+            "location": "/api/4.0.1-SNAPSHOT/#lower-function", 
+            "text": "Converts the capital letters in the input string to the equivalent simple letters.", 
+            "title": "lower (Function)"
+        }, 
+        {
+            "location": "/api/4.0.1-SNAPSHOT/#syntax_1", 
+            "text": "STRING  lower( STRING  input.string)", 
+            "title": "Syntax"
+        }, 
+        {
+            "location": "/api/4.0.1-SNAPSHOT/#query-parameters_1", 
+            "text": "Name \n         Description \n         Default Value \n         Possible Types \n         Optional \n         Dynamic \n     \n     \n         input.string \n         Input string to convert in to the lower case(equivalent simple letters). \n         \n         STRING \n         No \n         No", 
+            "title": "Query Parameters"
+        }, 
+        {
+            "location": "/api/4.0.1-SNAPSHOT/#examples_1", 
+            "text": "", 
+            "title": "Examples"
+        }, 
+        {
+            "location": "/api/4.0.1-SNAPSHOT/#example-1_1", 
+            "text": "lower( WSO2 cep  )  This will convert the capital letters in the input.string to the equivalent simple letters. In this case, output will be \"wso2 cep \".", 
+            "title": "Example 1"
+        }, 
+        {
+            "location": "/api/4.0.1-SNAPSHOT/#split-function", 
+            "text": "Splits the source String by splitCharacter and return the string in the index given by returnedOutputPosition .", 
+            "title": "split (Function)"
+        }, 
+        {
+            "location": "/api/4.0.1-SNAPSHOT/#syntax_2", 
+            "text": "STRING  split( STRING  input.string,  STRING  split.string,  INT  group.number)", 
+            "title": "Syntax"
+        }, 
+        {
+            "location": "/api/4.0.1-SNAPSHOT/#query-parameters_2", 
+            "text": "Name \n         Description \n         Default Value \n         Possible Types \n         Optional \n         Dynamic \n     \n     \n         input.string \n         Input string that get replaced. \n         \n         STRING \n         No \n         No \n     \n     \n         split.string \n         String value used to split the input.string. \n         \n         STRING \n         No \n         No \n     \n     \n         group.number \n         Index of the splitted group \n         \n         INT \n         No \n         No", 
+            "title": "Query Parameters"
+        }, 
+        {
+            "location": "/api/4.0.1-SNAPSHOT/#examples_2", 
+            "text": "", 
+            "title": "Examples"
+        }, 
+        {
+            "location": "/api/4.0.1-SNAPSHOT/#example-1_2", 
+            "text": "split( WSO2,ABM,NSFT ,  , , 0)  This will splits the given input.string by given split.string and returns the string in the index given by group.number. In this case, output will be \"WSO2\".", 
+            "title": "Example 1"
+        }, 
+        {
+            "location": "/api/4.0.1-SNAPSHOT/#upper-function", 
+            "text": "Converts the simple letters in the input string to the equivalent capital/block letters.", 
+            "title": "upper (Function)"
+        }, 
+        {
+            "location": "/api/4.0.1-SNAPSHOT/#syntax_3", 
+            "text": "STRING  upper( STRING  input.string)", 
+            "title": "Syntax"
+        }, 
+        {
+            "location": "/api/4.0.1-SNAPSHOT/#query-parameters_3", 
+            "text": "Name \n         Description \n         Default Value \n         Possible Types \n         Optional \n         Dynamic \n     \n     \n         input.string \n         Input string to convert in to the upper case(equivalent capital/block letters). \n         \n         STRING \n         No \n         No", 
+            "title": "Query Parameters"
+        }, 
+        {
+            "location": "/api/4.0.1-SNAPSHOT/#examples_3", 
+            "text": "", 
+            "title": "Examples"
+        }, 
+        {
+            "location": "/api/4.0.1-SNAPSHOT/#example-1_3", 
+            "text": "upper( Hello World )  This will convert the simple letters in the input.string to theequivalent capital letters. In this case, output will be \"HELLO WORLD\".", 
+            "title": "Example 1"
+        }, 
+        {
+            "location": "/api/4.0.1-SNAPSHOT/#coalesce-function", 
+            "text": "Returns the value of the first of its input parameters that is not NULL", 
+            "title": "coalesce (Function)"
+        }, 
+        {
+            "location": "/api/4.0.1-SNAPSHOT/#syntax_4", 
+            "text": "INT|LONG|DOUBLE|FLOAT|STRING|BOOL|OBJECT  coalesce( INT|LONG|DOUBLE|FLOAT|STRING|BOOL|OBJECT  argn)", 
+            "title": "Syntax"
+        }, 
+        {
+            "location": "/api/4.0.1-SNAPSHOT/#query-parameters_4", 
+            "text": "Name \n         Description \n         Default Value \n         Possible Types \n         Optional \n         Dynamic \n     \n     \n         argn \n         It can have one or more input parameters in any data type. \n         \n         INT LONG DOUBLE FLOAT STRING BOOL OBJECT \n         No \n         No", 
+            "title": "Query Parameters"
+        }, 
+        {
+            "location": "/api/4.0.1-SNAPSHOT/#examples_4", 
+            "text": "", 
+            "title": "Examples"
+        }, 
+        {
+            "location": "/api/4.0.1-SNAPSHOT/#example-1_4", 
+            "text": "coalesce(null,  BBB ,  CCC )  This will return the first input parameter that is not null. In this case, it will return \"BBB\"", 
+            "title": "Example 1"
+        }, 
+        {
+            "location": "/api/4.0.1-SNAPSHOT/#length-function", 
+            "text": "Returns the length of this string.", 
+            "title": "length (Function)"
+        }, 
+        {
+            "location": "/api/4.0.1-SNAPSHOT/#syntax_5", 
+            "text": "INT  length( STRING  input.string)", 
+            "title": "Syntax"
+        }, 
+        {
+            "location": "/api/4.0.1-SNAPSHOT/#query-parameters_5", 
+            "text": "Name \n         Description \n         Default Value \n         Possible Types \n         Optional \n         Dynamic \n     \n     \n         input.string \n         Input string to find out length. \n         \n         STRING \n         No \n         No", 
+            "title": "Query Parameters"
+        }, 
+        {
+            "location": "/api/4.0.1-SNAPSHOT/#examples_5", 
+            "text": "", 
+            "title": "Examples"
+        }, 
+        {
+            "location": "/api/4.0.1-SNAPSHOT/#example-1_5", 
+            "text": "length( Hello World )  This will output the length of the provided string. In this case, output will be 11 .", 
+            "title": "Example 1"
+        }, 
+        {
+            "location": "/api/4.0.1-SNAPSHOT/#contains-function", 
+            "text": "This method returns true if and only if this string contains the specified sequence of char values.", 
+            "title": "contains (Function)"
+        }, 
+        {
+            "location": "/api/4.0.1-SNAPSHOT/#syntax_6", 
+            "text": "BOOL  contains( STRING  input.string,  STRING  search.string)", 
+            "title": "Syntax"
+        }, 
+        {
+            "location": "/api/4.0.1-SNAPSHOT/#query-parameters_6", 
+            "text": "Name \n         Description \n         Default Value \n         Possible Types \n         Optional \n         Dynamic \n     \n     \n         input.string \n         Input string value. \n         \n         STRING \n         No \n         No \n     \n     \n         search.string \n         String value that going to search in input.string. \n         \n         STRING \n         No \n         No", 
+            "title": "Query Parameters"
+        }, 
+        {
+            "location": "/api/4.0.1-SNAPSHOT/#examples_6", 
+            "text": "", 
+            "title": "Examples"
+        }, 
+        {
+            "location": "/api/4.0.1-SNAPSHOT/#example-1_6", 
+            "text": "contains( 21 products are produced by WSO2 currently ,  WSO2 )  This will return a boolean value as the output. In this case, it will return \"true\".", 
+            "title": "Example 1"
+        }, 
+        {
+            "location": "/api/4.0.1-SNAPSHOT/#reverse-function", 
+            "text": "Returns the reverse ordered string of the input.", 
+            "title": "reverse (Function)"
+        }, 
+        {
+            "location": "/api/4.0.1-SNAPSHOT/#syntax_7", 
+            "text": "STRING  reverse( STRING  input.string)", 
+            "title": "Syntax"
+        }, 
+        {
+            "location": "/api/4.0.1-SNAPSHOT/#query-parameters_7", 
+            "text": "Name \n         Description \n         Default Value \n         Possible Types \n         Optional \n         Dynamic \n     \n     \n         input.string \n         Input string that get reversed. \n         \n         STRING \n         No \n         No", 
+            "title": "Query Parameters"
+        }, 
+        {
+            "location": "/api/4.0.1-SNAPSHOT/#examples_7", 
+            "text": "", 
+            "title": "Examples"
+        }, 
+        {
+            "location": "/api/4.0.1-SNAPSHOT/#example-1_7", 
+            "text": "reverse( Hello World )  This will output a string value by reversing the incoming input.string. In this case, output will be \"dlroW olleH\".", 
+            "title": "Example 1"
+        }, 
+        {
+            "location": "/api/4.0.1-SNAPSHOT/#replacefirst-function", 
+            "text": "Replaces the first substring of this string that matches the given expression with the given replacement.", 
+            "title": "replaceFirst (Function)"
+        }, 
+        {
+            "location": "/api/4.0.1-SNAPSHOT/#syntax_8", 
+            "text": "STRING  replaceFirst( STRING  input.string,  STRING  regex,  STRING  replacement.string)", 
+            "title": "Syntax"
+        }, 
+        {
+            "location": "/api/4.0.1-SNAPSHOT/#query-parameters_8", 
+            "text": "Name \n         Description \n         Default Value \n         Possible Types \n         Optional \n         Dynamic \n     \n     \n         input.string \n         Input string that get replaced. \n         \n         STRING \n         No \n         No \n     \n     \n         regex \n         Regular expression used to match the input string. \n         \n         STRING \n         No \n         No \n     \n     \n         replacement.string \n         replacement string that used. \n         \n         STRING \n         No \n         No", 
+            "title": "Query Parameters"
+        }, 
+        {
+            "location": "/api/4.0.1-SNAPSHOT/#examples_8", 
+            "text": "", 
+            "title": "Examples"
+        }, 
+        {
+            "location": "/api/4.0.1-SNAPSHOT/#example-1_8", 
+            "text": "replaceFirst( hello WSO2 A hello ,  'WSO2(.*)A', 'XXXX')  This will return a string after replacing the first substring by given replacement string. In this case, output will be \"hello XXXX hello\".", 
+            "title": "Example 1"
+        }, 
+        {
+            "location": "/api/4.0.1-SNAPSHOT/#charat-function", 
+            "text": "Returns the char value as a string value at the specified index.", 
+            "title": "charAt (Function)"
+        }, 
+        {
+            "location": "/api/4.0.1-SNAPSHOT/#syntax_9", 
+            "text": "STRING  charAt( STRING  input.value,  INT  index)", 
+            "title": "Syntax"
+        }, 
+        {
+            "location": "/api/4.0.1-SNAPSHOT/#query-parameters_9", 
+            "text": "Name \n         Description \n         Default Value \n         Possible Types \n         Optional \n         Dynamic \n     \n     \n         input.value \n         The input string that used to find the character. \n         \n         STRING \n         No \n         No \n     \n     \n         index \n         The variable which specify the index. \n         \n         INT \n         No \n         No", 
+            "title": "Query Parameters"
+        }, 
+        {
+            "location": "/api/4.0.1-SNAPSHOT/#examples_9", 
+            "text": "", 
+            "title": "Examples"
+        }, 
+        {
+            "location": "/api/4.0.1-SNAPSHOT/#example-1_9", 
+            "text": "charAt( WSO2 , 1)  This will output the character which exists at index 1. In this case, it will output 'S'.", 
+            "title": "Example 1"
+        }, 
+        {
+            "location": "/api/4.0.1-SNAPSHOT/#replaceall-function", 
+            "text": "Replaces each substring of this string that matches the given expression with the given replacement.", 
+            "title": "replaceAll (Function)"
+        }, 
+        {
+            "location": "/api/4.0.1-SNAPSHOT/#syntax_10", 
+            "text": "STRING  replaceAll( STRING  input.string,  STRING  regex,  STRING  replacement.string)", 
+            "title": "Syntax"
+        }, 
+        {
+            "location": "/api/4.0.1-SNAPSHOT/#query-parameters_10", 
+            "text": "Name \n         Description \n         Default Value \n         Possible Types \n         Optional \n         Dynamic \n     \n     \n         input.string \n         Input string that get replaced. \n         \n         STRING \n         No \n         No \n     \n     \n         regex \n         Regular expression used to match the input string. \n         \n         STRING \n         No \n         No \n     \n     \n         replacement.string \n         replacement string that used. \n         \n         STRING \n         No \n         No", 
+            "title": "Query Parameters"
+        }, 
+        {
+            "location": "/api/4.0.1-SNAPSHOT/#examples_10", 
+            "text": "", 
+            "title": "Examples"
+        }, 
+        {
+            "location": "/api/4.0.1-SNAPSHOT/#example-1_10", 
+            "text": "replaceAll( hello hi hello ,  'hello', 'test')  Returns a string after replacing the substrings of the input string with the replacement string. In this case, output will be \"test hi test\" .", 
+            "title": "Example 1"
+        }, 
+        {
+            "location": "/api/4.0.1-SNAPSHOT/#strcmp-function", 
+            "text": "Compares two strings lexicographically.", 
+            "title": "strcmp (Function)"
+        }, 
+        {
+            "location": "/api/4.0.1-SNAPSHOT/#syntax_11", 
+            "text": "INT  strcmp( STRING  arg1,  STRING  arg2)", 
+            "title": "Syntax"
+        }, 
+        {
+            "location": "/api/4.0.1-SNAPSHOT/#query-parameters_11", 
+            "text": "Name \n         Description \n         Default Value \n         Possible Types \n         Optional \n         Dynamic \n     \n     \n         arg1 \n         First input string argument. \n         \n         STRING \n         No \n         No \n     \n     \n         arg2 \n         Second input string argument that going to be compared with first argument in lexicographically. \n         \n         STRING \n         No \n         No", 
+            "title": "Query Parameters"
+        }, 
+        {
+            "location": "/api/4.0.1-SNAPSHOT/#examples_11", 
+            "text": "", 
+            "title": "Examples"
+        }, 
+        {
+            "location": "/api/4.0.1-SNAPSHOT/#example-1_11", 
+            "text": "strcmp( AbCDefghiJ KLMN , 'Hello')  This will compare two strings lexicographically and output an int value", 
+            "title": "Example 1"
+        }, 
+        {
+            "location": "/api/4.0.1-SNAPSHOT/#equalsignorecase-function", 
+            "text": "Compares two strings lexicographically.", 
+            "title": "equalsIgnoreCase (Function)"
+        }, 
+        {
+            "location": "/api/4.0.1-SNAPSHOT/#syntax_12", 
+            "text": "BOOL  equalsIgnoreCase( STRING  arg1,  STRING  arg2)", 
+            "title": "Syntax"
+        }, 
+        {
+            "location": "/api/4.0.1-SNAPSHOT/#query-parameters_12", 
+            "text": "Name \n         Description \n         Default Value \n         Possible Types \n         Optional \n         Dynamic \n     \n     \n         arg1 \n         First input string argument. \n         \n         STRING \n         No \n         No \n     \n     \n         arg2 \n         Second input string argument that going to be compared with first argument. \n         \n         STRING \n         No \n         No", 
+            "title": "Query Parameters"
+        }, 
+        {
+            "location": "/api/4.0.1-SNAPSHOT/#examples_12", 
+            "text": "", 
+            "title": "Examples"
+        }, 
+        {
+            "location": "/api/4.0.1-SNAPSHOT/#example-1_12", 
+            "text": "equalsIgnoreCase( WSO2 ,  wso2 )  This will return a boolean value as the output. In this case, it will return \"true\".", 
+            "title": "Example 1"
+        }, 
+        {
+            "location": "/api/4.0.1-SNAPSHOT/#concat-function", 
+            "text": "Returns a string that is the result of concatenating two or more string values.", 
+            "title": "concat (Function)"
+        }, 
+        {
+            "location": "/api/4.0.1-SNAPSHOT/#syntax_13", 
+            "text": "STRING  concat( STRING  argn)", 
+            "title": "Syntax"
+        }, 
+        {
+            "location": "/api/4.0.1-SNAPSHOT/#query-parameters_13", 
+            "text": "Name \n         Description \n         Default Value \n         Possible Types \n         Optional \n         Dynamic \n     \n     \n         argn \n         It can have two or more string type input parameters. \n         \n         STRING \n         No \n         No", 
+            "title": "Query Parameters"
+        }, 
+        {
+            "location": "/api/4.0.1-SNAPSHOT/#examples_13", 
+            "text": "", 
+            "title": "Examples"
+        }, 
+        {
+            "location": "/api/4.0.1-SNAPSHOT/#example-1_13", 
+            "text": "concat( D533 ,  8JU^ ,  XYZ )  This will return a string value by concatenating the given arguments. In this case, it will return \"D5338JU^XYZ\" as the output", 
+            "title": "Example 1"
+        }, 
+        {
+            "location": "/api/4.0.1-SNAPSHOT/#substr-function", 
+            "text": "Returns a new string that is a substring of this string", 
+            "title": "substr (Function)"
+        }, 
+        {
+            "location": "/api/4.0.1-SNAPSHOT/#syntax_14", 
+            "text": "STRING  substr( STRING  input.string,  INT  begin.index,  INT  length,  STRING  regex,  INT  group.number)", 
+            "title": "Syntax"
+        }, 
+        {
+            "location": "/api/4.0.1-SNAPSHOT/#query-parameters_14", 
+            "text": "Name \n         Description \n         Default Value \n         Possible Types \n         Optional \n         Dynamic \n     \n     \n         input.string \n         Input string to be processed. \n         \n         STRING \n         No \n         No \n     \n     \n         begin.index \n         Staring index to consider for the substring. \n         \n         INT \n         No \n         No \n     \n     \n         length \n         Length of the substring. \n         \n         INT \n         No \n         No \n     \n     \n         regex \n         Regular expression used to match the input string.. \n         \n         STRING \n         No \n         No \n     \n     \n         group.number \n         Regex group number \n         \n         INT \n         No \n         No", 
+            "title": "Query Parameters"
+        }, 
+        {
+            "location": "/api/4.0.1-SNAPSHOT/#examples_14", 
+            "text": "", 
+            "title": "Examples"
+        }, 
+        {
+            "location": "/api/4.0.1-SNAPSHOT/#example-1_14", 
+            "text": "substr( AbCDefghiJ KLMN , 4)  This will output the substring based on the given begin.index. In this case, output will be \"efghiJ KLMN\".", 
+            "title": "Example 1"
+        }, 
+        {
+            "location": "/api/4.0.1-SNAPSHOT/#example-2", 
+            "text": "substr( AbCDefghiJ KLMN ,  2, 4)   This will output the substring based on the given begin.index and length. In this case, output will be \"CDef\".", 
+            "title": "Example 2"
+        }, 
+        {
+            "location": "/api/4.0.1-SNAPSHOT/#example-3", 
+            "text": "substr( WSO2D efghiJ KLMN , '^WSO2(.*)')  This will output the substring by applying the regex. In this case, output will be \"WSO2D efghiJ KLMN\".", 
+            "title": "Example 3"
+        }, 
+        {
+            "location": "/api/4.0.1-SNAPSHOT/#example-4", 
+            "text": "substr( WSO2 cep WSO2 XX E hi hA WSO2 heAllo ,  'WSO2(.*)A(.*)',  2)  This will output the substring by applying the regex and considering the group.number. In this case, output will be \" ello\".", 
+            "title": "Example 4"
+        }, 
+        {
+            "location": "/api/4.0.1-SNAPSHOT/#unhex-function", 
+            "text": "unhex(str) interprets each pair of characters in the argument as a hexadecimal number and converts it to the byte represented by the number", 
+            "title": "unhex (Function)"
+        }, 
+        {
+            "location": "/api/4.0.1-SNAPSHOT/#syntax_15", 
+            "text": "STRING  unhex( STRING  input.string)", 
+            "title": "Syntax"
+        }, 
+        {
+            "location": "/api/4.0.1-SNAPSHOT/#query-parameters_15", 
+            "text": "Name \n         Description \n         Default Value \n         Possible Types \n         Optional \n         Dynamic \n     \n     \n         input.string \n         Hexadecimal input string that needs to be converted as string. \n         \n         STRING \n         No \n         No", 
+            "title": "Query Parameters"
+        }, 
+        {
+            "location": "/api/4.0.1-SNAPSHOT/#examples_15", 
+            "text": "", 
+            "title": "Examples"
+        }, 
+        {
+            "location": "/api/4.0.1-SNAPSHOT/#example-1_15", 
+            "text": "unhex( 4d7953514c )  This will convert the hexadecimal value as the string", 
+            "title": "Example 1"
+        }, 
+        {
+            "location": "/api/4.0.1-SNAPSHOT/#trim-function", 
+            "text": "Returns a copy of the string, with leading and trailing whitespace omitted", 
+            "title": "trim (Function)"
+        }, 
+        {
+            "location": "/api/4.0.1-SNAPSHOT/#syntax_16", 
+            "text": "STRING  trim( STRING  input.string)", 
+            "title": "Syntax"
+        }, 
+        {
+            "location": "/api/4.0.1-SNAPSHOT/#query-parameters_16", 
+            "text": "Name \n         Description \n         Default Value \n         Possible Types \n         Optional \n         Dynamic \n     \n     \n         input.string \n         Input string that needs to be trimmed. \n         \n         STRING \n         No \n         No", 
+            "title": "Query Parameters"
+        }, 
+        {
+            "location": "/api/4.0.1-SNAPSHOT/#examples_16", 
+            "text": "", 
+            "title": "Examples"
+        }, 
+        {
+            "location": "/api/4.0.1-SNAPSHOT/#example-1_16", 
+            "text": "trim(   AbCDefghiJ KLMN   )  This will return a copy of input.string, with the leading and/or trailing white-spaces omitted. In this case, output will be \"AbCDefghiJ KLMN\".", 
+            "title": "Example 1"
+        }, 
+        {
+            "location": "/api/4.0.1-SNAPSHOT/#regexp-function", 
+            "text": "Tells whether or not this 'string' matches the given regular expression 'regex'.", 
+            "title": "regexp (Function)"
+        }, 
+        {
+            "location": "/api/4.0.1-SNAPSHOT/#syntax_17", 
+            "text": "BOOL  regexp( STRING  input.string,  STRING  regex)", 
+            "title": "Syntax"
+        }, 
+        {
+            "location": "/api/4.0.1-SNAPSHOT/#query-parameters_17", 
+            "text": "Name \n         Description \n         Default Value \n         Possible Types \n         Optional \n         Dynamic \n     \n     \n         input.string \n         Input string to match with the given regular expression. \n         \n         STRING \n         No \n         No \n     \n     \n         regex \n         Regular expression used to match the input string.. \n         \n         STRING \n         No \n         No", 
+            "title": "Query Parameters"
+        }, 
+        {
+            "location": "/api/4.0.1-SNAPSHOT/#examples_17", 
+            "text": "", 
+            "title": "Examples"
+        }, 
+        {
+            "location": "/api/4.0.1-SNAPSHOT/#example-1_17", 
+            "text": "regexp( WSO2 abcdh ,  WSO(.*h) )  This will return a boolean value after matching regular expression for the given string. In this case, it will return \"true\" as the output.", 
+            "title": "Example 1"
+        }, 
+        {
+            "location": "/api/4.0.1-SNAPSHOT/#repeat-function", 
+            "text": "Repeats a string for a specified number of times.", 
+            "title": "repeat (Function)"
+        }, 
+        {
+            "location": "/api/4.0.1-SNAPSHOT/#syntax_18", 
+            "text": "STRING  repeat( STRING  input.string,  INT  times)", 
+            "title": "Syntax"
+        }, 
+        {
+            "location": "/api/4.0.1-SNAPSHOT/#query-parameters_18", 
+            "text": "Name \n         Description \n         Default Value \n         Possible Types \n         Optional \n         Dynamic \n     \n     \n         input.string \n         Input string that is repeated number of times as defined by the user. \n         \n         STRING \n         No \n         No \n     \n     \n         times \n         No of times that input.string needs to be repeated . \n         \n         INT \n         No \n         No", 
+            "title": "Query Parameters"
+        }, 
+        {
+            "location": "/api/4.0.1-SNAPSHOT/#examples_18", 
+            "text": "", 
+            "title": "Examples"
+        }, 
+        {
+            "location": "/api/4.0.1-SNAPSHOT/#example-1_18", 
+            "text": "repeat( StRing 1 , 3)  Returns a string value by repeating the string for number of times. In this case, output will be \"StRing 1StRing 1StRing 1\".", 
+            "title": "Example 1"
+        }
+    ]
+}
