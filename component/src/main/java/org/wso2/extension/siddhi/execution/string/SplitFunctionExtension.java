@@ -20,6 +20,7 @@ package org.wso2.extension.siddhi.execution.string;
 
 import org.wso2.siddhi.annotation.Example;
 import org.wso2.siddhi.annotation.Extension;
+import org.wso2.siddhi.annotation.Parameter;
 import org.wso2.siddhi.annotation.ReturnAttribute;
 import org.wso2.siddhi.annotation.util.DataType;
 import org.wso2.siddhi.core.config.SiddhiAppContext;
@@ -44,10 +45,23 @@ import java.util.Map;
         namespace = "str",
         description = "Splits the source String by splitCharacter and return the string in the index" +
                 " given by returnedOutputPosition .",
+        parameters = {
+                @Parameter(name = "input.string",
+                        description = "Input string that get replaced.",
+                        type = {DataType.STRING}),
+                @Parameter(name = "split.string",
+                        description = "String value used to split the input.string.",
+                        type = {DataType.STRING}),
+                @Parameter(name = "group.number",
+                        description = "Index of the splitted group",
+                        type = {DataType.INT})
+        },
         returnAttributes = @ReturnAttribute(
-                description = "TBD",
+                description = "Returns the substring after splitting the input.string",
                 type = {DataType.STRING}),
-        examples = @Example(description = "TBD", syntax = "TBD")
+        examples = @Example(description = "This will splits the given input.string by given split.string and " +
+                "returns the string in the index given by group.number. In this case, output will be \"WSO2\".",
+                syntax = "split(\"WSO2,ABM,NSFT\", \",\", 0)")
 )
 public class SplitFunctionExtension extends FunctionExecutor {
 

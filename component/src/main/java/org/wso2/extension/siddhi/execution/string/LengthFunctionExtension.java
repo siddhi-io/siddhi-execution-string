@@ -20,6 +20,7 @@ package org.wso2.extension.siddhi.execution.string;
 
 import org.wso2.siddhi.annotation.Example;
 import org.wso2.siddhi.annotation.Extension;
+import org.wso2.siddhi.annotation.Parameter;
 import org.wso2.siddhi.annotation.ReturnAttribute;
 import org.wso2.siddhi.annotation.util.DataType;
 import org.wso2.siddhi.core.config.SiddhiAppContext;
@@ -43,10 +44,16 @@ import java.util.Map;
         name = "length",
         namespace = "str",
         description = "Returns the length of this string.",
+        parameters = {
+                @Parameter(name = "input.string",
+                        description = "Input string to find out length.",
+                        type = {DataType.STRING})
+        },
         returnAttributes = @ReturnAttribute(
-                description = "TBD",
+                description = "Outputs length of the provided input string",
                 type = {DataType.INT}),
-        examples = @Example(description = "TBD", syntax = "TBD")
+        examples = @Example(description = "This will output the length of the provided string. In this case, " +
+                "output will be 11 .", syntax = "length(\"Hello World\")")
 )
 public class LengthFunctionExtension extends FunctionExecutor {
 

@@ -20,6 +20,7 @@ package org.wso2.extension.siddhi.execution.string;
 
 import org.wso2.siddhi.annotation.Example;
 import org.wso2.siddhi.annotation.Extension;
+import org.wso2.siddhi.annotation.Parameter;
 import org.wso2.siddhi.annotation.ReturnAttribute;
 import org.wso2.siddhi.annotation.util.DataType;
 import org.wso2.siddhi.core.config.SiddhiAppContext;
@@ -43,11 +44,18 @@ import java.util.Map;
         name = "coalesce",
         namespace = "str",
         description = "Returns the value of the first of its input parameters that is not NULL",
+        parameters = {
+                @Parameter(name = "argn",
+                        description = "It can have one or more input parameters in any data type.",
+                        type = {DataType.INT, DataType.LONG, DataType.DOUBLE, DataType.FLOAT,
+                                DataType.STRING, DataType.BOOL, DataType.OBJECT})
+        },
         returnAttributes = @ReturnAttribute(
-                description = "TBD",
+                description = "This will be the same as the type of the first input parameter that is not null.",
                 type = {DataType.INT, DataType.LONG, DataType.DOUBLE, DataType.FLOAT,
                         DataType.STRING, DataType.BOOL, DataType.OBJECT}),
-        examples = @Example(description = "TBD", syntax = "TBD")
+        examples = @Example(description = "This will return the first input parameter that is not null. " +
+                "In this case, it will return \"BBB\"", syntax = "coalesce(null, \"BBB\", \"CCC\")")
 )
 public class CoalesceFunctionExtension extends FunctionExecutor {
 

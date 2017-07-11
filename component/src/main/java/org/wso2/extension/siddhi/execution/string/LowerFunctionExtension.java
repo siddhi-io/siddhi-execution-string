@@ -20,6 +20,7 @@ package org.wso2.extension.siddhi.execution.string;
 
 import org.wso2.siddhi.annotation.Example;
 import org.wso2.siddhi.annotation.Extension;
+import org.wso2.siddhi.annotation.Parameter;
 import org.wso2.siddhi.annotation.ReturnAttribute;
 import org.wso2.siddhi.annotation.util.DataType;
 import org.wso2.siddhi.core.config.SiddhiAppContext;
@@ -43,10 +44,17 @@ import java.util.Map;
         name = "lower",
         namespace = "str",
         description = "Converts the capital letters in the input string to the equivalent simple letters.",
+        parameters = {
+                @Parameter(name = "input.string",
+                        description = "Input string to convert in to the lower case(equivalent simple letters).",
+                        type = {DataType.STRING})
+        },
         returnAttributes = @ReturnAttribute(
-                description = "TBD",
+                description = "Returns a string value in lower case by converting the input.string .",
                 type = {DataType.STRING}),
-        examples = @Example(description = "TBD", syntax = "TBD")
+        examples = @Example(description = "This will convert the capital letters in the input.string to the " +
+                "equivalent simple letters. In this case, output will be \"wso2 cep \".",
+                syntax = "lower(\"WSO2 cep \")")
 )
 public class LowerFunctionExtension extends FunctionExecutor {
 

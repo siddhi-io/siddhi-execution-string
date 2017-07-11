@@ -1,0 +1,15 @@
+site_name: Siddhi-Execution-String
+extra_css:
+- stylesheets/extra.css
+extra:
+  logo: images/siddhi-logo-w.svg
+  palette:
+    primary: teal
+    accent: teal
+pages:
+- Welcome to WSO2 Siddhi Execution String: index.md
+- About:
+  - License: about/license.md
+- Api:
+  - 4.0.1-SNAPSHOT: api/4.0.1-SNAPSHOT.md
+theme: material

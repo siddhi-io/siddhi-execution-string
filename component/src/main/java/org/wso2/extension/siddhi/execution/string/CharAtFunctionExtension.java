@@ -20,6 +20,7 @@ package org.wso2.extension.siddhi.execution.string;
 
 import org.wso2.siddhi.annotation.Example;
 import org.wso2.siddhi.annotation.Extension;
+import org.wso2.siddhi.annotation.Parameter;
 import org.wso2.siddhi.annotation.ReturnAttribute;
 import org.wso2.siddhi.annotation.util.DataType;
 import org.wso2.siddhi.core.config.SiddhiAppContext;
@@ -41,11 +42,20 @@ import java.util.Map;
 @Extension(
         name = "charAt",
         namespace = "str",
-        description = "Returns the char value in 'string' at the specified 'index'",
+        description = "Returns the char value as a string value at the specified index.",
+        parameters = {
+                @Parameter(name = "input.value",
+                        description = "The input string that used to find the character.",
+                        type = {DataType.STRING}),
+                @Parameter(name = "index",
+                        description = "The variable which specify the index.",
+                        type = {DataType.INT})
+        },
         returnAttributes = @ReturnAttribute(
-                description = "TBD",
+                description = "This will returns the character that exist in the location specified by the index.",
                 type = {DataType.STRING}),
-        examples = @Example(description = "TBD", syntax = "TBD")
+        examples = @Example(syntax = "charAt(\"WSO2\", 1)", description = "This will output the " +
+                "character which exists at index 1. In this case, it will output 'S'.")
 )
 public class CharAtFunctionExtension extends FunctionExecutor {
 

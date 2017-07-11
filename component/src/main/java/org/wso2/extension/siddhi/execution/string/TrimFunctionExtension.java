@@ -20,6 +20,7 @@ package org.wso2.extension.siddhi.execution.string;
 
 import org.wso2.siddhi.annotation.Example;
 import org.wso2.siddhi.annotation.Extension;
+import org.wso2.siddhi.annotation.Parameter;
 import org.wso2.siddhi.annotation.ReturnAttribute;
 import org.wso2.siddhi.annotation.util.DataType;
 import org.wso2.siddhi.core.config.SiddhiAppContext;
@@ -43,10 +44,17 @@ import java.util.Map;
         name = "trim",
         namespace = "str",
         description = "Returns a copy of the string, with leading and trailing whitespace omitted",
+        parameters = {
+                @Parameter(name = "input.string",
+                        description = "Input string that needs to be trimmed.",
+                        type = {DataType.STRING})
+        },
         returnAttributes = @ReturnAttribute(
-                description = "TBD",
+                description = "Returns a string value after removing leading and trailing whitespaces",
                 type = {DataType.STRING}),
-        examples = @Example(description = "TBD", syntax = "TBD")
+        examples = @Example(description = "This will return a copy of input.string, with the leading and/or trailing " +
+                "white-spaces omitted. In this case, output will be \"AbCDefghiJ KLMN\".",
+                syntax = "trim(\"  AbCDefghiJ KLMN  \")")
 )
 public class TrimFunctionExtension extends FunctionExecutor {
 

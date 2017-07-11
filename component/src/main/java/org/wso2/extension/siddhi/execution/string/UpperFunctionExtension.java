@@ -20,6 +20,7 @@ package org.wso2.extension.siddhi.execution.string;
 
 import org.wso2.siddhi.annotation.Example;
 import org.wso2.siddhi.annotation.Extension;
+import org.wso2.siddhi.annotation.Parameter;
 import org.wso2.siddhi.annotation.ReturnAttribute;
 import org.wso2.siddhi.annotation.util.DataType;
 import org.wso2.siddhi.core.config.SiddhiAppContext;
@@ -42,11 +43,18 @@ import java.util.Map;
 @Extension(
         name = "upper",
         namespace = "str",
-        description = "Converts the simple letters in the input string to the equivalent capital letters.",
+        description = "Converts the simple letters in the input string to the equivalent capital/block letters.",
+        parameters = {
+                @Parameter(name = "input.string",
+                        description = "Input string to convert in to the upper case(equivalent capital/block letters).",
+                        type = {DataType.STRING})
+        },
         returnAttributes = @ReturnAttribute(
-                description = "TBD",
+                description = "Returns a string value in upper case by converting the input.string",
                 type = {DataType.STRING}),
-        examples = @Example(description = "TBD", syntax = "TBD")
+        examples = @Example(description = "This will convert the simple letters in the input.string to the" +
+                "equivalent capital letters. In this case, output will be \"HELLO WORLD\".",
+                syntax = "upper(\"Hello World\")")
 )
 public class UpperFunctionExtension extends FunctionExecutor {
 

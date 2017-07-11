@@ -20,6 +20,7 @@ package org.wso2.extension.siddhi.execution.string;
 
 import org.wso2.siddhi.annotation.Example;
 import org.wso2.siddhi.annotation.Extension;
+import org.wso2.siddhi.annotation.Parameter;
 import org.wso2.siddhi.annotation.ReturnAttribute;
 import org.wso2.siddhi.annotation.util.DataType;
 import org.wso2.siddhi.core.config.SiddhiAppContext;
@@ -42,10 +43,17 @@ import java.util.Map;
         name = "concat",
         namespace = "str",
         description = "Returns a string that is the result of concatenating two or more string values.",
+        parameters = {
+                @Parameter(name = "argn",
+                        description = "It can have two or more string type input parameters.",
+                        type = {DataType.STRING})
+        },
         returnAttributes = @ReturnAttribute(
-                description = "TBD",
+                description = "Returns a string that is the result of concatenating the given arguments",
                 type = {DataType.STRING}),
-        examples = @Example(description = "TBD", syntax = "TBD")
+        examples = @Example(description = "This will return a string value by concatenating the given arguments. " +
+                "In this case, it will return \"D5338JU^XYZ\" as the output",
+                syntax = "concat(\"D533\", \"8JU^\", \"XYZ\")")
 )
 public class ConcatFunctionExtension extends FunctionExecutor {
 

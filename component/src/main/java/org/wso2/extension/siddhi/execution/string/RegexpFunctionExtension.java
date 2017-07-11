@@ -20,6 +20,7 @@ package org.wso2.extension.siddhi.execution.string;
 
 import org.wso2.siddhi.annotation.Example;
 import org.wso2.siddhi.annotation.Extension;
+import org.wso2.siddhi.annotation.Parameter;
 import org.wso2.siddhi.annotation.ReturnAttribute;
 import org.wso2.siddhi.annotation.util.DataType;
 import org.wso2.siddhi.core.config.SiddhiAppContext;
@@ -46,10 +47,21 @@ import java.util.regex.Pattern;
         name = "regexp",
         namespace = "str",
         description = "Tells whether or not this 'string' matches the given regular expression 'regex'.",
+        parameters = {
+                @Parameter(name = "input.string",
+                        description = "Input string to match with the given regular expression.",
+                        type = {DataType.STRING}),
+                @Parameter(name = "regex",
+                        description = "Regular expression used to match the input string..",
+                        type = {DataType.STRING})
+        },
         returnAttributes = @ReturnAttribute(
-                description = "TBD",
+                description = "Returns true if the given string matches the given regular expression (i.e. regex ). " +
+                        "Returns false if the string does not match the regular expression.",
                 type = {DataType.BOOL}),
-        examples = @Example(description = "TBD", syntax = "TBD")
+        examples = @Example(description = "This will return a boolean value after matching regular expression for " +
+                "the given string. In this case, it will return \"true\" as the output.",
+                syntax = "regexp(\"WSO2 abcdh\", \"WSO(.*h)\")")
 )
 public class RegexpFunctionExtension extends FunctionExecutor {
 

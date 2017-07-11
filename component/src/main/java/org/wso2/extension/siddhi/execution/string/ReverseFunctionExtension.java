@@ -20,6 +20,7 @@ package org.wso2.extension.siddhi.execution.string;
 
 import org.wso2.siddhi.annotation.Example;
 import org.wso2.siddhi.annotation.Extension;
+import org.wso2.siddhi.annotation.Parameter;
 import org.wso2.siddhi.annotation.ReturnAttribute;
 import org.wso2.siddhi.annotation.util.DataType;
 import org.wso2.siddhi.core.config.SiddhiAppContext;
@@ -43,10 +44,16 @@ import java.util.Map;
         name = "reverse",
         namespace = "str",
         description = "Returns the reverse ordered string of the input.",
+        parameters = {
+                @Parameter(name = "input.string",
+                        description = "Input string that get reversed.",
+                        type = {DataType.STRING})
+        },
         returnAttributes = @ReturnAttribute(
-                description = "TBD",
+                description = "Returns the reverse ordered string of input.string .",
                 type = {DataType.STRING}),
-        examples = @Example(description = "TBD", syntax = "TBD")
+        examples = @Example(description = "This will output a string value by reversing the incoming input.string. " +
+                "In this case, output will be \"dlroW olleH\".", syntax = "reverse(\"Hello World\")")
 )
 public class ReverseFunctionExtension extends FunctionExecutor {
 

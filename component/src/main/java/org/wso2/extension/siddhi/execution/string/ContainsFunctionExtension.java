@@ -21,6 +21,7 @@ package org.wso2.extension.siddhi.execution.string;
 import org.apache.log4j.Logger;
 import org.wso2.siddhi.annotation.Example;
 import org.wso2.siddhi.annotation.Extension;
+import org.wso2.siddhi.annotation.Parameter;
 import org.wso2.siddhi.annotation.ReturnAttribute;
 import org.wso2.siddhi.annotation.util.DataType;
 import org.wso2.siddhi.core.config.SiddhiAppContext;
@@ -49,10 +50,19 @@ import java.util.Map;
         namespace = "str",
         description = "This method returns true if and only if this string contains the specified sequence " +
                 "of char values.",
+        parameters = {
+                @Parameter(name = "input.string",
+                        description = "Input string value.",
+                        type = {DataType.STRING}),
+                @Parameter(name = "search.string",
+                        description = "String value that going to search in input.string.",
+                        type = {DataType.STRING})
+        },
         returnAttributes = @ReturnAttribute(
-                description = "TBD",
-                type = {DataType.BOOL}),
-        examples = @Example(description = "TBD", syntax = "TBD")
+                description = "This will return a boolean output as true if input.string contains the search.string " +
+                        "and vice versa.", type = {DataType.BOOL}),
+        examples = @Example(description = "This will return a boolean value as the output. In this case, it will " +
+                "return \"true\". ", syntax = "contains(\"21 products are produced by WSO2 currently\", \"WSO2\")")
 )
 public class ContainsFunctionExtension extends FunctionExecutor {
 

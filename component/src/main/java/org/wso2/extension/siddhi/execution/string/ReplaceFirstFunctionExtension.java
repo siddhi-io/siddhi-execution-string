@@ -20,6 +20,7 @@ package org.wso2.extension.siddhi.execution.string;
 
 import org.wso2.siddhi.annotation.Example;
 import org.wso2.siddhi.annotation.Extension;
+import org.wso2.siddhi.annotation.Parameter;
 import org.wso2.siddhi.annotation.ReturnAttribute;
 import org.wso2.siddhi.annotation.util.DataType;
 import org.wso2.siddhi.core.config.SiddhiAppContext;
@@ -44,10 +45,24 @@ import java.util.Map;
         namespace = "str",
         description = "Replaces the first substring of this string that matches the given expression " +
                 "with the given replacement.",
+        parameters = {
+                @Parameter(name = "input.string",
+                        description = "Input string that get replaced.",
+                        type = {DataType.STRING}),
+                @Parameter(name = "regex",
+                        description = "Regular expression used to match the input string.",
+                        type = {DataType.STRING}),
+                @Parameter(name = "replacement.string",
+                        description = "replacement string that used.",
+                        type = {DataType.STRING})
+        },
         returnAttributes = @ReturnAttribute(
-                description = "TBD",
+                description = "Return a string after replacing the first substring that matches the given regular " +
+                        "expression with the string specified as the replacement",
                 type = {DataType.STRING}),
-        examples = @Example(description = "TBD", syntax = "TBD")
+        examples = @Example(description = "This will return a string after replacing the first substring by " +
+                "given replacement string. In this case, output will be \"hello XXXX hello\".",
+                syntax = "replaceFirst(\"hello WSO2 A hello\",  'WSO2(.*)A', 'XXXX')")
 )
 public class ReplaceFirstFunctionExtension extends FunctionExecutor {
 

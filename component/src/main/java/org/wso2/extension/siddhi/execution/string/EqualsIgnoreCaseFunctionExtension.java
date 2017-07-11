@@ -19,6 +19,7 @@ package org.wso2.extension.siddhi.execution.string;
 
 import org.wso2.siddhi.annotation.Example;
 import org.wso2.siddhi.annotation.Extension;
+import org.wso2.siddhi.annotation.Parameter;
 import org.wso2.siddhi.annotation.ReturnAttribute;
 import org.wso2.siddhi.annotation.util.DataType;
 import org.wso2.siddhi.core.config.SiddhiAppContext;
@@ -42,10 +43,19 @@ import java.util.Map;
         name = "equalsIgnoreCase",
         namespace = "str",
         description = "Compares two strings lexicographically.",
+        parameters = {
+                @Parameter(name = "arg1",
+                        description = "First input string argument.",
+                        type = {DataType.STRING}),
+                @Parameter(name = "arg2",
+                        description = "Second input string argument that going to be compared with first argument.",
+                        type = {DataType.STRING})
+        },
         returnAttributes = @ReturnAttribute(
-                description = "TBD",
-                type = {DataType.BOOL}),
-        examples = @Example(description = "TBD", syntax = "TBD")
+                description = "This will return a boolean output as true if both arg1 and arg2 are equal without " +
+                        "comparing the case.", type = {DataType.BOOL}),
+        examples = @Example(description = "This will return a boolean value as the output. In this case, it will " +
+                "return \"true\". ", syntax = "equalsIgnoreCase(\"WSO2\", \"wso2\")")
 )
 public class EqualsIgnoreCaseFunctionExtension extends FunctionExecutor {
     Attribute.Type returnType = Attribute.Type.BOOL;

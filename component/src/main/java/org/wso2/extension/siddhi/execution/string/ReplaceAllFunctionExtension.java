@@ -20,6 +20,7 @@ package org.wso2.extension.siddhi.execution.string;
 
 import org.wso2.siddhi.annotation.Example;
 import org.wso2.siddhi.annotation.Extension;
+import org.wso2.siddhi.annotation.Parameter;
 import org.wso2.siddhi.annotation.ReturnAttribute;
 import org.wso2.siddhi.annotation.util.DataType;
 import org.wso2.siddhi.core.config.SiddhiAppContext;
@@ -44,10 +45,24 @@ import java.util.Map;
         namespace = "str",
         description = "Replaces each substring of this string that matches the given expression " +
                 "with the given replacement.",
+        parameters = {
+                @Parameter(name = "input.string",
+                        description = "Input string that get replaced.",
+                        type = {DataType.STRING}),
+                @Parameter(name = "regex",
+                        description = "Regular expression used to match the input string.",
+                        type = {DataType.STRING}),
+                @Parameter(name = "replacement.string",
+                        description = "replacement string that used.",
+                        type = {DataType.STRING})
+        },
         returnAttributes = @ReturnAttribute(
-                description = "TBD",
-                type = {DataType.STRING}),
-        examples = @Example(description = "TBD", syntax = "TBD")
+                description = "Replaces each substring of the given string (i.e. str) that matches the given " +
+                        "regular expression (i.e. regex) with the string specified as the replacement " +
+                        "(i.e. replacement).", type = {DataType.STRING}),
+        examples = @Example(description = "Returns a string after replacing the substrings of the input string with " +
+                "the replacement string. In this case, output will be \"test hi test\" .",
+                syntax = "replaceAll(\"hello hi hello\",  'hello', 'test')")
 )
 public class ReplaceAllFunctionExtension extends FunctionExecutor {
 

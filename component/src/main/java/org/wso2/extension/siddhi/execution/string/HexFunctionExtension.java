@@ -20,6 +20,7 @@ package org.wso2.extension.siddhi.execution.string;
 
 import org.wso2.siddhi.annotation.Example;
 import org.wso2.siddhi.annotation.Extension;
+import org.wso2.siddhi.annotation.Parameter;
 import org.wso2.siddhi.annotation.ReturnAttribute;
 import org.wso2.siddhi.annotation.util.DataType;
 import org.wso2.siddhi.core.config.SiddhiAppContext;
@@ -45,10 +46,16 @@ import java.util.Map;
         namespace = "str",
         description = "Returns a hexadecimal string representation of str,\n" +
                 " where each byte of each character in str is converted to two hexadecimal digits",
+        parameters = {
+                @Parameter(name = "input.string",
+                        description = "Input string to find out the hexadecimal value.",
+                        type = {DataType.STRING})
+        },
         returnAttributes = @ReturnAttribute(
-                description = "TBD",
-                type = {DataType.BOOL}),
-        examples = @Example(description = "TBD", syntax = "TBD")
+                description = "Hexadecimal value of the input string that passed to the function.",
+                type = {DataType.STRING}),
+        examples = @Example(description = "This will return the hexadecimal value of the input.string. " +
+                "In this case, out put will be \"4d7953514c\".", syntax = "hex(\"MySQL\") ")
 )
 public class HexFunctionExtension extends FunctionExecutor {
 

@@ -20,6 +20,7 @@ package org.wso2.extension.siddhi.execution.string;
 
 import org.wso2.siddhi.annotation.Example;
 import org.wso2.siddhi.annotation.Extension;
+import org.wso2.siddhi.annotation.Parameter;
 import org.wso2.siddhi.annotation.ReturnAttribute;
 import org.wso2.siddhi.annotation.util.DataType;
 import org.wso2.siddhi.core.config.SiddhiAppContext;
@@ -46,10 +47,16 @@ import java.util.Map;
         namespace = "str",
         description = "unhex(str) interprets each pair of characters in the argument as a hexadecimal number\n" +
                 " and converts it to the byte represented by the number",
+        parameters = {
+                @Parameter(name = "input.string",
+                        description = "Hexadecimal input string that needs to be converted as string.",
+                        type = {DataType.STRING})
+        },
         returnAttributes = @ReturnAttribute(
-                description = "TBD",
+                description = "Returns the string value of the hexadecimal value that passed",
                 type = {DataType.STRING}),
-        examples = @Example(description = "TBD", syntax = "TBD")
+        examples = @Example(description = "This will convert the hexadecimal value as the string",
+                syntax = "unhex(\"4d7953514c\")")
 )
 public class UnhexFunctionExtension extends FunctionExecutor {
     @Override

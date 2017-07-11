@@ -20,6 +20,7 @@ package org.wso2.extension.siddhi.execution.string;
 
 import org.wso2.siddhi.annotation.Example;
 import org.wso2.siddhi.annotation.Extension;
+import org.wso2.siddhi.annotation.Parameter;
 import org.wso2.siddhi.annotation.ReturnAttribute;
 import org.wso2.siddhi.annotation.util.DataType;
 import org.wso2.siddhi.core.config.SiddhiAppContext;
@@ -47,10 +48,37 @@ import java.util.regex.Pattern;
         name = "substr",
         namespace = "str",
         description = "Returns a new string that is a substring of this string",
+        parameters = {
+                @Parameter(name = "input.string",
+                        description = "Input string to be processed.",
+                        type = {DataType.STRING}),
+                @Parameter(name = "begin.index",
+                        description = "Staring index to consider for the substring.",
+                        type = {DataType.INT}),
+                @Parameter(name = "length",
+                        description = "Length of the substring.",
+                        type = {DataType.INT}),
+                @Parameter(name = "regex",
+                        description = "Regular expression used to match the input string..",
+                        type = {DataType.STRING}),
+                @Parameter(name = "group.number",
+                        description = "Regex group number",
+                        type = {DataType.INT})
+        },
         returnAttributes = @ReturnAttribute(
-                description = "TBD",
+                description = "Returns a new string that is a substring of input.string.",
                 type = {DataType.STRING}),
-        examples = @Example(description = "TBD", syntax = "TBD")
+        examples = {
+                @Example(description = "This will output the substring based on the given begin.index. In this case, " +
+                        "output will be \"efghiJ KLMN\".", syntax = "substr(\"AbCDefghiJ KLMN\", 4)"),
+                @Example(description = "This will output the substring based on the given begin.index and length. In " +
+                        "this case, output will be \"CDef\".", syntax = "substr(\"AbCDefghiJ KLMN\",  2, 4) "),
+                @Example(description = "This will output the substring by applying the regex. In this case, output " +
+                        "will be \"WSO2D efghiJ KLMN\".", syntax = "substr(\"WSO2D efghiJ KLMN\", '^WSO2(.*)')"),
+                @Example(description = "This will output the substring by applying the regex and considering the " +
+                        "group.number. In this case, output will be \" ello\".",
+                        syntax = "substr(\"WSO2 cep WSO2 XX E hi hA WSO2 heAllo\",  'WSO2(.*)A(.*)',  2)")
+        }
 )
 public class SubstrFunctionExtension extends FunctionExecutor {
 

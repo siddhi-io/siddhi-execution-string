@@ -20,6 +20,7 @@ package org.wso2.extension.siddhi.execution.string;
 
 import org.wso2.siddhi.annotation.Example;
 import org.wso2.siddhi.annotation.Extension;
+import org.wso2.siddhi.annotation.Parameter;
 import org.wso2.siddhi.annotation.ReturnAttribute;
 import org.wso2.siddhi.annotation.util.DataType;
 import org.wso2.siddhi.core.config.SiddhiAppContext;
@@ -43,10 +44,20 @@ import java.util.Map;
         name = "strcmp",
         namespace = "str",
         description = "Compares two strings lexicographically.",
+        parameters = {
+                @Parameter(name = "arg1",
+                        description = "First input string argument.",
+                        type = {DataType.STRING}),
+                @Parameter(name = "arg2",
+                        description = "Second input string argument that going to be compared with first argument " +
+                                "in lexicographically.",
+                        type = {DataType.STRING})
+        },
         returnAttributes = @ReturnAttribute(
-                description = "TBD",
+                description = "Returns an int value after comparing arg1 with arg2 string lexicographically",
                 type = {DataType.INT}),
-        examples = @Example(description = "TBD", syntax = "TBD")
+        examples = @Example(description = "This will compare two strings lexicographically and output an int value",
+                syntax = "strcmp(\"AbCDefghiJ KLMN\", 'Hello')")
 )
 public class StrcmpFunctionExtension extends FunctionExecutor {
 

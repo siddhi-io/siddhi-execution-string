@@ -20,6 +20,7 @@ package org.wso2.extension.siddhi.execution.string;
 
 import org.wso2.siddhi.annotation.Example;
 import org.wso2.siddhi.annotation.Extension;
+import org.wso2.siddhi.annotation.Parameter;
 import org.wso2.siddhi.annotation.ReturnAttribute;
 import org.wso2.siddhi.annotation.util.DataType;
 import org.wso2.siddhi.core.config.SiddhiAppContext;
@@ -43,10 +44,19 @@ import java.util.Map;
         name = "repeat",
         namespace = "str",
         description = "Repeats a string for a specified number of times.",
+        parameters = {
+                @Parameter(name = "input.string",
+                        description = "Input string that is repeated number of times as defined by the user.",
+                        type = {DataType.STRING}),
+                @Parameter(name = "times",
+                        description = "No of times that input.string needs to be repeated .",
+                        type = {DataType.INT})
+        },
         returnAttributes = @ReturnAttribute(
-                description = "TBD",
+                description = "Returns a value after repeating the string for a specified number of times ",
                 type = {DataType.STRING}),
-        examples = @Example(description = "TBD", syntax = "TBD")
+        examples = @Example(description = "Returns a string value by repeating the string for number of times. " +
+                "In this case, output will be \"StRing 1StRing 1StRing 1\".", syntax = "repeat(\"StRing 1\", 3)")
 )
 public class RepeatFunctionExtension extends FunctionExecutor {
 
