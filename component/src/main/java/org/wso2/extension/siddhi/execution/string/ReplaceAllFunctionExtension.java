@@ -47,21 +47,22 @@ import java.util.Map;
                 "with the given replacement.",
         parameters = {
                 @Parameter(name = "input.string",
-                        description = "Input string that get replaced.",
+                        description = "The input string to be replaced.",
                         type = {DataType.STRING}),
                 @Parameter(name = "regex",
-                        description = "Regular expression used to match the input string.",
+                        description = "The regular expression to be matched with the input string.",
                         type = {DataType.STRING}),
                 @Parameter(name = "replacement.string",
-                        description = "replacement string that used.",
+                        description = "The striing with which each substring that matches the given expression should" +
+                                " be replaced.",
                         type = {DataType.STRING})
         },
         returnAttributes = @ReturnAttribute(
-                description = "Replaces each substring of the given string (i.e. str) that matches the given " +
+                description = "This replaces each substring of the given string (i.e. str) that matches the given " +
                         "regular expression (i.e. regex) with the string specified as the replacement " +
                         "(i.e. replacement).", type = {DataType.STRING}),
-        examples = @Example(description = "Returns a string after replacing the substrings of the input string with " +
-                "the replacement string. In this case, output will be \"test hi test\" .",
+        examples = @Example(description = "This returns a string after replacing the substrings of the input string" +
+                " with the replacement string. In this scenario, the output is \"test hi test\" .",
                 syntax = "replaceAll(\"hello hi hello\",  'hello', 'test')")
 )
 public class ReplaceAllFunctionExtension extends FunctionExecutor {

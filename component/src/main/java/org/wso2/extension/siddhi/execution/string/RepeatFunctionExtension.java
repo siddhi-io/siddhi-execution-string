@@ -46,17 +46,18 @@ import java.util.Map;
         description = "Repeats a string for a specified number of times.",
         parameters = {
                 @Parameter(name = "input.string",
-                        description = "Input string that is repeated number of times as defined by the user.",
+                        description = "The input string that is repeated the number of times as defined by the user.",
                         type = {DataType.STRING}),
                 @Parameter(name = "times",
-                        description = "No of times that input.string needs to be repeated .",
+                        description = "The number of times the input.string needs to be repeated .",
                         type = {DataType.INT})
         },
         returnAttributes = @ReturnAttribute(
-                description = "Returns a value after repeating the string for a specified number of times ",
+                description = "This returns a value after repeating the string for a specified number of times ",
                 type = {DataType.STRING}),
-        examples = @Example(description = "Returns a string value by repeating the string for number of times. " +
-                "In this case, output will be \"StRing 1StRing 1StRing 1\".", syntax = "repeat(\"StRing 1\", 3)")
+        examples = @Example(description = "This returns a string value by repeating the string for a specified number" +
+                " of times. In this scenario, the output is \"StRing 1StRing 1StRing 1\".",
+                syntax = "repeat(\"StRing 1\", 3)")
 )
 public class RepeatFunctionExtension extends FunctionExecutor {
 

@@ -46,14 +46,14 @@ import java.util.Map;
         description = "Returns the length of this string.",
         parameters = {
                 @Parameter(name = "input.string",
-                        description = "Input string to find out length.",
+                        description = "The input string to derive the length.",
                         type = {DataType.STRING})
         },
         returnAttributes = @ReturnAttribute(
-                description = "Outputs length of the provided input string",
+                description = "Outputs the length of the input string provided.",
                 type = {DataType.INT}),
-        examples = @Example(description = "This will output the length of the provided string. In this case, " +
-                "output will be 11 .", syntax = "length(\"Hello World\")")
+        examples = @Example(description = "This outputs the length of the provided string. In this scenario, the, " +
+                "output is `11` .", syntax = "length(\"Hello World\")")
 )
 public class LengthFunctionExtension extends FunctionExecutor {
 

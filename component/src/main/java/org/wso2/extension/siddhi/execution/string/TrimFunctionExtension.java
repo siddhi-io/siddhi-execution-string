@@ -43,17 +43,17 @@ import java.util.Map;
 @Extension(
         name = "trim",
         namespace = "str",
-        description = "Returns a copy of the string, with leading and trailing whitespace omitted",
+        description = "Returns a copy of the string with leading and trailing whitespace omitted",
         parameters = {
                 @Parameter(name = "input.string",
-                        description = "Input string that needs to be trimmed.",
+                        description = "The input string that needs to be trimmed.",
                         type = {DataType.STRING})
         },
         returnAttributes = @ReturnAttribute(
-                description = "Returns a string value after removing leading and trailing whitespaces",
+                description = "This returns a string value after removing the leading and trailing whitespaces",
                 type = {DataType.STRING}),
-        examples = @Example(description = "This will return a copy of input.string, with the leading and/or trailing " +
-                "white-spaces omitted. In this case, output will be \"AbCDefghiJ KLMN\".",
+        examples = @Example(description = "This returns a copy of the `input.string` with the leading and/or " +
+                "trailing white-spaces omitted. In this scenario, the output is \"AbCDefghiJ KLMN\".",
                 syntax = "trim(\"  AbCDefghiJ KLMN  \")")
 )
 public class TrimFunctionExtension extends FunctionExecutor {

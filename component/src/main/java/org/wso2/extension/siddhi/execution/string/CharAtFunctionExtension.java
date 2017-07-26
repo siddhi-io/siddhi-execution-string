@@ -48,14 +48,14 @@ import java.util.Map;
                         description = "The input string that used to find the character.",
                         type = {DataType.STRING}),
                 @Parameter(name = "index",
-                        description = "The variable which specify the index.",
+                        description = "The variable that specifies the index.",
                         type = {DataType.INT})
         },
         returnAttributes = @ReturnAttribute(
-                description = "This will returns the character that exist in the location specified by the index.",
+                description = "This returns the character that exists in the location specified by the index.",
                 type = {DataType.STRING}),
         examples = @Example(syntax = "charAt(\"WSO2\", 1)", description = "This will output the " +
-                "character which exists at index 1. In this case, it will output 'S'.")
+                "character that exists at index 1. In this case, it will output 'S'.")
 )
 public class CharAtFunctionExtension extends FunctionExecutor {
 
