@@ -43,19 +43,20 @@ import java.util.Map;
 @Extension(
         name = "coalesce",
         namespace = "str",
-        description = "Returns the value of the first of its input parameters that is not NULL",
+        description = "Returns the value of the first of its input parameters that is not null",
         parameters = {
                 @Parameter(name = "argn",
-                        description = "It can have one or more input parameters in any data type.",
+                        description = "It can have one or more input parameters in any data type. All the specified " +
+                                "parameters should be of the same type.",
                         type = {DataType.INT, DataType.LONG, DataType.DOUBLE, DataType.FLOAT,
                                 DataType.STRING, DataType.BOOL, DataType.OBJECT})
         },
         returnAttributes = @ReturnAttribute(
-                description = "This will be the same as the type of the first input parameter that is not null.",
+                description = "This is the same as the type of the first input parameter that is not null.",
                 type = {DataType.INT, DataType.LONG, DataType.DOUBLE, DataType.FLOAT,
                         DataType.STRING, DataType.BOOL, DataType.OBJECT}),
-        examples = @Example(description = "This will return the first input parameter that is not null. " +
-                "In this case, it will return \"BBB\"", syntax = "coalesce(null, \"BBB\", \"CCC\")")
+        examples = @Example(description = "This returns the first input parameter that is not null. " +
+                "In this example, it returns \"BBB\"", syntax = "coalesce(null, \"BBB\", \"CCC\")")
 )
 public class CoalesceFunctionExtension extends FunctionExecutor {
 

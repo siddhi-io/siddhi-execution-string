@@ -46,14 +46,15 @@ import java.util.Map;
         description = "Converts the simple letters in the input string to the equivalent capital/block letters.",
         parameters = {
                 @Parameter(name = "input.string",
-                        description = "Input string to convert in to the upper case(equivalent capital/block letters).",
+                        description = "The input string that should be converted to the upper case (equivalent " +
+                                "capital/block letters).",
                         type = {DataType.STRING})
         },
         returnAttributes = @ReturnAttribute(
-                description = "Returns a string value in upper case by converting the input.string",
+                description = "This returns a string value in upper case by converting the `input.string`",
                 type = {DataType.STRING}),
-        examples = @Example(description = "This will convert the simple letters in the input.string to the" +
-                "equivalent capital letters. In this case, output will be \"HELLO WORLD\".",
+        examples = @Example(description = "This converts the simple letters in the `input.string` to the" +
+                "equivalent capital letters. In this scenario, the output is \"HELLO WORLD\".",
                 syntax = "upper(\"Hello World\")")
 )
 public class UpperFunctionExtension extends FunctionExecutor {

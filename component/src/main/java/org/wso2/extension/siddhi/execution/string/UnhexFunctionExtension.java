@@ -45,17 +45,17 @@ import java.util.Map;
 @Extension(
         name = "unhex",
         namespace = "str",
-        description = "unhex(str) interprets each pair of characters in the argument as a hexadecimal number\n" +
+        description = "`unhex(str)` interprets each pair of characters in the argument as a hexadecimal number\n" +
                 " and converts it to the byte represented by the number",
         parameters = {
                 @Parameter(name = "input.string",
-                        description = "Hexadecimal input string that needs to be converted as string.",
+                        description = "The hexadecimal input string that needs to be converted to string.",
                         type = {DataType.STRING})
         },
         returnAttributes = @ReturnAttribute(
-                description = "Returns the string value of the hexadecimal value that passed",
+                description = "This returns the string value of the hexadecimal value that passed",
                 type = {DataType.STRING}),
-        examples = @Example(description = "This will convert the hexadecimal value as the string",
+        examples = @Example(description = "This converts the hexadecimal value to string",
                 syntax = "unhex(\"4d7953514c\")")
 )
 public class UnhexFunctionExtension extends FunctionExecutor {

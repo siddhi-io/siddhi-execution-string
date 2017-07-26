@@ -45,13 +45,13 @@ import java.util.Map;
         description = "Returns a string that is the result of concatenating two or more string values.",
         parameters = {
                 @Parameter(name = "argn",
-                        description = "It can have two or more string type input parameters.",
+                        description = "It can have two or more `string` type input parameters.",
                         type = {DataType.STRING})
         },
         returnAttributes = @ReturnAttribute(
                 description = "Returns a string that is the result of concatenating the given arguments",
                 type = {DataType.STRING}),
-        examples = @Example(description = "This will return a string value by concatenating the given arguments. " +
+        examples = @Example(description = "This returns a string value by concatenating the given arguments. " +
                 "In this case, it will return \"D5338JU^XYZ\" as the output",
                 syntax = "concat(\"D533\", \"8JU^\", \"XYZ\")")
 )

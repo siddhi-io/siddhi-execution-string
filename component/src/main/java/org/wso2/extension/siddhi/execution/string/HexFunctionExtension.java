@@ -48,14 +48,14 @@ import java.util.Map;
                 " where each byte of each character in str is converted to two hexadecimal digits",
         parameters = {
                 @Parameter(name = "input.string",
-                        description = "Input string to find out the hexadecimal value.",
+                        description = "The input string to derive the hexadecimal value.",
                         type = {DataType.STRING})
         },
         returnAttributes = @ReturnAttribute(
-                description = "Hexadecimal value of the input string that passed to the function.",
+                description = "The hexadecimal value of the input string that is passed to the function.",
                 type = {DataType.STRING}),
-        examples = @Example(description = "This will return the hexadecimal value of the input.string. " +
-                "In this case, out put will be \"4d7953514c\".", syntax = "hex(\"MySQL\") ")
+        examples = @Example(description = "This returns the hexadecimal value of the input.string. " +
+                "In this scenario, the output is \"4d7953514c\".", syntax = "hex(\"MySQL\") ")
 )
 public class HexFunctionExtension extends FunctionExecutor {
 

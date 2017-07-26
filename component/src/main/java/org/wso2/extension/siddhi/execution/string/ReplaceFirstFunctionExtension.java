@@ -43,25 +43,26 @@ import java.util.Map;
 @Extension(
         name = "replaceFirst",
         namespace = "str",
-        description = "Replaces the first substring of this string that matches the given expression " +
+        description = "Replaces the first substring of this string that matches the given expression, " +
                 "with the given replacement.",
         parameters = {
                 @Parameter(name = "input.string",
-                        description = "Input string that get replaced.",
+                        description = "The input string that should be replaced.",
                         type = {DataType.STRING}),
                 @Parameter(name = "regex",
-                        description = "Regular expression used to match the input string.",
+                        description = "The regular expression with which the input string should be matched.",
                         type = {DataType.STRING}),
                 @Parameter(name = "replacement.string",
-                        description = "replacement string that used.",
+                        description = "The string with which the first substring of input string that matches the" +
+                                " regular expression should be replaced.",
                         type = {DataType.STRING})
         },
         returnAttributes = @ReturnAttribute(
-                description = "Return a string after replacing the first substring that matches the given regular " +
-                        "expression with the string specified as the replacement",
+                description = "This returns a string after replacing the first substring that matches the given" +
+                        " regular expression with the string specified as the replacement",
                 type = {DataType.STRING}),
-        examples = @Example(description = "This will return a string after replacing the first substring by " +
-                "given replacement string. In this case, output will be \"hello XXXX hello\".",
+        examples = @Example(description = "This returns a string after replacing the first substring with the " +
+                "given replacement string. In this scenario, the output is \"hello XXXX hello\".",
                 syntax = "replaceFirst(\"hello WSO2 A hello\",  'WSO2(.*)A', 'XXXX')")
 )
 public class ReplaceFirstFunctionExtension extends FunctionExecutor {

@@ -47,36 +47,36 @@ import java.util.regex.Pattern;
 @Extension(
         name = "substr",
         namespace = "str",
-        description = "Returns a new string that is a substring of this string",
+        description = "This returns a new string that is a substring of this string",
         parameters = {
                 @Parameter(name = "input.string",
-                        description = "Input string to be processed.",
+                        description = "The input string to be processed.",
                         type = {DataType.STRING}),
                 @Parameter(name = "begin.index",
-                        description = "Staring index to consider for the substring.",
+                        description = "Starting index to consider for the substring.",
                         type = {DataType.INT}),
                 @Parameter(name = "length",
-                        description = "Length of the substring.",
+                        description = "The length of the substring.",
                         type = {DataType.INT}),
                 @Parameter(name = "regex",
-                        description = "Regular expression used to match the input string..",
+                        description = "The regular expression that should be matched with the input string..",
                         type = {DataType.STRING}),
                 @Parameter(name = "group.number",
-                        description = "Regex group number",
+                        description = "The regex group number",
                         type = {DataType.INT})
         },
         returnAttributes = @ReturnAttribute(
-                description = "Returns a new string that is a substring of input.string.",
+                description = "This returns a new string that is a substring of the `input.string`.",
                 type = {DataType.STRING}),
         examples = {
-                @Example(description = "This will output the substring based on the given begin.index. In this case, " +
-                        "output will be \"efghiJ KLMN\".", syntax = "substr(\"AbCDefghiJ KLMN\", 4)"),
-                @Example(description = "This will output the substring based on the given begin.index and length. In " +
-                        "this case, output will be \"CDef\".", syntax = "substr(\"AbCDefghiJ KLMN\",  2, 4) "),
-                @Example(description = "This will output the substring by applying the regex. In this case, output " +
-                        "will be \"WSO2D efghiJ KLMN\".", syntax = "substr(\"WSO2D efghiJ KLMN\", '^WSO2(.*)')"),
-                @Example(description = "This will output the substring by applying the regex and considering the " +
-                        "group.number. In this case, output will be \" ello\".",
+                @Example(description = "This outputs the substring based on the given `begin.index`. In this " +
+                        "scenario, the output is \"efghiJ KLMN\".", syntax = "substr(\"AbCDefghiJ KLMN\", 4)"),
+                @Example(description = "This outputs the substring based on the given `begin.index` and length. In " +
+                        "this scenario, the output is \"CDef\".", syntax = "substr(\"AbCDefghiJ KLMN\",  2, 4) "),
+                @Example(description = "This outputs the substring by applying the regex. In this scenario, the " +
+                        "output is \"WSO2D efghiJ KLMN\".", syntax = "substr(\"WSO2D efghiJ KLMN\", '^WSO2(.*)')"),
+                @Example(description = "This outputs the substring by applying the regex and considering the " +
+                        "`group.number`. In this scenario, the output is \" ello\".",
                         syntax = "substr(\"WSO2 cep WSO2 XX E hi hA WSO2 heAllo\",  'WSO2(.*)A(.*)',  2)")
         }
 )

@@ -46,17 +46,18 @@ import java.util.Map;
         description = "Compares two strings lexicographically.",
         parameters = {
                 @Parameter(name = "arg1",
-                        description = "First input string argument.",
+                        description = "The first input string argument.",
                         type = {DataType.STRING}),
                 @Parameter(name = "arg2",
-                        description = "Second input string argument that going to be compared with first argument " +
-                                "in lexicographically.",
+                        description = "The second input string argument that should be compared with the first " +
+                                "argument lexicographically.",
                         type = {DataType.STRING})
         },
         returnAttributes = @ReturnAttribute(
-                description = "Returns an int value after comparing arg1 with arg2 string lexicographically",
+                description = "This returns an integer value after comparing `arg1` with the `arg2` string " +
+                        "lexicographically",
                 type = {DataType.INT}),
-        examples = @Example(description = "This will compare two strings lexicographically and output an int value",
+        examples = @Example(description = "This compares two strings lexicographically and outputs an integer value",
                 syntax = "strcmp(\"AbCDefghiJ KLMN\", 'Hello')")
 )
 public class StrcmpFunctionExtension extends FunctionExecutor {

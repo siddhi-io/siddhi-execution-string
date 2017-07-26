@@ -48,21 +48,21 @@ import java.util.Map;
 @Extension(
         name = "contains",
         namespace = "str",
-        description = "This method returns true if and only if this string contains the specified sequence " +
-                "of char values.",
+        description = "This method returns `true` if the`input.string` contains the specified sequence of char " +
+                "values in the `search.string`. ",
         parameters = {
                 @Parameter(name = "input.string",
                         description = "Input string value.",
                         type = {DataType.STRING}),
                 @Parameter(name = "search.string",
-                        description = "String value that going to search in input.string.",
+                        description = "The string value to be searched for in the `input.string`.",
                         type = {DataType.STRING})
         },
         returnAttributes = @ReturnAttribute(
-                description = "This will return a boolean output as true if input.string contains the search.string " +
-                        "and vice versa.", type = {DataType.BOOL}),
-        examples = @Example(description = "This will return a boolean value as the output. In this case, it will " +
-                "return \"true\". ", syntax = "contains(\"21 products are produced by WSO2 currently\", \"WSO2\")")
+                description = "This returns the boolean output as `true` if the `input.string` contains the " +
+                        "`search.string`. Otherwise, it returns `false`.", type = {DataType.BOOL}),
+        examples = @Example(description = "This returns a boolean value as the output. In this case, it returns" +
+                "`true`.", syntax = "contains(\"21 products are produced by WSO2 currently\", \"WSO2\")")
 )
 public class ContainsFunctionExtension extends FunctionExecutor {
 

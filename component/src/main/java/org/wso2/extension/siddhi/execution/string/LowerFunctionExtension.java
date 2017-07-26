@@ -46,14 +46,15 @@ import java.util.Map;
         description = "Converts the capital letters in the input string to the equivalent simple letters.",
         parameters = {
                 @Parameter(name = "input.string",
-                        description = "Input string to convert in to the lower case(equivalent simple letters).",
+                        description = "The input string to convert to the lower case (i.e., equivalent simple " +
+                                "letters).",
                         type = {DataType.STRING})
         },
         returnAttributes = @ReturnAttribute(
                 description = "Returns a string value in lower case by converting the input.string .",
                 type = {DataType.STRING}),
-        examples = @Example(description = "This will convert the capital letters in the input.string to the " +
-                "equivalent simple letters. In this case, output will be \"wso2 cep \".",
+        examples = @Example(description = "This converts the capital letters in the input.string to the " +
+                "equivalent simple letters. In this scenario, the output is \"wso2 cep \".",
                 syntax = "lower(\"WSO2 cep \")")
 )
 public class LowerFunctionExtension extends FunctionExecutor {

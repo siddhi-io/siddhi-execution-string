@@ -43,24 +43,24 @@ import java.util.Map;
 @Extension(
         name = "split",
         namespace = "str",
-        description = "Splits the source String by splitCharacter and return the string in the index" +
-                " given by returnedOutputPosition .",
+        description = "Splits the source string by `split.string` and returns the substring specified via the " +
+                "`group.number`.",
         parameters = {
                 @Parameter(name = "input.string",
-                        description = "Input string that get replaced.",
+                        description = "The input string to be replaced.",
                         type = {DataType.STRING}),
                 @Parameter(name = "split.string",
-                        description = "String value used to split the input.string.",
+                        description = "The string value to be used to split the `input.string`.",
                         type = {DataType.STRING}),
                 @Parameter(name = "group.number",
-                        description = "Index of the splitted group",
+                        description = "The index of the split group",
                         type = {DataType.INT})
         },
         returnAttributes = @ReturnAttribute(
-                description = "Returns the substring after splitting the input.string",
+                description = "This returns the substring after splitting the input.string",
                 type = {DataType.STRING}),
-        examples = @Example(description = "This will splits the given input.string by given split.string and " +
-                "returns the string in the index given by group.number. In this case, output will be \"WSO2\".",
+        examples = @Example(description = "This splits the given `input.string` by given `split.string` and " +
+                "returns the string in the index given by group.number. In this scenario, the output will is \"WSO2\".",
                 syntax = "split(\"WSO2,ABM,NSFT\", \",\", 0)")
 )
 public class SplitFunctionExtension extends FunctionExecutor {

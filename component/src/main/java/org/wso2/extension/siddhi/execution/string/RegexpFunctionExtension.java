@@ -46,21 +46,21 @@ import java.util.regex.Pattern;
 @Extension(
         name = "regexp",
         namespace = "str",
-        description = "Tells whether or not this 'string' matches the given regular expression 'regex'.",
+        description = "Returns whether  this 'string' matches the given regular expression 'regex' or not.",
         parameters = {
                 @Parameter(name = "input.string",
-                        description = "Input string to match with the given regular expression.",
+                        description = "The input string to match with the given regular expression.",
                         type = {DataType.STRING}),
                 @Parameter(name = "regex",
-                        description = "Regular expression used to match the input string..",
+                        description = "The regular expression  to be matched with the input string.",
                         type = {DataType.STRING})
         },
         returnAttributes = @ReturnAttribute(
-                description = "Returns true if the given string matches the given regular expression (i.e. regex ). " +
-                        "Returns false if the string does not match the regular expression.",
+                description = "This extension returns `true` if the given string matches the given regular expression" +
+                        " (i.e. regex ). It returns `false` if the string does not match the regular expression.",
                 type = {DataType.BOOL}),
-        examples = @Example(description = "This will return a boolean value after matching regular expression for " +
-                "the given string. In this case, it will return \"true\" as the output.",
+        examples = @Example(description = "This returns a boolean value after matching regular expression with " +
+                "the given string. In this scenario, it returns \"true\" as the output.",
                 syntax = "regexp(\"WSO2 abcdh\", \"WSO(.*h)\")")
 )
 public class RegexpFunctionExtension extends FunctionExecutor {
