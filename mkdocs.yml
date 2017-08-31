@@ -11,5 +11,6 @@ pages:
 - About:
   - License: about/license.md
 - Api:
+  - 4.0.2-SNAPSHOT: api/4.0.2-SNAPSHOT.md
   - 4.0.1-SNAPSHOT: api/4.0.1-SNAPSHOT.md
 theme: material
