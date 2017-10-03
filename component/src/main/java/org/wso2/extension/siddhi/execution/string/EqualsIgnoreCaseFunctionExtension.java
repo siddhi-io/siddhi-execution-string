@@ -66,16 +66,6 @@ public class EqualsIgnoreCaseFunctionExtension extends FunctionExecutor {
     }
 
     @Override
-    public void start() {
-
-    }
-
-    @Override
-    public void stop() {
-
-    }
-
-    @Override
     public Map<String, Object> currentState() {
         return null;    //No need to maintain a state.
     }
