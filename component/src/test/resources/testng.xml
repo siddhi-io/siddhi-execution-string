@@ -22,6 +22,25 @@
 <suite name="Siddhi-Execution-String_Test-Suite">
     <test name="siddhi-execution-string-unit-tests" preserve-order="true" parallel="false">
         <classes>
+            <class name="org.wso2.extension.siddhi.execution.string.CharAtFunctionExtensionTestCase" />
+            <class name="org.wso2.extension.siddhi.execution.string.CoalesceFunctionExtensionTestCase" />
+            <class name="org.wso2.extension.siddhi.execution.string.ConcatFunctionExtensionTestCase" />
+            <class name="org.wso2.extension.siddhi.execution.string.ContainsFunctionExtensionTestCase" />
+            <class name="org.wso2.extension.siddhi.execution.string.EqualsIgnoreCaseFunctionExtensionTestCase" />
+            <class name="org.wso2.extension.siddhi.execution.string.HexFunctionExtensionTestCase" />
+            <class name="org.wso2.extension.siddhi.execution.string.LengthFunctionExtensionTestCase" />
+            <class name="org.wso2.extension.siddhi.execution.string.LowerFunctionExtensionTestCase" />
+            <class name="org.wso2.extension.siddhi.execution.string.RegexpFunctionExtensionTestCase" />
+            <class name="org.wso2.extension.siddhi.execution.string.RepeatFunctionExtensionTestCase" />
+            <class name="org.wso2.extension.siddhi.execution.string.ReplaceAllFunctionExtensionTestCase" />
+            <class name="org.wso2.extension.siddhi.execution.string.ReplaceFirstFunctionExtensionTestCase" />
+            <class name="org.wso2.extension.siddhi.execution.string.ReverseFunctionExtensionTestCase" />
+            <class name="org.wso2.extension.siddhi.execution.string.SplitFunctionExtensionTestCase" />
+            <class name="org.wso2.extension.siddhi.execution.string.StrcmpFunctionExtensionTestCase" />
+            <class name="org.wso2.extension.siddhi.execution.string.SubstrFunctionExtensionTestCase" />
+            <class name="org.wso2.extension.siddhi.execution.string.TrimFunctionExtensionTestCase" />
+            <class name="org.wso2.extension.siddhi.execution.string.UnhexFunctionExtensionTestCase" />
+            <class name="org.wso2.extension.siddhi.execution.string.UpperFunctionExtensionTestCase" />
         </classes>
     </test>
 </suite>

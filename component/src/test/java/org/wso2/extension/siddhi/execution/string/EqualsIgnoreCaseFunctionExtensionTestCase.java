@@ -26,6 +26,7 @@ import org.wso2.extension.siddhi.execution.string.test.util.SiddhiTestHelper;
 import org.wso2.siddhi.core.SiddhiAppRuntime;
 import org.wso2.siddhi.core.SiddhiManager;
 import org.wso2.siddhi.core.event.Event;
+import org.wso2.siddhi.core.exception.SiddhiAppCreationException;
 import org.wso2.siddhi.core.query.output.callback.QueryCallback;
 import org.wso2.siddhi.core.stream.input.InputHandler;
 import org.wso2.siddhi.core.util.EventPrinter;
@@ -89,5 +90,44 @@ public class EqualsIgnoreCaseFunctionExtensionTestCase {
         AssertJUnit.assertEquals(4, count.get());
         AssertJUnit.assertTrue(eventArrived);
         siddhiAppRuntime.shutdown();
+    }
+
+    @Test(expectedExceptions = SiddhiAppCreationException.class)
+    public void testContainsFunctionExtensionWithOneArgument() throws InterruptedException {
+        LOGGER.info("EqualsIgnoreCaseFunctionExtensionTestCase TestCase");
+        SiddhiManager siddhiManager = new SiddhiManager();
+
+        String inStreamDefinition = "define stream inputStream (symbol string, price long, "
+                + "volume long);";
+        String query = ("@info(name = 'query1') " + "from inputStream "
+                + "select symbol , str:equalsIgnoreCase(symbol) as isEqualIgnoreCase "
+                + "insert into outputStream;");
+        siddhiManager.createSiddhiAppRuntime(inStreamDefinition + query);
+    }
+
+    @Test(expectedExceptions = SiddhiAppCreationException.class)
+    public void testContainsFunctionExtensionWithInvalidDataType() throws InterruptedException {
+        LOGGER.info("EqualsIgnoreCaseFunctionExtensionTestCase TestCase with invalid datatype");
+        SiddhiManager siddhiManager = new SiddhiManager();
+
+        String inStreamDefinition = "define stream inputStream (symbol string, price long, "
+                + "volume long);";
+        String query = ("@info(name = 'query1') " + "from inputStream "
+                + "select symbol , str:equalsIgnoreCase(price, 'WSO2') as isEqualIgnoreCase "
+                + "insert into outputStream;");
+        siddhiManager.createSiddhiAppRuntime(inStreamDefinition + query);
+    }
+
+    @Test(expectedExceptions = SiddhiAppCreationException.class)
+    public void testContainsFunctionExtensionWithInvalidDataType1() throws InterruptedException {
+        LOGGER.info("EqualsIgnoreCaseFunctionExtensionTestCase TestCase with invalid datatype");
+        SiddhiManager siddhiManager = new SiddhiManager();
+
+        String inStreamDefinition = "define stream inputStream (symbol string, price long, "
+                + "volume long);";
+        String query = ("@info(name = 'query1') " + "from inputStream "
+                + "select symbol , str:equalsIgnoreCase(symbol, 1) as isEqualIgnoreCase "
+                + "insert into outputStream;");
+        siddhiManager.createSiddhiAppRuntime(inStreamDefinition + query);
     }
 }
