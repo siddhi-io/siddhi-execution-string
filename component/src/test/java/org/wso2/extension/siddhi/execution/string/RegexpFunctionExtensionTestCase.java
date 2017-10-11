@@ -26,6 +26,7 @@ import org.wso2.extension.siddhi.execution.string.test.util.SiddhiTestHelper;
 import org.wso2.siddhi.core.SiddhiAppRuntime;
 import org.wso2.siddhi.core.SiddhiManager;
 import org.wso2.siddhi.core.event.Event;
+import org.wso2.siddhi.core.exception.SiddhiAppCreationException;
 import org.wso2.siddhi.core.query.output.callback.QueryCallback;
 import org.wso2.siddhi.core.stream.input.InputHandler;
 import org.wso2.siddhi.core.util.EventPrinter;
@@ -84,6 +85,119 @@ public class RegexpFunctionExtensionTestCase {
         SiddhiTestHelper.waitForEvents(100, 3, count, 60000);
         AssertJUnit.assertEquals(3, count.get());
         AssertJUnit.assertTrue(eventArrived);
+        siddhiAppRuntime.shutdown();
+    }
+
+    @Test
+    public void testRegexpFunctionExtension2() throws InterruptedException {
+        LOGGER.info("RegexpFunctionExtension TestCase");
+        SiddhiManager siddhiManager = new SiddhiManager();
+
+        String inStreamDefinition = "define stream inputStream (symbol string, price long, regex int);";
+        String query = ("@info(name = 'query1') from inputStream select symbol , "
+                + "str:regexp(symbol, '^WSO2(.*)') as beginsWithWSO2 " +
+                "insert into outputStream;");
+        SiddhiAppRuntime siddhiAppRuntime = siddhiManager.createSiddhiAppRuntime(inStreamDefinition + query);
+
+        siddhiAppRuntime.addCallback("query1", new QueryCallback() {
+            @Override
+            public void receive(long timeStamp, Event[] inEvents, Event[] removeEvents) {
+                EventPrinter.print(timeStamp, inEvents, removeEvents);
+                for (Event event : inEvents) {
+                    count.incrementAndGet();
+                    if (count.get() == 1) {
+                        AssertJUnit.assertEquals(false, event.getData(1));
+                        eventArrived = true;
+                    }
+                    if (count.get() == 2) {
+                        AssertJUnit.assertEquals(true, event.getData(1));
+                        eventArrived = true;
+                    }
+                    if (count.get() == 3) {
+                        AssertJUnit.assertEquals(false, event.getData(1));
+                        eventArrived = true;
+                    }
+                }
+            }
+        });
+
+        InputHandler inputHandler = siddhiAppRuntime.getInputHandler("inputStream");
+        siddhiAppRuntime.start();
+        inputHandler.send(new Object[]{"hello hi hello", 700f, 1});
+        inputHandler.send(new Object[]{"WSO2 abcdh", 60.5f, 1});
+        inputHandler.send(new Object[]{"aaWSO2 hi hello", 60.5f, 1});
+        SiddhiTestHelper.waitForEvents(100, 3, count, 60000);
+        AssertJUnit.assertEquals(3, count.get());
+        AssertJUnit.assertTrue(eventArrived);
+        siddhiAppRuntime.shutdown();
+    }
+
+    @Test(expectedExceptions = SiddhiAppCreationException.class)
+    public void testRegexpFunctionExtension3() throws InterruptedException {
+        LOGGER.info("RegexpFunctionExtension TestCase");
+        SiddhiManager siddhiManager = new SiddhiManager();
+
+        String inStreamDefinition = "define stream inputStream (symbol string, price long, regex string);";
+        String query = ("@info(name = 'query1') from inputStream select symbol , "
+                + "str:regexp(symbol) as beginsWithWSO2 " +
+                "insert into outputStream;");
+        siddhiManager.createSiddhiAppRuntime(inStreamDefinition + query);
+    }
+
+    @Test(expectedExceptions = SiddhiAppCreationException.class)
+    public void testRegexpFunctionExtension4() throws InterruptedException {
+        LOGGER.info("RegexpFunctionExtension TestCase with invalid datatype");
+        SiddhiManager siddhiManager = new SiddhiManager();
+
+        String inStreamDefinition = "define stream inputStream (symbol int, price long, regex string);";
+        String query = ("@info(name = 'query1') from inputStream select symbol , "
+                + "str:regexp(symbol, regex) as beginsWithWSO2 " +
+                "insert into outputStream;");
+        siddhiManager.createSiddhiAppRuntime(inStreamDefinition + query);
+    }
+
+    @Test(expectedExceptions = SiddhiAppCreationException.class)
+    public void testRegexpFunctionExtension5() throws InterruptedException {
+        LOGGER.info("RegexpFunctionExtension TestCase with invalid datatype");
+        SiddhiManager siddhiManager = new SiddhiManager();
+
+        String inStreamDefinition = "define stream inputStream (symbol string, price long, regex int);";
+        String query = ("@info(name = 'query1') from inputStream select symbol , "
+                + "str:regexp(symbol, regex) as beginsWithWSO2 " +
+                "insert into outputStream;");
+        siddhiManager.createSiddhiAppRuntime(inStreamDefinition + query);
+    }
+
+    @Test
+    public void testRegexpFunctionExtension6() throws InterruptedException {
+        LOGGER.info("RegexpFunctionExtension TestCase with null value");
+        SiddhiManager siddhiManager = new SiddhiManager();
+
+        String inStreamDefinition = "define stream inputStream (symbol string, price long, regex string);";
+        String query = ("@info(name = 'query1') from inputStream select symbol , "
+                + "str:regexp(symbol, regex) as beginsWithWSO2 " +
+                "insert into outputStream;");
+        SiddhiAppRuntime siddhiAppRuntime = siddhiManager.createSiddhiAppRuntime(inStreamDefinition + query);
+        InputHandler inputHandler = siddhiAppRuntime.getInputHandler("inputStream");
+        siddhiAppRuntime.start();
+        inputHandler.send(new Object[]{null, 700f, "^WSO2(.*)"});
+        siddhiAppRuntime.shutdown();
+    }
+
+    @Test
+    public void testRegexpFunctionExtension7() throws InterruptedException {
+        LOGGER.info("RegexpFunctionExtension TestCase with null value");
+        SiddhiManager siddhiManager = new SiddhiManager();
+
+        String inStreamDefinition = "define stream inputStream (symbol string, price long, regex string);";
+        String query = ("@info(name = 'query1') from inputStream select symbol , "
+                + "str:regexp(symbol, regex) as beginsWithWSO2 " +
+                "insert into outputStream;");
+        SiddhiAppRuntime siddhiAppRuntime = siddhiManager.createSiddhiAppRuntime(inStreamDefinition + query);
+
+        InputHandler inputHandler = siddhiAppRuntime.getInputHandler("inputStream");
+        siddhiAppRuntime.start();
+        inputHandler.send(new Object[]{"WSO2 abcdh", 700f, null});
         siddhiAppRuntime.shutdown();
     }
 }

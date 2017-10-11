@@ -26,6 +26,7 @@ import org.wso2.extension.siddhi.execution.string.test.util.SiddhiTestHelper;
 import org.wso2.siddhi.core.SiddhiAppRuntime;
 import org.wso2.siddhi.core.SiddhiManager;
 import org.wso2.siddhi.core.event.Event;
+import org.wso2.siddhi.core.exception.SiddhiAppCreationException;
 import org.wso2.siddhi.core.query.output.callback.QueryCallback;
 import org.wso2.siddhi.core.stream.input.InputHandler;
 import org.wso2.siddhi.core.util.EventPrinter;
@@ -136,6 +137,92 @@ public class RepeatFunctionExtensionTestCase {
         SiddhiTestHelper.waitForEvents(100, 3, count, 60000);
         AssertJUnit.assertEquals(3, count.get());
         AssertJUnit.assertTrue(eventArrived);
+        siddhiAppRuntime.shutdown();
+    }
+
+    @Test(expectedExceptions = SiddhiAppCreationException.class)
+    public void testRepeatFunctionExtension1() throws InterruptedException {
+        LOGGER.info("RepeatFunctionExtension TestCase");
+        SiddhiManager siddhiManager = new SiddhiManager();
+
+        String inStreamDefinition = "define stream inputStream (symbol string, times int, volume long);";
+
+        String query = (
+                "@info(name = 'query1') from inputStream select symbol , str:repeat(volume, times) as "
+                        + "symbolRepeatedIndexTimes " +
+                        "insert into outputStream;"
+        );
+        siddhiManager.createSiddhiAppRuntime(inStreamDefinition + query);
+    }
+
+    @Test(expectedExceptions = SiddhiAppCreationException.class)
+    public void testRepeatFunctionExtension2() throws InterruptedException {
+        LOGGER.info("RepeatFunctionExtension TestCase");
+        SiddhiManager siddhiManager = new SiddhiManager();
+
+        String inStreamDefinition = "define stream inputStream (symbol string, times int, volume long);";
+
+        String query = (
+                "@info(name = 'query1') from inputStream select symbol , str:repeat(symbol, volume) as "
+                        + "symbolRepeatedIndexTimes " +
+                        "insert into outputStream;"
+        );
+
+        siddhiManager.createSiddhiAppRuntime(inStreamDefinition + query);
+    }
+
+    @Test(expectedExceptions = SiddhiAppCreationException.class)
+    public void testRepeatFunctionExtension3() throws InterruptedException {
+        LOGGER.info("RepeatFunctionExtension TestCase");
+        SiddhiManager siddhiManager = new SiddhiManager();
+
+        String inStreamDefinition = "define stream inputStream (symbol string, times int, volume long);";
+
+        String query = (
+                "@info(name = 'query1') from inputStream select symbol , str:repeat(symbol) as "
+                        + "symbolRepeatedIndexTimes " +
+                        "insert into outputStream;"
+        );
+        siddhiManager.createSiddhiAppRuntime(inStreamDefinition + query);
+    }
+
+    @Test
+    public void testRepeatFunctionExtension4() throws InterruptedException {
+        LOGGER.info("RepeatFunctionExtension TestCase with null value");
+        SiddhiManager siddhiManager = new SiddhiManager();
+
+        String inStreamDefinition = "define stream inputStream (symbol string, times int, volume long);";
+
+        String query = (
+                "@info(name = 'query1') from inputStream select symbol , str:repeat(symbol, times) as "
+                        + "symbolRepeatedIndexTimes " +
+                        "insert into outputStream;"
+        );
+        SiddhiAppRuntime siddhiAppRuntime =  siddhiManager.createSiddhiAppRuntime(inStreamDefinition + query);
+
+        InputHandler inputHandler = siddhiAppRuntime.getInputHandler("inputStream");
+        siddhiAppRuntime.start();
+        inputHandler.send(new Object[]{null, 3, 100L});
+        siddhiAppRuntime.shutdown();
+    }
+
+    @Test
+    public void testRepeatFunctionExtension5() throws InterruptedException {
+        LOGGER.info("RepeatFunctionExtension TestCase with null value");
+        SiddhiManager siddhiManager = new SiddhiManager();
+
+        String inStreamDefinition = "define stream inputStream (symbol string, times int, volume long);";
+
+        String query = (
+                "@info(name = 'query1') from inputStream select symbol , str:repeat(symbol, times) as "
+                        + "symbolRepeatedIndexTimes " +
+                        "insert into outputStream;"
+        );
+        SiddhiAppRuntime siddhiAppRuntime = siddhiManager.createSiddhiAppRuntime(inStreamDefinition + query);
+
+        InputHandler inputHandler = siddhiAppRuntime.getInputHandler("inputStream");
+        siddhiAppRuntime.start();
+        inputHandler.send(new Object[]{"WSO2", null, 100L});
         siddhiAppRuntime.shutdown();
     }
 }

@@ -26,6 +26,7 @@ import org.wso2.extension.siddhi.execution.string.test.util.SiddhiTestHelper;
 import org.wso2.siddhi.core.SiddhiAppRuntime;
 import org.wso2.siddhi.core.SiddhiManager;
 import org.wso2.siddhi.core.event.Event;
+import org.wso2.siddhi.core.exception.SiddhiAppCreationException;
 import org.wso2.siddhi.core.query.output.callback.QueryCallback;
 import org.wso2.siddhi.core.stream.input.InputHandler;
 import org.wso2.siddhi.core.util.EventPrinter;
@@ -127,6 +128,88 @@ public class CharAtFunctionExtensionTestCase {
         SiddhiTestHelper.waitForEvents(100, 3, count, 60000);
         AssertJUnit.assertEquals(3, count.get());
         AssertJUnit.assertTrue(eventArrived);
+        siddhiAppRuntime.shutdown();
+    }
+
+    @Test(expectedExceptions = SiddhiAppCreationException.class)
+    public void testCharAtFunctionExtensionWithInvalidNoOfArguments() throws InterruptedException {
+        LOGGER.info("CharAtFunctionExtension TestCase ,with invalid number of arguments");
+        SiddhiManager siddhiManager = new SiddhiManager();
+
+        String inStreamDefinition = "define stream inputStream (symbol string, price long, volume long);";
+        String query = ("@info(name = 'query1') from inputStream select symbol , str:charAt(symbol,1,2) as charAt " +
+                "insert into outputStream;");
+        siddhiManager.createSiddhiAppRuntime(inStreamDefinition + query);
+
+    }
+
+    @Test(expectedExceptions = SiddhiAppCreationException.class)
+    public void testCharAtFunctionExtensionWithInvalidDataType() throws InterruptedException {
+        LOGGER.info("CharAtFunctionExtension TestCase with invalid data type");
+        SiddhiManager siddhiManager = new SiddhiManager();
+
+        String inStreamDefinition = "define stream inputStream (symbol string, price long, volume long);";
+        String query = ("@info(name = 'query1') from inputStream select symbol , str:charAt(price,1) as charAt " +
+                "insert into outputStream;");
+        siddhiManager.createSiddhiAppRuntime(inStreamDefinition + query);
+    }
+
+    @Test(expectedExceptions = SiddhiAppCreationException.class)
+    public void testCharAtFunctionExtensionWithInvalidDataType1() throws InterruptedException {
+        LOGGER.info("CharAtFunctionExtension TestCase with invalid data type");
+        SiddhiManager siddhiManager = new SiddhiManager();
+
+        String inStreamDefinition = "define stream inputStream (symbol string, price long, volume long);";
+        String query = ("@info(name = 'query1') from inputStream select symbol , str:charAt(symbol,price) as charAt " +
+                "insert into outputStream;");
+        siddhiManager.createSiddhiAppRuntime(inStreamDefinition + query);
+    }
+
+    @Test
+    public void testCharAtFunctionExtensionWithNullValues() throws InterruptedException {
+        LOGGER.info("CharAtFunctionExtension TestCase with null value");
+        SiddhiManager siddhiManager = new SiddhiManager();
+        String inStreamDefinition = "define stream inputStream (symbol string, price long, volume long);";
+        String query = ("@info(name = 'query1') from inputStream select symbol , str:charAt(symbol,1) as charAt " +
+                "insert into outputStream;");
+        SiddhiAppRuntime siddhiAppRuntime = siddhiManager.createSiddhiAppRuntime
+                (inStreamDefinition + query);
+
+        InputHandler inputHandler = siddhiAppRuntime.getInputHandler("inputStream");
+        siddhiAppRuntime.start();
+        inputHandler.send(new Object[]{null, 700f, 100L, 1});
+        siddhiAppRuntime.shutdown();
+    }
+
+    @Test
+    public void testCharAtFunctionExtensionWithNullValues1() throws InterruptedException {
+        LOGGER.info("CharAtFunctionExtension TestCase with null value");
+        SiddhiManager siddhiManager = new SiddhiManager();
+        String inStreamDefinition = "define stream inputStream (symbol string, price long, volume long, time int);";
+        String query = ("@info(name = 'query1') from inputStream select symbol , str:charAt(symbol,time) as charAt " +
+                "insert into outputStream;");
+        SiddhiAppRuntime siddhiAppRuntime = siddhiManager.createSiddhiAppRuntime
+                (inStreamDefinition + query);
+
+        InputHandler inputHandler = siddhiAppRuntime.getInputHandler("inputStream");
+        siddhiAppRuntime.start();
+        inputHandler.send(new Object[]{"IBM", 700f, 100L, null});
+        siddhiAppRuntime.shutdown();
+    }
+
+    @Test
+    public void testCharAtFunctionExtensionForIndexOutOfBoundException() throws InterruptedException {
+        LOGGER.info("CharAtFunctionExtension TestCase for IndexoutOfBoundException case");
+        SiddhiManager siddhiManager = new SiddhiManager();
+        String inStreamDefinition = "define stream inputStream (symbol string, price long, volume long);";
+        String query = ("@info(name = 'query1') from inputStream select symbol , str:charAt(symbol,3) as charAt " +
+                "insert into outputStream;");
+        SiddhiAppRuntime siddhiAppRuntime = siddhiManager.createSiddhiAppRuntime
+                (inStreamDefinition + query);
+
+        InputHandler inputHandler = siddhiAppRuntime.getInputHandler("inputStream");
+        siddhiAppRuntime.start();
+        inputHandler.send(new Object[]{"IBM", 700f, 100L, 1});
         siddhiAppRuntime.shutdown();
     }
 }

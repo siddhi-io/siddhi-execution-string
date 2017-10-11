@@ -25,6 +25,7 @@ import org.wso2.extension.siddhi.execution.string.test.util.SiddhiTestHelper;
 import org.wso2.siddhi.core.SiddhiAppRuntime;
 import org.wso2.siddhi.core.SiddhiManager;
 import org.wso2.siddhi.core.event.Event;
+import org.wso2.siddhi.core.exception.SiddhiAppCreationException;
 import org.wso2.siddhi.core.query.output.callback.QueryCallback;
 import org.wso2.siddhi.core.stream.input.InputHandler;
 import org.wso2.siddhi.core.util.EventPrinter;
@@ -133,6 +134,148 @@ public class SplitFunctionExtensionTestCase {
         SiddhiTestHelper.waitForEvents(500, 3, count, 60000);
         AssertJUnit.assertEquals(3, count.get());
         AssertJUnit.assertTrue(eventArrived);
+        siddhiAppRuntime.shutdown();
+    }
+
+    @Test(expectedExceptions = SiddhiAppCreationException.class)
+    public void testSplitFunctionExtension3() throws InterruptedException {
+        LOGGER.info("SplitFunctionExtensionTestCase TestCase.");
+        SiddhiManager siddhiManager = new SiddhiManager();
+
+        String inStreamDefinition = "define stream inputStream (symbol string, splitCharacter string, index int);";
+
+        String query = (
+                "@info(name = 'query1') from inputStream select symbol ,"
+                        + " str:split(symbol, splitCharacter) as splitText " +
+                        "insert into outputStream;"
+        );
+        siddhiManager.createSiddhiAppRuntime(inStreamDefinition + query);
+    }
+
+    @Test(expectedExceptions = SiddhiAppCreationException.class)
+    public void testSplitFunctionExtension4() throws InterruptedException {
+        LOGGER.info("SplitFunctionExtensionTestCase TestCase.");
+        SiddhiManager siddhiManager = new SiddhiManager();
+
+        String inStreamDefinition = "define stream inputStream (symbol int, splitCharacter string, index int);";
+
+        String query = (
+                "@info(name = 'query1') from inputStream select symbol , "
+                        + "str:split(symbol, splitCharacter, index) as splitText " +
+                        "insert into outputStream;"
+        );
+        siddhiManager.createSiddhiAppRuntime(inStreamDefinition + query);
+    }
+
+    @Test(expectedExceptions = SiddhiAppCreationException.class)
+    public void testSplitFunctionExtension5() throws InterruptedException {
+        LOGGER.info("SplitFunctionExtensionTestCase TestCase.");
+        SiddhiManager siddhiManager = new SiddhiManager();
+
+        String inStreamDefinition = "define stream inputStream (symbol string, splitCharacter int, index int);";
+
+        String query = (
+                "@info(name = 'query1') from inputStream select symbol , str:split(symbol, splitCharacter, index) "
+                        + "as splitText " +
+                        "insert into outputStream;"
+        );
+        siddhiManager.createSiddhiAppRuntime(inStreamDefinition + query);
+    }
+
+    @Test(expectedExceptions = SiddhiAppCreationException.class)
+    public void testSplitFunctionExtension6() throws InterruptedException {
+        LOGGER.info("SplitFunctionExtensionTestCase TestCase.");
+        SiddhiManager siddhiManager = new SiddhiManager();
+
+        String inStreamDefinition = "define stream inputStream (symbol string, splitCharacter string, index string);";
+
+        String query = (
+                "@info(name = 'query1') from inputStream select symbol , "
+                        + "str:split(symbol, splitCharacter, index) as splitText " +
+                        "insert into outputStream;"
+        );
+        siddhiManager.createSiddhiAppRuntime(inStreamDefinition + query);
+    }
+
+    @Test
+    public void testSplitFunctionExtension7() throws InterruptedException {
+        LOGGER.info("SplitFunctionExtensionTestCase TestCase, with null value.");
+        SiddhiManager siddhiManager = new SiddhiManager();
+
+        String inStreamDefinition = "define stream inputStream (symbol string, splitCharacter string, index int);";
+
+        String query = (
+                "@info(name = 'query1') from inputStream select symbol , "
+                        + "str:split(symbol, splitCharacter, index) as splitText " +
+                        "insert into outputStream;"
+        );
+        SiddhiAppRuntime siddhiAppRuntime = siddhiManager.createSiddhiAppRuntime(inStreamDefinition + query);
+
+        InputHandler inputHandler = siddhiAppRuntime.getInputHandler("inputStream");
+        siddhiAppRuntime.start();
+        inputHandler.send(new Object[]{null, "/", 0});
+        siddhiAppRuntime.shutdown();
+    }
+
+    @Test
+    public void testSplitFunctionExtension8() throws InterruptedException {
+        LOGGER.info("SplitFunctionExtensionTestCase TestCase, with null value.");
+        SiddhiManager siddhiManager = new SiddhiManager();
+
+        String inStreamDefinition = "define stream inputStream (symbol string, splitCharacter string, index int);";
+
+        String query = (
+                "@info(name = 'query1') from inputStream select symbol , "
+                        + "str:split(symbol, splitCharacter, index) as splitText " +
+                        "insert into outputStream;"
+        );
+
+        SiddhiAppRuntime siddhiAppRuntime = siddhiManager.createSiddhiAppRuntime(inStreamDefinition + query);
+
+        InputHandler inputHandler = siddhiAppRuntime.getInputHandler("inputStream");
+        siddhiAppRuntime.start();
+        inputHandler.send(new Object[]{"DELL/IBM/HP/", null, 0});
+        siddhiAppRuntime.shutdown();
+    }
+
+    @Test
+    public void testSplitFunctionExtension9() throws InterruptedException {
+        LOGGER.info("SplitFunctionExtensionTestCase TestCase with null value.");
+        SiddhiManager siddhiManager = new SiddhiManager();
+
+        String inStreamDefinition = "define stream inputStream (symbol string, splitCharacter string, index int);";
+
+        String query = (
+                "@info(name = 'query1') from inputStream select symbol , "
+                        + "str:split(symbol, splitCharacter, index) as splitText " +
+                        "insert into outputStream;"
+        );
+
+        SiddhiAppRuntime siddhiAppRuntime = siddhiManager.createSiddhiAppRuntime(inStreamDefinition + query);
+
+        InputHandler inputHandler = siddhiAppRuntime.getInputHandler("inputStream");
+        siddhiAppRuntime.start();
+        inputHandler.send(new Object[]{"DELL/IBM/HP/", "/", null});
+        siddhiAppRuntime.shutdown();
+    }
+
+    @Test
+    public void testSplitFunctionExtension10() throws InterruptedException {
+        LOGGER.info("SplitFunctionExtensionTestCase TestCase.");
+        SiddhiManager siddhiManager = new SiddhiManager();
+
+        String inStreamDefinition = "define stream inputStream (symbol string, splitCharacter string, index int);";
+
+        String query = (
+                "@info(name = 'query1') from inputStream select symbol , "
+                        + "str:split(symbol, splitCharacter, index) as splitText " +
+                        "insert into outputStream;"
+        );
+
+        SiddhiAppRuntime siddhiAppRuntime = siddhiManager.createSiddhiAppRuntime(inStreamDefinition + query);
+        InputHandler inputHandler = siddhiAppRuntime.getInputHandler("inputStream");
+        siddhiAppRuntime.start();
+        inputHandler.send(new Object[]{"DELL/IBM/HP/", "/", 5});
         siddhiAppRuntime.shutdown();
     }
 }

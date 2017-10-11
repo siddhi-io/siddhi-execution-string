@@ -26,6 +26,7 @@ import org.wso2.extension.siddhi.execution.string.test.util.SiddhiTestHelper;
 import org.wso2.siddhi.core.SiddhiAppRuntime;
 import org.wso2.siddhi.core.SiddhiManager;
 import org.wso2.siddhi.core.event.Event;
+import org.wso2.siddhi.core.exception.SiddhiAppCreationException;
 import org.wso2.siddhi.core.query.output.callback.QueryCallback;
 import org.wso2.siddhi.core.stream.input.InputHandler;
 import org.wso2.siddhi.core.util.EventPrinter;
@@ -128,6 +129,74 @@ public class StrcmpFunctionExtensionTestCase {
         SiddhiTestHelper.waitForEvents(100, 3, count, 60000);
         AssertJUnit.assertEquals(3, count.get());
         AssertJUnit.assertTrue(eventArrived);
+        siddhiAppRuntime.shutdown();
+    }
+
+    @Test(expectedExceptions = SiddhiAppCreationException.class)
+    public void testStrcmpFunctionExtension3() throws InterruptedException {
+        LOGGER.info("StrcmpFunctionExtension TestCase, with one argument.");
+        SiddhiManager siddhiManager = new SiddhiManager();
+
+        String inStreamDefinition = "define stream inputStream (symbol string, compareTo string, volume long);";
+        String query = ("@info(name = 'query1') from inputStream select symbol , str:strcmp(symbol) as compareText " +
+                "insert into outputStream;");
+        siddhiManager.createSiddhiAppRuntime(inStreamDefinition + query);
+    }
+
+    @Test(expectedExceptions = SiddhiAppCreationException.class)
+    public void testStrcmpFunctionExtension4() throws InterruptedException {
+        LOGGER.info("StrcmpFunctionExtension TestCase, with invalid datatype.");
+        SiddhiManager siddhiManager = new SiddhiManager();
+
+        String inStreamDefinition = "define stream inputStream (symbol int, compareTo string, volume long);";
+        String query = ("@info(name = 'query1') from inputStream select symbol , "
+                + "str:strcmp(symbol, compareTo) as compareText " +
+                "insert into outputStream;");
+        siddhiManager.createSiddhiAppRuntime(inStreamDefinition + query);
+    }
+
+    @Test(expectedExceptions = SiddhiAppCreationException.class)
+    public void testStrcmpFunctionExtension5() throws InterruptedException {
+        LOGGER.info("StrcmpFunctionExtension TestCase, with invalid datatype.");
+        SiddhiManager siddhiManager = new SiddhiManager();
+
+        String inStreamDefinition = "define stream inputStream (symbol string, compareTo int, volume long);";
+        String query = ("@info(name = 'query1') from inputStream select symbol , "
+                + "str:strcmp(symbol, compareTo) as compareText " +
+                "insert into outputStream;");
+        siddhiManager.createSiddhiAppRuntime(inStreamDefinition + query);
+    }
+
+    @Test
+    public void testStrcmpFunctionExtension6() throws InterruptedException {
+        LOGGER.info("StrcmpFunctionExtension TestCase, with null value.");
+        SiddhiManager siddhiManager = new SiddhiManager();
+
+        String inStreamDefinition = "define stream inputStream (symbol string, compareTo string, volume long);";
+        String query = ("@info(name = 'query1') from inputStream select symbol , "
+                + "str:strcmp(symbol, compareTo) as compareText " +
+                "insert into outputStream;");
+        SiddhiAppRuntime siddhiAppRuntime = siddhiManager.createSiddhiAppRuntime(inStreamDefinition + query);
+        InputHandler inputHandler = siddhiAppRuntime.getInputHandler("inputStream");
+        siddhiAppRuntime.start();
+        inputHandler.send(new Object[]{null, "Hello", 100L});
+        siddhiAppRuntime.shutdown();
+    }
+
+    @Test
+    public void testStrcmpFunctionExtension7() throws InterruptedException {
+        LOGGER.info("StrcmpFunctionExtension TestCase, with null value.");
+        SiddhiManager siddhiManager = new SiddhiManager();
+
+        String inStreamDefinition = "define stream inputStream (symbol string, compareTo string, volume long);";
+        String query = ("@info(name = 'query1') from inputStream select symbol , "
+                + "str:strcmp(symbol, compareTo) as compareText " +
+                "insert into outputStream;");
+        SiddhiAppRuntime siddhiAppRuntime = siddhiManager.createSiddhiAppRuntime(inStreamDefinition + query);
+
+        InputHandler inputHandler = siddhiAppRuntime.getInputHandler("inputStream");
+        siddhiAppRuntime.start();
+        inputHandler.send(new Object[]{"Hello", null, 100L});
         siddhiAppRuntime.shutdown();
     }
 }

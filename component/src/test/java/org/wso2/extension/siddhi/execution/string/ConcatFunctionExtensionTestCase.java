@@ -26,6 +26,7 @@ import org.wso2.extension.siddhi.execution.string.test.util.SiddhiTestHelper;
 import org.wso2.siddhi.core.SiddhiAppRuntime;
 import org.wso2.siddhi.core.SiddhiManager;
 import org.wso2.siddhi.core.event.Event;
+import org.wso2.siddhi.core.exception.SiddhiAppCreationException;
 import org.wso2.siddhi.core.query.output.callback.QueryCallback;
 import org.wso2.siddhi.core.stream.input.InputHandler;
 import org.wso2.siddhi.core.util.EventPrinter;
@@ -85,5 +86,17 @@ public class ConcatFunctionExtensionTestCase {
         AssertJUnit.assertEquals(3, count.get());
         AssertJUnit.assertTrue(eventArrived);
         siddhiAppRuntime.shutdown();
+    }
+
+    @Test(expectedExceptions = SiddhiAppCreationException.class)
+    public void testCoalesceFunctionExtensionWithOneArgument() throws InterruptedException {
+        LOGGER.info("ConcatFunctionExtension TestCase");
+        SiddhiManager siddhiManager = new SiddhiManager();
+
+        String inStreamDefinition = "define stream inputStream (symbol1 string, symbol2 string, symbol3 string);";
+        String query = ("@info(name = 'query1') from inputStream select symbol1 , "
+                + "str:concat(symbol1) as concatString " +
+                "insert into outputStream;");
+       siddhiManager.createSiddhiAppRuntime(inStreamDefinition + query);
     }
 }
