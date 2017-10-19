@@ -15,9 +15,7 @@ google_analytics:
 pages:
 - Welcome to WSO2 Siddhi Execution String: index.md
 - API Docs:
-  - 4.0.1-SNAPSHOT: api/4.0.1-SNAPSHOT.md
-  - 4.0.2-SNAPSHOT: api/4.0.2-SNAPSHOT.md
-  - 4.0.3-SNAPSHOT: api/4.0.3-SNAPSHOT.md
-  - 4.0.4-SNAPSHOT: api/4.0.4-SNAPSHOT.md
+  - 4.0.5: api/4.0.5.md
+  - latest: api/latest.md
 - License: license.md
 theme: material
