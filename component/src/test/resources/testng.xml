@@ -16,9 +16,7 @@
   ~ specific language governing permissions and limitations
   ~ under the License.
   -->
-
 <!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd" >
-
 <suite name="Siddhi-Execution-String_Test-Suite">
     <test name="siddhi-execution-string-unit-tests" preserve-order="true" parallel="false">
         <classes>
@@ -38,6 +36,7 @@
             <class name="org.wso2.extension.siddhi.execution.string.SplitFunctionExtensionTestCase" />
             <class name="org.wso2.extension.siddhi.execution.string.StrcmpFunctionExtensionTestCase" />
             <class name="org.wso2.extension.siddhi.execution.string.SubstrFunctionExtensionTestCase" />
+            <class name="org.wso2.extension.siddhi.execution.string.TokenizerStreamProcessorExtensionTestCase" />
             <class name="org.wso2.extension.siddhi.execution.string.TrimFunctionExtensionTestCase" />
             <class name="org.wso2.extension.siddhi.execution.string.UnhexFunctionExtensionTestCase" />
             <class name="org.wso2.extension.siddhi.execution.string.UpperFunctionExtensionTestCase" />
