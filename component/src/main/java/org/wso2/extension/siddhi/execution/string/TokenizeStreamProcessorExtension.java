@@ -71,7 +71,7 @@ import java.util.regex.PatternSyntaxException;
 )
 
 public class TokenizeStreamProcessorExtension extends StreamProcessor {
-    Pattern regex;
+    private Pattern regex;
     @Override
     protected void process(ComplexEventChunk<StreamEvent> streamEventChunk, Processor nextProcessor,
                            StreamEventCloner streamEventCloner, ComplexEventPopulater complexEventPopulater) {
