@@ -27,6 +27,7 @@ import org.wso2.siddhi.core.event.stream.StreamEvent;
 import org.wso2.siddhi.core.event.stream.StreamEventCloner;
 import org.wso2.siddhi.core.event.stream.populater.ComplexEventPopulater;
 import org.wso2.siddhi.core.exception.SiddhiAppCreationException;
+import org.wso2.siddhi.core.exception.SiddhiAppRuntimeException;
 import org.wso2.siddhi.core.executor.ConstantExpressionExecutor;
 import org.wso2.siddhi.core.executor.ExpressionExecutor;
 import org.wso2.siddhi.core.query.processor.Processor;
@@ -34,14 +35,19 @@ import org.wso2.siddhi.core.query.processor.stream.StreamProcessor;
 import org.wso2.siddhi.core.util.config.ConfigReader;
 import org.wso2.siddhi.query.api.definition.AbstractDefinition;
 import org.wso2.siddhi.query.api.definition.Attribute;
+import org.wso2.siddhi.query.api.exception.SiddhiAppValidationException;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
-import java.util.StringTokenizer;
+import java.util.regex.Pattern;
+import java.util.regex.PatternSyntaxException;
 
 /**
- * splits a string into words
+ * tokenize(sourceText, delimiter)
+ * Tokenize the source String by delimiters and return as tokens.​ ​
+ * Accept Type(s): (STRING, STRING)
+ * Return Type(s): STRING
  */
 @Extension(
         name = "tokenize",
@@ -51,31 +57,30 @@ import java.util.StringTokenizer;
                 @Parameter(name = "input.string",
                         description = "The input text which should be split.",
                         type = {DataType.STRING}),
-                @Parameter(name = "delimiter",
+                @Parameter(name = "regex",
                         description = "The string value to be used to tokenize the 'input.string'.",
                         type = {DataType.STRING})
         },
         examples = @Example(
                 syntax = "define stream inputStream (str string);\n" +
                         "@info(name = 'query1')\n" +
-                        "from inputStream#str:tokenize(str , delimiter)\n" +
+                        "from inputStream#str:tokenize(str , regex)\n" +
                         "select text\n" +
                         "insert into outputStream;",
                 description = "This query performs tokenization for the given string.")
 )
 
 public class TokenizeStreamProcessorExtension extends StreamProcessor {
+    Pattern regex;
     @Override
     protected void process(ComplexEventChunk<StreamEvent> streamEventChunk, Processor nextProcessor,
                            StreamEventCloner streamEventCloner, ComplexEventPopulater complexEventPopulater) {
-        String delimeter = (String) ((ConstantExpressionExecutor) attributeExpressionExecutors[1])
-                .getValue();
         while (streamEventChunk.hasNext()) {
             StreamEvent streamEvent = streamEventChunk.next();
-            String event = streamEvent.getOutputData()[0].toString();
-            StringTokenizer text = new StringTokenizer(event, delimeter);
-            while (text.hasMoreTokens()) {
-                Object[] data = {text.nextToken()};
+            String event = (String) attributeExpressionExecutors[0].execute(streamEvent);
+            String[] words = regex.split(event);
+            for (String word : words) {
+                Object[] data = {word};
                 complexEventPopulater.populateComplexEvent(streamEvent, data);
                 nextProcessor.process(streamEventChunk);
             }
@@ -96,19 +101,34 @@ public class TokenizeStreamProcessorExtension extends StreamProcessor {
                                    SiddhiAppContext siddhiAppContext) {
         if (attributeExpressionExecutors.length == 2) {
             if (attributeExpressionExecutors[0].getReturnType() != Attribute.Type.STRING) {
-                throw new SiddhiAppCreationException("Parameter should be of type string. But found "
+                throw new SiddhiAppCreationException("Input string should be of type string. But found "
                         + attributeExpressionExecutors[0].getReturnType());
             }
-            if (attributeExpressionExecutors[1].getReturnType() != Attribute.Type.STRING) {
-                throw new SiddhiAppCreationException("Parameter should be of type string. But found "
+            if (attributeExpressionExecutors[0] == null) {
+                throw new SiddhiAppRuntimeException("Invalid input given to str:tokenize() function. " +
+                        "Input.string argument cannot be null");
+            }
+            if (attributeExpressionExecutors[1].getReturnType() == Attribute.Type.STRING) {
+                try {
+                    regex = Pattern.compile((String)
+                            ((ConstantExpressionExecutor) attributeExpressionExecutors[1]).getValue());
+                } catch (PatternSyntaxException pse) {
+                    throw new SiddhiAppValidationException("Syntax error in regular-expression pattern : " +
+                            pse.getMessage());
+                }
+            } else {
+                throw new SiddhiAppCreationException("Regex should be of type string. But found "
                         + attributeExpressionExecutors[1].getReturnType());
+            }
+            if (attributeExpressionExecutors[1] == null) {
+                throw new SiddhiAppRuntimeException("Invalid input given to str:tokenize() function. " +
+                        "Regex argument cannot be null");
             }
         } else {
             throw new IllegalArgumentException(
-                    "Invalid no of arguments passed to text:tokenize() function, "
+                    "Invalid no of arguments passed to str:tokenize() function, "
                             + "required 2, but found " + attributeExpressionExecutors.length);
         }
-
         List<Attribute> attributes = new ArrayList<>();
         attributes.add(new Attribute("token", Attribute.Type.STRING));
         return attributes;
@@ -131,6 +151,6 @@ public class TokenizeStreamProcessorExtension extends StreamProcessor {
 
     @Override
     public void restoreState(Map<String, Object> state) {
-
+        //Do nothing
     }
 }

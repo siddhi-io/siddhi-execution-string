@@ -49,7 +49,7 @@ public class TokenizerStreamProcessorExtensionTestCase {
         SiddhiManager siddhiManager = new SiddhiManager();
 
         String inStreamDefinition = "define stream inputStream (data string);";
-        String query = ("@info(name = 'query1') from inputStream#str:tokenize(data, \"\\' \")" +
+        String query = ("@info(name = 'query1') from inputStream#str:tokenize(data, \"\\s|\\'|,\")" +
                 "insert all events into outputStream;");
         SiddhiAppRuntime siddhiAppRuntime = siddhiManager.createSiddhiAppRuntime(inStreamDefinition + query);
 
@@ -64,6 +64,11 @@ public class TokenizerStreamProcessorExtensionTestCase {
                                 inEvents[0].getData());
                         eventArrived = true;
                     }
+                    if (count.get() == 6) {
+                        AssertJUnit.assertArrayEquals(new Object[]{"Android,Windows8,iOS,Symbian", "Android"},
+                                inEvents[0].getData());
+                        eventArrived = true;
+                    }
                 }
             }
         });
@@ -71,10 +76,23 @@ public class TokenizerStreamProcessorExtensionTestCase {
         InputHandler inputHandler = siddhiAppRuntime.getInputHandler("inputStream");
         siddhiAppRuntime.start();
         inputHandler.send(new Object[]{"You're a good girl"});
-        SiddhiTestHelper.waitForEvents(100, 2, count, 60000);
+        inputHandler.send(new Object[]{"Android,Windows8,iOS,Symbian"});
+        SiddhiTestHelper.waitForEvents(100, 9, count, 60000);
         AssertJUnit.assertEquals(eventArrived, true);
-        AssertJUnit.assertEquals(5, count.get());
+        AssertJUnit.assertEquals(9, count.get());
         siddhiAppRuntime.shutdown();
+    }
+
+    @Test(expectedExceptions = SiddhiAppCreationException.class)
+    public void testTokenizerExtensionWithInvalidSyntaxForRegex() {
+        LOGGER.info("TokenizerStreamProcessorExtension with invalid syntax for Regex");
+        SiddhiManager siddhiManager = new SiddhiManager();
+
+        String inStreamDefinition = "define stream inputStream (data string);";
+        String query = ("@info(name = 'query1') from inputStream#str:tokenize(data, \"\\s|\\'|,|*\")" +
+                "insert all events into outputStream;");
+        siddhiManager.createSiddhiAppRuntime(inStreamDefinition + query);
+
     }
 
     @Test(expectedExceptions = SiddhiAppCreationException.class)

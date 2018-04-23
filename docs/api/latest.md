@@ -838,7 +838,7 @@ upper("Hello World")
 
 <span id="syntax" class="md-typeset" style="display: block; font-weight: bold;">Syntax</span>
 ```
-str:tokenize(<STRING> input.string, <STRING> delimiter)
+str:tokenize(<STRING> input.string, <STRING> regex)
 ```
 
 <span id="query-parameters" class="md-typeset" style="display: block; color: rgba(0, 0, 0, 0.54); font-size: 12.8px; font-weight: bold;">QUERY PARAMETERS</span>
@@ -860,7 +860,7 @@ str:tokenize(<STRING> input.string, <STRING> delimiter)
         <td style="vertical-align: top">No</td>
     </tr>
     <tr>
-        <td style="vertical-align: top">delimiter</td>
+        <td style="vertical-align: top">regex</td>
         <td style="vertical-align: top; word-wrap: break-word">The string value to be used to tokenize the 'input.string'.</td>
         <td style="vertical-align: top"></td>
         <td style="vertical-align: top">STRING</td>
@@ -874,7 +874,7 @@ str:tokenize(<STRING> input.string, <STRING> delimiter)
 ```
 define stream inputStream (str string);
 @info(name = 'query1')
-from inputStream#str:tokenize(str , delimiter)
+from inputStream#str:tokenize(str , regex)
 select text
 insert into outputStream;
 ```
