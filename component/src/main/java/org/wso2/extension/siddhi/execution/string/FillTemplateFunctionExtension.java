@@ -49,29 +49,34 @@ import java.util.regex.Pattern;
                 "the index in the template.",
         parameters = {
                 @Parameter(name = "template",
-                        description = "The templated string that needs to be filled with the given strings.",
+                        description = "The string with templated fields that needs to be filled with the given " +
+                                "strings. Templated fields should be in following the format " +
+                                "{{INDEX}} where INDEX is an integer. \n" +
+                                "This index is used to map the strings which are used to replace the templated fields.",
                         type = {DataType.STRING}),
                 @Parameter(name = "replacement.strings",
                         description = "Strings to replace the templated positions in the template.\n" +
-                                "There can be any number of strings from the 2nd argument, as comma separated values.",
-                        type = {DataType.STRING}),
+                                "There can be any number of arguments from the 2nd argument.",
+                        type = {DataType.STRING, DataType.INT, DataType.LONG, DataType.DOUBLE,
+                                DataType.FLOAT, DataType.BOOL}),
         },
         returnAttributes =
             @ReturnAttribute(
-                description = "String in which templated positions filled with the given strings.",
+                description = "String in which templated positions filled with the given values.",
                 type = DataType.STRING),
         examples =
             @Example(
                 description = "" +
-                        "In this example, the templated string with index 1 ({{1}}) will be replaced with the 1st " +
+                        "In this example, the template is 'This is {{1}} for the {{2}} function'." +
+                        "Here the templated string {{1}} will be replaced with the 1st " +
                         "string value provided ('an example').\n" +
                         "{{2}} will be replaced with the 2nd string provided ('fillTemplate')\n" +
                         "The return string will be 'This is an example for the fillTemplate function'.",
-                syntax = "fillTemplate(\"This is {{1}} for the {{2}} function\",  'an example', 'fillTemplate')")
+                syntax = "str:fillTemplate(\"This is {{1}} for the {{2}} function\",  'an example', 'fillTemplate')")
 )
 public class FillTemplateFunctionExtension extends FunctionExecutor {
-    Pattern templatePattern = Pattern.compile("(\\{\\{\\d}})");
-    Pattern indexPattern = Pattern.compile("\\d");
+    Pattern templatePattern = Pattern.compile("(\\{\\{\\d+}})");
+    Pattern indexPattern = Pattern.compile("\\d+");
 
     @Override
     protected void init(ExpressionExecutor[] attributeExpressionExecutors, ConfigReader configReader,
@@ -81,33 +86,34 @@ public class FillTemplateFunctionExtension extends FunctionExecutor {
                     "str:fillTemplate() function. " +
                     "Required at least 2, but found " + attributeExpressionExecutors.length);
         }
-
-        for (int i = 0; i < attributeExpressionExecutors.length; i++) {
-            if (attributeExpressionExecutors[i].getReturnType() != Attribute.Type.STRING) {
-                throw new SiddhiAppValidationException("Invalid parameter type found for the argument no " + (i + 1) +
-                        ". All the parameters should be in type " + Attribute.Type.STRING + ", but found " +
-                        attributeExpressionExecutors[i].getReturnType().toString());
-            }
+        if (attributeExpressionExecutors[0].getReturnType() != Attribute.Type.STRING) {
+            throw new SiddhiAppValidationException("Invalid parameter type found for the first argument of " +
+                    "str:fillTemplate() function, " + "required " + Attribute.Type.STRING + ", " +
+                    "but found " + attributeExpressionExecutors[0].getReturnType().toString());
         }
     }
 
     @Override
     protected Object execute(Object[] data) {
-        String source = (String) data[0];
-        Matcher templateMatcher = templatePattern.matcher(source);
+        String sourceString = (String) data[0];
+        Matcher templateMatcher = templatePattern.matcher(sourceString);
+        String match;
+        Matcher indexMatcher;
+        int index;
         while (templateMatcher.find()) {
-            String match = templateMatcher.group(0);
-            Matcher indexMatcher = indexPattern.matcher(match);
+            match = templateMatcher.group(0);
+            indexMatcher = indexPattern.matcher(match);
             if (indexMatcher.find()) {
-                int index = Integer.parseInt(indexMatcher.group(0));
+                index = Integer.parseInt(indexMatcher.group(0));
                 if (index < 1 || index >= data.length) {
-                    throw new SiddhiAppRuntimeException("Index given for template elements should be greater than 0 " +
-                            "and less than '" + data.length + "'.");
+                    throw new SiddhiAppRuntimeException("Index given for template elements " +
+                            "should be greater than 0 and less than '" + data.length + "'. But found " + index + " in" +
+                            " the template '" + sourceString + "'.");
                 }
-                source = source.replace(match, (String) data[index]);
+                sourceString = sourceString.replace(match, data[index].toString());
             }
         }
-        return source;
+        return sourceString;
     }
 
     @Override

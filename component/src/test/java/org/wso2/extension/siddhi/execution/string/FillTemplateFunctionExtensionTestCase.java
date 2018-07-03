@@ -98,8 +98,62 @@ public class FillTemplateFunctionExtensionTestCase {
         siddhiAppRuntime.shutdown();
     }
 
-    @Test(expectedExceptions = SiddhiAppCreationException.class)
+    @Test
     public void testFillTemplate2() throws InterruptedException {
+        LOGGER.info("FillTemplateFunctionExtension TestCase, where the arguments are valid strings");
+        SiddhiManager siddhiManager = new SiddhiManager();
+
+        String inStreamDefinition = "define stream inputStream (template string, symbol string, volume long, " +
+                "price float);";
+
+        String template = "The stock price of {{1}}. Volume of {{1}} is {{3}} and the stock price is {{2}}";
+        String query = (
+                "@info(name = 'query1') from inputStream select " +
+                        "str:fillTemplate(template, symbol, price, volume) as msg " +
+                        "insert into outputStream;"
+        );
+
+        SiddhiAppRuntime siddhiAppRuntime = siddhiManager.createSiddhiAppRuntime(inStreamDefinition + query);
+
+        siddhiAppRuntime.addCallback("query1", new QueryCallback() {
+            @Override
+            public void receive(long timeStamp, Event[] inEvents, Event[] removeEvents) {
+                EventPrinter.print(timeStamp, inEvents, removeEvents);
+                for (Event event : inEvents) {
+                    count.incrementAndGet();
+                    if (count.get() == 1) {
+                        AssertJUnit.assertEquals("The stock price of WSO2. Volume of WSO2 is 100 and the stock price " +
+                                "is " + "111.11", event.getData(0));
+                        eventArrived = true;
+                    }
+                    if (count.get() == 2) {
+                        AssertJUnit.assertEquals("The stock price of IBM. Volume of IBM is 200 and the stock price " +
+                                "is " + "222.22", event.getData(0));
+                        eventArrived = true;
+                    }
+                    if (count.get() == 3) {
+                        AssertJUnit.assertEquals("The stock price of GOOGLE. Volume of GOOGLE is 300 and the stock " +
+                                "price " +
+                                "is " + "333.33", event.getData(0));
+                        eventArrived = true;
+                    }
+                }
+            }
+        });
+
+        InputHandler inputHandler = siddhiAppRuntime.getInputHandler("inputStream");
+        siddhiAppRuntime.start();
+        inputHandler.send(new Object[]{template, "WSO2", 100L, 111.11f});
+        inputHandler.send(new Object[]{template, "IBM", 200L, 222.22f});
+        inputHandler.send(new Object[]{template, "GOOGLE", 300L, 333.33});
+        SiddhiTestHelper.waitForEvents(100, 3, count, 60000);
+        AssertJUnit.assertEquals(3, count.get());
+        AssertJUnit.assertTrue(eventArrived);
+        siddhiAppRuntime.shutdown();
+    }
+
+    @Test(expectedExceptions = SiddhiAppCreationException.class)
+    public void testFillTemplate3() throws InterruptedException {
         LOGGER.info("FillTemplateFunctionExtension TestCase, where number of arguments are invalid");
         SiddhiManager siddhiManager = new SiddhiManager();
 
@@ -118,8 +172,8 @@ public class FillTemplateFunctionExtensionTestCase {
     }
 
     @Test
-    public void testFillTemplate3() throws InterruptedException {
-        LOGGER.info("FillTemplateFunctionExtension TestCase, where number of arguments are invalid");
+    public void testFillTemplate4() throws InterruptedException {
+        LOGGER.info("FillTemplateFunctionExtension TestCase, indexes in template are invalid");
         SiddhiManager siddhiManager = new SiddhiManager();
 
         String inStreamDefinition = "define stream inputStream (template string, symbol string, volume string, " +
