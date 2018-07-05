@@ -38,8 +38,11 @@ import org.wso2.siddhi.query.api.definition.Attribute;
 import org.wso2.siddhi.query.api.exception.SiddhiAppValidationException;
 
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.LinkedHashSet;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 import java.util.regex.Pattern;
 import java.util.regex.PatternSyntaxException;
 
@@ -59,7 +62,12 @@ import java.util.regex.PatternSyntaxException;
                         type = {DataType.STRING}),
                 @Parameter(name = "regex",
                         description = "The string value to be used to tokenize the 'input.string'.",
-                        type = {DataType.STRING})
+                        type = {DataType.STRING}),
+                @Parameter(name = "distinct",
+                        description = "Flag to return only distinct values",
+                        type = {DataType.BOOL},
+                        optional = true,
+                        defaultValue = "false")
         },
         examples = @Example(
                 syntax = "define stream inputStream (str string);\n" +
@@ -72,6 +80,8 @@ import java.util.regex.PatternSyntaxException;
 
 public class TokenizeStreamProcessorExtension extends StreamProcessor {
     private Pattern regex;
+    private boolean distinct = false;
+
     @Override
     protected void process(ComplexEventChunk<StreamEvent> streamEventChunk, Processor nextProcessor,
                            StreamEventCloner streamEventCloner, ComplexEventPopulater complexEventPopulater) {
@@ -79,6 +89,14 @@ public class TokenizeStreamProcessorExtension extends StreamProcessor {
             StreamEvent streamEvent = streamEventChunk.next();
             String event = (String) attributeExpressionExecutors[0].execute(streamEvent);
             String[] words = regex.split(event);
+
+            // If the "distinct" flag is set true, remove all duplicate entries from the words list.
+            if (this.distinct) {
+                Set<String> distinctWords = new LinkedHashSet<>();
+                Collections.addAll(distinctWords, words);
+                words = distinctWords.toArray(new String[distinctWords.size()]);
+            }
+
             for (String word : words) {
                 Object[] data = {word};
                 complexEventPopulater.populateComplexEvent(streamEvent, data);
@@ -99,7 +117,7 @@ public class TokenizeStreamProcessorExtension extends StreamProcessor {
     protected List<Attribute> init(AbstractDefinition inputDefinition,
                                    ExpressionExecutor[] attributeExpressionExecutors, ConfigReader configReader,
                                    SiddhiAppContext siddhiAppContext) {
-        if (attributeExpressionExecutors.length == 2) {
+        if (attributeExpressionExecutors.length == 2 || attributeExpressionExecutors.length == 3) {
             if (attributeExpressionExecutors[0].getReturnType() != Attribute.Type.STRING) {
                 throw new SiddhiAppCreationException("Input string should be of type string. But found "
                         + attributeExpressionExecutors[0].getReturnType());
@@ -124,10 +142,19 @@ public class TokenizeStreamProcessorExtension extends StreamProcessor {
                 throw new SiddhiAppRuntimeException("Invalid input given to str:tokenize() function. " +
                         "Regex argument cannot be null");
             }
+            if (attributeExpressionExecutors.length == 3) {
+                if (attributeExpressionExecutors[2].getReturnType() == Attribute.Type.BOOL) {
+                    this.distinct = (Boolean) ((ConstantExpressionExecutor) attributeExpressionExecutors[2])
+                            .getValue();
+                } else {
+                    throw new SiddhiAppCreationException("Third attribute 'distinct' should be of type boolean. But " +
+                            "found " + attributeExpressionExecutors[2].getReturnType());
+                }
+            }
         } else {
             throw new IllegalArgumentException(
                     "Invalid no of arguments passed to str:tokenize() function, "
-                            + "required 2, but found " + attributeExpressionExecutors.length);
+                            + "required 2 or 3, but found " + attributeExpressionExecutors.length);
         }
         List<Attribute> attributes = new ArrayList<>();
         attributes.add(new Attribute("token", Attribute.Type.STRING));
