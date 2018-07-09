@@ -143,4 +143,71 @@ public class TokenizerStreamProcessorExtensionTestCase {
         inputHandler.send(new Object[]{null});
         siddhiAppRuntime.shutdown();
     }
+
+    @Test
+    public void testTokenizerExtensionWithDistincts() throws InterruptedException {
+        LOGGER.info("TokenizerExtension TestCase with distinct flag");
+        count.set(0);
+        SiddhiManager siddhiManager = new SiddhiManager();
+
+        String inStreamDefinition = "define stream inputStream (data string);";
+        String query = ("@info(name = 'query1') from inputStream#str:tokenize(data, ',', true) " +
+                "insert into outputStream;");
+        SiddhiAppRuntime siddhiAppRuntime = siddhiManager.createSiddhiAppRuntime(inStreamDefinition + query);
+        siddhiAppRuntime.addCallback("query1", new QueryCallback() {
+            String[] expectedValues = new String[]{"Android", "iOS", "Symbian"};
+
+            @Override
+            public void receive(long timeStamp, Event[] inEvents, Event[] removeEvents) {
+                EventPrinter.print(timeStamp, inEvents, removeEvents);
+                count.incrementAndGet();
+                AssertJUnit.assertArrayEquals(new Object[]{"Android,iOS,Android,Symbian",
+                        expectedValues[count.get() - 1]}, inEvents[0].getData());
+            }
+        });
+
+        InputHandler inputHandler = siddhiAppRuntime.getInputHandler("inputStream");
+        siddhiAppRuntime.start();
+        inputHandler.send(new Object[]{"Android,iOS,Android,Symbian"});
+        siddhiAppRuntime.shutdown();
+    }
+
+    @Test
+    public void testTokenizerExtensionWithoutDistincts() throws InterruptedException {
+        LOGGER.info("TokenizerExtension TestCase without distinct flag");
+        count.set(0);
+        SiddhiManager siddhiManager = new SiddhiManager();
+
+        String inStreamDefinition = "define stream inputStream (data string);";
+        String query = ("@info(name = 'query1') from inputStream#str:tokenize(data, ',') " +
+                "insert into outputStream;");
+        SiddhiAppRuntime siddhiAppRuntime = siddhiManager.createSiddhiAppRuntime(inStreamDefinition + query);
+        siddhiAppRuntime.addCallback("query1", new QueryCallback() {
+            String[] expectedValues = new String[]{"Android", "iOS", "Android", "Symbian"};
+
+            @Override
+            public void receive(long timeStamp, Event[] inEvents, Event[] removeEvents) {
+                EventPrinter.print(timeStamp, inEvents, removeEvents);
+                count.incrementAndGet();
+                AssertJUnit.assertArrayEquals(new Object[]{"Android,iOS,Android,Symbian",
+                        expectedValues[count.get() - 1]}, inEvents[0].getData());
+            }
+        });
+
+        InputHandler inputHandler = siddhiAppRuntime.getInputHandler("inputStream");
+        siddhiAppRuntime.start();
+        inputHandler.send(new Object[]{"Android,iOS,Android,Symbian"});
+        siddhiAppRuntime.shutdown();
+    }
+
+    @Test(expectedExceptions = SiddhiAppCreationException.class)
+    public void testTokenizerExtensionWithInvalidDataTypeForDistinct() {
+        LOGGER.info("TokenizerExtension TestCase with invalid data type for distinct");
+        SiddhiManager siddhiManager = new SiddhiManager();
+
+        String inStreamDefinition = "define stream inputStream (data string);";
+        String query = ("@info(name = 'query1') from inputStream#str:tokenize(data, ',', 'abc') " +
+                "insert into outputStream;");
+        siddhiManager.createSiddhiAppRuntime(inStreamDefinition + query);
+    }
 }
