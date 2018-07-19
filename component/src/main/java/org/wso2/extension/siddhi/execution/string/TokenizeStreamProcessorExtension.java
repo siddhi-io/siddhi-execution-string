@@ -20,6 +20,7 @@ package org.wso2.extension.siddhi.execution.string;
 import org.wso2.siddhi.annotation.Example;
 import org.wso2.siddhi.annotation.Extension;
 import org.wso2.siddhi.annotation.Parameter;
+import org.wso2.siddhi.annotation.ReturnAttribute;
 import org.wso2.siddhi.annotation.util.DataType;
 import org.wso2.siddhi.core.config.SiddhiAppContext;
 import org.wso2.siddhi.core.event.ComplexEventChunk;
@@ -55,7 +56,8 @@ import java.util.regex.PatternSyntaxException;
 @Extension(
         name = "tokenize",
         namespace = "str",
-        description = "This splits a string into words",
+        description = "Tokenize the string by delimiters and return as tokens. A new event will be " +
+                "created for each token",
         parameters = {
                 @Parameter(name = "input.string",
                         description = "The input text which should be split.",
@@ -69,13 +71,23 @@ import java.util.regex.PatternSyntaxException;
                         optional = true,
                         defaultValue = "false")
         },
+        returnAttributes = {
+                @ReturnAttribute(
+                        name = "token",
+                        description = "Attribute which contains a single token.",
+                        type = {DataType.STRING}
+                )
+        },
         examples = @Example(
                 syntax = "define stream inputStream (str string);\n" +
                         "@info(name = 'query1')\n" +
-                        "from inputStream#str:tokenize(str , regex)\n" +
+                        "from inputStream#str:tokenize(str , ',')\n" +
                         "select text\n" +
                         "insert into outputStream;",
-                description = "This query performs tokenization for the given string.")
+                description = "This query performs tokenization for the given string. If the str is " +
+                        "\"Android,Windows8,iOS\", then 3 events containing `token` attribute value, " +
+                        "`Android`, `Windows8`, `iOS` in order."
+        )
 )
 
 public class TokenizeStreamProcessorExtension extends StreamProcessor {
