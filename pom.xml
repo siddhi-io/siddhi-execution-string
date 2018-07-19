@@ -27,7 +27,7 @@
 
     <groupId>org.wso2.extension.siddhi.execution.string</groupId>
     <artifactId>siddhi-execution-string-parent</artifactId>
-    <version>4.0.17-SNAPSHOT</version>
+    <version>4.0.17</version>
     <packaging>pom</packaging>
     <name>Siddhi Execution String Extension Parent</name>
     <url>http://wso2.org</url>
@@ -59,7 +59,7 @@
         <url>https://github.com/wso2-extensions/siddhi-execution-string.git</url>
         <developerConnection>scm:git:https://github.com/wso2-extensions/siddhi-execution-string.git
         </developerConnection>
-        <tag>HEAD</tag>
+        <tag>v4.0.17</tag>
     </scm>
 
     <dependencyManagement>
