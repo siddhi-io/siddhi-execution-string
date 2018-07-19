@@ -6,7 +6,7 @@ extra_css:
 - stylesheets/extra.css
 extra_javascript:
 - javascripts/extra.js
-repo_name: Siddhi-Map-Json
+repo_name: Siddhi-Execution-String
 repo_url: https://github.com/wso2-extensions/siddhi-execution-string
 copyright: Copyright &copy; 2011 - 2018 WSO2
 theme:
