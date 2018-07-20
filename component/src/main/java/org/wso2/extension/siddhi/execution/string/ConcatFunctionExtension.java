@@ -42,7 +42,7 @@ import java.util.Map;
 @Extension(
         name = "concat",
         namespace = "str",
-        description = "Returns a string that is the result of concatenating two or more string values.",
+        description = "Returns a string that is the result of concatenating two or more input string values.",
         parameters = {
                 @Parameter(name = "argn",
                         description = "It can have two or more `string` type input parameters.",

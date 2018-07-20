@@ -50,8 +50,7 @@ import java.util.TreeMap;
 @Extension(
         name = "groupConcat",
         namespace = "str",
-        description = "Returns concated string keys by aggregating all the events separating them by the " +
-                "given separator.",
+        description = "Aggregates the received events by concatenating the keys of those events using a given separator, e.g., comma (,) and hyphen (-), and returns the concatenated key string.",
         parameters = {
                 @Parameter(name = "key",
                         description = "The string that need to be aggregated.",

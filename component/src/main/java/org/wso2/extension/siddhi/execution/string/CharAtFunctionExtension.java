@@ -42,7 +42,7 @@ import java.util.Map;
 @Extension(
         name = "charAt",
         namespace = "str",
-        description = "Returns the char value as a string value at the specified index.",
+        description = "Returns the char value that exists at the given index position of the input string.",
         parameters = {
                 @Parameter(name = "input.value",
                         description = "The input string that used to find the character.",

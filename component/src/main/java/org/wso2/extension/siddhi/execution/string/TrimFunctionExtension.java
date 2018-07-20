@@ -43,7 +43,7 @@ import java.util.Map;
 @Extension(
         name = "trim",
         namespace = "str",
-        description = "Returns a copy of the string with leading and trailing whitespace omitted",
+        description = "Returns a copy of the input string without the leading and trailing whitespace (if any).",
         parameters = {
                 @Parameter(name = "input.string",
                         description = "The input string that needs to be trimmed.",

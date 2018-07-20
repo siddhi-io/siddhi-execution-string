@@ -43,7 +43,7 @@ import java.util.Map;
 @Extension(
         name = "split",
         namespace = "str",
-        description = "Splits the source string by `split.string` and returns the substring specified via the " +
+        description = "Splits the  `input.string` into substrings using the value parsed in the `split.string` and returns the substring at the position specified in the " +
                 "`group.number`.",
         parameters = {
                 @Parameter(name = "input.string",

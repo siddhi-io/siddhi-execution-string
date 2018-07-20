@@ -43,7 +43,7 @@ import java.util.Map;
 @Extension(
         name = "coalesce",
         namespace = "str",
-        description = "Returns the value of the first of its input parameters that is not null",
+        description = " Returns the first input parameter value that is not null of the given argument.",
         parameters = {
                 @Parameter(name = "argn",
                         description = "It can have one or more input parameters in any data type. All the specified " +

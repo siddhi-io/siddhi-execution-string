@@ -45,8 +45,7 @@ import java.util.Map;
 @Extension(
         name = "unhex",
         namespace = "str",
-        description = "`unhex(str)` interprets each pair of characters in the argument as a hexadecimal number\n" +
-                " and converts it to the byte represented by the number",
+        description = "Returns a string by converting the hexadecimal characters in the input string.",
         parameters = {
                 @Parameter(name = "input.string",
                         description = "The hexadecimal input string that needs to be converted to string.",

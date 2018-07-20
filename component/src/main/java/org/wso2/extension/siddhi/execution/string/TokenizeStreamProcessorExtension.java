@@ -55,7 +55,7 @@ import java.util.regex.PatternSyntaxException;
 @Extension(
         name = "tokenize",
         namespace = "str",
-        description = "This splits a string into words",
+        description = "Splits the input string to tokens using the given regular expression and returns the resultant tokens.",
         parameters = {
                 @Parameter(name = "input.string",
                         description = "The input text which should be split.",

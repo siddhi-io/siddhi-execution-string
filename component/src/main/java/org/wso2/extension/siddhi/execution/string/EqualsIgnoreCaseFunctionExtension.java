@@ -42,7 +42,7 @@ import java.util.Map;
 @Extension(
         name = "equalsIgnoreCase",
         namespace = "str",
-        description = "Compares two strings lexicographically.",
+        description = "Returns a boolean value by comparing two strings lexicographically without considering the letter case.",
         parameters = {
                 @Parameter(name = "arg1",
                         description = "The first input string argument.",

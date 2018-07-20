@@ -43,7 +43,7 @@ import java.util.Map;
 @Extension(
         name = "strcmp",
         namespace = "str",
-        description = "Compares two strings lexicographically.",
+        description = "Compares two strings lexicographically and returns an integer value. If both strings are equal, 0 is returned. If  the first string is lexicographically greater than the second string, a positive value is returned. If the first string is lexicographically greater than the second string, a negative value is returned.",
         parameters = {
                 @Parameter(name = "arg1",
                         description = "The first input string argument.",

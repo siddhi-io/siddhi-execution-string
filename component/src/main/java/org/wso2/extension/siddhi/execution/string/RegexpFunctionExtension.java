@@ -46,7 +46,7 @@ import java.util.regex.Pattern;
 @Extension(
         name = "regexp",
         namespace = "str",
-        description = "Returns whether  this 'string' matches the given regular expression 'regex' or not.",
+        description = "Returns a boolean value based on the matchability of the input string and the given regular expression.",
         parameters = {
                 @Parameter(name = "input.string",
                         description = "The input string to match with the given regular expression.",
