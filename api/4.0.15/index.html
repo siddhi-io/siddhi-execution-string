@@ -282,6 +282,18 @@
 
 
   <li class="md-nav__item">
+    <a href="../4.0.18/" title="4.0.18" class="md-nav__link">
+      4.0.18
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
     <a href="../4.0.17/" title="4.0.17" class="md-nav__link">
       4.0.17
     </a>
@@ -1559,7 +1571,7 @@ input OutputStream;
 <p style="word-wrap: break-word">This splits the given <code>input.string</code> by given <code>split.string</code> and returns the string in the index given by group.number. In this scenario, the output will is "WSO2".</p>
 
 <h3 id="strcmp-function">strcmp <em><a target="_blank" href="https://wso2.github.io/siddhi/documentation/siddhi-4.0/#function">(Function)</a></em><a class="headerlink" href="#strcmp-function" title="Permanent link">&para;</a></h3>
-<p style="word-wrap: break-word">Compares two strings lexicographically.</p>
+<p style="word-wrap: break-word">Compares two strings lexicographically and returns an integer value. If both strings are equal, 0 is returned. If  the first string is lexicographically greater than the second string, a positive value is returned. If the first string is lexicographically greater than the second string, a negative value is returned.</p>
 
 <p><span id="syntax" class="md-typeset" style="display: block; font-weight: bold;">Syntax</span></p>
 <div class="codehilite"><pre><span></span>&lt;INT&gt; str:strcmp(&lt;STRING&gt; arg1, &lt;STRING&gt; arg2)
@@ -1602,7 +1614,7 @@ input OutputStream;
 <p style="word-wrap: break-word">This compares two strings lexicographically and outputs an integer value</p>
 
 <h3 id="substr-function">substr <em><a target="_blank" href="https://wso2.github.io/siddhi/documentation/siddhi-4.0/#function">(Function)</a></em><a class="headerlink" href="#substr-function" title="Permanent link">&para;</a></h3>
-<p style="word-wrap: break-word">This returns a new string that is a substring of this string</p>
+<p style="word-wrap: break-word">Returns a substring of the input string by considering a subset or all of the following factors: starting index, length, regular expression, and regex group number.</p>
 
 <p><span id="syntax" class="md-typeset" style="display: block; font-weight: bold;">Syntax</span></p>
 <div class="codehilite"><pre><span></span>&lt;STRING&gt; str:substr(&lt;STRING&gt; input.string, &lt;INT&gt; begin.index, &lt;INT&gt; length, &lt;STRING&gt; regex, &lt;INT&gt; group.number)
@@ -1680,10 +1692,10 @@ input OutputStream;
 </pre></div>
 
 
-<p style="word-wrap: break-word">This outputs the substring by applying the regex. In this scenario, the output is "WSO2D efghiJ KLMN".</p>
+<p style="word-wrap: break-word">This outputs the substring by applying the regex. In this scenario, the output is "Hello World".</p>
 
 <p><span id="example-4" class="md-typeset" style="display: block; color: rgba(0, 0, 0, 0.54); font-size: 12.8px; font-weight: bold;">EXAMPLE 4</span></p>
-<div class="codehilite"><pre><span></span>substr(&quot;WSO2 cep WSO2 XX E hi hA WSO2 heAllo&quot;,  &#39;WSO2(.*)A(.*)&#39;,  2)
+<div class="codehilite"><pre><span></span>substr(&quot;Welcome to the world&#39;s best streaming engine, WSO2 SP! A Hello World.&quot;,  &#39;WSO2(.*)A(.*)&#39;, 2)
 </pre></div>
 
 
@@ -1840,9 +1852,12 @@ input OutputStream;
 <p><span id="examples" class="md-typeset" style="display: block; font-weight: bold;">Examples</span>
 <span id="example-1" class="md-typeset" style="display: block; color: rgba(0, 0, 0, 0.54); font-size: 12.8px; font-weight: bold;">EXAMPLE 1</span></p>
 <div class="codehilite"><pre><span></span>define stream inputStream (str string);
+
+@sink(type=&#39;log&#39;) 
+define stream outputStream(str string, token string);
+
 @info(name = &#39;query1&#39;)
 from inputStream#str:tokenize(str , regex)
-select text
 insert into outputStream;
 </pre></div>
 
