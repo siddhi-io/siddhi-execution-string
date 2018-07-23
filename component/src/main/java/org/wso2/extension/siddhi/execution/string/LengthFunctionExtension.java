@@ -43,7 +43,7 @@ import java.util.Map;
 @Extension(
         name = "length",
         namespace = "str",
-        description = "Returns the length of this string.",
+        description = "Returns the length of the input string.",
         parameters = {
                 @Parameter(name = "input.string",
                         description = "The input string to derive the length.",

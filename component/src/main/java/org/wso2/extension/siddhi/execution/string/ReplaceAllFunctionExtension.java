@@ -43,8 +43,8 @@ import java.util.Map;
 @Extension(
         name = "replaceAll",
         namespace = "str",
-        description = "Replaces each substring of this string that matches the given expression " +
-                "with the given replacement.",
+        description = "Finds all the substrings of the input string that matches with the given expression, and " +
+                "replaces them with the given replacement string.",
         parameters = {
                 @Parameter(name = "input.string",
                         description = "The input string to be replaced.",

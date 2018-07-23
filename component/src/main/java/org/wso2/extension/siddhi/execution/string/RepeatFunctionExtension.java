@@ -43,7 +43,7 @@ import java.util.Map;
 @Extension(
         name = "repeat",
         namespace = "str",
-        description = "Repeats a string for a specified number of times.",
+        description = "Repeats the input string for a specified number of times.",
         parameters = {
                 @Parameter(name = "input.string",
                         description = "The input string that is repeated the number of times as defined by the user.",

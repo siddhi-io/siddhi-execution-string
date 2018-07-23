@@ -43,7 +43,7 @@ import java.util.Map;
 @Extension(
         name = "reverse",
         namespace = "str",
-        description = "Returns the reverse ordered string of the input.",
+        description = "Returns the input string in the reverse order character-wise and string-wise.",
         parameters = {
                 @Parameter(name = "input.string",
                         description = "The input string to be reversed.",

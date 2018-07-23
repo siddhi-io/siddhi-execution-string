@@ -47,7 +47,8 @@ import java.util.regex.Pattern;
 @Extension(
         name = "substr",
         namespace = "str",
-        description = "This returns a new string that is a substring of this string",
+        description = "Returns a substring of the input string by considering a subset or all of the following " +
+                "factors: starting index, length, regular expression, and regex group number.",
         parameters = {
                 @Parameter(name = "input.string",
                         description = "The input string to be processed.",

@@ -43,8 +43,9 @@ import java.util.Map;
 @Extension(
         name = "replaceFirst",
         namespace = "str",
-        description = "Replaces the first substring of this string that matches the given expression, " +
-                "with the given replacement.",
+        description = "Finds the first substring of the input string that matches with the given regular " +
+                "expression, and replaces it" +
+                "with the given replacement string.",
         parameters = {
                 @Parameter(name = "input.string",
                         description = "The input string that should be replaced.",

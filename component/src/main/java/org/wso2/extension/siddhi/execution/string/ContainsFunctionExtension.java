@@ -48,7 +48,7 @@ import java.util.Map;
 @Extension(
         name = "contains",
         namespace = "str",
-        description = "This method returns `true` if the`input.string` contains the specified sequence of char " +
+        description = "Returns `true` if the`input.string` contains the specified sequence of char " +
                 "values in the `search.string`. ",
         parameters = {
                 @Parameter(name = "input.string",
