@@ -45,7 +45,8 @@ import java.util.regex.Pattern;
 @Extension(
         name = "fillTemplate",
         namespace = "str",
-        description = "Replaces the templated positions that are marked with an index value in a given template with the provided strings.",
+        description = "Replaces the templated positions that are marked with an index value in a given template with" +
+                " the provided strings.",
         parameters = {
                 @Parameter(name = "template",
                         description = "The string with templated fields that needs to be filled with the given " +

@@ -44,7 +44,8 @@ import java.util.Map;
 @Extension(
         name = "hex",
         namespace = "str",
-        description = "Returns a hexadecimal string by converting each byte of each character in the input string to two hexadecimal digits.",
+        description = "Returns a hexadecimal string by converting each byte of each character in the input string to" +
+                " two hexadecimal digits.",
         parameters = {
                 @Parameter(name = "input.string",
                         description = "The input string to derive the hexadecimal value.",
