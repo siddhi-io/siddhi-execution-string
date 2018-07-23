@@ -1,20 +1,39 @@
-site_name: Siddhi-Execution-String
+site_name: Siddhi Execution String
+site_description: Siddhi Execution String Extension
+site_author: WSO2
+site_url: https://wso2-extensions.github.io/siddhi-execution-string/
 extra_css:
 - stylesheets/extra.css
 extra_javascript:
 - javascripts/extra.js
-site_favicon: images/favicon.ico
-extra:
+repo_name: Siddhi-Execution-String
+repo_url: https://github.com/wso2-extensions/siddhi-execution-string
+copyright: Copyright &copy; 2011 - 2018 WSO2
+theme:
+  name: material
   logo: images/siddhi-logo-w.svg
+  favicon: images/favicon.ico
   palette:
     primary: teal
     accent: teal
 google_analytics:
 - UA-103065-28
 - auto
+extra:
+  social:
+  - type: github
+    link: https://github.com/wso2/siddhi
+  - type: linkedin
+    link: https://www.linkedin.com/groups/13553064
+markdown_extensions:
+- admonition
+- toc(permalink=true)
+- codehilite(guess_lang=false)
 pages:
-- Welcome to WSO2 Siddhi Execution String: index.md
+- Welcome: index.md
 - API Docs:
+  - 4.0.17: api/4.0.17.md
+  - 4.0.16: api/4.0.16.md
   - 4.0.15: api/4.0.15.md
   - 4.0.14: api/4.0.14.md
   - 4.0.13: api/4.0.13.md
@@ -28,4 +47,3 @@ pages:
   - 4.0.5: api/4.0.5.md
   - latest: api/latest.md
 - License: license.md
-theme: material
