@@ -34,6 +34,7 @@ import org.wso2.siddhi.query.api.exception.SiddhiAppValidationException;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.Iterator;
+import java.util.LinkedHashMap;
 import java.util.Map;
 import java.util.TreeMap;
 
@@ -146,7 +147,7 @@ public class GroupConcatFunctionExtension extends AttributeAggregator {
                         "should be a constant `'ASC'` or `'DESC'`, but found '" + value + "'.");
             }
         } else {
-            dataSet = new HashMap<>();
+            dataSet = new LinkedHashMap<>();
         }
     }
 

@@ -40,6 +40,7 @@
             <class name="org.wso2.extension.siddhi.execution.string.TrimFunctionExtensionTestCase" />
             <class name="org.wso2.extension.siddhi.execution.string.UnhexFunctionExtensionTestCase" />
             <class name="org.wso2.extension.siddhi.execution.string.UpperFunctionExtensionTestCase" />
+            <class name="org.wso2.extension.siddhi.execution.string.GroupConcatFunctionExtensionTestCase" />
         </classes>
     </test>
 </suite>

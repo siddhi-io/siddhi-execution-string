@@ -73,7 +73,7 @@ public class GroupConcatFunctionExtensionTestCase {
                         eventArrived = true;
                     }
                     if (count.get() == 3) {
-                        AssertJUnit.assertEquals("null,8JU^,$%$6", event.getData(2));
+                        AssertJUnit.assertEquals("null,$%$6,8JU^", event.getData(2));
                         eventArrived = true;
                     }
                 }
@@ -126,7 +126,7 @@ public class GroupConcatFunctionExtensionTestCase {
                         eventArrived = true;
                     }
                     if (count.get() == 5) {
-                        AssertJUnit.assertEquals("CCC,BBB", event.getData(1));
+                        AssertJUnit.assertEquals("BBB,CCC", event.getData(1));
                         eventArrived = true;
                     }
                 }
@@ -181,7 +181,7 @@ public class GroupConcatFunctionExtensionTestCase {
                         eventArrived = true;
                     }
                     if (count.get() == 5) {
-                        AssertJUnit.assertEquals("CCC-BBB", event.getData(1));
+                        AssertJUnit.assertEquals("BBB-CCC", event.getData(1));
                         eventArrived = true;
                     }
                 }
@@ -236,7 +236,7 @@ public class GroupConcatFunctionExtensionTestCase {
                         eventArrived = true;
                     }
                     if (count.get() == 5) {
-                        AssertJUnit.assertEquals("CCC-BBB", event.getData(1));
+                        AssertJUnit.assertEquals("BBB-CCC", event.getData(1));
                         eventArrived = true;
                     }
                 }
@@ -376,7 +376,7 @@ public class GroupConcatFunctionExtensionTestCase {
                 "from inputStream#window.length(2)" +
                 "select symbol1, str:groupConcat(symbol1, '-', false, 'ASC1') as concatString1 " +
                 "insert into outputStream;");
-       siddhiManager.createSiddhiAppRuntime(inStreamDefinition + query);
+        siddhiManager.createSiddhiAppRuntime(inStreamDefinition + query);
     }
 
     @Test(expectedExceptions = SiddhiAppCreationException.class)
