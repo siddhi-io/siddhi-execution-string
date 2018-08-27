@@ -106,7 +106,7 @@
     <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
     <label class="md-overlay" data-md-component="overlay" for="__drawer"></label>
     
-      <a href="#api-docs-v4020" tabindex="1" class="md-skip">
+      <a href="#api-docs-v4021" tabindex="1" class="md-skip">
         Skip to content
       </a>
     
@@ -275,6 +275,18 @@
       </label>
       <ul class="md-nav__list" data-md-scrollfix>
         
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../4.0.21/" title="4.0.21" class="md-nav__link">
+      4.0.21
+    </a>
+  </li>
+
         
           
           
@@ -901,7 +913,7 @@
                   <a href="https://github.com/wso2-extensions/siddhi-execution-string/edit/master/docs/api/latest.md" title="Edit this page" class="md-icon md-content__icon">&#xE3C9;</a>
                 
                 
-                <h1 id="api-docs-v4020">API Docs - v4.0.20<a class="headerlink" href="#api-docs-v4020" title="Permanent link">&para;</a></h1>
+                <h1 id="api-docs-v4021">API Docs - v4.0.21<a class="headerlink" href="#api-docs-v4021" title="Permanent link">&para;</a></h1>
 <h2 id="str">Str<a class="headerlink" href="#str" title="Permanent link">&para;</a></h2>
 <h3 id="groupconcat-aggregate-function">groupConcat <em><a target="_blank" href="https://wso2.github.io/siddhi/documentation/siddhi-4.0/#aggregate-function">(Aggregate Function)</a></em><a class="headerlink" href="#groupconcat-aggregate-function" title="Permanent link">&para;</a></h3>
 <p style="word-wrap: break-word">Aggregates the received events by concatenating the keys of those events using a given separator, e.g., comma (,) and hyphen (-), and returns the concatenated key string.</p>
@@ -1173,7 +1185,7 @@ input OutputStream;
 <p style="word-wrap: break-word">This returns a boolean value as the output. In this scenario, it returns "true". </p>
 
 <h3 id="filltemplate-function">fillTemplate <em><a target="_blank" href="https://wso2.github.io/siddhi/documentation/siddhi-4.0/#function">(Function)</a></em><a class="headerlink" href="#filltemplate-function" title="Permanent link">&para;</a></h3>
-<p style="word-wrap: break-word">Replaces the templated positions that are marked with an index value in a given template with the provided strings.</p>
+<p style="word-wrap: break-word">This extension replaces the templated positions that are marked with an index value in a specified template with the strings provided.</p>
 
 <p><span id="syntax" class="md-typeset" style="display: block; font-weight: bold;">Syntax</span></p>
 <div class="codehilite"><pre><span></span>&lt;STRING&gt; str:fillTemplate(&lt;STRING&gt; template, &lt;STRING|INT|LONG|DOUBLE|FLOAT|BOOL&gt; replacement.strings)
@@ -1192,7 +1204,7 @@ input OutputStream;
     </tr>
     <tr>
         <td style="vertical-align: top">template</td>
-        <td style="vertical-align: top; word-wrap: break-word">The string with templated fields that needs to be filled with the given strings. Templated fields should be in following the format {{INDEX}} where INDEX is an integer. <br>This index is used to map the strings which are used to replace the templated fields.</td>
+        <td style="vertical-align: top; word-wrap: break-word">The string with templated fields that needs to be filled with the given strings. The format of the templated fields should be as follows:<br>{{INDEX}} where 'INDEX' is an integer. <br>This index is used to map the strings that are used to replace the templated fields.</td>
         <td style="vertical-align: top"></td>
         <td style="vertical-align: top">STRING</td>
         <td style="vertical-align: top">No</td>
@@ -1200,7 +1212,7 @@ input OutputStream;
     </tr>
     <tr>
         <td style="vertical-align: top">replacement.strings</td>
-        <td style="vertical-align: top; word-wrap: break-word">Strings to replace the templated positions in the template.<br>There can be any number of arguments from the 2nd argument.</td>
+        <td style="vertical-align: top; word-wrap: break-word">The strings with which the templated positions in the template need to be replaced.<br>The minimum of two arguments need to be included in the execution string. There is no upper limit on the number of arguments allowed to be included.</td>
         <td style="vertical-align: top"></td>
         <td style="vertical-align: top">STRING<br>INT<br>LONG<br>DOUBLE<br>FLOAT<br>BOOL</td>
         <td style="vertical-align: top">No</td>
@@ -1213,7 +1225,7 @@ input OutputStream;
 </pre></div>
 
 
-<p style="word-wrap: break-word">In this example, the template is 'This is {{1}} for the {{2}} function'.Here the templated string {{1}} will be replaced with the 1st string value provided ('an example').<br>{{2}} will be replaced with the 2nd string provided ('fillTemplate')<br>The return string will be 'This is an example for the fillTemplate function'.</p>
+<p style="word-wrap: break-word">In this example, the template is 'This is {{1}} for the {{2}} function'.Here, the templated string {{1}} is replaced with the 1st string value provided, which is 'an example'.<br>{{2}} is replaced with the 2nd string provided, which is 'fillTemplate'<br>The complete return string is 'This is an example for the fillTemplate function'.</p>
 
 <h3 id="hex-function">hex <em><a target="_blank" href="https://wso2.github.io/siddhi/documentation/siddhi-4.0/#function">(Function)</a></em><a class="headerlink" href="#hex-function" title="Permanent link">&para;</a></h3>
 <p style="word-wrap: break-word">Returns a hexadecimal string by converting each byte of each character in the input string to two hexadecimal digits.</p>
