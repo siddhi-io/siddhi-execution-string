@@ -57,7 +57,8 @@ import java.util.regex.Pattern;
                 @Parameter(name = "replacement.strings",
                         description = "The strings with which the templated positions in the template need to be" +
                                 " replaced.\n" +
-                                "There can be any number of arguments from the 2nd argument.",
+                                "The minimum of two arguments need to be included in the execution string. There is" +
+                                " no upper limit on the number of arguments allowed to be included.",
                         type = {DataType.STRING, DataType.INT, DataType.LONG, DataType.DOUBLE,
                                 DataType.FLOAT, DataType.BOOL}),
         },
