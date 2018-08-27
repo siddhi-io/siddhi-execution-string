@@ -64,7 +64,7 @@ import java.util.regex.Pattern;
         },
         returnAttributes =
             @ReturnAttribute(
-                description = "The string that is returned after the templates positions are filled with the given" +
+                description = "The string that is returned after the templated positions are filled with the given" +
                         " values.",
                 type = DataType.STRING),
         examples =
