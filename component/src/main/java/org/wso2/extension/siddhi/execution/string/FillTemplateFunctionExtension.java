@@ -45,33 +45,36 @@ import java.util.regex.Pattern;
 @Extension(
         name = "fillTemplate",
         namespace = "str",
-        description = "Replaces the templated positions that are marked with an index value in a given template with" +
-                " the provided strings.",
+        description = "This extension replaces the templated positions that are marked with an index value in a" +
+                " specified template with the strings provided.",
         parameters = {
                 @Parameter(name = "template",
                         description = "The string with templated fields that needs to be filled with the given " +
-                                "strings. Templated fields should be in following the format " +
-                                "{{INDEX}} where INDEX is an integer. \n" +
-                                "This index is used to map the strings which are used to replace the templated fields.",
+                                "strings. The format of the templated fields should be as follows:\n" +
+                                "{{INDEX}} where 'INDEX' is an integer. \n" +
+                                "This index is used to map the strings that are used to replace the templated fields.",
                         type = {DataType.STRING}),
                 @Parameter(name = "replacement.strings",
-                        description = "Strings to replace the templated positions in the template.\n" +
-                                "There can be any number of arguments from the 2nd argument.",
+                        description = "The strings with which the templated positions in the template need to be" +
+                                " replaced.\n" +
+                                "The minimum of two arguments need to be included in the execution string. There is" +
+                                " no upper limit on the number of arguments allowed to be included.",
                         type = {DataType.STRING, DataType.INT, DataType.LONG, DataType.DOUBLE,
                                 DataType.FLOAT, DataType.BOOL}),
         },
         returnAttributes =
             @ReturnAttribute(
-                description = "String in which templated positions filled with the given values.",
+                description = "The string that is returned after the templated positions are filled with the given" +
+                        " values.",
                 type = DataType.STRING),
         examples =
             @Example(
                 description = "" +
                         "In this example, the template is 'This is {{1}} for the {{2}} function'." +
-                        "Here the templated string {{1}} will be replaced with the 1st " +
-                        "string value provided ('an example').\n" +
-                        "{{2}} will be replaced with the 2nd string provided ('fillTemplate')\n" +
-                        "The return string will be 'This is an example for the fillTemplate function'.",
+                        "Here, the templated string {{1}} is replaced with the 1st " +
+                        "string value provided, which is 'an example'.\n" +
+                        "{{2}} is replaced with the 2nd string provided, which is 'fillTemplate'\n" +
+                        "The complete return string is 'This is an example for the fillTemplate function'.",
                 syntax = "str:fillTemplate(\"This is {{1}} for the {{2}} function\",  'an example', 'fillTemplate')")
 )
 public class FillTemplateFunctionExtension extends FunctionExecutor {
