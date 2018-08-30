@@ -52,6 +52,7 @@
         <mavan.findbugsplugin.exclude.file>findbugs-exclude.xml</mavan.findbugsplugin.exclude.file>
         <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+        <siddhi.import.version.range>[4.1, 5.0)</siddhi.import.version.range>
     </properties>
 
     <scm>
