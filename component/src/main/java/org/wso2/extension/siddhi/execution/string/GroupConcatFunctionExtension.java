@@ -51,42 +51,42 @@ import java.util.TreeMap;
 @Extension(
         name = "groupConcat",
         namespace = "str",
-        description = "Aggregates the received events by concatenating the keys of those events using a given " +
-                "separator, e.g., comma (,) and hyphen (-), and returns the concatenated key string.",
+        description = "This function aggregates the received events by concatenating the keys of those events " +
+                "using a separator, e.g.,a comma (,) or a hyphen (-), and returns the concatenated key string.",
         parameters = {
                 @Parameter(name = "key",
-                        description = "The string that need to be aggregated.",
+                        description = "The string that needs to be aggregated.",
                         type = {DataType.STRING}),
                 @Parameter(name = "separator",
-                        description = "The separator that separates each string key getting aggregated.",
+                        description = "The separator that separates each string key from aggregation.",
                         type = {DataType.STRING}, optional = true, defaultValue = ","),
                 @Parameter(name = "distinct",
-                        description = "To only have distinct string keys in the the aggregation.",
+                        description = "This is used to only have distinct string keys while aggregating the string.",
                         type = {DataType.STRING}, optional = true, defaultValue = "false"),
                 @Parameter(name = "order",
-                        description = "Accepts 'ASC' or 'DESC' strings to sort the string keys " +
-                                "by ascending or descending order.",
+                        description = "This parameter accepts 'ASC' or 'DESC' strings to sort the string keys " +
+                                "in ascending or descending order respectively.",
                         type = {DataType.STRING}, optional = true, defaultValue = "No order"),
         },
         returnAttributes = @ReturnAttribute(
-                description = "Returns a string that is the result of the concatenated keys " +
-                        "separated by the given separator",
+                description = "This returns a string, that results from the concatenation of the keys, " +
+                        "separated by the given separator.",
                 type = {DataType.STRING}),
         examples = {
-                @Example(description = "This returns a string that is the result of the " +
-                        "concatenated keys separated by the given separator. \n" +
-                        "When we send events having values for the `key` `'A'`, `'B'`, `'S'`, `'C'`, `'A'` it will" +
-                        " return `\"A,B,S,C,A\"` as the output",
+                @Example(
                         syntax = "from InputStream#window.time(5 min)\n" +
                                 "select str:groupConcat(\"key\") as groupedKeys\n" +
-                                "input OutputStream;"),
-                @Example(description = "This returns a string that is the result of the " +
-                        "concatenated keys separated by the given separator. \n" +
-                        "When we send events having values for the `key` `'A'`, `'B'`, `'S'`, `'C'`, `'A'` it will" +
-                        " return `\"A-B-C-S\"` as the output",
+                                "input OutputStream;",
+                        description = "When we input events having values for the `key` as `'A'`, " +
+                                "`'B'`, `'S'`, `'C'`, `'A'`, it" +
+                                " returns `\"A,B,S,C,A\"` to the 'OutputStream'.")
+                @Example(
                         syntax = "from InputStream#window.time(5 min)\n" +
                                 "select groupConcat(\"key\",\"-\",true,\"ASC\") as groupedKeys\n" +
-                                "input OutputStream;")
+                                "input OutputStream;",
+                        description ="When we input events having values for the `key` as `'A'`, `'B'`, `'S'`, " +
+                                "`'C'`, `'A'` it" +
+                        " returns `\"A-B-C-S\"` to the 'OutputStream'.")
         }
 
 )
