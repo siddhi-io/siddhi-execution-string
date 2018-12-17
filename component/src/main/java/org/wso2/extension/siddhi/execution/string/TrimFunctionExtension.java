@@ -52,9 +52,11 @@ import java.util.Map;
         returnAttributes = @ReturnAttribute(
                 description = "This returns a string value after removing the leading and trailing whitespaces",
                 type = {DataType.STRING}),
-        examples = @Example(description = "This returns a copy of the `input.string` with the leading and/or " +
-                "trailing white-spaces omitted. In this scenario, the output is \"AbCDefghiJ KLMN\".",
-                syntax = "trim(\"  AbCDefghiJ KLMN  \")")
+        examples = @Example(
+                syntax = "trim(\"  AbCDefghiJ KLMN  \")",
+                description = "This returns a copy of the `input.string` with the leading and/or " +
+                "trailing white-spaces omitted. In this scenario, the output is \"AbCDefghiJ KLMN\".")
+
 )
 public class TrimFunctionExtension extends FunctionExecutor {
 

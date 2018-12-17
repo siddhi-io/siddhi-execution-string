@@ -53,7 +53,7 @@ import java.util.Map;
                         description = "The regular expression to be matched with the input string.",
                         type = {DataType.STRING}),
                 @Parameter(name = "replacement.string",
-                        description = "The striing with which each substring that matches the given expression should" +
+                        description = "The string with which each substring that matches the given expression should" +
                                 " be replaced.",
                         type = {DataType.STRING})
         },
@@ -61,9 +61,11 @@ import java.util.Map;
                 description = "This replaces each substring of the given string (i.e. str) that matches the given " +
                         "regular expression (i.e. regex) with the string specified as the replacement " +
                         "(i.e. replacement).", type = {DataType.STRING}),
-        examples = @Example(description = "This returns a string after replacing the substrings of the input string" +
-                " with the replacement string. In this scenario, the output is \"test hi test\" .",
-                syntax = "replaceAll(\"hello hi hello\",  'hello', 'test')")
+        examples = @Example(
+                syntax = "replaceAll(\"hello hi hello\",  'hello', 'test')",
+                description = "This returns a string after replacing the substrings of the input string" +
+                " with the replacement string. In this scenario, the output is \"test hi test\" ."
+                )
 )
 public class ReplaceAllFunctionExtension extends FunctionExecutor {
 

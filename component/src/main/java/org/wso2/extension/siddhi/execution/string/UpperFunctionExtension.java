@@ -53,9 +53,11 @@ import java.util.Map;
         returnAttributes = @ReturnAttribute(
                 description = "This returns a string value in upper case by converting the `input.string`",
                 type = {DataType.STRING}),
-        examples = @Example(description = "This converts the simple letters in the `input.string` to the" +
-                "equivalent capital letters. In this scenario, the output is \"HELLO WORLD\".",
-                syntax = "upper(\"Hello World\")")
+        examples = @Example(
+                syntax = "upper(\"Hello World\")",
+                description = "This converts the simple letters in the `input.string` to the" +
+                "equivalent capital letters. In this scenario, the output is \"HELLO WORLD\".")
+
 )
 public class UpperFunctionExtension extends FunctionExecutor {
 

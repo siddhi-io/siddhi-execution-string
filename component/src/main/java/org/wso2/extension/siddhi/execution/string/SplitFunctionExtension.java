@@ -60,9 +60,11 @@ import java.util.Map;
         returnAttributes = @ReturnAttribute(
                 description = "This returns the substring after splitting the input.string",
                 type = {DataType.STRING}),
-        examples = @Example(description = "This splits the given `input.string` by given `split.string` and " +
-                "returns the string in the index given by group.number. In this scenario, the output will is \"WSO2\".",
-                syntax = "split(\"WSO2,ABM,NSFT\", \",\", 0)")
+        examples = @Example(
+                syntax = "split(\"WSO2,ABM,NSFT\", \",\", 0)",
+                description = "This splits the given `input.string` by given `split.string` and " +
+                "returns the string in the index given by group.number. In this scenario, " +
+                "the output will is \"WSO2\".")
 )
 public class SplitFunctionExtension extends FunctionExecutor {
 

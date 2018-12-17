@@ -62,9 +62,10 @@ import java.util.Map;
                 description = "This returns a string after replacing the first substring that matches the given" +
                         " regular expression with the string specified as the replacement",
                 type = {DataType.STRING}),
-        examples = @Example(description = "This returns a string after replacing the first substring with the " +
-                "given replacement string. In this scenario, the output is \"hello XXXX hello\".",
-                syntax = "replaceFirst(\"hello WSO2 A hello\",  'WSO2(.*)A', 'XXXX')")
+        examples = @Example(
+                syntax = "replaceFirst(\"hello WSO2 A hello\",  'WSO2(.*)A', 'XXXX')",
+                description = "This returns a string after replacing the first substring with the " +
+                "given replacement string. In this scenario, the output is \"hello XXXX hello\".")
 )
 public class ReplaceFirstFunctionExtension extends FunctionExecutor {
 

@@ -53,11 +53,13 @@ import java.util.Map;
                         type = {DataType.INT})
         },
         returnAttributes = @ReturnAttribute(
-                description = "This returns a value after repeating the string for a specified number of times ",
+                description = "This returns a value after repeating the string for a specified number of times.",
                 type = {DataType.STRING}),
-        examples = @Example(description = "This returns a string value by repeating the string for a specified number" +
-                " of times. In this scenario, the output is \"StRing 1StRing 1StRing 1\".",
-                syntax = "repeat(\"StRing 1\", 3)")
+        examples = @Example(
+                syntax = "repeat(\"StRing 1\", 3)",
+                description = "This returns a string value by repeating the string for a specified number" +
+                " of times. In this scenario, the output is \"StRing 1StRing 1StRing 1\".")
+
 )
 public class RepeatFunctionExtension extends FunctionExecutor {
 
