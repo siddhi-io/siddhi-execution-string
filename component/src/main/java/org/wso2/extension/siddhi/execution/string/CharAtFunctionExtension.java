@@ -42,20 +42,23 @@ import java.util.Map;
 @Extension(
         name = "charAt",
         namespace = "str",
-        description = "Returns the char value that exists at the given index position of the input string.",
+        description = "This function returns the 'char' value that is present at the given index position." +
+                " of the input string.",
         parameters = {
                 @Parameter(name = "input.value",
-                        description = "The input string that used to find the character.",
+                        description = "The input string of which the char value at the given position needs to be " +
+                                "returned.",
                         type = {DataType.STRING}),
                 @Parameter(name = "index",
-                        description = "The variable that specifies the index.",
+                        description = "The variable that specifies the index of the char value that needs " +
+                                "to be returned.",
                         type = {DataType.INT})
         },
         returnAttributes = @ReturnAttribute(
                 description = "This returns the character that exists in the location specified by the index.",
                 type = {DataType.STRING}),
-        examples = @Example(syntax = "charAt(\"WSO2\", 1)", description = "This will output the " +
-                "character that exists at index 1. In this case, it will output 'S'.")
+        examples = @Example(syntax = "charAt(\"WSO2\", 1)", description = "In this case, the functiion returns the " +
+                "character that exists at index 1. Hence, it returns 'S'.")
 )
 public class CharAtFunctionExtension extends FunctionExecutor {
 
