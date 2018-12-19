@@ -44,8 +44,8 @@ import java.util.Map;
 @Extension(
         name = "hex",
         namespace = "str",
-        description = "Returns a hexadecimal string by converting each byte of each character in the input string to" +
-                " two hexadecimal digits.",
+        description = "This function returns a hexadecimal string by converting each byte of each character" +
+                " in the input string to two hexadecimal digits.",
         parameters = {
                 @Parameter(name = "input.string",
                         description = "The input string to derive the hexadecimal value.",
@@ -54,8 +54,11 @@ import java.util.Map;
         returnAttributes = @ReturnAttribute(
                 description = "The hexadecimal value of the input string that is passed to the function.",
                 type = {DataType.STRING}),
-        examples = @Example(description = "This returns the hexadecimal value of the input.string. " +
-                "In this scenario, the output is \"4d7953514c\".", syntax = "hex(\"MySQL\") ")
+        examples = @Example(
+                syntax = "hex(\"MySQL\") ",
+                description = "This returns the hexadecimal value of the input.string. " +
+                "In this scenario, the output is \"4d7953514c\"."
+                )
 )
 public class HexFunctionExtension extends FunctionExecutor {
 

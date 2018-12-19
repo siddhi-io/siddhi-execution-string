@@ -53,9 +53,11 @@ import java.util.Map;
         returnAttributes = @ReturnAttribute(
                 description = "Returns a string value in lower case by converting the input.string .",
                 type = {DataType.STRING}),
-        examples = @Example(description = "This converts the capital letters in the input.string to the " +
-                "equivalent simple letters. In this scenario, the output is \"wso2 cep \".",
-                syntax = "lower(\"WSO2 cep \")")
+        examples = @Example(
+                syntax = "lower(\"WSO2 cep \")",
+                description = "This converts the capital letters in the input.string to the " +
+                "equivalent simple letters. In this scenario, the output is \"wso2 cep \".")
+
 )
 public class LowerFunctionExtension extends FunctionExecutor {
 

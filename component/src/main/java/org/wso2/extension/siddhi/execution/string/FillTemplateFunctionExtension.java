@@ -69,13 +69,14 @@ import java.util.regex.Pattern;
                 type = DataType.STRING),
         examples =
             @Example(
-                description = "" +
+                    syntax = "str:fillTemplate(\"This is {{1}} for the {{2}} function\", " +
+                            "'an example', 'fillTemplate')",
+                    description = "" +
                         "In this example, the template is 'This is {{1}} for the {{2}} function'." +
                         "Here, the templated string {{1}} is replaced with the 1st " +
                         "string value provided, which is 'an example'.\n" +
                         "{{2}} is replaced with the 2nd string provided, which is 'fillTemplate'\n" +
-                        "The complete return string is 'This is an example for the fillTemplate function'.",
-                syntax = "str:fillTemplate(\"This is {{1}} for the {{2}} function\",  'an example', 'fillTemplate')")
+                        "The complete return string is 'This is an example for the fillTemplate function'.")
 )
 public class FillTemplateFunctionExtension extends FunctionExecutor {
     Pattern templatePattern = Pattern.compile("(\\{\\{\\d+}})");

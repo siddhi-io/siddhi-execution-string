@@ -58,10 +58,12 @@ import java.util.Map;
         },
         returnAttributes = @ReturnAttribute(
                 description = "This returns an integer value after comparing `arg1` with the `arg2` string " +
-                        "lexicographically",
+                        "lexicographically.",
                 type = {DataType.INT}),
-        examples = @Example(description = "This compares two strings lexicographically and outputs an integer value",
-                syntax = "strcmp(\"AbCDefghiJ KLMN\", 'Hello')")
+        examples = @Example(
+                syntax = "strcmp(\"AbCDefghiJ KLMN\", 'Hello')",
+                description = "This compares two strings lexicographically and outputs an integer value."
+                )
 )
 public class StrcmpFunctionExtension extends FunctionExecutor {
 

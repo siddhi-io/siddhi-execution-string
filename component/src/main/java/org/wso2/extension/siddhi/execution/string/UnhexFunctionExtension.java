@@ -52,10 +52,12 @@ import java.util.Map;
                         type = {DataType.STRING})
         },
         returnAttributes = @ReturnAttribute(
-                description = "This returns the string value of the hexadecimal value that passed",
+                description = "This returns the string value of the hexadecimal value that passed.",
                 type = {DataType.STRING}),
-        examples = @Example(description = "This converts the hexadecimal value to string",
-                syntax = "unhex(\"4d7953514c\")")
+        examples = @Example(
+                syntax = "unhex(\"4d7953514c\")",
+                description = "This converts the hexadecimal value to string."
+                )
 )
 public class UnhexFunctionExtension extends FunctionExecutor {
     @Override

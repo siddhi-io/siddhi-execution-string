@@ -52,8 +52,11 @@ import java.util.Map;
         returnAttributes = @ReturnAttribute(
                 description = "Outputs the length of the input string provided.",
                 type = {DataType.INT}),
-        examples = @Example(description = "This outputs the length of the provided string. In this scenario, the, " +
-                "output is `11` .", syntax = "length(\"Hello World\")")
+        examples = @Example(
+                syntax = "length(\"Hello World\")",
+                description = "This outputs the length of the provided string. In this scenario, the, " +
+                "output is `11` .")
+
 )
 public class LengthFunctionExtension extends FunctionExecutor {
 

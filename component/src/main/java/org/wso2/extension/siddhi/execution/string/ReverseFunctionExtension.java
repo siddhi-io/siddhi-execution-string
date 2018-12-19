@@ -52,8 +52,10 @@ import java.util.Map;
         returnAttributes = @ReturnAttribute(
                 description = "Returns the reverse ordered string of `input.string` .",
                 type = {DataType.STRING}),
-        examples = @Example(description = "This outputs a string value by reversing the incoming `input.string`. " +
-                "In this scenario, the output is \"dlroW olleH\".", syntax = "reverse(\"Hello World\")")
+        examples = @Example(
+                syntax = "reverse(\"Hello World\")",
+                description = "This outputs a string value by reversing the incoming `input.string`. " +
+                "In this scenario, the output is \"dlroW olleH\".")
 )
 public class ReverseFunctionExtension extends FunctionExecutor {
 

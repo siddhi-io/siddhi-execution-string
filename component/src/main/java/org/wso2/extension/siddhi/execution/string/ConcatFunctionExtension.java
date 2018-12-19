@@ -42,18 +42,20 @@ import java.util.Map;
 @Extension(
         name = "concat",
         namespace = "str",
-        description = "Returns a string that is the result of concatenating two or more input string values.",
+        description = "This function returns a string value that is obtained as a result of " +
+                "concatenating two or more input string values.",
         parameters = {
                 @Parameter(name = "argn",
-                        description = "It can have two or more `string` type input parameters.",
+                        description = "This can have two or more `string` type input parameters.",
                         type = {DataType.STRING})
         },
         returnAttributes = @ReturnAttribute(
-                description = "Returns a string that is the result of concatenating the given arguments",
+                description = "This is the string that is returned on concatenating the given input arguments.",
                 type = {DataType.STRING}),
-        examples = @Example(description = "This returns a string value by concatenating the given arguments. " +
-                "In this case, it will return \"D5338JU^XYZ\" as the output",
-                syntax = "concat(\"D533\", \"8JU^\", \"XYZ\")")
+        examples = @Example(
+                syntax = "concat(\"D533\", \"8JU^\", \"XYZ\")",
+                description = "This returns a string value by concatenating two or more given arguments. " +
+                        "In the example shown above, it returns \"D5338JU^XYZ\".")
 )
 public class ConcatFunctionExtension extends FunctionExecutor {
 

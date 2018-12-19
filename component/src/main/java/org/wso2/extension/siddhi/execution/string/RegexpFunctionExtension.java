@@ -60,9 +60,11 @@ import java.util.regex.Pattern;
                 description = "This extension returns `true` if the given string matches the given regular expression" +
                         " (i.e. regex ). It returns `false` if the string does not match the regular expression.",
                 type = {DataType.BOOL}),
-        examples = @Example(description = "This returns a boolean value after matching regular expression with " +
-                "the given string. In this scenario, it returns \"true\" as the output.",
-                syntax = "regexp(\"WSO2 abcdh\", \"WSO(.*h)\")")
+        examples = @Example(
+                syntax = "regexp(\"WSO2 abcdh\", \"WSO(.*h)\")",
+                description = "This returns a boolean value after matching regular expression with " +
+                "the given string. In this scenario, it returns \"true\" as the output.")
+
 )
 public class RegexpFunctionExtension extends FunctionExecutor {
 

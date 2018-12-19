@@ -56,17 +56,17 @@ import java.util.regex.PatternSyntaxException;
 @Extension(
         name = "tokenize",
         namespace = "str",
-        description = "Splits the input string to tokens using the given regular expression and returns the " +
-                "resultant tokens.",
+        description = "This function splits the input string into tokens using a given regular expression and " +
+                "returns the split tokens.",
         parameters = {
                 @Parameter(name = "input.string",
-                        description = "The input text which should be split.",
+                        description = "The input string which needs to be split.",
                         type = {DataType.STRING}),
                 @Parameter(name = "regex",
-                        description = "The string value to be used to tokenize the 'input.string'.",
+                        description = "The string value which is used to tokenize the 'input.string'.",
                         type = {DataType.STRING}),
                 @Parameter(name = "distinct",
-                        description = "Flag to return only distinct values",
+                        description = "This flag is used to return only distinct values.",
                         type = {DataType.BOOL},
                         optional = true,
                         defaultValue = "false")
@@ -74,7 +74,7 @@ import java.util.regex.PatternSyntaxException;
         returnAttributes = {
                 @ReturnAttribute(
                         name = "token",
-                        description = "Attribute which contains a single token.",
+                        description = "The attribute which contains a single token.",
                         type = {DataType.STRING}
                 )
         },
@@ -84,9 +84,10 @@ import java.util.regex.PatternSyntaxException;
                         "from inputStream#str:tokenize(str , ',')\n" +
                         "select text\n" +
                         "insert into outputStream;",
-                description = "This query performs tokenization for the given string. If the str is " +
-                        "\"Android,Windows8,iOS\", then 3 events containing `token` attribute value, " +
-                        "`Android`, `Windows8`, `iOS` in order."
+                description = "This query performs tokenization on the given string. If the str is " +
+                        "\"Android,Windows8,iOS\", then the string is split into 3 events " +
+                        "containing the `token` attribute values, i.e., " +
+                        "`Android`, `Windows8` and `iOS`."
         )
 )
 

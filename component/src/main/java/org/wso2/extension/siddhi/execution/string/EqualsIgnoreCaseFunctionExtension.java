@@ -42,8 +42,8 @@ import java.util.Map;
 @Extension(
         name = "equalsIgnoreCase",
         namespace = "str",
-        description = "Returns a boolean value by comparing two strings lexicographically without considering the " +
-                "letter case.",
+        description = "This returns a boolean value by comparing two strings lexicographically without " +
+                "considering the letter case.",
         parameters = {
                 @Parameter(name = "arg1",
                         description = "The first input string argument.",
@@ -55,8 +55,10 @@ import java.util.Map;
         returnAttributes = @ReturnAttribute(
                 description = "This returns a boolean output as `true` if both `arg1` and `arg2` are equal without " +
                         "comparing the case.", type = {DataType.BOOL}),
-        examples = @Example(description = "This returns a boolean value as the output. In this scenario, it " +
-                "returns \"true\". ", syntax = "equalsIgnoreCase(\"WSO2\", \"wso2\")")
+        examples = @Example(
+                 syntax = "equalsIgnoreCase(\"WSO2\", \"wso2\")",
+                 description = "This returns a boolean value as the output. In this scenario, it " +
+                "returns \"true\". ")
 )
 public class EqualsIgnoreCaseFunctionExtension extends FunctionExecutor {
     Attribute.Type returnType = Attribute.Type.BOOL;
