@@ -159,26 +159,26 @@ public class GroupConcatFunctionExtension extends AttributeAggregator {
 
     @Override
     public Object processAdd(Object o) {
-        addString((String) o);
+        addString(String.valueOf(o));
         return constructConcatString(",");
     }
 
     @Override
     public Object processAdd(Object[] objects) {
-        addString((String) objects[0]);
-        return constructConcatString((String) objects[1]);
+        addString(String.valueOf(objects[0]));
+        return constructConcatString(String.valueOf(objects[1]));
     }
 
     @Override
     public Object processRemove(Object o) {
-        removeString((String) o);
+        removeString(String.valueOf(o));
         return constructConcatString(",");
     }
 
     @Override
     public Object processRemove(Object[] objects) {
-        removeString((String) objects[0]);
-        return constructConcatString((String) objects[1]);
+        removeString(String.valueOf(objects[0]));
+        return constructConcatString(String.valueOf(objects[1]));
     }
 
     private void addString(String data) {
