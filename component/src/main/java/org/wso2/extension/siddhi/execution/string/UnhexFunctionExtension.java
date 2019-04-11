@@ -23,15 +23,15 @@ import io.siddhi.annotation.Extension;
 import io.siddhi.annotation.Parameter;
 import io.siddhi.annotation.ReturnAttribute;
 import io.siddhi.annotation.util.DataType;
-import io.siddhi.core.config.SiddhiAppContext;
+import io.siddhi.core.config.SiddhiQueryContext;
 import io.siddhi.core.exception.SiddhiAppRuntimeException;
 import io.siddhi.core.executor.ExpressionExecutor;
 import io.siddhi.core.executor.function.FunctionExecutor;
 import io.siddhi.core.util.config.ConfigReader;
+import io.siddhi.core.util.snapshot.state.State;
+import io.siddhi.core.util.snapshot.state.StateFactory;
 import io.siddhi.query.api.definition.Attribute;
 import io.siddhi.query.api.exception.SiddhiAppValidationException;
-
-import java.util.Map;
 
 /**
  * unhex(str);
@@ -61,8 +61,8 @@ import java.util.Map;
 )
 public class UnhexFunctionExtension extends FunctionExecutor {
     @Override
-    protected void init(ExpressionExecutor[] attributeExpressionExecutors, ConfigReader configReader,
-                        SiddhiAppContext siddhiAppContext) {
+    protected StateFactory<State> init(ExpressionExecutor[] attributeExpressionExecutors, ConfigReader configReader,
+                                SiddhiQueryContext siddhiAppContext) {
         if (attributeExpressionExecutors.length != 1) {
             throw new SiddhiAppValidationException("Invalid no of arguments passed to math:unhex() function, " +
                     "required 1, but found " + attributeExpressionExecutors.length);
@@ -72,16 +72,16 @@ public class UnhexFunctionExtension extends FunctionExecutor {
                     "math:unhex() function, " + "required " + Attribute.Type.STRING + " but found " +
                     attributeExpressionExecutors[0].getReturnType().toString());
         }
+        return null;
     }
 
     @Override
-    protected Object execute(Object[] data) {
-        return null;  //Since the unhex function takes in only 1 parameter, this method does not get called.
-        // Hence, not implemented.
+    protected Object execute(Object[] objects, State state) {
+        return null;
     }
 
     @Override
-    protected Object execute(Object data) {
+    protected Object execute(Object data, State state) {
         if (data != null) {
             String inputStr = (String) data;
             StringBuilder stringBuilderOut = new StringBuilder();
@@ -99,15 +99,5 @@ public class UnhexFunctionExtension extends FunctionExecutor {
     @Override
     public Attribute.Type getReturnType() {
         return Attribute.Type.STRING;
-    }
-
-    @Override
-    public Map<String, Object> currentState() {
-        return null;    //No need to maintain a state.
-    }
-
-    @Override
-    public void restoreState(Map<String, Object> map) {
-
     }
 }

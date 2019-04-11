@@ -23,15 +23,18 @@ import io.siddhi.annotation.Extension;
 import io.siddhi.annotation.Parameter;
 import io.siddhi.annotation.ReturnAttribute;
 import io.siddhi.annotation.util.DataType;
-import io.siddhi.core.config.SiddhiAppContext;
+import io.siddhi.core.config.SiddhiQueryContext;
 import io.siddhi.core.exception.SiddhiAppRuntimeException;
 import io.siddhi.core.executor.ExpressionExecutor;
 import io.siddhi.core.executor.function.FunctionExecutor;
 import io.siddhi.core.util.config.ConfigReader;
+import io.siddhi.core.util.snapshot.state.State;
+import io.siddhi.core.util.snapshot.state.StateFactory;
 import io.siddhi.query.api.definition.Attribute;
 import io.siddhi.query.api.exception.SiddhiAppValidationException;
 
-import java.util.Map;
+import static io.siddhi.query.api.definition.Attribute.Type.INT;
+import static io.siddhi.query.api.definition.Attribute.Type.STRING;
 
 /**
  * charAt(string , index)
@@ -62,68 +65,66 @@ import java.util.Map;
 )
 public class CharAtFunctionExtension extends FunctionExecutor {
 
-    Attribute.Type returnType = Attribute.Type.STRING;
+    Attribute.Type returnType = STRING;
 
     @Override
-    protected void init(ExpressionExecutor[] expressionExecutors, ConfigReader configReader,
-                        SiddhiAppContext siddhiAppContext) {
-        if (attributeExpressionExecutors.length != 2) {
-            throw new SiddhiAppValidationException("Invalid no of arguments passed to str:charat() function, " +
-                    "required 2, but found " + attributeExpressionExecutors.length);
+    protected StateFactory<State> init(ExpressionExecutor[] expressionExecutors,
+                                                ConfigReader configReader,
+                                                SiddhiQueryContext siddhiQueryContext) {
+        int executorsCount = expressionExecutors.length;
+
+        if (executorsCount != 2) {
+            throw new SiddhiAppValidationException("Invalid no of arguments passed to str:charat() function, "
+                    + "required 2, but found " + executorsCount);
         }
-        if (attributeExpressionExecutors[0].getReturnType() != Attribute.Type.STRING) {
-            throw new SiddhiAppValidationException("Invalid parameter type found for the first argument of " +
-                    "str:charat() function, " +
-                    "required " + Attribute.Type.STRING + ", but found " + attributeExpressionExecutors[0].
-                    getReturnType().toString());
+        ExpressionExecutor executor1 = expressionExecutors[0];
+        ExpressionExecutor executor2 = expressionExecutors[1];
+
+        if (executor1.getReturnType() != STRING) {
+            throw new SiddhiAppValidationException("Invalid parameter type found for the first argument of "
+                    + "str:charat() function, required " + STRING.toString() + ", but found "
+                    + executor1.getReturnType().toString());
+
         }
-        if (attributeExpressionExecutors[1].getReturnType() != Attribute.Type.INT) {
-            throw new SiddhiAppValidationException("Invalid parameter type found for the second argument of " +
-                    "str:charat() function, " +
-                    "required " + Attribute.Type.INT + ", but found " + attributeExpressionExecutors[1].
-                    getReturnType().toString());
+        if (executor2.getReturnType() != INT) {
+            throw new SiddhiAppValidationException("Invalid parameter type found for the second argument of "
+                    + "str:charat() function,required " + INT.toString() + ", but found "
+                    + executor2.getReturnType().toString());
         }
+
+        return null;
     }
 
     @Override
-    protected Object execute(Object[] data) {
-        if (data[0] == null) {
-            throw new SiddhiAppRuntimeException("Invalid input given to str:charat() function. First argument " +
-                    "cannot be null");
+    protected Object execute(Object[] objects, State state) {
+        boolean arg0IsNull = objects[0] == null;
+        boolean arg1IsNull = objects[1] == null;
+
+        if (arg0IsNull || arg1IsNull) {
+            String argNumberWord = (arg0IsNull) ? "First" : "Second";
+            throw new SiddhiAppRuntimeException("Invalid input given to str:charat() function. "
+                    + argNumberWord + " argument cannot be null");
         }
-        if (data[1] == null) {
-            throw new SiddhiAppRuntimeException("Invalid input given to str:charat() function. Second argument " +
-                    "cannot be null");
-        }
-        String source = (String) data[0];
-        int index = (Integer) data[1];
+
+        String source = (String) objects[0];
+        Integer index = (Integer) objects[1];
+
         try {
             return String.valueOf(source.charAt(index));
         } catch (IndexOutOfBoundsException e) {
-            throw new SiddhiAppRuntimeException("Index argument " + index +
-                    " is negative or not less than the length of the given string " + source, e);
+            throw new SiddhiAppRuntimeException("Index argument "
+                    + index + " is negative or not less than the length of the given string " + source, e);
         }
     }
 
     @Override
-    protected Object execute(Object data) {
-        return null;  //Since the charAt function takes in 2 parameters, this method does not get called. Hence,
-        // not implemented.
+    protected Object execute(Object o, State state) {
+        return null;
     }
 
     @Override
     public Attribute.Type getReturnType() {
         return returnType;
-    }
-
-    @Override
-    public Map<String, Object> currentState() {
-        return null;    //No need to maintain a state.
-    }
-
-    @Override
-    public void restoreState(Map<String, Object> map) {
-
     }
 }
 

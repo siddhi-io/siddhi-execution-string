@@ -23,14 +23,14 @@ import io.siddhi.annotation.Extension;
 import io.siddhi.annotation.Parameter;
 import io.siddhi.annotation.ReturnAttribute;
 import io.siddhi.annotation.util.DataType;
-import io.siddhi.core.config.SiddhiAppContext;
+import io.siddhi.core.config.SiddhiQueryContext;
 import io.siddhi.core.executor.ExpressionExecutor;
 import io.siddhi.core.executor.function.FunctionExecutor;
 import io.siddhi.core.util.config.ConfigReader;
+import io.siddhi.core.util.snapshot.state.State;
+import io.siddhi.core.util.snapshot.state.StateFactory;
 import io.siddhi.query.api.definition.Attribute;
 import io.siddhi.query.api.exception.SiddhiAppValidationException;
-
-import java.util.Map;
 
 /**
  * coalesce(arg1,arg2,...,argN)
@@ -66,52 +66,47 @@ public class CoalesceFunctionExtension extends FunctionExecutor {
     private Attribute.Type returnType;
 
     @Override
-    protected void init(ExpressionExecutor[] attributeExpressionExecutors, ConfigReader configReader,
-                        SiddhiAppContext siddhiAppContext) {
-        int attributeCount = 0;
-        if (attributeExpressionExecutors.length == 0) {
-            throw new SiddhiAppValidationException("str:coalesce() function requires at least one argument, " +
-                    "but found only " + attributeExpressionExecutors.length);
+    protected StateFactory<State> init(ExpressionExecutor[] expressionExecutors,
+                                                ConfigReader configReader,
+                                                SiddhiQueryContext siddhiQueryContext) {
+        int executorsCount = expressionExecutors.length;
+
+        if (executorsCount == 0) {
+            throw new SiddhiAppValidationException("str:coalesce() function requires at least one argument, "
+                    + "but found only " + executorsCount);
         }
-        Attribute.Type type = attributeExpressionExecutors[0].getReturnType();
-        for (ExpressionExecutor expressionExecutor : attributeExpressionExecutors) {
-            attributeCount++;
-            if (type != expressionExecutor.getReturnType()) {
-                throw new SiddhiAppValidationException("Invalid parameter type found for the " + attributeCount +
-                        "'th argument of str:coalesce() function, required " + type + ", but found "
-                        + attributeExpressionExecutors[attributeCount - 1].getReturnType().toString());
+        Attribute.Type expectedType = expressionExecutors[0].getReturnType();
+
+        for (ExpressionExecutor expressionExecutor : expressionExecutors) {
+            Attribute.Type type = expressionExecutor.getReturnType();
+            if (type != expectedType) {
+                throw new SiddhiAppValidationException("Invalid parameter type found for the "
+                        + executorsCount + "'th argument of str:coalesce() function, required "
+                        + type + ", but found " + type.toString());
             }
         }
-        returnType = type;
+        returnType = expectedType;
+
+        return null;
     }
 
     @Override
-    protected Object execute(Object[] data) {
-        for (Object aData : data) {
-            if (aData != null) {
-                return aData;
+    protected Object execute(Object[] objects, State state) {
+        for (Object o : objects) {
+            if (o != null) {
+                return o;
             }
         }
         return null;
     }
 
     @Override
-    protected Object execute(Object data) {
-        return data;
+    protected Object execute(Object o, State state) {
+        return null;
     }
 
     @Override
     public Attribute.Type getReturnType() {
         return returnType;
-    }
-
-    @Override
-    public Map<String, Object> currentState() {
-        return null;    //No need to maintain a state.
-    }
-
-    @Override
-    public void restoreState(Map<String, Object> map) {
-
     }
 }

@@ -23,18 +23,26 @@ import io.siddhi.annotation.Extension;
 import io.siddhi.annotation.Parameter;
 import io.siddhi.annotation.ReturnAttribute;
 import io.siddhi.annotation.util.DataType;
-import io.siddhi.core.config.SiddhiAppContext;
+import io.siddhi.core.config.SiddhiQueryContext;
 import io.siddhi.core.exception.SiddhiAppRuntimeException;
 import io.siddhi.core.executor.ConstantExpressionExecutor;
 import io.siddhi.core.executor.ExpressionExecutor;
 import io.siddhi.core.executor.function.FunctionExecutor;
 import io.siddhi.core.util.config.ConfigReader;
+import io.siddhi.core.util.snapshot.state.State;
+import io.siddhi.core.util.snapshot.state.StateFactory;
 import io.siddhi.query.api.definition.Attribute;
 import io.siddhi.query.api.exception.SiddhiAppValidationException;
+import org.wso2.extension.siddhi.execution.string.substrexecutors.SubstrExecutor;
+import org.wso2.extension.siddhi.execution.string.substrexecutors.Type1Executor;
+import org.wso2.extension.siddhi.execution.string.substrexecutors.Type2Executor;
+import org.wso2.extension.siddhi.execution.string.substrexecutors.Type3Executor;
+import org.wso2.extension.siddhi.execution.string.substrexecutors.Type4Executor;
 
-import java.util.Map;
-import java.util.regex.Matcher;
 import java.util.regex.Pattern;
+
+import static io.siddhi.query.api.definition.Attribute.Type.INT;
+import static io.siddhi.query.api.definition.Attribute.Type.STRING;
 
 /**
  * substr(sourceText, beginIndex) or substr(sourceText, beginIndex, length) or substr(sourceText, regex)
@@ -73,184 +81,131 @@ import java.util.regex.Pattern;
                 @Example(
                         syntax = "substr(\"AbCDefghiJ KLMN\", 4)",
                         description = "This outputs the substring based on the given `begin.index`. In this " +
-                        "scenario, the output is \"efghiJ KLMN\"."),
+                                "scenario, the output is \"efghiJ KLMN\"."),
                 @Example(
                         syntax = "substr(\"AbCDefghiJ KLMN\",  2, 4) ",
                         description = "This outputs the substring based on the given `begin.index` and length. In " +
-                        "this scenario, the output is \"CDef\"."),
+                                "this scenario, the output is \"CDef\"."),
 
                 @Example(
                         syntax = "substr(\"WSO2D efghiJ KLMN\", '^WSO2(.*)')",
                         description = "This outputs the substring by applying the regex. In this scenario, the " +
-                            "output is \"WSO2D efghiJ KLMN\"."),
+                                "output is \"WSO2D efghiJ KLMN\"."),
                 @Example(
                         syntax = "substr(\"WSO2 cep WSO2 XX E hi hA WSO2 heAllo\",  'WSO2(.*)A(.*)',  2)",
                         description = "This outputs the substring by applying the regex and considering the " +
-                        "`group.number`. In this scenario, the output is \" ello\"."
-                        )
+                                "`group.number`. In this scenario, the output is \" ello\"."
+                )
         }
 )
 public class SubstrFunctionExtension extends FunctionExecutor {
 
-    Attribute.Type returnType = Attribute.Type.STRING;
-    //state-variables
-    private boolean isRegexConstant = false;
-    private String regexConstant;
-    private Pattern patternConstant;
-    private SubstrType substrType;
+    Attribute.Type returnType = STRING;
+
+    private SubstrExecutor substrExecutor;
 
     @Override
-    protected void init(ExpressionExecutor[] attributeExpressionExecutors, ConfigReader configReader,
-                        SiddhiAppContext siddhiAppContext) {
-        if (attributeExpressionExecutors[0].getReturnType() != Attribute.Type.STRING) {
-            throw new SiddhiAppValidationException("Invalid parameter type found for the first argument of " +
-                    "str:substr() function, " + "required " + Attribute.Type.STRING + ", but found " +
-                    attributeExpressionExecutors[0].getReturnType().toString());
+    protected StateFactory<State> init(ExpressionExecutor[] expressionExecutors,
+                                                ConfigReader configReader,
+                                                SiddhiQueryContext siddhiQueryContext) {
+        int executorsCount = expressionExecutors.length;
+
+        ExpressionExecutor executor1 = expressionExecutors[0];
+        if (executor1.getReturnType() != STRING) {
+            throw new SiddhiAppValidationException("Invalid parameter type found for the first argument of "
+                    + "str:substr() function, required " + STRING + ", but found " + executor1.getReturnType());
         }
-        if (attributeExpressionExecutors.length == 2) {
-            if (attributeExpressionExecutors[1].getReturnType() == Attribute.Type.INT) {
-                substrType = SubstrType.ONE;
-            } else if (attributeExpressionExecutors[1].getReturnType() == Attribute.Type.STRING) {
-                substrType = SubstrType.THREE;
-                if (attributeExpressionExecutors[1] instanceof ConstantExpressionExecutor) {
-                    isRegexConstant = true;
-                    regexConstant = (String) ((ConstantExpressionExecutor) attributeExpressionExecutors[1]).getValue();
-                    patternConstant = Pattern.compile(regexConstant);
+
+        switch (executorsCount) {
+            case 2: {
+                ExpressionExecutor executor2 = expressionExecutors[1];
+
+                switch (executor2.getReturnType()) {
+                    case INT:
+                        substrExecutor = new Type1Executor();
+                        break;
+                    case STRING:
+                        substrExecutor = new Type3Executor();
+                        if (isConstantAttribute(executor2)) {
+                            String regex = (String) ((ConstantExpressionExecutor) executor2).getValue();
+                            substrExecutor = new Type3Executor(Pattern.compile(regex));
+                        }
+                        break;
+                    default:
+                        throw new SiddhiAppValidationException("Invalid parameter type found for the second "
+                                + "argument of str:substr() function, required " + STRING + " or " + INT
+                                + ", but found " + executor2.getReturnType().toString());
                 }
-            } else {
-                throw new SiddhiAppValidationException("Invalid parameter type found for the second argument of " +
-                        "str:substr() function, " + "required " + Attribute.Type.STRING + " or " + Attribute.Type.INT +
-                        ", but found " + attributeExpressionExecutors[1].getReturnType().toString());
+                break;
             }
-        } else if (attributeExpressionExecutors.length == 3) {
-            if (attributeExpressionExecutors[2].getReturnType() != Attribute.Type.INT) {
-                throw new SiddhiAppValidationException("Invalid parameter type found for the third argument of " +
-                        "str:substr() function, " + "required " + Attribute.Type.INT + ", but found " +
-                        attributeExpressionExecutors[2].getReturnType().toString());
-            }
-            if (attributeExpressionExecutors[1].getReturnType() == Attribute.Type.INT) {
-                substrType = SubstrType.TWO;
-            } else if (attributeExpressionExecutors[1].getReturnType() == Attribute.Type.STRING) {
-                substrType = SubstrType.FOUR;
-                if (attributeExpressionExecutors[1] instanceof ConstantExpressionExecutor) {
-                    isRegexConstant = true;
-                    regexConstant = (String) ((ConstantExpressionExecutor) attributeExpressionExecutors[1]).getValue();
-                    patternConstant = Pattern.compile(regexConstant);
+            case 3: {
+                ExpressionExecutor executor2 = expressionExecutors[1];
+                ExpressionExecutor executor3 = expressionExecutors[2];
+
+                if (executor3.getReturnType() != INT) {
+                    throw new SiddhiAppValidationException("Invalid parameter type found for the third argument of "
+                            + "str:substr() function, " + "required " + INT + ", but found "
+                            + executor3.getReturnType().toString());
                 }
-            } else {
-                throw new SiddhiAppValidationException("Invalid parameter type found for the second argument of " +
-                        "str:substr() function, " + "required " + Attribute.Type.STRING + " or " + Attribute.Type.INT +
-                        ", but found " + attributeExpressionExecutors[1].getReturnType().toString());
+
+                switch (executor2.getReturnType()) {
+                    case INT:
+                        substrExecutor = new Type2Executor();
+                        break;
+                    case STRING:
+                        substrExecutor = new Type4Executor();
+                        if (isConstantAttribute(executor2)) {
+                            String regex = (String) ((ConstantExpressionExecutor) executor2).getValue();
+                            substrExecutor = new Type4Executor(Pattern.compile(regex));
+                        }
+                        break;
+                    default:
+                        throw new SiddhiAppValidationException("Invalid parameter type found for the second argument "
+                                + "of str:substr() function, required " + STRING + " or " + INT
+                                + ", but found " + executor2.getReturnType().toString());
+                }
+                break;
             }
-        } else {
-            throw new SiddhiAppValidationException("Invalid no of Arguments passed to str:substr() function, " +
-                    "required 2 or 3, but found "
-                    + attributeExpressionExecutors.length);
+            default:
+                throw new SiddhiAppValidationException("Invalid no of Arguments passed to str:substr() function, "
+                        + "required 2 or 3, but found " + executorsCount);
         }
+
+        return null;
+    }
+
+    private boolean isConstantAttribute(ExpressionExecutor executor) {
+        return executor instanceof ConstantExpressionExecutor;
     }
 
     @Override
-    protected Object execute(Object[] data) {
-        int beginIndex;
-        int length;
-        int groupNo;
-        String regex;
-        String output = "";
-        Pattern pattern;
-        Matcher matcher;
+    protected Object execute(Object[] objects, State state) {
+        boolean arg0IsNull = objects[0] == null;
+        boolean arg1IsNull = objects[1] == null;
 
-        if (data[0] == null) {
-            throw new SiddhiAppRuntimeException("Invalid input given to str:substr() function. " +
-                    "First argument cannot be null");
+        if (arg0IsNull || arg1IsNull) {
+            String argNumberWord = (arg0IsNull) ? "First" : "Second";
+            throw new SiddhiAppRuntimeException("Invalid input given to str:substr() function. " + argNumberWord
+                    + " argument cannot be null");
         }
-        if (data[1] == null) {
-            throw new SiddhiAppRuntimeException("Invalid input given to str:substr() function. " +
-                    "Second argument cannot be null");
+        if (!substrExecutor.canIgnoreArg2() && objects.length >= 3 && objects[2] == null) {
+            throw new SiddhiAppRuntimeException("Invalid input given to str:substr() function. Third"
+                    + " argument cannot be null");
         }
-        String source = (String) data[0];
 
-        switch (substrType) {
-            case ONE:
-                beginIndex = (Integer) data[1];
-                output = source.substring(beginIndex);
-                break;
-            case TWO:
-                if (data[2] == null) {
-                    throw new SiddhiAppRuntimeException("Invalid input given to str:substr() function. " +
-                            "Third argument cannot be null");
-                }
-                beginIndex = (Integer) data[1];
-                length = (Integer) data[2];
-                output = source.substring(beginIndex, (beginIndex + length));
-                break;
-            case THREE:
-                if (!isRegexConstant) {
-                    regex = (String) data[1];
-                    pattern = Pattern.compile(regex);
-                    matcher = pattern.matcher(source);
-                    if (matcher.find()) {
-                        output = matcher.group(0);
-                    }
-                } else {
-                    matcher = patternConstant.matcher(source);
-                    if (matcher.find()) {
-                        output = matcher.group(0);
-                    }
-                }
-                break;
-            case FOUR:
-                if (data[2] == null) {
-                    throw new SiddhiAppRuntimeException("Invalid input given to str:substr() function. " +
-                            "Third argument cannot be null");
-                }
-                groupNo = (Integer) data[2];
-                if (!isRegexConstant) {
-                    regex = (String) data[1];
-                    pattern = Pattern.compile(regex);
-                    matcher = pattern.matcher(source);
-                    if (matcher.find()) {
-                        output = matcher.group(groupNo);
-                    }
-                } else {
-                    matcher = patternConstant.matcher(source);
-                    if (matcher.find()) {
-                        output = matcher.group(groupNo);
-                    }
-                }
-                break;
-        }
-        return output;
+        //noinspection unchecked
+        return substrExecutor.execute((String) objects[0],
+                substrExecutor.castArg1(objects[1]),
+                substrExecutor.canIgnoreArg2() ? null : substrExecutor.castArg2(objects[2]));
     }
 
     @Override
-    protected Object execute(Object data) {
-        return null;  //Since the substr function takes in at least 2 parameters, this method does not get called.
-        // Hence, not implemented.
+    protected Object execute(Object o, State state) {
+        return null;
     }
 
     @Override
     public Attribute.Type getReturnType() {
         return returnType;
-    }
-
-    @Override
-    public Map<String, Object> currentState() {
-        return null;    //No need to maintain a state.
-    }
-
-    @Override
-    public void restoreState(Map<String, Object> map) {
-
-    }
-
-    /*
-    * Sub-string Types are as follows:
-    * ONE: str:substr(<string sourceText> , <int beginIndex>)
-    * TWO: str:substr(<string sourceText> , <int beginIndex>, <int length>)
-    * THREE: str:substr(<string sourceText> , <string regex>)
-    * FOUR: str:substr(<string sourceText> , <string regex>, <int groupNumber>)
-    * */
-    private enum SubstrType {
-        ONE, TWO, THREE, FOUR
     }
 }

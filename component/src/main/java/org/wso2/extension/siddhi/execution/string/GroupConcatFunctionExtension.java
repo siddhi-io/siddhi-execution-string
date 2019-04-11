@@ -43,6 +43,15 @@ import java.util.TreeMap;
 import static io.siddhi.query.api.definition.Attribute.Type.BOOL;
 import static io.siddhi.query.api.definition.Attribute.Type.STRING;
 
+/**
+ * groupConcat(string1, 'separator', bool, 'ASC/DESC')
+ * Returns concated string for all the events separated by the given separator.
+ * Accept Type(s): STRING. The string that need to be aggregated.
+ * Accept Type(s): STRING. The separator that separates each string that gets aggregated.
+ * Accept Type(s): BOOL. To only have distinct string keys in the the aggregation..
+ * Accept Type(s): STRING. Accepts 'ASC' or 'DESC' strings to sort the string keys by ascending or descending order.
+ * Return Type(s): STRING
+ */
 @Extension(
         name = "groupConcat",
         namespace = "str",
@@ -87,18 +96,19 @@ import static io.siddhi.query.api.definition.Attribute.Type.STRING;
 
 )
 public class GroupConcatFunctionExtension
-        extends AttributeAggregatorExecutor<GroupConcatFunctionExtension.AggregatorState> {
+        extends AttributeAggregatorExecutor<GroupConcatFunctionExtension.ExtensionState> {
 
     private Map<Object, Integer> dataMap = new LinkedHashMap<>();
 
     private boolean distinct = false;
 
     @Override
-    protected StateFactory<AggregatorState> init(ExpressionExecutor[] expressionExecutors,
-                                                 ProcessingMode processingMode,
-                                                 boolean b,
-                                                 ConfigReader configReader,
-                                                 SiddhiQueryContext siddhiQueryContext) {
+    @SuppressWarnings("fallthrough")
+    protected StateFactory<ExtensionState> init(ExpressionExecutor[] expressionExecutors,
+                                                ProcessingMode processingMode,
+                                                boolean b,
+                                                ConfigReader configReader,
+                                                SiddhiQueryContext siddhiQueryContext) {
         int executorsCount = expressionExecutors.length;
 
         if (executorsCount < 1) {
@@ -114,12 +124,12 @@ public class GroupConcatFunctionExtension
         switch (executorsCount) {
             case 4: {
                 ExpressionExecutor executor = expressionExecutors[3];
-                if (isNotType(executor, STRING)) {
+                if (!isType(executor, STRING)) {
                     throw new SiddhiAppValidationException("str:groupConcat() function's forth attribute `order` "
                             + "should be a constant `STRING` having `'ASC'` or `'DESC'` values, "
                             + "but found " + executor.getReturnType() + " .");
                 }
-                if (isNotConstantAttribute(executor)) {
+                if (!isConstantAttribute(executor)) {
                     throw new SiddhiAppValidationException("str:groupConcat() function's forth attribute `order` "
                             + "should be a constant having `'ASC'` or `'DESC'`, but found a variable attribute.");
                 }
@@ -139,11 +149,11 @@ public class GroupConcatFunctionExtension
             /* Fall through */
             case 3: {
                 ExpressionExecutor executor = expressionExecutors[2];
-                if (isNotType(executor, BOOL)) {
+                if (!isType(executor, BOOL)) {
                     throw new SiddhiAppValidationException("str:groupConcat() function's third attribute `distinct` "
                             + "should be a constant `BOOL`, but found " + executor.getReturnType() + " .");
                 }
-                if (isNotConstantAttribute(executor)) {
+                if (!isConstantAttribute(executor)) {
                     throw new SiddhiAppValidationException("str:groupConcat() function's third attribute `distinct` "
                             + "should be a constant, but found a variable attribute.");
                 }
@@ -152,52 +162,52 @@ public class GroupConcatFunctionExtension
             /* Fall through */
             case 2: {
                 ExpressionExecutor executor = expressionExecutors[1];
-                if (isNotType(executor, STRING)) {
+                if (!isType(executor, STRING)) {
                     throw new SiddhiAppValidationException("str:groupConcat() function's second attribute `separator` "
                             + "should be a `STRING`, but found " + executor.getReturnType() + " .");
                 }
             }
         }
 
-        return () -> new AggregatorState();
+        return () -> new ExtensionState();
     }
 
-    private boolean isNotType(ExpressionExecutor executor, Attribute.Type type) {
-        return executor.getReturnType() != type;
+    private boolean isType(ExpressionExecutor executor, Attribute.Type type) {
+        return executor.getReturnType() == type;
     }
 
-    private boolean isNotConstantAttribute(ExpressionExecutor executor) {
-        return !(executor instanceof ConstantExpressionExecutor);
+    private boolean isConstantAttribute(ExpressionExecutor executor) {
+        return executor instanceof ConstantExpressionExecutor;
     }
 
     @Override
-    public Object processAdd(Object o, AggregatorState aggregatorState) {
+    public Object processAdd(Object o, ExtensionState extensionState) {
         addString(String.valueOf(o));
-        aggregatorState.makeUnDestroyable();
+        extensionState.makeUnDestroyable();
         return constructConcatString(",");
     }
 
     @Override
-    public Object processAdd(Object[] objects, AggregatorState aggregatorState) {
+    public Object processAdd(Object[] objects, ExtensionState extensionState) {
         addString(String.valueOf(objects[0]));
-        aggregatorState.makeUnDestroyable();
+        extensionState.makeUnDestroyable();
         return constructConcatString(String.valueOf(objects[1]));
     }
 
     @Override
-    public Object processRemove(Object o, AggregatorState aggregatorState) {
+    public Object processRemove(Object o, ExtensionState extensionState) {
         removeString(String.valueOf(o));
         if (dataMap.size() == 0) {
-            aggregatorState.makeDestroyable();
+            extensionState.makeDestroyable();
         }
         return constructConcatString(",");
     }
 
     @Override
-    public Object processRemove(Object[] objects, AggregatorState aggregatorState) {
+    public Object processRemove(Object[] objects, ExtensionState extensionState) {
         removeString(String.valueOf(objects[0]));
         if (dataMap.size() == 0) {
-            aggregatorState.makeDestroyable();
+            extensionState.makeDestroyable();
         }
         return constructConcatString(String.valueOf(objects[1]));
     }
@@ -236,9 +246,9 @@ public class GroupConcatFunctionExtension
     }
 
     @Override
-    public Object reset(AggregatorState aggregatorState) {
+    public Object reset(ExtensionState extensionState) {
         dataMap.clear();
-        aggregatorState.makeDestroyable();
+        extensionState.makeDestroyable();
         return "";
     }
 
@@ -247,7 +257,7 @@ public class GroupConcatFunctionExtension
         return STRING;
     }
 
-    class AggregatorState extends State {
+    class ExtensionState extends State {
 
         private static final String KEY_DATA_MAP = "dataMap";
 
@@ -255,7 +265,7 @@ public class GroupConcatFunctionExtension
 
         private boolean canDestroy = true;
 
-        private AggregatorState() {
+        private ExtensionState() {
             state.put(KEY_DATA_MAP, dataMap);
         }
 

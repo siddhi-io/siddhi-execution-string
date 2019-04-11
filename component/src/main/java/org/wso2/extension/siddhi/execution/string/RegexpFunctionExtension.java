@@ -23,18 +23,22 @@ import io.siddhi.annotation.Extension;
 import io.siddhi.annotation.Parameter;
 import io.siddhi.annotation.ReturnAttribute;
 import io.siddhi.annotation.util.DataType;
-import io.siddhi.core.config.SiddhiAppContext;
+import io.siddhi.core.config.SiddhiQueryContext;
 import io.siddhi.core.exception.SiddhiAppRuntimeException;
 import io.siddhi.core.executor.ConstantExpressionExecutor;
 import io.siddhi.core.executor.ExpressionExecutor;
 import io.siddhi.core.executor.function.FunctionExecutor;
 import io.siddhi.core.util.config.ConfigReader;
+import io.siddhi.core.util.snapshot.state.State;
+import io.siddhi.core.util.snapshot.state.StateFactory;
 import io.siddhi.query.api.definition.Attribute;
 import io.siddhi.query.api.exception.SiddhiAppValidationException;
 
-import java.util.Map;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
+
+import static io.siddhi.query.api.definition.Attribute.Type.BOOL;
+import static io.siddhi.query.api.definition.Attribute.Type.STRING;
 
 /**
  * regexp(string, regex)
@@ -68,85 +72,75 @@ import java.util.regex.Pattern;
 )
 public class RegexpFunctionExtension extends FunctionExecutor {
 
-    Attribute.Type returnType = Attribute.Type.BOOL;
+    Attribute.Type returnType = BOOL;
 
-    //state-variables
-    private boolean isRegexConstant = false;
-    private String regexConstant;
-    private Pattern patternConstant;
+    private Pattern pattern = null;
 
     @Override
-    protected void init(ExpressionExecutor[] attributeExpressionExecutors, ConfigReader configReader,
-                        SiddhiAppContext siddhiAppContext) {
-        if (attributeExpressionExecutors.length != 2) {
-            throw new SiddhiAppValidationException("Invalid no of arguments passed to str:regexp() function, " +
-                    "required 2, " + "but found " + attributeExpressionExecutors.length);
+    protected StateFactory<State> init(ExpressionExecutor[] expressionExecutors,
+                                                ConfigReader configReader,
+                                                SiddhiQueryContext siddhiQueryContext) {
+        int executorsCount = expressionExecutors.length;
+
+        if (executorsCount != 2) {
+            throw new SiddhiAppValidationException("Invalid no of arguments passed to str:regexp() function, "
+                    + "required 2, but found " + executorsCount);
         }
-        if (attributeExpressionExecutors[0].getReturnType() != Attribute.Type.STRING) {
-            throw new SiddhiAppValidationException("Invalid parameter type found for the first argument of " +
-                    "str:regexp() function, " +
-                    "required " + Attribute.Type.STRING + ", but found " + attributeExpressionExecutors[0].
-                    getReturnType().toString());
+        ExpressionExecutor executor1 = expressionExecutors[0];
+        ExpressionExecutor executor2 = expressionExecutors[1];
+
+        if (executor1.getReturnType() != STRING) {
+            throw new SiddhiAppValidationException("Invalid parameter type found for the first argument of "
+                    + "str:regexp() function, required " + STRING.toString() + ", but found "
+                    + executor1.getReturnType().toString());
+
         }
-        if (attributeExpressionExecutors[1].getReturnType() != Attribute.Type.STRING) {
-            throw new SiddhiAppValidationException("Invalid parameter type found for the second argument of " +
-                    "str:regexp() function, " +
-                    "required " + Attribute.Type.STRING + ", but found " + attributeExpressionExecutors[1].
-                    getReturnType().toString());
+        if (executor2.getReturnType() != STRING) {
+            throw new SiddhiAppValidationException("Invalid parameter type found for the second argument of "
+                    + "str:regexp() function,required " + STRING.toString() + ", but found "
+                    + executor2.getReturnType().toString());
         }
-        if (attributeExpressionExecutors[1] instanceof ConstantExpressionExecutor) {
-            isRegexConstant = true;
-            regexConstant = (String) ((ConstantExpressionExecutor) attributeExpressionExecutors[1]).getValue();
-            patternConstant = Pattern.compile(regexConstant);
+
+        if (isConstantAttribute(executor2)) {
+            pattern = Pattern.compile((String) ((ConstantExpressionExecutor) executor2).getValue());
         }
+
+        return null;
+    }
+
+    private boolean isConstantAttribute(ExpressionExecutor executor) {
+        return executor instanceof ConstantExpressionExecutor;
     }
 
     @Override
-    protected Object execute(Object[] data) {
-        String regex;
+    protected Object execute(Object[] objects, State state) {
+        boolean arg0IsNull = objects[0] == null;
+        boolean arg1IsNull = objects[1] == null;
+
+        if (arg0IsNull || arg1IsNull) {
+            String argNumberWord = (arg0IsNull) ? "First" : "Second";
+            throw new SiddhiAppRuntimeException("Invalid input given to str:regexp() function. " + argNumberWord
+                    + " argument cannot be null");
+        }
+        String source = (String) objects[0];
+
         Pattern pattern;
-        Matcher matcher;
-
-        if (data[0] == null) {
-            throw new SiddhiAppRuntimeException("Invalid input given to str:regexp() function. First argument " +
-                    "cannot be null");
-        }
-        if (data[1] == null) {
-            throw new SiddhiAppRuntimeException("Invalid input given to str:regexp() function. Second argument " +
-                    "cannot be null");
-        }
-        String source = (String) data[0];
-
-        if (!isRegexConstant) {
-            regex = (String) data[1];
-            pattern = Pattern.compile(regex);
-            matcher = pattern.matcher(source);
-            return matcher.matches();
-
+        if (this.pattern == null) {
+            pattern = Pattern.compile((String) objects[1]);
         } else {
-            matcher = patternConstant.matcher(source);
-            return matcher.matches();
+            pattern = this.pattern;
         }
+        Matcher matcher = pattern.matcher(source);
+        return  matcher.matches();
     }
 
     @Override
-    protected Object execute(Object data) {
-        return null;  //Since the regexp function takes in 2 parameters, this method does not get called. Hence,
-        // not implemented.
+    protected Object execute(Object o, State state) {
+        return null;
     }
 
     @Override
     public Attribute.Type getReturnType() {
         return returnType;
-    }
-
-    @Override
-    public Map<String, Object> currentState() {
-        return null;    //No need to maintain a state.
-    }
-
-    @Override
-    public void restoreState(Map<String, Object> map) {
-
     }
 }

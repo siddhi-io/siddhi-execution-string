@@ -23,17 +23,20 @@ import io.siddhi.annotation.Extension;
 import io.siddhi.annotation.Parameter;
 import io.siddhi.annotation.ReturnAttribute;
 import io.siddhi.annotation.util.DataType;
-import io.siddhi.core.config.SiddhiAppContext;
+import io.siddhi.core.config.SiddhiQueryContext;
 import io.siddhi.core.exception.SiddhiAppRuntimeException;
 import io.siddhi.core.executor.ExpressionExecutor;
 import io.siddhi.core.executor.function.FunctionExecutor;
 import io.siddhi.core.util.config.ConfigReader;
+import io.siddhi.core.util.snapshot.state.State;
+import io.siddhi.core.util.snapshot.state.StateFactory;
 import io.siddhi.query.api.definition.Attribute;
 import io.siddhi.query.api.exception.SiddhiAppValidationException;
 
-import java.util.Map;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
+
+import static io.siddhi.query.api.definition.Attribute.Type.STRING;
 
 /**
  * replaceAll(string, regex, replacement)
@@ -79,27 +82,36 @@ import java.util.regex.Pattern;
                         "The complete return string is 'This is an example for the fillTemplate function'.")
 )
 public class FillTemplateFunctionExtension extends FunctionExecutor {
-    Pattern templatePattern = Pattern.compile("(\\{\\{\\d+}})");
-    Pattern indexPattern = Pattern.compile("\\d+");
+
+    private Pattern indexPattern = Pattern.compile("\\d+");
+
+    private Pattern templatePattern = Pattern.compile("(\\{\\{\\d+}})");
 
     @Override
-    protected void init(ExpressionExecutor[] attributeExpressionExecutors, ConfigReader configReader,
-                        SiddhiAppContext siddhiAppContext) {
-        if (attributeExpressionExecutors.length <= 1) {
-            throw new SiddhiAppValidationException("Invalid number of arguments passed to " +
-                    "str:fillTemplate() function. " +
-                    "Required at least 2, but found " + attributeExpressionExecutors.length);
+    protected StateFactory<State> init(ExpressionExecutor[] expressionExecutors,
+                                                ConfigReader configReader,
+                                                SiddhiQueryContext siddhiQueryContext) {
+        int executorsCount = expressionExecutors.length;
+
+        if (executorsCount <= 1) {
+            throw new SiddhiAppValidationException("Invalid number of arguments passed to "
+                    + "str:fillTemplate() function. Required at least 2, but found " + executorsCount);
         }
-        if (attributeExpressionExecutors[0].getReturnType() != Attribute.Type.STRING) {
-            throw new SiddhiAppValidationException("Invalid parameter type found for the first argument of " +
-                    "str:fillTemplate() function, " + "required " + Attribute.Type.STRING + ", " +
-                    "but found " + attributeExpressionExecutors[0].getReturnType().toString());
+        ExpressionExecutor executor1 = expressionExecutors[0];
+
+        if (executor1.getReturnType() != STRING) {
+            throw new SiddhiAppValidationException("Invalid parameter type found for the first argument of "
+                    + "str:fillTemplate() function, required " + STRING.toString() + ", but found "
+                    + executor1.getReturnType().toString());
+
         }
+
+        return null;
     }
 
     @Override
-    protected Object execute(Object[] data) {
-        String sourceString = (String) data[0];
+    protected Object execute(Object[] objects, State state) {
+        String sourceString = (String) objects[0];
         Matcher templateMatcher = templatePattern.matcher(sourceString);
         String match;
         Matcher indexMatcher;
@@ -109,36 +121,24 @@ public class FillTemplateFunctionExtension extends FunctionExecutor {
             indexMatcher = indexPattern.matcher(match);
             if (indexMatcher.find()) {
                 index = Integer.parseInt(indexMatcher.group(0));
-                if (index < 1 || index >= data.length) {
-                    throw new SiddhiAppRuntimeException("Index given for template elements " +
-                            "should be greater than 0 and less than '" + data.length + "'. But found " + index + " in" +
-                            " the template '" + sourceString + "'.");
+                if (index < 1 || index >= objects.length) {
+                    throw new SiddhiAppRuntimeException("Index given for template elements "
+                            + "should be greater than 0 and less than '" + objects.length + "'. But found "
+                            + index + " in" + " the template '" + sourceString + "'.");
                 }
-                sourceString = sourceString.replace(match, data[index].toString());
+                sourceString = sourceString.replace(match, objects[index].toString());
             }
         }
         return sourceString;
     }
 
     @Override
-    protected Object execute(Object data) {
-        //Since the replaceAll function take 3 parameters, this method does not get called.
-        // Hence, not implemented.
+    protected Object execute(Object o, State state) {
         return null;
     }
 
     @Override
     public Attribute.Type getReturnType() {
-        return Attribute.Type.STRING;
-    }
-
-    @Override
-    public Map<String, Object> currentState() {
-        return null;    //No need to maintain a state.
-    }
-
-    @Override
-    public void restoreState(Map<String, Object> map) {
-
+        return STRING;
     }
 }

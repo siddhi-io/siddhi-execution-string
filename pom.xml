@@ -45,7 +45,7 @@
     </profiles>
 
     <properties>
-        <siddhi.version>5.0.0-m7</siddhi.version>
+        <siddhi.version>5.0.0-m10</siddhi.version>
         <log4j.version>1.2.17.wso2v1</log4j.version>
         <testng.version>6.11</testng.version>
         <jacoco.version>0.7.9</jacoco.version>
@@ -171,7 +171,7 @@
                 <plugin>
                     <groupId>org.apache.felix</groupId>
                     <artifactId>maven-bundle-plugin</artifactId>
-                    <version>2.3.5</version>
+                    <version>3.3.0</version>
                     <extensions>true</extensions>
                     <configuration>
                         <obrRepository>NONE</obrRepository>
