@@ -98,6 +98,8 @@ import static io.siddhi.query.api.definition.Attribute.Type.STRING;
 public class GroupConcatFunctionExtension
         extends AttributeAggregatorExecutor<GroupConcatFunctionExtension.ExtensionState> {
 
+    private static final String KEY_DATA_MAP = "dataMap";
+
     private Map<Object, Integer> dataMap = new LinkedHashMap<>();
 
     private boolean distinct = false;
@@ -182,33 +184,28 @@ public class GroupConcatFunctionExtension
 
     @Override
     public Object processAdd(Object o, ExtensionState extensionState) {
+        if (o == null) {
+            return extensionState.currentValue();
+        }
         addString(String.valueOf(o));
-        extensionState.makeUnDestroyable();
         return constructConcatString(",");
     }
 
     @Override
     public Object processAdd(Object[] objects, ExtensionState extensionState) {
         addString(String.valueOf(objects[0]));
-        extensionState.makeUnDestroyable();
         return constructConcatString(String.valueOf(objects[1]));
     }
 
     @Override
     public Object processRemove(Object o, ExtensionState extensionState) {
         removeString(String.valueOf(o));
-        if (dataMap.size() == 0) {
-            extensionState.makeDestroyable();
-        }
         return constructConcatString(",");
     }
 
     @Override
     public Object processRemove(Object[] objects, ExtensionState extensionState) {
         removeString(String.valueOf(objects[0]));
-        if (dataMap.size() == 0) {
-            extensionState.makeDestroyable();
-        }
         return constructConcatString(String.valueOf(objects[1]));
     }
 
@@ -248,7 +245,6 @@ public class GroupConcatFunctionExtension
     @Override
     public Object reset(ExtensionState extensionState) {
         dataMap.clear();
-        extensionState.makeDestroyable();
         return "";
     }
 
@@ -259,27 +255,15 @@ public class GroupConcatFunctionExtension
 
     class ExtensionState extends State {
 
-        private static final String KEY_DATA_MAP = "dataMap";
-
         private final Map<String, Object> state = new HashMap<>();
-
-        private boolean canDestroy = true;
 
         private ExtensionState() {
             state.put(KEY_DATA_MAP, dataMap);
         }
 
-        private void makeDestroyable() {
-            canDestroy = true;
-        }
-
-        private void makeUnDestroyable() {
-            canDestroy = false;
-        }
-
         @Override
         public boolean canDestroy() {
-            return canDestroy;
+            return dataMap.isEmpty();
         }
 
         @Override
@@ -290,6 +274,13 @@ public class GroupConcatFunctionExtension
         @Override
         public void restore(Map<String, Object> map) {
             dataMap = (Map<Object, Integer>) map.get(KEY_DATA_MAP);
+        }
+
+        private Object currentValue() {
+            if (dataMap.isEmpty()) {
+                return "";
+            }
+            return constructConcatString(",");
         }
     }
 }

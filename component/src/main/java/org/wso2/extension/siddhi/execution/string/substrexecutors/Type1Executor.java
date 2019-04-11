@@ -18,6 +18,10 @@
 package org.wso2.extension.siddhi.execution.string.substrexecutors;
 
 /**
+ * Type1Executor returns a new string that is a substring of given
+ * string. Type1Executor begins with the character at the specified
+ * index and extends to the end of this string.
+ *
  * str:substr(<string sourceText> , <int beginIndex>).
  */
 public class Type1Executor extends SubstrExecutor<Integer, Object> {

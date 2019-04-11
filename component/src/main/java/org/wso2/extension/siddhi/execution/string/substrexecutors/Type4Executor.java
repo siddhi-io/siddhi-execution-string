@@ -21,6 +21,10 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 /**
+ * Type4Executor returns the input subsequence captured by the
+ * given group during the match operation executed according to
+ * given regex.
+ *
  * str:substr(<string sourceText> , <string regex>, <int groupNumber>).
  */
 public class Type4Executor extends SubstrExecutor<String, Integer> {

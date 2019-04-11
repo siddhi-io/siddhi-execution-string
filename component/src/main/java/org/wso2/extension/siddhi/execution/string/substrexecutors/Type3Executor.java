@@ -21,6 +21,10 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 /**
+ * Type3Executor returns the input subsequence captured by the
+ * first group during the match operation executed according to
+ * given regex.
+ *
  * str:substr(<string sourceText> , <string regex>).
  */
 public class Type3Executor extends SubstrExecutor<String, Object> {

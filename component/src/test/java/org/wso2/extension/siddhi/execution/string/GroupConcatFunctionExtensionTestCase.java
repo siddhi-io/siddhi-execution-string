@@ -65,15 +65,15 @@ public class GroupConcatFunctionExtensionTestCase {
                 for (Event event : inEvents) {
                     count.incrementAndGet();
                     if (count.get() == 1) {
-                        AssertJUnit.assertEquals("null", event.getData(2));
+                        AssertJUnit.assertEquals("", event.getData(2));
                         eventArrived = true;
                     }
                     if (count.get() == 2) {
-                        AssertJUnit.assertEquals("null,$%$6", event.getData(2));
+                        AssertJUnit.assertEquals("$%$6", event.getData(2));
                         eventArrived = true;
                     }
                     if (count.get() == 3) {
-                        AssertJUnit.assertEquals("null,$%$6,8JU^", event.getData(2));
+                        AssertJUnit.assertEquals("$%$6,8JU^", event.getData(2));
                         eventArrived = true;
                     }
                 }
