@@ -18,20 +18,22 @@
 
 package org.wso2.extension.siddhi.execution.string;
 
-import org.wso2.siddhi.annotation.Example;
-import org.wso2.siddhi.annotation.Extension;
-import org.wso2.siddhi.annotation.Parameter;
-import org.wso2.siddhi.annotation.ReturnAttribute;
-import org.wso2.siddhi.annotation.util.DataType;
-import org.wso2.siddhi.core.config.SiddhiAppContext;
-import org.wso2.siddhi.core.exception.SiddhiAppRuntimeException;
-import org.wso2.siddhi.core.executor.ExpressionExecutor;
-import org.wso2.siddhi.core.executor.function.FunctionExecutor;
-import org.wso2.siddhi.core.util.config.ConfigReader;
-import org.wso2.siddhi.query.api.definition.Attribute;
-import org.wso2.siddhi.query.api.exception.SiddhiAppValidationException;
+import io.siddhi.annotation.Example;
+import io.siddhi.annotation.Extension;
+import io.siddhi.annotation.Parameter;
+import io.siddhi.annotation.ReturnAttribute;
+import io.siddhi.annotation.util.DataType;
+import io.siddhi.core.config.SiddhiQueryContext;
+import io.siddhi.core.exception.SiddhiAppRuntimeException;
+import io.siddhi.core.executor.ExpressionExecutor;
+import io.siddhi.core.executor.function.FunctionExecutor;
+import io.siddhi.core.util.config.ConfigReader;
+import io.siddhi.core.util.snapshot.state.State;
+import io.siddhi.core.util.snapshot.state.StateFactory;
+import io.siddhi.query.api.definition.Attribute;
+import io.siddhi.query.api.exception.SiddhiAppValidationException;
 
-import java.util.Map;
+import static io.siddhi.query.api.definition.Attribute.Type.STRING;
 
 /**
  * replaceAll(string, regex, replacement)
@@ -50,6 +52,7 @@ import java.util.Map;
                         description = "The input string to be replaced.",
                         type = {DataType.STRING}),
                 @Parameter(name = "regex",
+
                         description = "The regular expression to be matched with the input string.",
                         type = {DataType.STRING}),
                 @Parameter(name = "replacement.string",
@@ -69,70 +72,74 @@ import java.util.Map;
 )
 public class ReplaceAllFunctionExtension extends FunctionExecutor {
 
-    Attribute.Type returnType = Attribute.Type.STRING;
+    Attribute.Type returnType = STRING;
 
     @Override
-    protected void init(ExpressionExecutor[] attributeExpressionExecutors, ConfigReader configReader,
-                        SiddhiAppContext siddhiAppContext) {
-        if (attributeExpressionExecutors.length != 3) {
-            throw new SiddhiAppValidationException("Invalid no of arguments passed to str:replaceAll() function, " +
-                    "required 3, but found " + attributeExpressionExecutors.length);
+    protected StateFactory<State> init(ExpressionExecutor[] expressionExecutors,
+                                                ConfigReader configReader,
+                                                SiddhiQueryContext siddhiQueryContext) {
+        int executorsCount = expressionExecutors.length;
+
+        if (executorsCount != 3) {
+            throw new SiddhiAppValidationException("Invalid no of arguments passed to str:replaceAll() function, "
+                    + "required 3, but found " + executorsCount);
         }
-        if (attributeExpressionExecutors[0].getReturnType() != Attribute.Type.STRING) {
-            throw new SiddhiAppValidationException("Invalid parameter type found for the first argument of " +
-                    "str:replaceAll() function, " + "required " + Attribute.Type.STRING + ", but found " +
-                    attributeExpressionExecutors[0].getReturnType().toString());
+
+        ExpressionExecutor executor1 = expressionExecutors[0];
+        ExpressionExecutor executor2 = expressionExecutors[1];
+        ExpressionExecutor executor3 = expressionExecutors[2];
+
+        if (executor1.getReturnType() != STRING) {
+            throw new SiddhiAppValidationException("Invalid parameter type found for the first argument of "
+                    + "str:replaceAll() function, required " + STRING.toString() + ", but found "
+                    + executor1.getReturnType().toString());
+
         }
-        if (attributeExpressionExecutors[1].getReturnType() != Attribute.Type.STRING) {
-            throw new SiddhiAppValidationException("Invalid parameter type found for the second argument of " +
-                    "str:replaceAll() function, " + "required " + Attribute.Type.STRING + ", but found " +
-                    attributeExpressionExecutors[1].getReturnType().toString());
+        if (executor2.getReturnType() != STRING) {
+            throw new SiddhiAppValidationException("Invalid parameter type found for the second argument of "
+                    + "str:replaceAll() function,required " + STRING.toString() + ", but found "
+                    + executor2.getReturnType().toString());
         }
-        if (attributeExpressionExecutors[2].getReturnType() != Attribute.Type.STRING) {
-            throw new SiddhiAppValidationException("Invalid parameter type found for the third argument of " +
-                    "str:replaceAll() function, " + "required " + Attribute.Type.STRING + ", but found " +
-                    attributeExpressionExecutors[2].getReturnType().toString());
+        if (executor3.getReturnType() != STRING) {
+            throw new SiddhiAppValidationException("Invalid parameter type found for the third argument of "
+                    + "str:replaceAll() function,required " + STRING.toString() + ", but found "
+                    + executor3.getReturnType().toString());
         }
+
+        return null;
     }
 
     @Override
-    protected Object execute(Object[] data) {
-        if (data[0] == null) {
-            throw new SiddhiAppRuntimeException("Invalid input given to str:replaceAll() function. " +
-                    "First argument cannot be null");
+    protected Object execute(Object[] objects, State state) {
+        boolean arg0IsNull = objects[0] == null;
+        boolean arg1IsNull = objects[1] == null;
+        boolean arg2IsNull = objects[2] == null;
+
+        if (arg0IsNull || arg1IsNull || arg2IsNull) {
+            String argNumberWord;
+            if (arg0IsNull) {
+                argNumberWord = "First";
+            } else if (arg1IsNull) {
+                argNumberWord = "Second";
+            } else {
+                argNumberWord = "Third";
+            }
+            throw new SiddhiAppRuntimeException("Invalid input given to str:replaceAll() function. " + argNumberWord
+                    + " argument cannot be null");
         }
-        if (data[1] == null) {
-            throw new SiddhiAppRuntimeException("Invalid input given to str:replaceAll() function. " +
-                    "Second argument cannot be null");
-        }
-        if (data[2] == null) {
-            throw new SiddhiAppRuntimeException("Invalid input given to str:replaceAll() function. " +
-                    "Third argument cannot be null");
-        }
-        String source = (String) data[0];
-        String regex = (String) data[1];
-        String replacement = (String) data[2];
+        String source = (String) objects[0];
+        String regex = (String) objects[1];
+        String replacement = (String) objects[2];
         return source.replaceAll(regex, replacement);
     }
 
     @Override
-    protected Object execute(Object data) {
-        return null;  //Since the replaceAll function take 3 parameters, this method does not get called.
-        // Hence, not implemented.
+    protected Object execute(Object o, State state) {
+        return null;
     }
 
     @Override
     public Attribute.Type getReturnType() {
         return returnType;
-    }
-
-    @Override
-    public Map<String, Object> currentState() {
-        return null;    //No need to maintain a state.
-    }
-
-    @Override
-    public void restoreState(Map<String, Object> map) {
-
     }
 }

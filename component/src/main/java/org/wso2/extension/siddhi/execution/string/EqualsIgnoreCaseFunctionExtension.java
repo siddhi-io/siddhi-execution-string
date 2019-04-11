@@ -17,20 +17,22 @@
  */
 package org.wso2.extension.siddhi.execution.string;
 
-import org.wso2.siddhi.annotation.Example;
-import org.wso2.siddhi.annotation.Extension;
-import org.wso2.siddhi.annotation.Parameter;
-import org.wso2.siddhi.annotation.ReturnAttribute;
-import org.wso2.siddhi.annotation.util.DataType;
-import org.wso2.siddhi.core.config.SiddhiAppContext;
-import org.wso2.siddhi.core.exception.SiddhiAppRuntimeException;
-import org.wso2.siddhi.core.executor.ExpressionExecutor;
-import org.wso2.siddhi.core.executor.function.FunctionExecutor;
-import org.wso2.siddhi.core.util.config.ConfigReader;
-import org.wso2.siddhi.query.api.definition.Attribute;
-import org.wso2.siddhi.query.api.exception.SiddhiAppValidationException;
+import io.siddhi.annotation.Example;
+import io.siddhi.annotation.Extension;
+import io.siddhi.annotation.Parameter;
+import io.siddhi.annotation.ReturnAttribute;
+import io.siddhi.annotation.util.DataType;
+import io.siddhi.core.config.SiddhiQueryContext;
+import io.siddhi.core.exception.SiddhiAppRuntimeException;
+import io.siddhi.core.executor.ExpressionExecutor;
+import io.siddhi.core.executor.function.FunctionExecutor;
+import io.siddhi.core.util.config.ConfigReader;
+import io.siddhi.core.util.snapshot.state.State;
+import io.siddhi.core.util.snapshot.state.StateFactory;
+import io.siddhi.query.api.definition.Attribute;
+import io.siddhi.query.api.exception.SiddhiAppValidationException;
 
-import java.util.Map;
+import static io.siddhi.query.api.definition.Attribute.Type.STRING;
 
 /**
  * equalsIgnoreCase(string, compareTo)
@@ -61,60 +63,56 @@ import java.util.Map;
                 "returns \"true\". ")
 )
 public class EqualsIgnoreCaseFunctionExtension extends FunctionExecutor {
+
     Attribute.Type returnType = Attribute.Type.BOOL;
+
+    @Override
+    protected StateFactory<State> init(ExpressionExecutor[] expressionExecutors,
+                                                ConfigReader configReader,
+                                                SiddhiQueryContext siddhiQueryContext) {
+        int executorsCount = expressionExecutors.length;
+
+        if (executorsCount != 2) {
+            throw new SiddhiAppValidationException(
+                    "Invalid no of arguments passed to str:equalsIgnoreCase() function, "
+                            + "required 2, but found " + executorsCount);
+        }
+        ExpressionExecutor executor1 = expressionExecutors[0];
+        ExpressionExecutor executor2 = expressionExecutors[1];
+
+        if (executor1.getReturnType() != STRING) {
+            throw new SiddhiAppValidationException("Invalid parameter type found for the first argument of "
+                    + "str:equalsIgnoreCase() function, required " + STRING.toString() + ", but found "
+                    + executor1.getReturnType().toString());
+
+        }
+        if (executor2.getReturnType() != STRING) {
+            throw new SiddhiAppValidationException("Invalid parameter type found for the second argument of "
+                    + "str:equalsIgnoreCase() function,required " + STRING.toString() + ", but found "
+                    + executor2.getReturnType().toString());
+        }
+
+        return null;
+    }
+
+    @Override
+    protected Object execute(Object[] objects, State state) {
+        if (objects[0] == null) {
+            throw new SiddhiAppRuntimeException(
+                    "Invalid input given to str:equalsIgnoreCase() function. First argument cannot be null");
+        }
+        String source = (String) objects[0];
+        String compareTo = (String) objects[1];
+        return source.equalsIgnoreCase(compareTo);
+    }
+
+    @Override
+    protected Object execute(Object o, State state) {
+        return null;
+    }
 
     @Override
     public Attribute.Type getReturnType() {
         return returnType;
     }
-
-    @Override
-    public Map<String, Object> currentState() {
-        return null;    //No need to maintain a state.
-    }
-
-    @Override
-    public void restoreState(Map<String, Object> map) {
-
-    }
-
-    @Override
-    protected void init(ExpressionExecutor[] attributeExpressionExecutors, ConfigReader configReader,
-                        SiddhiAppContext siddhiAppContext) {
-        if (attributeExpressionExecutors.length != 2) {
-            throw new SiddhiAppValidationException(
-                    "Invalid no of arguments passed to str:equalsIgnoreCase() function, " + "required 2, but found "
-                            + attributeExpressionExecutors.length);
-        }
-        if (attributeExpressionExecutors[0].getReturnType() != Attribute.Type.STRING) {
-            throw new SiddhiAppValidationException(
-                    "Invalid parameter type found for the first argument of str:equalsIgnoreCase() function, "
-                            + "required " + Attribute.Type.STRING + ", but found "
-                            + attributeExpressionExecutors[0].getReturnType().toString());
-        }
-        if (attributeExpressionExecutors[1].getReturnType() != Attribute.Type.STRING) {
-            throw new SiddhiAppValidationException(
-                    "Invalid parameter type found for the second argument of str:equalsIgnoreCase()) function, "
-                            + "required " + Attribute.Type.STRING + ", but found "
-                            + attributeExpressionExecutors[1].getReturnType().toString());
-        }
-
-    }
-
-    @Override
-    protected Object execute(Object[] data) {
-        if (data[0] == null) {
-            throw new SiddhiAppRuntimeException(
-                    "Invalid input given to str:equalsIgnoreCase() function. First argument cannot be null");
-        }
-        String source = (String) data[0];
-        String compareTo = (String) data[1];
-        return source.equalsIgnoreCase(compareTo);
-    }
-
-    @Override
-    protected Object execute(Object data) {
-        return null;
-    }
-
 }

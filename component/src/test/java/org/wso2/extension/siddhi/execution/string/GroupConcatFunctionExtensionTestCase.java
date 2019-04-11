@@ -18,18 +18,18 @@
 
 package org.wso2.extension.siddhi.execution.string;
 
+import io.siddhi.core.SiddhiAppRuntime;
+import io.siddhi.core.SiddhiManager;
+import io.siddhi.core.event.Event;
+import io.siddhi.core.exception.SiddhiAppCreationException;
+import io.siddhi.core.query.output.callback.QueryCallback;
+import io.siddhi.core.stream.input.InputHandler;
+import io.siddhi.core.util.EventPrinter;
 import org.apache.log4j.Logger;
 import org.testng.AssertJUnit;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 import org.wso2.extension.siddhi.execution.string.test.util.SiddhiTestHelper;
-import org.wso2.siddhi.core.SiddhiAppRuntime;
-import org.wso2.siddhi.core.SiddhiManager;
-import org.wso2.siddhi.core.event.Event;
-import org.wso2.siddhi.core.exception.SiddhiAppCreationException;
-import org.wso2.siddhi.core.query.output.callback.QueryCallback;
-import org.wso2.siddhi.core.stream.input.InputHandler;
-import org.wso2.siddhi.core.util.EventPrinter;
 
 import java.util.concurrent.atomic.AtomicInteger;
 
@@ -65,15 +65,15 @@ public class GroupConcatFunctionExtensionTestCase {
                 for (Event event : inEvents) {
                     count.incrementAndGet();
                     if (count.get() == 1) {
-                        AssertJUnit.assertEquals("null", event.getData(2));
+                        AssertJUnit.assertEquals("", event.getData(2));
                         eventArrived = true;
                     }
                     if (count.get() == 2) {
-                        AssertJUnit.assertEquals("null,$%$6", event.getData(2));
+                        AssertJUnit.assertEquals("$%$6", event.getData(2));
                         eventArrived = true;
                     }
                     if (count.get() == 3) {
-                        AssertJUnit.assertEquals("null,$%$6,8JU^", event.getData(2));
+                        AssertJUnit.assertEquals("$%$6,8JU^", event.getData(2));
                         eventArrived = true;
                     }
                 }

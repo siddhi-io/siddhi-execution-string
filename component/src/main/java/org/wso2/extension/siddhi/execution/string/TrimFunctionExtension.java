@@ -18,20 +18,22 @@
 
 package org.wso2.extension.siddhi.execution.string;
 
-import org.wso2.siddhi.annotation.Example;
-import org.wso2.siddhi.annotation.Extension;
-import org.wso2.siddhi.annotation.Parameter;
-import org.wso2.siddhi.annotation.ReturnAttribute;
-import org.wso2.siddhi.annotation.util.DataType;
-import org.wso2.siddhi.core.config.SiddhiAppContext;
-import org.wso2.siddhi.core.exception.SiddhiAppRuntimeException;
-import org.wso2.siddhi.core.executor.ExpressionExecutor;
-import org.wso2.siddhi.core.executor.function.FunctionExecutor;
-import org.wso2.siddhi.core.util.config.ConfigReader;
-import org.wso2.siddhi.query.api.definition.Attribute;
-import org.wso2.siddhi.query.api.exception.SiddhiAppValidationException;
+import io.siddhi.annotation.Example;
+import io.siddhi.annotation.Extension;
+import io.siddhi.annotation.Parameter;
+import io.siddhi.annotation.ReturnAttribute;
+import io.siddhi.annotation.util.DataType;
+import io.siddhi.core.config.SiddhiQueryContext;
+import io.siddhi.core.exception.SiddhiAppRuntimeException;
+import io.siddhi.core.executor.ExpressionExecutor;
+import io.siddhi.core.executor.function.FunctionExecutor;
+import io.siddhi.core.util.config.ConfigReader;
+import io.siddhi.core.util.snapshot.state.State;
+import io.siddhi.core.util.snapshot.state.StateFactory;
+import io.siddhi.query.api.definition.Attribute;
+import io.siddhi.query.api.exception.SiddhiAppValidationException;
 
-import java.util.Map;
+import static io.siddhi.query.api.definition.Attribute.Type.STRING;
 
 /**
  * trim(string)
@@ -60,27 +62,24 @@ import java.util.Map;
 )
 public class TrimFunctionExtension extends FunctionExecutor {
 
-    Attribute.Type returnType = Attribute.Type.STRING;
+    Attribute.Type returnType = STRING;
 
     @Override
-    protected void init(ExpressionExecutor[] attributeExpressionExecutors, ConfigReader configReader,
-                        SiddhiAppContext siddhiAppContext) {
-        if (attributeExpressionExecutors.length != 1) {
-            throw new SiddhiAppValidationException(
-                    "Invalid no of arguments passed to str:trim() function, required 1, but found " +
-                            attributeExpressionExecutors.length);
-        }
-        if (attributeExpressionExecutors[0].getReturnType() != Attribute.Type.STRING) {
-            throw new SiddhiAppValidationException("Invalid parameter type found for str:trim() function, required "
-                    + Attribute.Type.STRING + ", but found " +
-                    attributeExpressionExecutors[0].getReturnType().toString());
-        }
-    }
+    protected StateFactory<State> init(ExpressionExecutor[] expressionExecutors,
+                                                ConfigReader configReader,
+                                                SiddhiQueryContext siddhiQueryContext) {
+        int executorsCount = expressionExecutors.length;
 
-    @Override
-    protected Object execute(Object[] data) {
-        return null;  //Since the trim function takes in only 1 parameter, this method does not get called.
-        // Hence, not implemented.
+        if (executorsCount != 1) {
+            throw new SiddhiAppValidationException("Invalid no of arguments passed to str:trim() function, "
+                    + "required 1, but found " + executorsCount);
+        }
+        Attribute.Type type = expressionExecutors[0].getReturnType();
+        if (type != STRING) {
+            throw new SiddhiAppValidationException("Invalid parameter type found for the argument of str:trim() "
+                    + "function, " + "required " + STRING.toString() + "but found " + type.toString());
+        }
+        return null;
     }
 
     @Override
@@ -93,17 +92,21 @@ public class TrimFunctionExtension extends FunctionExecutor {
     }
 
     @Override
+    protected Object execute(Object[] objects, State state) {
+        return null;
+    }
+
+    @Override
+    protected Object execute(Object o, State state) {
+        if (o == null) {
+            throw new SiddhiAppRuntimeException("Invalid input given to str:trim() function."
+                    + " The argument cannot be null");
+        }
+        return o.toString().trim();
+    }
+
+    @Override
     public Attribute.Type getReturnType() {
         return returnType;
-    }
-
-    @Override
-    public Map<String, Object> currentState() {
-        return null;    //No need to maintain a state.
-    }
-
-    @Override
-    public void restoreState(Map<String, Object> map) {
-
     }
 }

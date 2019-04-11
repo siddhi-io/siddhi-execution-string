@@ -18,19 +18,21 @@
 
 package org.wso2.extension.siddhi.execution.string;
 
-import org.wso2.siddhi.annotation.Example;
-import org.wso2.siddhi.annotation.Extension;
-import org.wso2.siddhi.annotation.Parameter;
-import org.wso2.siddhi.annotation.ReturnAttribute;
-import org.wso2.siddhi.annotation.util.DataType;
-import org.wso2.siddhi.core.config.SiddhiAppContext;
-import org.wso2.siddhi.core.executor.ExpressionExecutor;
-import org.wso2.siddhi.core.executor.function.FunctionExecutor;
-import org.wso2.siddhi.core.util.config.ConfigReader;
-import org.wso2.siddhi.query.api.definition.Attribute;
-import org.wso2.siddhi.query.api.exception.SiddhiAppValidationException;
+import io.siddhi.annotation.Example;
+import io.siddhi.annotation.Extension;
+import io.siddhi.annotation.Parameter;
+import io.siddhi.annotation.ReturnAttribute;
+import io.siddhi.annotation.util.DataType;
+import io.siddhi.core.config.SiddhiQueryContext;
+import io.siddhi.core.executor.ExpressionExecutor;
+import io.siddhi.core.executor.function.FunctionExecutor;
+import io.siddhi.core.util.config.ConfigReader;
+import io.siddhi.core.util.snapshot.state.State;
+import io.siddhi.core.util.snapshot.state.StateFactory;
+import io.siddhi.query.api.definition.Attribute;
+import io.siddhi.query.api.exception.SiddhiAppValidationException;
 
-import java.util.Map;
+import static io.siddhi.query.api.definition.Attribute.Type.STRING;
 
 /**
  * concat(string1, string2, ..., stringN)
@@ -59,45 +61,38 @@ import java.util.Map;
 )
 public class ConcatFunctionExtension extends FunctionExecutor {
 
-    private Attribute.Type returnType = Attribute.Type.STRING;
-
     @Override
-    protected void init(ExpressionExecutor[] attributeExpressionExecutors, ConfigReader configReader,
-                        SiddhiAppContext siddhiAppContext) {
-        if (attributeExpressionExecutors.length < 2) {
-            throw new SiddhiAppValidationException("str:concat() function requires at least two arguments, " +
-                    "but found only " + attributeExpressionExecutors.length);
+    protected StateFactory<State> init(ExpressionExecutor[] expressionExecutors,
+                                                ConfigReader configReader,
+                                                SiddhiQueryContext siddhiQueryContext) {
+        int executorsCount = expressionExecutors.length;
+
+        if (executorsCount < 2) {
+            throw new SiddhiAppValidationException("str:concat() function requires at least two arguments, "
+                    + "but found only " + executorsCount);
         }
+
+        return null;
     }
 
     @Override
-    protected Object execute(Object[] data) {
-        StringBuilder sb = new StringBuilder();
-        for (Object aData : data) {
-            if (aData != null) {
-                sb.append(aData);
+    protected Object execute(Object[] objects, State state) {
+        StringBuilder builder = new StringBuilder();
+        for (Object o : objects) {
+            if (o != null) {
+                builder.append(o);
             }
         }
-        return sb.toString();
+        return builder.toString();
     }
 
     @Override
-    protected Object execute(Object data) {
-        return data;
+    protected Object execute(Object o, State state) {
+        return o;
     }
 
     @Override
     public Attribute.Type getReturnType() {
-        return returnType;
-    }
-
-    @Override
-    public Map<String, Object> currentState() {
-        return null;    //No states
-    }
-
-    @Override
-    public void restoreState(Map<String, Object> map) {
-
+        return STRING;
     }
 }

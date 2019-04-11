@@ -18,20 +18,22 @@
 
 package org.wso2.extension.siddhi.execution.string;
 
-import org.wso2.siddhi.annotation.Example;
-import org.wso2.siddhi.annotation.Extension;
-import org.wso2.siddhi.annotation.Parameter;
-import org.wso2.siddhi.annotation.ReturnAttribute;
-import org.wso2.siddhi.annotation.util.DataType;
-import org.wso2.siddhi.core.config.SiddhiAppContext;
-import org.wso2.siddhi.core.exception.SiddhiAppRuntimeException;
-import org.wso2.siddhi.core.executor.ExpressionExecutor;
-import org.wso2.siddhi.core.executor.function.FunctionExecutor;
-import org.wso2.siddhi.core.util.config.ConfigReader;
-import org.wso2.siddhi.query.api.definition.Attribute;
-import org.wso2.siddhi.query.api.exception.SiddhiAppValidationException;
+import io.siddhi.annotation.Example;
+import io.siddhi.annotation.Extension;
+import io.siddhi.annotation.Parameter;
+import io.siddhi.annotation.ReturnAttribute;
+import io.siddhi.annotation.util.DataType;
+import io.siddhi.core.config.SiddhiQueryContext;
+import io.siddhi.core.exception.SiddhiAppRuntimeException;
+import io.siddhi.core.executor.ExpressionExecutor;
+import io.siddhi.core.executor.function.FunctionExecutor;
+import io.siddhi.core.util.config.ConfigReader;
+import io.siddhi.core.util.snapshot.state.State;
+import io.siddhi.core.util.snapshot.state.StateFactory;
+import io.siddhi.query.api.definition.Attribute;
+import io.siddhi.query.api.exception.SiddhiAppValidationException;
 
-import java.util.Map;
+import static io.siddhi.query.api.definition.Attribute.Type.STRING;
 
 /**
  * hex(a)
@@ -63,29 +65,33 @@ import java.util.Map;
 public class HexFunctionExtension extends FunctionExecutor {
 
     @Override
-    protected void init(ExpressionExecutor[] attributeExpressionExecutors, ConfigReader configReader,
-                        SiddhiAppContext siddhiAppContext) {
-        if (attributeExpressionExecutors.length != 1) {
-            throw new SiddhiAppValidationException("Invalid no of arguments passed to str:hex() function, " +
-                    "required 1, but found " + attributeExpressionExecutors.length);
+    protected StateFactory<State> init(ExpressionExecutor[] expressionExecutors,
+                                                ConfigReader configReader,
+                                                SiddhiQueryContext siddhiQueryContext) {
+        int executorsCount = expressionExecutors.length;
+
+        if (executorsCount != 1) {
+            throw new SiddhiAppValidationException("Invalid no of arguments passed to str:hex() function, "
+                    + "required 1, but found " + executorsCount);
         }
-        Attribute.Type attributeType = attributeExpressionExecutors[0].getReturnType();
-        if (attributeType != Attribute.Type.STRING) {
-            throw new SiddhiAppValidationException("Invalid parameter type found for the argument of str:hex() " +
-                    "function, " + "required " + Attribute.Type.STRING + "but found " + attributeType.toString());
+        Attribute.Type type = expressionExecutors[0].getReturnType();
+        if (type != STRING) {
+            throw new SiddhiAppValidationException("Invalid parameter type found for the argument of str:hex() "
+                    + "function, " + "required " + STRING + "but found " + type.toString());
         }
+
+        return null;
     }
 
     @Override
-    protected Object execute(Object[] data) {
-        return null;  //Since the hex function takes in only 1 parameter, this method does not get called. Hence,
-        // not implemented.
+    protected Object execute(Object[] objects, State state) {
+        return null;
     }
 
     @Override
-    protected Object execute(Object data) {
-        if (data != null) {
-            char[] chars = ((String) data).toCharArray();
+    protected Object execute(Object o, State state) {
+        if (o != null) {
+            char[] chars = ((String) o).toCharArray();
             StringBuilder sb = new StringBuilder();
             for (char c : chars) {
                 sb.append(Integer.toHexString((int) c));
@@ -98,16 +104,6 @@ public class HexFunctionExtension extends FunctionExecutor {
 
     @Override
     public Attribute.Type getReturnType() {
-        return Attribute.Type.STRING;
-    }
-
-    @Override
-    public Map<String, Object> currentState() {
-        return null;    //No need to maintain a state.
-    }
-
-    @Override
-    public void restoreState(Map<String, Object> map) {
-
+        return STRING;
     }
 }
