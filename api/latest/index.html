@@ -106,7 +106,7 @@
     <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
     <label class="md-overlay" data-md-component="overlay" for="__drawer"></label>
     
-      <a href="#api-docs-v410" tabindex="1" class="md-skip">
+      <a href="#api-docs-v500" tabindex="1" class="md-skip">
         Skip to content
       </a>
     
@@ -275,6 +275,18 @@
       </label>
       <ul class="md-nav__list" data-md-scrollfix>
         
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../5.0.0/" title="5.0.0" class="md-nav__link">
+      5.0.0
+    </a>
+  </li>
+
         
           
           
@@ -985,9 +997,9 @@
                   <a href="https://github.com/wso2-extensions/siddhi-execution-string/edit/master/docs/api/latest.md" title="Edit this page" class="md-icon md-content__icon">&#xE3C9;</a>
                 
                 
-                <h1 id="api-docs-v410">API Docs - v4.1.0<a class="headerlink" href="#api-docs-v410" title="Permanent link">&para;</a></h1>
+                <h1 id="api-docs-v500">API Docs - v5.0.0<a class="headerlink" href="#api-docs-v500" title="Permanent link">&para;</a></h1>
 <h2 id="str">Str<a class="headerlink" href="#str" title="Permanent link">&para;</a></h2>
-<h3 id="groupconcat-aggregate-function">groupConcat <em><a target="_blank" href="https://wso2.github.io/siddhi/documentation/siddhi-4.0/#aggregate-function">(Aggregate Function)</a></em><a class="headerlink" href="#groupconcat-aggregate-function" title="Permanent link">&para;</a></h3>
+<h3 id="groupconcat-aggregate-function">groupConcat <em><a target="_blank" href="http://siddhi.io/documentation/siddhi-5.x/query-guide-5.x/#aggregate-function">(Aggregate Function)</a></em><a class="headerlink" href="#groupconcat-aggregate-function" title="Permanent link">&para;</a></h3>
 <p style="word-wrap: break-word">This function aggregates the received events by concatenating the keys in those events using a separator, e.g.,a comma (,) or a hyphen (-), and returns the concatenated key string.</p>
 
 <p><span id="syntax" class="md-typeset" style="display: block; font-weight: bold;">Syntax</span></p>
@@ -1057,7 +1069,7 @@ input OutputStream;
 
 <p style="word-wrap: break-word">When we input events having values for the <code>key</code> as <code>'A'</code>, <code>'B'</code>, <code>'S'</code>, <code>'C'</code>, <code>'A'</code>, specify the seperator as hyphen and choose the order to be ascending, the function returns <code>"A-B-C-S"</code> to the 'OutputStream'.</p>
 
-<h3 id="charat-function">charAt <em><a target="_blank" href="https://wso2.github.io/siddhi/documentation/siddhi-4.0/#function">(Function)</a></em><a class="headerlink" href="#charat-function" title="Permanent link">&para;</a></h3>
+<h3 id="charat-function">charAt <em><a target="_blank" href="http://siddhi.io/documentation/siddhi-5.x/query-guide-5.x/#function">(Function)</a></em><a class="headerlink" href="#charat-function" title="Permanent link">&para;</a></h3>
 <p style="word-wrap: break-word">This function returns the 'char' value that is present at the given index position. of the input string.</p>
 
 <p><span id="syntax" class="md-typeset" style="display: block; font-weight: bold;">Syntax</span></p>
@@ -1100,7 +1112,7 @@ input OutputStream;
 
 <p style="word-wrap: break-word">In this case, the functiion returns the character that exists at index 1. Hence, it returns 'S'.</p>
 
-<h3 id="coalesce-function">coalesce <em><a target="_blank" href="https://wso2.github.io/siddhi/documentation/siddhi-4.0/#function">(Function)</a></em><a class="headerlink" href="#coalesce-function" title="Permanent link">&para;</a></h3>
+<h3 id="coalesce-function">coalesce <em><a target="_blank" href="http://siddhi.io/documentation/siddhi-5.x/query-guide-5.x/#function">(Function)</a></em><a class="headerlink" href="#coalesce-function" title="Permanent link">&para;</a></h3>
 <p style="word-wrap: break-word"> This returns the first input parameter value of the given argument, that is not null.</p>
 
 <p><span id="syntax" class="md-typeset" style="display: block; font-weight: bold;">Syntax</span></p>
@@ -1135,7 +1147,7 @@ input OutputStream;
 
 <p style="word-wrap: break-word">This returns the first input parameter that is not null. In this example, it returns "BBB".</p>
 
-<h3 id="concat-function">concat <em><a target="_blank" href="https://wso2.github.io/siddhi/documentation/siddhi-4.0/#function">(Function)</a></em><a class="headerlink" href="#concat-function" title="Permanent link">&para;</a></h3>
+<h3 id="concat-function">concat <em><a target="_blank" href="http://siddhi.io/documentation/siddhi-5.x/query-guide-5.x/#function">(Function)</a></em><a class="headerlink" href="#concat-function" title="Permanent link">&para;</a></h3>
 <p style="word-wrap: break-word">This function returns a string value that is obtained as a result of concatenating two or more input string values.</p>
 
 <p><span id="syntax" class="md-typeset" style="display: block; font-weight: bold;">Syntax</span></p>
@@ -1170,7 +1182,7 @@ input OutputStream;
 
 <p style="word-wrap: break-word">This returns a string value by concatenating two or more given arguments. In the example shown above, it returns "D5338JU^XYZ".</p>
 
-<h3 id="contains-function">contains <em><a target="_blank" href="https://wso2.github.io/siddhi/documentation/siddhi-4.0/#function">(Function)</a></em><a class="headerlink" href="#contains-function" title="Permanent link">&para;</a></h3>
+<h3 id="contains-function">contains <em><a target="_blank" href="http://siddhi.io/documentation/siddhi-5.x/query-guide-5.x/#function">(Function)</a></em><a class="headerlink" href="#contains-function" title="Permanent link">&para;</a></h3>
 <p style="word-wrap: break-word">This function returns <code>true</code> if the<code>input.string</code> contains the specified sequence of char values in the <code>search.string</code>. </p>
 
 <p><span id="syntax" class="md-typeset" style="display: block; font-weight: bold;">Syntax</span></p>
@@ -1213,7 +1225,7 @@ input OutputStream;
 
 <p style="word-wrap: break-word">This returns a boolean value as the output. In this case, it returns<code>true</code>.</p>
 
-<h3 id="equalsignorecase-function">equalsIgnoreCase <em><a target="_blank" href="https://wso2.github.io/siddhi/documentation/siddhi-4.0/#function">(Function)</a></em><a class="headerlink" href="#equalsignorecase-function" title="Permanent link">&para;</a></h3>
+<h3 id="equalsignorecase-function">equalsIgnoreCase <em><a target="_blank" href="http://siddhi.io/documentation/siddhi-5.x/query-guide-5.x/#function">(Function)</a></em><a class="headerlink" href="#equalsignorecase-function" title="Permanent link">&para;</a></h3>
 <p style="word-wrap: break-word">This returns a boolean value by comparing two strings lexicographically without considering the letter case.</p>
 
 <p><span id="syntax" class="md-typeset" style="display: block; font-weight: bold;">Syntax</span></p>
@@ -1256,7 +1268,7 @@ input OutputStream;
 
 <p style="word-wrap: break-word">This returns a boolean value as the output. In this scenario, it returns "true". </p>
 
-<h3 id="filltemplate-function">fillTemplate <em><a target="_blank" href="https://wso2.github.io/siddhi/documentation/siddhi-4.0/#function">(Function)</a></em><a class="headerlink" href="#filltemplate-function" title="Permanent link">&para;</a></h3>
+<h3 id="filltemplate-function">fillTemplate <em><a target="_blank" href="http://siddhi.io/documentation/siddhi-5.x/query-guide-5.x/#function">(Function)</a></em><a class="headerlink" href="#filltemplate-function" title="Permanent link">&para;</a></h3>
 <p style="word-wrap: break-word">This extension replaces the templated positions that are marked with an index value in a specified template with the strings provided.</p>
 
 <p><span id="syntax" class="md-typeset" style="display: block; font-weight: bold;">Syntax</span></p>
@@ -1299,7 +1311,7 @@ input OutputStream;
 
 <p style="word-wrap: break-word">In this example, the template is 'This is {{1}} for the {{2}} function'.Here, the templated string {{1}} is replaced with the 1st string value provided, which is 'an example'.<br>{{2}} is replaced with the 2nd string provided, which is 'fillTemplate'<br>The complete return string is 'This is an example for the fillTemplate function'.</p>
 
-<h3 id="hex-function">hex <em><a target="_blank" href="https://wso2.github.io/siddhi/documentation/siddhi-4.0/#function">(Function)</a></em><a class="headerlink" href="#hex-function" title="Permanent link">&para;</a></h3>
+<h3 id="hex-function">hex <em><a target="_blank" href="http://siddhi.io/documentation/siddhi-5.x/query-guide-5.x/#function">(Function)</a></em><a class="headerlink" href="#hex-function" title="Permanent link">&para;</a></h3>
 <p style="word-wrap: break-word">This function returns a hexadecimal string by converting each byte of each character in the input string to two hexadecimal digits.</p>
 
 <p><span id="syntax" class="md-typeset" style="display: block; font-weight: bold;">Syntax</span></p>
@@ -1334,7 +1346,7 @@ input OutputStream;
 
 <p style="word-wrap: break-word">This returns the hexadecimal value of the input.string. In this scenario, the output is "4d7953514c".</p>
 
-<h3 id="length-function">length <em><a target="_blank" href="https://wso2.github.io/siddhi/documentation/siddhi-4.0/#function">(Function)</a></em><a class="headerlink" href="#length-function" title="Permanent link">&para;</a></h3>
+<h3 id="length-function">length <em><a target="_blank" href="http://siddhi.io/documentation/siddhi-5.x/query-guide-5.x/#function">(Function)</a></em><a class="headerlink" href="#length-function" title="Permanent link">&para;</a></h3>
 <p style="word-wrap: break-word">Returns the length of the input string.</p>
 
 <p><span id="syntax" class="md-typeset" style="display: block; font-weight: bold;">Syntax</span></p>
@@ -1369,7 +1381,7 @@ input OutputStream;
 
 <p style="word-wrap: break-word">This outputs the length of the provided string. In this scenario, the, output is <code>11</code> .</p>
 
-<h3 id="lower-function">lower <em><a target="_blank" href="https://wso2.github.io/siddhi/documentation/siddhi-4.0/#function">(Function)</a></em><a class="headerlink" href="#lower-function" title="Permanent link">&para;</a></h3>
+<h3 id="lower-function">lower <em><a target="_blank" href="http://siddhi.io/documentation/siddhi-5.x/query-guide-5.x/#function">(Function)</a></em><a class="headerlink" href="#lower-function" title="Permanent link">&para;</a></h3>
 <p style="word-wrap: break-word">Converts the capital letters in the input string to the equivalent simple letters.</p>
 
 <p><span id="syntax" class="md-typeset" style="display: block; font-weight: bold;">Syntax</span></p>
@@ -1404,7 +1416,7 @@ input OutputStream;
 
 <p style="word-wrap: break-word">This converts the capital letters in the input.string to the equivalent simple letters. In this scenario, the output is "wso2 cep ".</p>
 
-<h3 id="regexp-function">regexp <em><a target="_blank" href="https://wso2.github.io/siddhi/documentation/siddhi-4.0/#function">(Function)</a></em><a class="headerlink" href="#regexp-function" title="Permanent link">&para;</a></h3>
+<h3 id="regexp-function">regexp <em><a target="_blank" href="http://siddhi.io/documentation/siddhi-5.x/query-guide-5.x/#function">(Function)</a></em><a class="headerlink" href="#regexp-function" title="Permanent link">&para;</a></h3>
 <p style="word-wrap: break-word">Returns a boolean value based on the matchability of the input string and the given regular expression.</p>
 
 <p><span id="syntax" class="md-typeset" style="display: block; font-weight: bold;">Syntax</span></p>
@@ -1447,7 +1459,7 @@ input OutputStream;
 
 <p style="word-wrap: break-word">This returns a boolean value after matching regular expression with the given string. In this scenario, it returns "true" as the output.</p>
 
-<h3 id="repeat-function">repeat <em><a target="_blank" href="https://wso2.github.io/siddhi/documentation/siddhi-4.0/#function">(Function)</a></em><a class="headerlink" href="#repeat-function" title="Permanent link">&para;</a></h3>
+<h3 id="repeat-function">repeat <em><a target="_blank" href="http://siddhi.io/documentation/siddhi-5.x/query-guide-5.x/#function">(Function)</a></em><a class="headerlink" href="#repeat-function" title="Permanent link">&para;</a></h3>
 <p style="word-wrap: break-word">Repeats the input string for a specified number of times.</p>
 
 <p><span id="syntax" class="md-typeset" style="display: block; font-weight: bold;">Syntax</span></p>
@@ -1490,7 +1502,7 @@ input OutputStream;
 
 <p style="word-wrap: break-word">This returns a string value by repeating the string for a specified number of times. In this scenario, the output is "StRing 1StRing 1StRing 1".</p>
 
-<h3 id="replaceall-function">replaceAll <em><a target="_blank" href="https://wso2.github.io/siddhi/documentation/siddhi-4.0/#function">(Function)</a></em><a class="headerlink" href="#replaceall-function" title="Permanent link">&para;</a></h3>
+<h3 id="replaceall-function">replaceAll <em><a target="_blank" href="http://siddhi.io/documentation/siddhi-5.x/query-guide-5.x/#function">(Function)</a></em><a class="headerlink" href="#replaceall-function" title="Permanent link">&para;</a></h3>
 <p style="word-wrap: break-word">Finds all the substrings of the input string that matches with the given expression, and replaces them with the given replacement string.</p>
 
 <p><span id="syntax" class="md-typeset" style="display: block; font-weight: bold;">Syntax</span></p>
@@ -1541,7 +1553,7 @@ input OutputStream;
 
 <p style="word-wrap: break-word">This returns a string after replacing the substrings of the input string with the replacement string. In this scenario, the output is "test hi test" .</p>
 
-<h3 id="replacefirst-function">replaceFirst <em><a target="_blank" href="https://wso2.github.io/siddhi/documentation/siddhi-4.0/#function">(Function)</a></em><a class="headerlink" href="#replacefirst-function" title="Permanent link">&para;</a></h3>
+<h3 id="replacefirst-function">replaceFirst <em><a target="_blank" href="http://siddhi.io/documentation/siddhi-5.x/query-guide-5.x/#function">(Function)</a></em><a class="headerlink" href="#replacefirst-function" title="Permanent link">&para;</a></h3>
 <p style="word-wrap: break-word">Finds the first substring of the input string that matches with the given regular expression, and replaces itwith the given replacement string.</p>
 
 <p><span id="syntax" class="md-typeset" style="display: block; font-weight: bold;">Syntax</span></p>
@@ -1592,7 +1604,7 @@ input OutputStream;
 
 <p style="word-wrap: break-word">This returns a string after replacing the first substring with the given replacement string. In this scenario, the output is "hello XXXX hello".</p>
 
-<h3 id="reverse-function">reverse <em><a target="_blank" href="https://wso2.github.io/siddhi/documentation/siddhi-4.0/#function">(Function)</a></em><a class="headerlink" href="#reverse-function" title="Permanent link">&para;</a></h3>
+<h3 id="reverse-function">reverse <em><a target="_blank" href="http://siddhi.io/documentation/siddhi-5.x/query-guide-5.x/#function">(Function)</a></em><a class="headerlink" href="#reverse-function" title="Permanent link">&para;</a></h3>
 <p style="word-wrap: break-word">Returns the input string in the reverse order character-wise and string-wise.</p>
 
 <p><span id="syntax" class="md-typeset" style="display: block; font-weight: bold;">Syntax</span></p>
@@ -1627,7 +1639,7 @@ input OutputStream;
 
 <p style="word-wrap: break-word">This outputs a string value by reversing the incoming <code>input.string</code>. In this scenario, the output is "dlroW olleH".</p>
 
-<h3 id="split-function">split <em><a target="_blank" href="https://wso2.github.io/siddhi/documentation/siddhi-4.0/#function">(Function)</a></em><a class="headerlink" href="#split-function" title="Permanent link">&para;</a></h3>
+<h3 id="split-function">split <em><a target="_blank" href="http://siddhi.io/documentation/siddhi-5.x/query-guide-5.x/#function">(Function)</a></em><a class="headerlink" href="#split-function" title="Permanent link">&para;</a></h3>
 <p style="word-wrap: break-word">Splits the  <code>input.string</code> into substrings using the value parsed in the <code>split.string</code> and returns the substring at the position specified in the <code>group.number</code>.</p>
 
 <p><span id="syntax" class="md-typeset" style="display: block; font-weight: bold;">Syntax</span></p>
@@ -1678,7 +1690,7 @@ input OutputStream;
 
 <p style="word-wrap: break-word">This splits the given <code>input.string</code> by given <code>split.string</code> and returns the string in the index given by group.number. In this scenario, the output will is "WSO2".</p>
 
-<h3 id="strcmp-function">strcmp <em><a target="_blank" href="https://wso2.github.io/siddhi/documentation/siddhi-4.0/#function">(Function)</a></em><a class="headerlink" href="#strcmp-function" title="Permanent link">&para;</a></h3>
+<h3 id="strcmp-function">strcmp <em><a target="_blank" href="http://siddhi.io/documentation/siddhi-5.x/query-guide-5.x/#function">(Function)</a></em><a class="headerlink" href="#strcmp-function" title="Permanent link">&para;</a></h3>
 <p style="word-wrap: break-word">Compares two strings lexicographically and returns an integer value. If both strings are equal, 0 is returned. If  the first string is lexicographically greater than the second string, a positive value is returned. If the first string is lexicographically greater than the second string, a negative value is returned.</p>
 
 <p><span id="syntax" class="md-typeset" style="display: block; font-weight: bold;">Syntax</span></p>
@@ -1721,7 +1733,7 @@ input OutputStream;
 
 <p style="word-wrap: break-word">This compares two strings lexicographically and outputs an integer value.</p>
 
-<h3 id="substr-function">substr <em><a target="_blank" href="https://wso2.github.io/siddhi/documentation/siddhi-4.0/#function">(Function)</a></em><a class="headerlink" href="#substr-function" title="Permanent link">&para;</a></h3>
+<h3 id="substr-function">substr <em><a target="_blank" href="http://siddhi.io/documentation/siddhi-5.x/query-guide-5.x/#function">(Function)</a></em><a class="headerlink" href="#substr-function" title="Permanent link">&para;</a></h3>
 <p style="word-wrap: break-word">Returns a substring of the input string by considering a subset or all of the following factors: starting index, length, regular expression, and regex group number.</p>
 
 <p><span id="syntax" class="md-typeset" style="display: block; font-weight: bold;">Syntax</span></p>
@@ -1809,7 +1821,7 @@ input OutputStream;
 
 <p style="word-wrap: break-word">This outputs the substring by applying the regex and considering the <code>group.number</code>. In this scenario, the output is " ello".</p>
 
-<h3 id="trim-function">trim <em><a target="_blank" href="https://wso2.github.io/siddhi/documentation/siddhi-4.0/#function">(Function)</a></em><a class="headerlink" href="#trim-function" title="Permanent link">&para;</a></h3>
+<h3 id="trim-function">trim <em><a target="_blank" href="http://siddhi.io/documentation/siddhi-5.x/query-guide-5.x/#function">(Function)</a></em><a class="headerlink" href="#trim-function" title="Permanent link">&para;</a></h3>
 <p style="word-wrap: break-word">Returns a copy of the input string without the leading and trailing whitespace (if any).</p>
 
 <p><span id="syntax" class="md-typeset" style="display: block; font-weight: bold;">Syntax</span></p>
@@ -1844,7 +1856,7 @@ input OutputStream;
 
 <p style="word-wrap: break-word">This returns a copy of the <code>input.string</code> with the leading and/or trailing white-spaces omitted. In this scenario, the output is "AbCDefghiJ KLMN".</p>
 
-<h3 id="unhex-function">unhex <em><a target="_blank" href="https://wso2.github.io/siddhi/documentation/siddhi-4.0/#function">(Function)</a></em><a class="headerlink" href="#unhex-function" title="Permanent link">&para;</a></h3>
+<h3 id="unhex-function">unhex <em><a target="_blank" href="http://siddhi.io/documentation/siddhi-5.x/query-guide-5.x/#function">(Function)</a></em><a class="headerlink" href="#unhex-function" title="Permanent link">&para;</a></h3>
 <p style="word-wrap: break-word">Returns a string by converting the hexadecimal characters in the input string.</p>
 
 <p><span id="syntax" class="md-typeset" style="display: block; font-weight: bold;">Syntax</span></p>
@@ -1879,7 +1891,7 @@ input OutputStream;
 
 <p style="word-wrap: break-word">This converts the hexadecimal value to string.</p>
 
-<h3 id="upper-function">upper <em><a target="_blank" href="https://wso2.github.io/siddhi/documentation/siddhi-4.0/#function">(Function)</a></em><a class="headerlink" href="#upper-function" title="Permanent link">&para;</a></h3>
+<h3 id="upper-function">upper <em><a target="_blank" href="http://siddhi.io/documentation/siddhi-5.x/query-guide-5.x/#function">(Function)</a></em><a class="headerlink" href="#upper-function" title="Permanent link">&para;</a></h3>
 <p style="word-wrap: break-word">Converts the simple letters in the input string to the equivalent capital/block letters.</p>
 
 <p><span id="syntax" class="md-typeset" style="display: block; font-weight: bold;">Syntax</span></p>
@@ -1914,7 +1926,7 @@ input OutputStream;
 
 <p style="word-wrap: break-word">This converts the simple letters in the <code>input.string</code> to theequivalent capital letters. In this scenario, the output is "HELLO WORLD".</p>
 
-<h3 id="tokenize-stream-processor">tokenize <em><a target="_blank" href="https://wso2.github.io/siddhi/documentation/siddhi-4.0/#stream-processor">(Stream Processor)</a></em><a class="headerlink" href="#tokenize-stream-processor" title="Permanent link">&para;</a></h3>
+<h3 id="tokenize-stream-processor">tokenize <em><a target="_blank" href="http://siddhi.io/documentation/siddhi-5.x/query-guide-5.x/#stream-processor">(Stream Processor)</a></em><a class="headerlink" href="#tokenize-stream-processor" title="Permanent link">&para;</a></h3>
 <p style="word-wrap: break-word">This function splits the input string into tokens using a given regular expression and returns the split tokens.</p>
 
 <p><span id="syntax" class="md-typeset" style="display: block; font-weight: bold;">Syntax</span></p>
