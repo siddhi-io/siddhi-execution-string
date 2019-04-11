@@ -25,7 +25,7 @@ import java.util.regex.Pattern;
  * first group during the match operation executed according to
  * given regex.
  *
- * str:substr(<string sourceText> , <string regex>).
+ * str:substr([string sourceText] , [string regex]).
  */
 public class Type3Executor extends SubstrExecutor<String, Object> {
 

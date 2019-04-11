@@ -25,7 +25,7 @@ import java.util.regex.Pattern;
  * given group during the match operation executed according to
  * given regex.
  *
- * str:substr(<string sourceText> , <string regex>, <int groupNumber>).
+ * str:substr([string sourceText] , [string regex], [int groupNumber]).
  */
 public class Type4Executor extends SubstrExecutor<String, Integer> {
 
