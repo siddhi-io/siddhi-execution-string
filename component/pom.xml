@@ -19,7 +19,7 @@
     <modelVersion>4.0.0</modelVersion>
 
     <parent>
-        <groupId>org.wso2.extension.siddhi.execution.string</groupId>
+        <groupId>io.siddhi.extension.execution.string</groupId>
         <artifactId>siddhi-execution-string-parent</artifactId>
         <version>5.0.2-SNAPSHOT</version>
         <relativePath>../pom.xml</relativePath>
@@ -143,7 +143,7 @@
                         <Bundle-SymbolicName>${project.artifactId}</Bundle-SymbolicName>
                         <Bundle-Name>${project.artifactId}</Bundle-Name>
                         <Export-Package>
-                            org.wso2.extension.siddhi.execution.string.*
+                            io.siddhi.extension.execution.string.*
                         </Export-Package>
                         <Import-Package>
                             io.siddhi.query.*;version="${siddhi.import.version.range}",
