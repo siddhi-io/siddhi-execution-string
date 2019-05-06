@@ -13,7 +13,7 @@
         <meta name="description" content="Siddhi Execution String Extension">
       
       
-        <link rel="canonical" href="https://wso2-extensions.github.io/siddhi-execution-string/api/4.0.24/">
+        <link rel="canonical" href="https://wso2-extensions.github.io/siddhi-execution-string/api/4.1.1/">
       
       
         <meta name="author" content="WSO2">
@@ -42,7 +42,7 @@
     
     
       
-        <title>4.0.24 - Siddhi Execution String</title>
+        <title>4.1.1 - Siddhi Execution String</title>
       
     
     
@@ -106,7 +106,7 @@
     <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
     <label class="md-overlay" data-md-component="overlay" for="__drawer"></label>
     
-      <a href="#api-docs-v4024" tabindex="1" class="md-skip">
+      <a href="#api-docs-v411" tabindex="1" class="md-skip">
         Skip to content
       </a>
     
@@ -132,7 +132,7 @@
                 Siddhi Execution String
               </span>
               <span class="md-header-nav__topic">
-                4.0.24
+                4.1.1
               </span>
             
           
@@ -280,54 +280,6 @@
           
           
 
-
-  <li class="md-nav__item">
-    <a href="../4.1.1/" title="4.1.1" class="md-nav__link">
-      4.1.1
-    </a>
-  </li>
-
-        
-          
-          
-          
-
-
-  <li class="md-nav__item">
-    <a href="../4.1.0/" title="4.1.0" class="md-nav__link">
-      4.1.0
-    </a>
-  </li>
-
-        
-          
-          
-          
-
-
-  <li class="md-nav__item">
-    <a href="../4.0.26/" title="4.0.26" class="md-nav__link">
-      4.0.26
-    </a>
-  </li>
-
-        
-          
-          
-          
-
-
-  <li class="md-nav__item">
-    <a href="../4.0.25/" title="4.0.25" class="md-nav__link">
-      4.0.25
-    </a>
-  </li>
-
-        
-          
-          
-          
-
   
 
 
@@ -339,11 +291,11 @@
     
     
       <label class="md-nav__link md-nav__link--active" for="__toc">
-        4.0.24
+        4.1.1
       </label>
     
-    <a href="./" title="4.0.24" class="md-nav__link md-nav__link--active">
-      4.0.24
+    <a href="./" title="4.1.1" class="md-nav__link md-nav__link--active">
+      4.1.1
     </a>
     
       
@@ -531,6 +483,54 @@
   
 </nav>
     
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../4.1.0/" title="4.1.0" class="md-nav__link">
+      4.1.0
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../4.0.26/" title="4.0.26" class="md-nav__link">
+      4.0.26
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../4.0.25/" title="4.0.25" class="md-nav__link">
+      4.0.25
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../4.0.24/" title="4.0.24" class="md-nav__link">
+      4.0.24
+    </a>
   </li>
 
         
@@ -994,13 +994,13 @@
             <article class="md-content__inner md-typeset">
               
                 
-                  <a href="https://github.com/wso2-extensions/siddhi-execution-string/edit/master/docs/api/4.0.24.md" title="Edit this page" class="md-icon md-content__icon">&#xE3C9;</a>
+                  <a href="https://github.com/wso2-extensions/siddhi-execution-string/edit/master/docs/api/4.1.1.md" title="Edit this page" class="md-icon md-content__icon">&#xE3C9;</a>
                 
                 
-                <h1 id="api-docs-v4024">API Docs - v4.0.24<a class="headerlink" href="#api-docs-v4024" title="Permanent link">&para;</a></h1>
+                <h1 id="api-docs-v411">API Docs - v4.1.1<a class="headerlink" href="#api-docs-v411" title="Permanent link">&para;</a></h1>
 <h2 id="str">Str<a class="headerlink" href="#str" title="Permanent link">&para;</a></h2>
 <h3 id="groupconcat-aggregate-function">groupConcat <em><a target="_blank" href="https://wso2.github.io/siddhi/documentation/siddhi-4.0/#aggregate-function">(Aggregate Function)</a></em><a class="headerlink" href="#groupconcat-aggregate-function" title="Permanent link">&para;</a></h3>
-<p style="word-wrap: break-word">Aggregates the received events by concatenating the keys of those events using a given separator, e.g., comma (,) and hyphen (-), and returns the concatenated key string.</p>
+<p style="word-wrap: break-word">This function aggregates the received events by concatenating the keys in those events using a separator, e.g.,a comma (,) or a hyphen (-), and returns the concatenated key string.</p>
 
 <p><span id="syntax" class="md-typeset" style="display: block; font-weight: bold;">Syntax</span></p>
 <div class="codehilite"><pre><span></span>&lt;STRING&gt; str:groupConcat(&lt;STRING&gt; key, &lt;STRING&gt; separator, &lt;STRING&gt; distinct, &lt;STRING&gt; order)
@@ -1019,7 +1019,7 @@
     </tr>
     <tr>
         <td style="vertical-align: top">key</td>
-        <td style="vertical-align: top; word-wrap: break-word">The string that need to be aggregated.</td>
+        <td style="vertical-align: top; word-wrap: break-word">The string that needs to be aggregated.</td>
         <td style="vertical-align: top"></td>
         <td style="vertical-align: top">STRING</td>
         <td style="vertical-align: top">No</td>
@@ -1027,7 +1027,7 @@
     </tr>
     <tr>
         <td style="vertical-align: top">separator</td>
-        <td style="vertical-align: top; word-wrap: break-word">The separator that separates each string key getting aggregated.</td>
+        <td style="vertical-align: top; word-wrap: break-word">The separator that separates each string key after concatenating the keys.</td>
         <td style="vertical-align: top">,</td>
         <td style="vertical-align: top">STRING</td>
         <td style="vertical-align: top">Yes</td>
@@ -1035,7 +1035,7 @@
     </tr>
     <tr>
         <td style="vertical-align: top">distinct</td>
-        <td style="vertical-align: top; word-wrap: break-word">To only have distinct string keys in the the aggregation.</td>
+        <td style="vertical-align: top; word-wrap: break-word">This is used to only have distinct values in the concatenated string that is returned.</td>
         <td style="vertical-align: top">false</td>
         <td style="vertical-align: top">STRING</td>
         <td style="vertical-align: top">Yes</td>
@@ -1043,7 +1043,7 @@
     </tr>
     <tr>
         <td style="vertical-align: top">order</td>
-        <td style="vertical-align: top; word-wrap: break-word">Accepts 'ASC' or 'DESC' strings to sort the string keys by ascending or descending order.</td>
+        <td style="vertical-align: top; word-wrap: break-word">This parameter accepts 'ASC' or 'DESC' strings to sort the string keys in either ascending or descending order respectively.</td>
         <td style="vertical-align: top">No order</td>
         <td style="vertical-align: top">STRING</td>
         <td style="vertical-align: top">Yes</td>
@@ -1058,7 +1058,7 @@ input OutputStream;
 </pre></div>
 
 
-<p style="word-wrap: break-word">This returns a string that is the result of the concatenated keys separated by the given separator. <br>When we send events having values for the <code>key</code> <code>'A'</code>, <code>'B'</code>, <code>'S'</code>, <code>'C'</code>, <code>'A'</code> it will return <code>"A,B,S,C,A"</code> as the output</p>
+<p style="word-wrap: break-word">When we input events having values for the <code>key</code> as <code>'A'</code>, <code>'B'</code>, <code>'S'</code>, <code>'C'</code>, <code>'A'</code>, it returns <code>"A,B,S,C,A"</code> to the 'OutputStream'.</p>
 
 <p><span id="example-2" class="md-typeset" style="display: block; color: rgba(0, 0, 0, 0.54); font-size: 12.8px; font-weight: bold;">EXAMPLE 2</span></p>
 <div class="codehilite"><pre><span></span>from InputStream#window.time(5 min)
@@ -1067,10 +1067,10 @@ input OutputStream;
 </pre></div>
 
 
-<p style="word-wrap: break-word">This returns a string that is the result of the concatenated keys separated by the given separator. <br>When we send events having values for the <code>key</code> <code>'A'</code>, <code>'B'</code>, <code>'S'</code>, <code>'C'</code>, <code>'A'</code> it will return <code>"A-B-C-S"</code> as the output</p>
+<p style="word-wrap: break-word">When we input events having values for the <code>key</code> as <code>'A'</code>, <code>'B'</code>, <code>'S'</code>, <code>'C'</code>, <code>'A'</code>, specify the seperator as hyphen and choose the order to be ascending, the function returns <code>"A-B-C-S"</code> to the 'OutputStream'.</p>
 
 <h3 id="charat-function">charAt <em><a target="_blank" href="https://wso2.github.io/siddhi/documentation/siddhi-4.0/#function">(Function)</a></em><a class="headerlink" href="#charat-function" title="Permanent link">&para;</a></h3>
-<p style="word-wrap: break-word">Returns the char value that exists at the given index position of the input string.</p>
+<p style="word-wrap: break-word">This function returns the 'char' value that is present at the given index position. of the input string.</p>
 
 <p><span id="syntax" class="md-typeset" style="display: block; font-weight: bold;">Syntax</span></p>
 <div class="codehilite"><pre><span></span>&lt;STRING&gt; str:charAt(&lt;STRING&gt; input.value, &lt;INT&gt; index)
@@ -1089,7 +1089,7 @@ input OutputStream;
     </tr>
     <tr>
         <td style="vertical-align: top">input.value</td>
-        <td style="vertical-align: top; word-wrap: break-word">The input string that used to find the character.</td>
+        <td style="vertical-align: top; word-wrap: break-word">The input string of which the char value at the given position needs to be returned.</td>
         <td style="vertical-align: top"></td>
         <td style="vertical-align: top">STRING</td>
         <td style="vertical-align: top">No</td>
@@ -1097,7 +1097,7 @@ input OutputStream;
     </tr>
     <tr>
         <td style="vertical-align: top">index</td>
-        <td style="vertical-align: top; word-wrap: break-word">The variable that specifies the index.</td>
+        <td style="vertical-align: top; word-wrap: break-word">The variable that specifies the index of the char value that needs to be returned.</td>
         <td style="vertical-align: top"></td>
         <td style="vertical-align: top">INT</td>
         <td style="vertical-align: top">No</td>
@@ -1110,10 +1110,10 @@ input OutputStream;
 </pre></div>
 
 
-<p style="word-wrap: break-word">This will output the character that exists at index 1. In this case, it will output 'S'.</p>
+<p style="word-wrap: break-word">In this case, the functiion returns the character that exists at index 1. Hence, it returns 'S'.</p>
 
 <h3 id="coalesce-function">coalesce <em><a target="_blank" href="https://wso2.github.io/siddhi/documentation/siddhi-4.0/#function">(Function)</a></em><a class="headerlink" href="#coalesce-function" title="Permanent link">&para;</a></h3>
-<p style="word-wrap: break-word"> Returns the first input parameter value that is not null of the given argument.</p>
+<p style="word-wrap: break-word"> This returns the first input parameter value of the given argument, that is not null.</p>
 
 <p><span id="syntax" class="md-typeset" style="display: block; font-weight: bold;">Syntax</span></p>
 <div class="codehilite"><pre><span></span>&lt;INT|LONG|DOUBLE|FLOAT|STRING|BOOL|OBJECT&gt; str:coalesce(&lt;INT|LONG|DOUBLE|FLOAT|STRING|BOOL|OBJECT&gt; argn)
@@ -1132,7 +1132,7 @@ input OutputStream;
     </tr>
     <tr>
         <td style="vertical-align: top">argn</td>
-        <td style="vertical-align: top; word-wrap: break-word">It can have one or more input parameters in any data type. All the specified parameters should be of the same type.</td>
+        <td style="vertical-align: top; word-wrap: break-word">It can have one or more input parameters in any data type. However, all the specified parameters are required to be of the same type.</td>
         <td style="vertical-align: top"></td>
         <td style="vertical-align: top">INT<br>LONG<br>DOUBLE<br>FLOAT<br>STRING<br>BOOL<br>OBJECT</td>
         <td style="vertical-align: top">No</td>
@@ -1145,10 +1145,10 @@ input OutputStream;
 </pre></div>
 
 
-<p style="word-wrap: break-word">This returns the first input parameter that is not null. In this example, it returns "BBB"</p>
+<p style="word-wrap: break-word">This returns the first input parameter that is not null. In this example, it returns "BBB".</p>
 
 <h3 id="concat-function">concat <em><a target="_blank" href="https://wso2.github.io/siddhi/documentation/siddhi-4.0/#function">(Function)</a></em><a class="headerlink" href="#concat-function" title="Permanent link">&para;</a></h3>
-<p style="word-wrap: break-word">Returns a string that is the result of concatenating two or more input string values.</p>
+<p style="word-wrap: break-word">This function returns a string value that is obtained as a result of concatenating two or more input string values.</p>
 
 <p><span id="syntax" class="md-typeset" style="display: block; font-weight: bold;">Syntax</span></p>
 <div class="codehilite"><pre><span></span>&lt;STRING&gt; str:concat(&lt;STRING&gt; argn)
@@ -1167,7 +1167,7 @@ input OutputStream;
     </tr>
     <tr>
         <td style="vertical-align: top">argn</td>
-        <td style="vertical-align: top; word-wrap: break-word">It can have two or more <code>string</code> type input parameters.</td>
+        <td style="vertical-align: top; word-wrap: break-word">This can have two or more <code>string</code> type input parameters.</td>
         <td style="vertical-align: top"></td>
         <td style="vertical-align: top">STRING</td>
         <td style="vertical-align: top">No</td>
@@ -1180,10 +1180,10 @@ input OutputStream;
 </pre></div>
 
 
-<p style="word-wrap: break-word">This returns a string value by concatenating the given arguments. In this case, it will return "D5338JU^XYZ" as the output</p>
+<p style="word-wrap: break-word">This returns a string value by concatenating two or more given arguments. In the example shown above, it returns "D5338JU^XYZ".</p>
 
 <h3 id="contains-function">contains <em><a target="_blank" href="https://wso2.github.io/siddhi/documentation/siddhi-4.0/#function">(Function)</a></em><a class="headerlink" href="#contains-function" title="Permanent link">&para;</a></h3>
-<p style="word-wrap: break-word">Returns <code>true</code> if the<code>input.string</code> contains the specified sequence of char values in the <code>search.string</code>. </p>
+<p style="word-wrap: break-word">This function returns <code>true</code> if the<code>input.string</code> contains the specified sequence of char values in the <code>search.string</code>. </p>
 
 <p><span id="syntax" class="md-typeset" style="display: block; font-weight: bold;">Syntax</span></p>
 <div class="codehilite"><pre><span></span>&lt;BOOL&gt; str:contains(&lt;STRING&gt; input.string, &lt;STRING&gt; search.string)
@@ -1226,7 +1226,7 @@ input OutputStream;
 <p style="word-wrap: break-word">This returns a boolean value as the output. In this case, it returns<code>true</code>.</p>
 
 <h3 id="equalsignorecase-function">equalsIgnoreCase <em><a target="_blank" href="https://wso2.github.io/siddhi/documentation/siddhi-4.0/#function">(Function)</a></em><a class="headerlink" href="#equalsignorecase-function" title="Permanent link">&para;</a></h3>
-<p style="word-wrap: break-word">Returns a boolean value by comparing two strings lexicographically without considering the letter case.</p>
+<p style="word-wrap: break-word">This returns a boolean value by comparing two strings lexicographically without considering the letter case.</p>
 
 <p><span id="syntax" class="md-typeset" style="display: block; font-weight: bold;">Syntax</span></p>
 <div class="codehilite"><pre><span></span>&lt;BOOL&gt; str:equalsIgnoreCase(&lt;STRING&gt; arg1, &lt;STRING&gt; arg2)
@@ -1305,14 +1305,14 @@ input OutputStream;
 </table></p>
 <p><span id="examples" class="md-typeset" style="display: block; font-weight: bold;">Examples</span>
 <span id="example-1" class="md-typeset" style="display: block; color: rgba(0, 0, 0, 0.54); font-size: 12.8px; font-weight: bold;">EXAMPLE 1</span></p>
-<div class="codehilite"><pre><span></span>str:fillTemplate(&quot;This is {{1}} for the {{2}} function&quot;,  &#39;an example&#39;, &#39;fillTemplate&#39;)
+<div class="codehilite"><pre><span></span>str:fillTemplate(&quot;This is {{1}} for the {{2}} function&quot;, &#39;an example&#39;, &#39;fillTemplate&#39;)
 </pre></div>
 
 
 <p style="word-wrap: break-word">In this example, the template is 'This is {{1}} for the {{2}} function'.Here, the templated string {{1}} is replaced with the 1st string value provided, which is 'an example'.<br>{{2}} is replaced with the 2nd string provided, which is 'fillTemplate'<br>The complete return string is 'This is an example for the fillTemplate function'.</p>
 
 <h3 id="hex-function">hex <em><a target="_blank" href="https://wso2.github.io/siddhi/documentation/siddhi-4.0/#function">(Function)</a></em><a class="headerlink" href="#hex-function" title="Permanent link">&para;</a></h3>
-<p style="word-wrap: break-word">Returns a hexadecimal string by converting each byte of each character in the input string to two hexadecimal digits.</p>
+<p style="word-wrap: break-word">This function returns a hexadecimal string by converting each byte of each character in the input string to two hexadecimal digits.</p>
 
 <p><span id="syntax" class="md-typeset" style="display: block; font-weight: bold;">Syntax</span></p>
 <div class="codehilite"><pre><span></span>&lt;STRING&gt; str:hex(&lt;STRING&gt; input.string)
@@ -1538,7 +1538,7 @@ input OutputStream;
     </tr>
     <tr>
         <td style="vertical-align: top">replacement.string</td>
-        <td style="vertical-align: top; word-wrap: break-word">The striing with which each substring that matches the given expression should be replaced.</td>
+        <td style="vertical-align: top; word-wrap: break-word">The string with which each substring that matches the given expression should be replaced.</td>
         <td style="vertical-align: top"></td>
         <td style="vertical-align: top">STRING</td>
         <td style="vertical-align: top">No</td>
@@ -1731,7 +1731,7 @@ input OutputStream;
 </pre></div>
 
 
-<p style="word-wrap: break-word">This compares two strings lexicographically and outputs an integer value</p>
+<p style="word-wrap: break-word">This compares two strings lexicographically and outputs an integer value.</p>
 
 <h3 id="substr-function">substr <em><a target="_blank" href="https://wso2.github.io/siddhi/documentation/siddhi-4.0/#function">(Function)</a></em><a class="headerlink" href="#substr-function" title="Permanent link">&para;</a></h3>
 <p style="word-wrap: break-word">Returns a substring of the input string by considering a subset or all of the following factors: starting index, length, regular expression, and regex group number.</p>
@@ -1777,7 +1777,7 @@ input OutputStream;
     </tr>
     <tr>
         <td style="vertical-align: top">regex</td>
-        <td style="vertical-align: top; word-wrap: break-word">The regular expression that should be matched with the input string..</td>
+        <td style="vertical-align: top; word-wrap: break-word">The regular expression that should be matched with the input string.</td>
         <td style="vertical-align: top"></td>
         <td style="vertical-align: top">STRING</td>
         <td style="vertical-align: top">No</td>
@@ -1889,7 +1889,7 @@ input OutputStream;
 </pre></div>
 
 
-<p style="word-wrap: break-word">This converts the hexadecimal value to string</p>
+<p style="word-wrap: break-word">This converts the hexadecimal value to string.</p>
 
 <h3 id="upper-function">upper <em><a target="_blank" href="https://wso2.github.io/siddhi/documentation/siddhi-4.0/#function">(Function)</a></em><a class="headerlink" href="#upper-function" title="Permanent link">&para;</a></h3>
 <p style="word-wrap: break-word">Converts the simple letters in the input string to the equivalent capital/block letters.</p>
@@ -1927,7 +1927,7 @@ input OutputStream;
 <p style="word-wrap: break-word">This converts the simple letters in the <code>input.string</code> to theequivalent capital letters. In this scenario, the output is "HELLO WORLD".</p>
 
 <h3 id="tokenize-stream-processor">tokenize <em><a target="_blank" href="https://wso2.github.io/siddhi/documentation/siddhi-4.0/#stream-processor">(Stream Processor)</a></em><a class="headerlink" href="#tokenize-stream-processor" title="Permanent link">&para;</a></h3>
-<p style="word-wrap: break-word">Splits the input string to tokens using the given regular expression and returns the resultant tokens.</p>
+<p style="word-wrap: break-word">This function splits the input string into tokens using a given regular expression and returns the split tokens.</p>
 
 <p><span id="syntax" class="md-typeset" style="display: block; font-weight: bold;">Syntax</span></p>
 <div class="codehilite"><pre><span></span>str:tokenize(&lt;STRING&gt; input.string, &lt;STRING&gt; regex, &lt;BOOL&gt; distinct)
@@ -1946,7 +1946,7 @@ input OutputStream;
     </tr>
     <tr>
         <td style="vertical-align: top">input.string</td>
-        <td style="vertical-align: top; word-wrap: break-word">The input text which should be split.</td>
+        <td style="vertical-align: top; word-wrap: break-word">The input string which needs to be split.</td>
         <td style="vertical-align: top"></td>
         <td style="vertical-align: top">STRING</td>
         <td style="vertical-align: top">No</td>
@@ -1954,7 +1954,7 @@ input OutputStream;
     </tr>
     <tr>
         <td style="vertical-align: top">regex</td>
-        <td style="vertical-align: top; word-wrap: break-word">The string value to be used to tokenize the 'input.string'.</td>
+        <td style="vertical-align: top; word-wrap: break-word">The string value which is used to tokenize the 'input.string'.</td>
         <td style="vertical-align: top"></td>
         <td style="vertical-align: top">STRING</td>
         <td style="vertical-align: top">No</td>
@@ -1962,7 +1962,7 @@ input OutputStream;
     </tr>
     <tr>
         <td style="vertical-align: top">distinct</td>
-        <td style="vertical-align: top; word-wrap: break-word">Flag to return only distinct values</td>
+        <td style="vertical-align: top; word-wrap: break-word">This flag is used to return only distinct values.</td>
         <td style="vertical-align: top">false</td>
         <td style="vertical-align: top">BOOL</td>
         <td style="vertical-align: top">Yes</td>
@@ -1978,7 +1978,7 @@ input OutputStream;
     </tr>
     <tr>
         <td style="vertical-align: top">token</td>
-        <td style="vertical-align: top; word-wrap: break-word">Attribute which contains a single token.</td>
+        <td style="vertical-align: top; word-wrap: break-word">The attribute which contains a single token.</td>
         <td style="vertical-align: top">STRING</td>
     </tr>
 </table></p>
@@ -1992,7 +1992,7 @@ insert into outputStream;
 </pre></div>
 
 
-<p style="word-wrap: break-word">This query performs tokenization for the given string. If the str is "Android,Windows8,iOS", then 3 events containing <code>token</code> attribute value, <code>Android</code>, <code>Windows8</code>, <code>iOS</code> in order.</p>
+<p style="word-wrap: break-word">This query performs tokenization on the given string. If the str is "Android,Windows8,iOS", then the string is split into 3 events containing the <code>token</code> attribute values, i.e., <code>Android</code>, <code>Windows8</code> and <code>iOS</code>.</p>
                 
                   
                 
@@ -2013,7 +2013,7 @@ insert into outputStream;
     <div class="md-footer-nav">
       <nav class="md-footer-nav__inner md-grid">
         
-          <a href="../4.0.25/" title="4.0.25" class="md-flex md-footer-nav__link md-footer-nav__link--prev" rel="prev">
+          <a href="../.." title="Welcome" class="md-flex md-footer-nav__link md-footer-nav__link--prev" rel="prev">
             <div class="md-flex__cell md-flex__cell--shrink">
               <i class="md-icon md-icon--arrow-back md-footer-nav__button"></i>
             </div>
@@ -2022,19 +2022,19 @@ insert into outputStream;
                 <span class="md-footer-nav__direction">
                   Previous
                 </span>
-                4.0.25
+                Welcome
               </span>
             </div>
           </a>
         
         
-          <a href="../4.0.23/" title="4.0.23" class="md-flex md-footer-nav__link md-footer-nav__link--next" rel="next">
+          <a href="../4.1.0/" title="4.1.0" class="md-flex md-footer-nav__link md-footer-nav__link--next" rel="next">
             <div class="md-flex__cell md-flex__cell--stretch md-footer-nav__title">
               <span class="md-flex__ellipsis">
                 <span class="md-footer-nav__direction">
                   Next
                 </span>
-                4.0.23
+                4.1.0
               </span>
             </div>
             <div class="md-flex__cell md-flex__cell--shrink">
