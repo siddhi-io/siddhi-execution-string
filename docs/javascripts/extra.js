@@ -14,9 +14,12 @@
 ~   limitations under the License.
 */
 
-    var logoTitle = document.querySelector('.md-logo').title;
-    var extentionTitle = logoTitle.slice(7);
-    var header = document.querySelector('.md-header-nav__title');
+var logo = document.querySelector('.md-logo');
+var logoTitle = logo.title;
+logo.setAttribute('href', 'https://siddhi.io/')
 
-    header.innerHTML = '<span class="extention-title">' + extentionTitle + '</span>' + header.textContent;
+var header = document.querySelector('.md-header-nav__title');
+var headerContent = document.querySelectorAll('.md-header-nav__title span')[1].textContent;
+header.innerHTML = '<a class="extension-title" href="/">' + logoTitle + '</a>' + '<a class="extension-title-low">'+headerContent+'</a>'
+
     

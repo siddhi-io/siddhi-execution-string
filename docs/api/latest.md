@@ -1,6 +1,76 @@
-# API Docs - v4.0.12
+# API Docs - v4.0.13-SNAPSHOT
 
 ## Str
+
+### groupConcat *<a target="_blank" href="https://wso2.github.io/siddhi/documentation/siddhi-4.0/#aggregate-function">(Aggregate Function)</a>*
+
+<p style="word-wrap: break-word">Returns concated string keys by aggregating all the events separating them by the given separator.</p>
+
+<span id="syntax" class="md-typeset" style="display: block; font-weight: bold;">Syntax</span>
+```
+<STRING> str:groupConcat(<STRING> key, <STRING> separator, <STRING> distinct, <STRING> order)
+```
+
+<span id="query-parameters" class="md-typeset" style="display: block; color: rgba(0, 0, 0, 0.54); font-size: 12.8px; font-weight: bold;">QUERY PARAMETERS</span>
+<table>
+    <tr>
+        <th>Name</th>
+        <th style="min-width: 20em">Description</th>
+        <th>Default Value</th>
+        <th>Possible Data Types</th>
+        <th>Optional</th>
+        <th>Dynamic</th>
+    </tr>
+    <tr>
+        <td style="vertical-align: top">key</td>
+        <td style="vertical-align: top; word-wrap: break-word">The string that need to be aggregated.</td>
+        <td style="vertical-align: top"></td>
+        <td style="vertical-align: top">STRING</td>
+        <td style="vertical-align: top">No</td>
+        <td style="vertical-align: top">No</td>
+    </tr>
+    <tr>
+        <td style="vertical-align: top">separator</td>
+        <td style="vertical-align: top; word-wrap: break-word">The separator that separates each string key getting aggregated.</td>
+        <td style="vertical-align: top">,</td>
+        <td style="vertical-align: top">STRING</td>
+        <td style="vertical-align: top">Yes</td>
+        <td style="vertical-align: top">No</td>
+    </tr>
+    <tr>
+        <td style="vertical-align: top">distinct</td>
+        <td style="vertical-align: top; word-wrap: break-word">To only have distinct string keys in the the aggregation.</td>
+        <td style="vertical-align: top">false</td>
+        <td style="vertical-align: top">STRING</td>
+        <td style="vertical-align: top">Yes</td>
+        <td style="vertical-align: top">No</td>
+    </tr>
+    <tr>
+        <td style="vertical-align: top">order</td>
+        <td style="vertical-align: top; word-wrap: break-word">Accepts 'ASC' or 'DESC' strings to sort the string keys by ascending or descending order.</td>
+        <td style="vertical-align: top">No order</td>
+        <td style="vertical-align: top">STRING</td>
+        <td style="vertical-align: top">Yes</td>
+        <td style="vertical-align: top">No</td>
+    </tr>
+</table>
+
+<span id="examples" class="md-typeset" style="display: block; font-weight: bold;">Examples</span>
+<span id="example-1" class="md-typeset" style="display: block; color: rgba(0, 0, 0, 0.54); font-size: 12.8px; font-weight: bold;">EXAMPLE 1</span>
+```
+from InputStream#window.time(5 min)
+select str:groupConcat("key") as groupedKeys
+input OutputStream;
+```
+<p style="word-wrap: break-word">This returns a string that is the result of the concatenated keys separated by the given separator. <br>When we send events having values for the <code>key</code> <code>'A'</code>, <code>'B'</code>, <code>'S'</code>, <code>'C'</code>, <code>'A'</code>, it will return <code>"A,B,S,C,A"</code> as the output</p>
+
+<span id="example-2" class="md-typeset" style="display: block; color: rgba(0, 0, 0, 0.54); font-size: 12.8px; font-weight: bold;">EXAMPLE 2</span>
+```
+from InputStream#window.time(5 min)
+select groupConcat("key","-",true,"ASC") as groupedKeys
+input OutputStream;
+```
+<p style="word-wrap: break-word">This returns a string that is the result of the concatenated keys separated by the given separator. <br>When we send events having values for the <code>key</code> <code>'A'</code>, <code>'B'</code>, <code>'S'</code>, <code>'C'</code>, <code>'A'</code>, it will return <code>"A-B-C-S"</code> as the output</p>
 
 ### charAt *<a target="_blank" href="https://wso2.github.io/siddhi/documentation/siddhi-4.0/#function">(Function)</a>*
 

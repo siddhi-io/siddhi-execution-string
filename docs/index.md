@@ -1,48 +1,24 @@
-siddhi-execution-string
+Siddhi Execution String
 ======================================
 
-The **siddhi-execution-string extension** is an extension to <a target="_blank" href="https://wso2.github.io/siddhi">Siddhi</a> that 
-provides basic string handling capabilities such as con-cat, length, convert to lowercase, replace all, etc.
+[Siddhi Home](https://siddhi.io/) | [Siddhi Documentation](https://siddhi.io/redirect/docs.html)  | [Extension Issues](https://github.com/siddhi-io/siddhi-execution-string/issues)
 
-Find some useful links below:
+  [![Jenkins Build Status](https://wso2.org/jenkins/job/siddhi/job/siddhi-execution-string/badge/icon)](https://wso2.org/jenkins/job/siddhi/job/siddhi-execution-string/)
+  [![GitHub (pre-)release](https://img.shields.io/github/release/siddhi-io/siddhi-execution-string/all.svg)](https://github.com/siddhi-io/siddhi-execution-string/releases)
+  [![GitHub (Pre-)Release Date](https://img.shields.io/github/release-date-pre/siddhi-io/siddhi-execution-string.svg)](https://github.com/siddhi-io/siddhi-execution-string/releases)
+  [![GitHub last commit](https://img.shields.io/github/last-commit/siddhi-io/siddhi-execution-string.svg)](https://github.com/siddhi-io/siddhi-execution-string/commits/master)
+  [![License](https://img.shields.io/badge/License-Apache%202.0-blue.svg)](https://opensource.org/licenses/Apache-2.0)
 
-* <a target="_blank" href="https://github.com/wso2-extensions/siddhi-execution-string">Source code</a>
-* <a target="_blank" href="https://github.com/wso2-extensions/siddhi-execution-string/releases">Releases</a>
-* <a target="_blank" href="https://github.com/wso2-extensions/siddhi-execution-string/issues">Issue tracker</a>
+The **siddhi-execution-string extension** is a <a target="_blank" href="https://siddhi.io/">Siddhi</a> extension that provides basic string handling capabilities such as concat, length, replace all, etc.
+
+## Download
+
+* Versions 5.x and above with group id `io.siddhi.extension.*` from <a target="_blank" href="https://mvnrepository.com/artifact/io.siddhi.extension.execution.string/siddhi-execution-string/">here</a>.
+* Versions 4.x and lower with group id `org.wso2.extension.siddhi.*` from <a target="_blank" href="https://mvnrepository.com/artifact/org.wso2.extension.siddhi.execution.string/siddhi-execution-string">here</a>.
 
 ## Latest API Docs 
 
-Latest API Docs is <a target="_blank" href="https://wso2-extensions.github.io/siddhi-execution-string/api/4.0.12">4.0.12</a>.
-
-## How to use 
-
-**Using the extension in <a target="_blank" href="https://github.com/wso2/product-sp">WSO2 Stream Processor</a>**
-
-* You can use this extension in the latest <a target="_blank" href="https://github.com/wso2/product-sp/releases">WSO2 Stream Processor</a> that is a part of <a target="_blank" href="http://wso2.com/analytics?utm_source=gitanalytics&utm_campaign=gitanalytics_Jul17">WSO2 Analytics</a> offering, with editor, debugger and simulation support. 
-
-* This extension is shipped by default with WSO2 Stream Processor, if you wish to use an alternative version of this extension you can replace the component <a target="_blank" href="https://github.com/wso2-extensions/siddhi-execution-string/releases">jar</a> that can be found in the `<STREAM_PROCESSOR_HOME>/lib` directory.
-
-**Using the extension as a <a target="_blank" href="https://wso2.github.io/siddhi/documentation/running-as-a-java-library">java library</a>**
-
-* This extension can be added as a maven dependency along with other Siddhi dependencies to your project.
-
-```
-     <dependency>
-        <groupId>org.wso2.extension.siddhi.execution.string</groupId>
-        <artifactId>siddhi-execution-string</artifactId>
-        <version>x.x.x</version>
-     </dependency>
-```
-
-## Jenkins Build Status
-
----
-
-|  Branch | Build Status |
-| :------ |:------------ | 
-| master  | [![Build Status](https://wso2.org/jenkins/job/siddhi/job/siddhi-execution-string/badge/icon)](https://wso2.org/jenkins/job/siddhi/job/siddhi-execution-string/) |
-
----
+Latest API Docs is <a target="_blank" href="https://siddhi-io.github.io/siddhi-execution-string/api/4.0.12">4.0.12</a>.
 
 ## Features
 
@@ -67,24 +43,10 @@ Latest API Docs is <a target="_blank" href="https://wso2-extensions.github.io/si
 * <a target="_blank" href="https://wso2-extensions.github.io/siddhi-execution-string/api/4.0.12/#upper-function">upper</a> *<a target="_blank" href="https://wso2.github.io/siddhi/documentation/siddhi-4.0/#function">(Function)</a>*<br><div style="padding-left: 1em;"><p>Converts the simple letters in the input string to the equivalent capital/block letters.</p></div>
 * <a target="_blank" href="https://wso2-extensions.github.io/siddhi-execution-string/api/4.0.12/#tokenize-stream-processor">tokenize</a> *<a target="_blank" href="https://wso2.github.io/siddhi/documentation/siddhi-4.0/#stream-processor">(Stream Processor)</a>*<br><div style="padding-left: 1em;"><p>This splits a string into words</p></div>
 
-## How to Contribute
- 
-  * Please report issues at <a target="_blank" href="https://github.com/wso2-extensions/siddhi-execution-string/issues">GitHub Issue Tracker</a>.
-  
-  * Send your contributions as pull requests to <a target="_blank" href="https://github.com/wso2-extensions/siddhi-execution-string/tree/master">master branch</a>. 
- 
-## Contact us 
+## Dependencies 
 
- * Post your questions with the <a target="_blank" href="http://stackoverflow.com/search?q=siddhi">"Siddhi"</a> tag in <a target="_blank" href="http://stackoverflow.com/search?q=siddhi">Stackoverflow</a>. 
- 
- * Siddhi developers can be contacted via the mailing lists:
- 
-    Developers List   : [dev@wso2.org](mailto:dev@wso2.org)
-    
-    Architecture List : [architecture@wso2.org](mailto:architecture@wso2.org)
- 
-## Support 
+There are no other dependencies needed for this extension. 
 
-* We are committed to ensuring support for this extension in production. Our unique approach ensures that all support leverages our open development methodology and is provided by the very same engineers who build the technology. 
+## Installation
 
-* For more details and to take advantage of this unique opportunity contact us via <a target="_blank" href="http://wso2.com/support?utm_source=gitanalytics&utm_campaign=gitanalytics_Jul17">http://wso2.com/support/</a>. 
+For installing this extension on various siddhi execution environments refer Siddhi documentation on <a target="_blank" href="https://siddhi.io/redirect/add-extensions.html">Adding Extensions and Third Party Dependencies</a>.

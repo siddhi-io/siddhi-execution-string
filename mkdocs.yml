@@ -1,19 +1,65 @@
-site_name: Siddhi-Execution-String
+## Copyright (c) 2019, WSO2 Inc. (http://www.wso2.org) All Rights Reserved.
+##
+## WSO2 Inc. licenses this file to you under the Apache License,
+## Version 2.0 (the "License"); you may not use this file except
+## in compliance with the License.
+## You may obtain a copy of the License at
+##
+## http://www.apache.org/licenses/LICENSE-2.0
+##
+## Unless required by applicable law or agreed to in writing,
+## software distributed under the License is distributed on an
+## "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+## KIND, either express or implied. See the License for the
+## specific language governing permissions and limitations
+## under the License.
+#
+
+# Project information
+site_name: Siddhi Execution String
+site_description: Siddhi Execution String Extension
+
+# Repository
+repo_name: Siddhi Execution String
+repo_url: https://github.com/siddhi-io/siddhi-execution-string/
+edit_uri: https://github.com/siddhi-io/siddhi-execution-string/blob/master/
+
+# Copyright
+copyright: Siddhi - Documentation
+
+# Configuration
+theme:
+  name: material
+  logo: images/siddhi-logo.svg
+  favicon: images/favicon.ico
+  palette:
+    primary: teal
+    accent: teal
 extra_css:
 - stylesheets/extra.css
 extra_javascript:
 - javascripts/extra.js
-site_favicon: images/favicon.ico
 extra:
-  logo: images/siddhi-logo-w.svg
-  palette:
-    primary: teal
-    accent: teal
+  social:
+  - type: github
+    link: https://github.com/siddhi-io/siddhi
+  - type: medium
+    link: https://medium.com/siddhi-io
+  - type: twitter
+    link: https://twitter.com/siddhi_io
+  - type: linkedin
+    link: https://www.linkedin.com/groups/13553064
+
 google_analytics:
 - UA-103065-28
 - auto
+
+# Extensions
+markdown_extensions:
+  - markdown.extensions.admonition
+
 pages:
-- Welcome to WSO2 Siddhi Execution String: index.md
+- Information : index.md
 - API Docs:
   - 4.0.12: api/4.0.12.md
   - 4.0.11: api/4.0.11.md
@@ -25,4 +71,3 @@ pages:
   - 4.0.5: api/4.0.5.md
   - latest: api/latest.md
 - License: license.md
-theme: material
