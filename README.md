@@ -2,13 +2,15 @@ Siddhi Execution String
 ======================================
 
   [![Jenkins Build Status](https://wso2.org/jenkins/job/siddhi/job/siddhi-execution-string/badge/icon)](https://wso2.org/jenkins/job/siddhi/job/siddhi-execution-string/)
-  [![GitHub (pre-)release](https://img.shields.io/github/release/siddhi-io/siddhi-execution-string/all.svg)](https://github.com/siddhi-io/siddhi-execution-string/releases)
+  [![GitHub (pre-)Release](https://img.shields.io/github/release/siddhi-io/siddhi-execution-string/all.svg)](https://github.com/siddhi-io/siddhi-execution-string/releases)
   [![GitHub (Pre-)Release Date](https://img.shields.io/github/release-date-pre/siddhi-io/siddhi-execution-string.svg)](https://github.com/siddhi-io/siddhi-execution-string/releases)
-  [![GitHub last commit](https://img.shields.io/github/last-commit/siddhi-io/siddhi-execution-string.svg)](https://github.com/siddhi-io/siddhi-execution-string/commits/master)
+  [![GitHub Open Issues](https://img.shields.io/github/last-commit/siddhi-io/siddhi-execution-string.svg)](https://github.com/siddhi-io/siddhi-execution-string/issues)
+  [![GitHub Last Commit](https://img.shields.io/github/issues-raw/siddhi-io/siddhi-execution-string.svg)](https://github.com/siddhi-io/siddhi-execution-string/commits/master)
   [![License](https://img.shields.io/badge/License-Apache%202.0-blue.svg)](https://opensource.org/licenses/Apache-2.0)
 
-
 The **siddhi-execution-string extension** is a <a target="_blank" href="https://siddhi.io/">Siddhi</a> extension that provides basic string handling capabilities such as concat, length, replace all, etc.
+
+For information on  [Siddhi](https://siddhi.io/) and it's features refer [Siddhi Documentation](https://siddhi.io/redirect/docs.html). 
 
 ## Download
 
@@ -48,4 +50,12 @@ There are no other dependencies needed for this extension.
 
 ## Installation
 
-For installing this extension on various siddhi execution environments refer Siddhi documentation on <a target="_blank" href="https://siddhi.io/redirect/add-extensions.html">Adding Extensions and Third Party Dependencies</a>.
+For installing this extension on various siddhi execution environments refer Siddhi documentation section on <a target="_blank" href="https://siddhi.io/redirect/add-extensions.html">adding extensions</a>.
+
+## Support and Contribution
+
+* We encourage users to ask questions and get support via [StackOverflow](https://stackoverflow.com/questions/tagged/siddhi), make sure to add the `siddhi` tag to the issue for better response.
+
+* If you find any issues related to the extension please report them on [the issue tracker](https://github.com/siddhi-io/siddhi-execution-string/issues).
+
+* For production support and other contribution related information refer [Siddhi Community](https://siddhi.io/community/) documentation.

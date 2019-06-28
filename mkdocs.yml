@@ -36,9 +36,9 @@ theme:
     primary: teal
     accent: teal
 extra_css:
-- stylesheets/extra.css
+- assets/stylesheets/extra.css
 extra_javascript:
-- javascripts/extra.js
+- assets/javascripts/extra.js
 extra:
   social:
   - type: github
