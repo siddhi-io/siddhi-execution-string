@@ -20,8 +20,7 @@ logo.setAttribute('href', 'https://siddhi.io/')
 
 var header = document.querySelector('.md-header-nav__title');
 var headerContent = document.querySelectorAll('.md-header-nav__title span')[1].textContent;
-var base = document.URL;
-var url = base.substr(0, base.indexOf("/", base.indexOf("/", base.indexOf("//") + 2) + 1));
+var url = document.querySelector('.md-nav__item a.md-nav__link').href
 header.innerHTML = '<a class="extension-title" href="' + url + '">' + logoTitle + '</a>' +
     '<a class="extension-title-low">' + headerContent + '</a>'
 
