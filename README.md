@@ -10,7 +10,7 @@ Siddhi Execution String
 
 The **siddhi-execution-string extension** is a <a target="_blank" href="https://siddhi.io/">Siddhi</a> extension that provides basic string handling capabilities such as concat, length, replace all, etc.
 
-For information on  [Siddhi](https://siddhi.io/) and it's features refer [Siddhi Documentation](https://siddhi.io/redirect/docs.html). 
+For information on <a target="_blank" href="https://siddhi.io/">Siddhi</a> and it's features refer <a target="_blank" href="https://siddhi.io/redirect/docs.html">Siddhi Documentation</a>. 
 
 ## Download
 
@@ -54,8 +54,8 @@ For installing this extension on various siddhi execution environments refer Sid
 
 ## Support and Contribution
 
-* We encourage users to ask questions and get support via [StackOverflow](https://stackoverflow.com/questions/tagged/siddhi), make sure to add the `siddhi` tag to the issue for better response.
+* We encourage users to ask questions and get support via <a target="_blank" href="https://stackoverflow.com/questions/tagged/siddhi">StackOverflow</a>, make sure to add the `siddhi` tag to the issue for better response.
 
-* If you find any issues related to the extension please report them on [the issue tracker](https://github.com/siddhi-io/siddhi-execution-string/issues).
+* If you find any issues related to the extension please report them on <a target="_blank" href="https://github.com/siddhi-io/siddhi-execution-string/issues">the issue tracker</a>.
 
-* For production support and other contribution related information refer [Siddhi Community](https://siddhi.io/community/) documentation.
+* For production support and other contribution related information refer <a target="_blank" href="https://siddhi.io/community/">Siddhi Community</a> documentation.
