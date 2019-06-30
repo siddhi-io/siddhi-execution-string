@@ -74,7 +74,7 @@ input OutputStream;
 ```
 <p style="word-wrap: break-word">When we input events having values for the <code>key</code> as <code>'A'</code>, <code>'B'</code>, <code>'S'</code>, <code>'C'</code>, <code>'A'</code>, specify the seperator as hyphen and choose the order to be ascending, the function returns <code>"A-B-C-S"</code> to the 'OutputStream'.</p>
 
-### <s>charAt *<a target="_blank" href="http://siddhi.io/en/v5.0/docs/query-guide/#function">(Function)</a>*</s>
+### charAt *<a target="_blank" href="http://siddhi.io/en/v5.0/docs/query-guide/#function">(Function)</a>*
 <p><i>Deprecated</i></p>
 <p style="word-wrap: break-word">This function returns the 'char' value that is present at the given index position. of the input string.</p>
 <span id="syntax" class="md-typeset" style="display: block; font-weight: bold;">Syntax</span>
