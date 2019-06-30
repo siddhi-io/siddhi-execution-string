@@ -21,6 +21,7 @@ package io.siddhi.extension.execution.string;
 import io.siddhi.annotation.Example;
 import io.siddhi.annotation.Extension;
 import io.siddhi.annotation.Parameter;
+import io.siddhi.annotation.ParameterOverload;
 import io.siddhi.annotation.ReturnAttribute;
 import io.siddhi.annotation.util.DataType;
 import io.siddhi.core.config.SiddhiQueryContext;
@@ -50,10 +51,15 @@ import static io.siddhi.query.api.definition.Attribute.Type.STRING;
         parameters = {
                 @Parameter(name = "input.string",
                         description = "The input string that is repeated the number of times as defined by the user.",
-                        type = {DataType.STRING}),
+                        type = {DataType.STRING},
+                        dynamic = true),
                 @Parameter(name = "times",
                         description = "The number of times the input.string needs to be repeated .",
-                        type = {DataType.INT})
+                        type = {DataType.INT},
+                        dynamic = true)
+        },
+        parameterOverloads = {
+                @ParameterOverload(parameterNames = {"input.string", "times"})
         },
         returnAttributes = @ReturnAttribute(
                 description = "This returns a value after repeating the string for a specified number of times.",

@@ -21,6 +21,7 @@ package io.siddhi.extension.execution.string;
 import io.siddhi.annotation.Example;
 import io.siddhi.annotation.Extension;
 import io.siddhi.annotation.Parameter;
+import io.siddhi.annotation.ParameterOverload;
 import io.siddhi.annotation.ReturnAttribute;
 import io.siddhi.annotation.util.DataType;
 import io.siddhi.core.config.SiddhiQueryContext;
@@ -49,7 +50,11 @@ import static io.siddhi.query.api.definition.Attribute.Type.STRING;
         parameters = {
                 @Parameter(name = "input.string",
                         description = "The input string to be reversed.",
-                        type = {DataType.STRING})
+                        type = {DataType.STRING},
+                        dynamic = true)
+        },
+        parameterOverloads = {
+                @ParameterOverload(parameterNames = {"input.string"})
         },
         returnAttributes = @ReturnAttribute(
                 description = "Returns the reverse ordered string of `input.string` .",

@@ -21,6 +21,7 @@ package io.siddhi.extension.execution.string;
 import io.siddhi.annotation.Example;
 import io.siddhi.annotation.Extension;
 import io.siddhi.annotation.Parameter;
+import io.siddhi.annotation.ParameterOverload;
 import io.siddhi.annotation.ReturnAttribute;
 import io.siddhi.annotation.util.DataType;
 import io.siddhi.core.config.SiddhiQueryContext;
@@ -53,11 +54,16 @@ import static io.siddhi.query.api.definition.Attribute.Type.STRING;
         parameters = {
                 @Parameter(name = "arg1",
                         description = "The first input string argument.",
-                        type = {DataType.STRING}),
+                        type = {DataType.STRING},
+                        dynamic = true),
                 @Parameter(name = "arg2",
                         description = "The second input string argument that should be compared with the first " +
                                 "argument lexicographically.",
-                        type = {DataType.STRING})
+                        type = {DataType.STRING},
+                        dynamic = true)
+        },
+        parameterOverloads = {
+                @ParameterOverload(parameterNames = {"arg1", "arg2"})
         },
         returnAttributes = @ReturnAttribute(
                 description = "This returns an integer value after comparing `arg1` with the `arg2` string " +

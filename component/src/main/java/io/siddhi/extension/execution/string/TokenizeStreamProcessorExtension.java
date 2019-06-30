@@ -20,6 +20,7 @@ package io.siddhi.extension.execution.string;
 import io.siddhi.annotation.Example;
 import io.siddhi.annotation.Extension;
 import io.siddhi.annotation.Parameter;
+import io.siddhi.annotation.ParameterOverload;
 import io.siddhi.annotation.ReturnAttribute;
 import io.siddhi.annotation.util.DataType;
 import io.siddhi.core.config.SiddhiQueryContext;
@@ -69,15 +70,22 @@ import static io.siddhi.query.api.definition.Attribute.Type.STRING;
         parameters = {
                 @Parameter(name = "input.string",
                         description = "The input string which needs to be split.",
-                        type = {DataType.STRING}),
+                        type = {DataType.STRING},
+                        dynamic = true),
                 @Parameter(name = "regex",
                         description = "The string value which is used to tokenize the 'input.string'.",
-                        type = {DataType.STRING}),
+                        type = {DataType.STRING},
+                        dynamic = true),
                 @Parameter(name = "distinct",
                         description = "This flag is used to return only distinct values.",
                         type = {DataType.BOOL},
                         optional = true,
+                        dynamic = true,
                         defaultValue = "false")
+        },
+        parameterOverloads = {
+                @ParameterOverload(parameterNames = {"input.string", "regex"}),
+                @ParameterOverload(parameterNames = {"input.string", "regex", "distinct"})
         },
         returnAttributes = {
                 @ReturnAttribute(

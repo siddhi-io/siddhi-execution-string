@@ -21,6 +21,7 @@ package io.siddhi.extension.execution.string;
 import io.siddhi.annotation.Example;
 import io.siddhi.annotation.Extension;
 import io.siddhi.annotation.Parameter;
+import io.siddhi.annotation.ParameterOverload;
 import io.siddhi.annotation.ReturnAttribute;
 import io.siddhi.annotation.util.DataType;
 import io.siddhi.core.config.SiddhiQueryContext;
@@ -56,14 +57,19 @@ import static io.siddhi.query.api.definition.Attribute.Type.STRING;
                                 "strings. The format of the templated fields should be as follows:\n" +
                                 "{{INDEX}} where 'INDEX' is an integer. \n" +
                                 "This index is used to map the strings that are used to replace the templated fields.",
-                        type = {DataType.STRING}),
-                @Parameter(name = "replacement.strings",
+                        type = {DataType.STRING},
+                        dynamic = true),
+                @Parameter(name = "replacement.string",
                         description = "The strings with which the templated positions in the template need to be" +
                                 " replaced.\n" +
                                 "The minimum of two arguments need to be included in the execution string. There is" +
                                 " no upper limit on the number of arguments allowed to be included.",
                         type = {DataType.STRING, DataType.INT, DataType.LONG, DataType.DOUBLE,
-                                DataType.FLOAT, DataType.BOOL}),
+                                DataType.FLOAT, DataType.BOOL},
+                        dynamic = true),
+        },
+        parameterOverloads = {
+                @ParameterOverload(parameterNames = {"template", "replacement.string", "..."})
         },
         returnAttributes =
             @ReturnAttribute(
