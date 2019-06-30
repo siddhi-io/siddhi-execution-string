@@ -1,37 +1,39 @@
 site_name: Siddhi Execution String
 site_description: Siddhi Execution String Extension
-site_author: WSO2
-site_url: https://wso2-extensions.github.io/siddhi-execution-string/
-extra_css:
-- stylesheets/extra.css
-extra_javascript:
-- javascripts/extra.js
-repo_name: Siddhi-Execution-String
-repo_url: https://github.com/wso2-extensions/siddhi-execution-string
-copyright: Copyright &copy; 2011 - 2018 WSO2
+repo_name: Siddhi Execution String
+repo_url: https://github.com/siddhi-io/siddhi-execution-string/
+edit_uri: https://github.com/siddhi-io/siddhi-execution-string/blob/master/
+copyright: Siddhi - Documentation
 theme:
   name: material
-  logo: images/siddhi-logo-w.svg
+  logo: images/siddhi-logo.svg
   favicon: images/favicon.ico
   palette:
     primary: teal
     accent: teal
-google_analytics:
-- UA-103065-28
-- auto
+extra_css:
+- assets/stylesheets/extra.css
+extra_javascript:
+- assets/javascripts/extra.js
 extra:
   social:
   - type: github
-    link: https://github.com/wso2/siddhi
+    link: https://github.com/siddhi-io/siddhi
+  - type: medium
+    link: https://medium.com/siddhi-io
+  - type: twitter
+    link: https://twitter.com/siddhi_io
   - type: linkedin
     link: https://www.linkedin.com/groups/13553064
+google_analytics:
+- UA-103065-28
+- auto
 markdown_extensions:
-- admonition
-- toc(permalink=true)
-- codehilite(guess_lang=false)
+- markdown.extensions.admonition
 pages:
-- Welcome: index.md
+- Information: index.md
 - API Docs:
+  - latest: api/latest.md
   - 5.0.3: api/5.0.3.md
   - 5.0.2: api/5.0.2.md
   - 5.0.1: api/5.0.1.md
@@ -59,5 +61,4 @@ pages:
   - 4.0.7: api/4.0.7.md
   - 4.0.6: api/4.0.6.md
   - 4.0.5: api/4.0.5.md
-  - latest: api/latest.md
 - License: license.md

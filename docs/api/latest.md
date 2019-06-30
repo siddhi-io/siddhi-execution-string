@@ -1,12 +1,14 @@
 # API Docs - v5.0.3
 
+!!! Info "Tested Siddhi Core version: *<a target="_blank" href="http://siddhi.io/en/v5.0/docs/query-guide/">5.0.2-SNAPSHOT</a>*"
+    It could also support other Siddhi Core minor versions.
+
 ## Str
 
-### groupConcat *<a target="_blank" href="http://siddhi.io/documentation/siddhi-5.x/query-guide-5.x/#aggregate-function">(Aggregate Function)</a>*
-
+### groupConcat *<a target="_blank" href="http://siddhi.io/en/v5.0/docs/query-guide/#aggregate-function">(Aggregate Function)</a>*
 <p style="word-wrap: break-word">This function aggregates the received events by concatenating the keys in those events using a separator, e.g.,a comma (,) or a hyphen (-), and returns the concatenated key string.</p>
-
 <span id="syntax" class="md-typeset" style="display: block; font-weight: bold;">Syntax</span>
+
 ```
 <STRING> str:groupConcat(<STRING> key, <STRING> separator, <STRING> distinct, <STRING> order)
 ```
@@ -72,11 +74,11 @@ input OutputStream;
 ```
 <p style="word-wrap: break-word">When we input events having values for the <code>key</code> as <code>'A'</code>, <code>'B'</code>, <code>'S'</code>, <code>'C'</code>, <code>'A'</code>, specify the seperator as hyphen and choose the order to be ascending, the function returns <code>"A-B-C-S"</code> to the 'OutputStream'.</p>
 
-### charAt *<a target="_blank" href="http://siddhi.io/documentation/siddhi-5.x/query-guide-5.x/#function">(Function)</a>*
-
+### charAt *<a target="_blank" href="http://siddhi.io/en/v5.0/docs/query-guide/#function">(Function)</a>*
+<p><i>Deprecated</i></p>
 <p style="word-wrap: break-word">This function returns the 'char' value that is present at the given index position. of the input string.</p>
-
 <span id="syntax" class="md-typeset" style="display: block; font-weight: bold;">Syntax</span>
+
 ```
 <STRING> str:charAt(<STRING> input.value, <INT> index)
 ```
@@ -116,11 +118,10 @@ charAt("WSO2", 1)
 ```
 <p style="word-wrap: break-word">In this case, the functiion returns the character that exists at index 1. Hence, it returns 'S'.</p>
 
-### coalesce *<a target="_blank" href="http://siddhi.io/documentation/siddhi-5.x/query-guide-5.x/#function">(Function)</a>*
-
+### coalesce *<a target="_blank" href="http://siddhi.io/en/v5.0/docs/query-guide/#function">(Function)</a>*
 <p style="word-wrap: break-word"> This returns the first input parameter value of the given argument, that is not null.</p>
-
 <span id="syntax" class="md-typeset" style="display: block; font-weight: bold;">Syntax</span>
+
 ```
 <INT|LONG|DOUBLE|FLOAT|STRING|BOOL|OBJECT> str:coalesce(<INT|LONG|DOUBLE|FLOAT|STRING|BOOL|OBJECT> argn)
 ```
@@ -152,11 +153,10 @@ coalesce(null, "BBB", "CCC")
 ```
 <p style="word-wrap: break-word">This returns the first input parameter that is not null. In this example, it returns "BBB".</p>
 
-### concat *<a target="_blank" href="http://siddhi.io/documentation/siddhi-5.x/query-guide-5.x/#function">(Function)</a>*
-
+### concat *<a target="_blank" href="http://siddhi.io/en/v5.0/docs/query-guide/#function">(Function)</a>*
 <p style="word-wrap: break-word">This function returns a string value that is obtained as a result of concatenating two or more input string values.</p>
-
 <span id="syntax" class="md-typeset" style="display: block; font-weight: bold;">Syntax</span>
+
 ```
 <STRING> str:concat(<STRING> argn)
 ```
@@ -188,11 +188,10 @@ concat("D533", "8JU^", "XYZ")
 ```
 <p style="word-wrap: break-word">This returns a string value by concatenating two or more given arguments. In the example shown above, it returns "D5338JU^XYZ".</p>
 
-### contains *<a target="_blank" href="http://siddhi.io/documentation/siddhi-5.x/query-guide-5.x/#function">(Function)</a>*
-
+### contains *<a target="_blank" href="http://siddhi.io/en/v5.0/docs/query-guide/#function">(Function)</a>*
 <p style="word-wrap: break-word">This function returns <code>true</code> if the<code>input.string</code> contains the specified sequence of char values in the <code>search.string</code>. </p>
-
 <span id="syntax" class="md-typeset" style="display: block; font-weight: bold;">Syntax</span>
+
 ```
 <BOOL> str:contains(<STRING> input.string, <STRING> search.string)
 ```
@@ -232,11 +231,10 @@ contains("21 products are produced by WSO2 currently", "WSO2")
 ```
 <p style="word-wrap: break-word">This returns a boolean value as the output. In this case, it returns<code>true</code>.</p>
 
-### equalsIgnoreCase *<a target="_blank" href="http://siddhi.io/documentation/siddhi-5.x/query-guide-5.x/#function">(Function)</a>*
-
+### equalsIgnoreCase *<a target="_blank" href="http://siddhi.io/en/v5.0/docs/query-guide/#function">(Function)</a>*
 <p style="word-wrap: break-word">This returns a boolean value by comparing two strings lexicographically without considering the letter case.</p>
-
 <span id="syntax" class="md-typeset" style="display: block; font-weight: bold;">Syntax</span>
+
 ```
 <BOOL> str:equalsIgnoreCase(<STRING> arg1, <STRING> arg2)
 ```
@@ -276,11 +274,10 @@ equalsIgnoreCase("WSO2", "wso2")
 ```
 <p style="word-wrap: break-word">This returns a boolean value as the output. In this scenario, it returns "true". </p>
 
-### fillTemplate *<a target="_blank" href="http://siddhi.io/documentation/siddhi-5.x/query-guide-5.x/#function">(Function)</a>*
-
+### fillTemplate *<a target="_blank" href="http://siddhi.io/en/v5.0/docs/query-guide/#function">(Function)</a>*
 <p style="word-wrap: break-word">This extension replaces the templated positions that are marked with an index value in a specified template with the strings provided.</p>
-
 <span id="syntax" class="md-typeset" style="display: block; font-weight: bold;">Syntax</span>
+
 ```
 <STRING> str:fillTemplate(<STRING> template, <STRING|INT|LONG|DOUBLE|FLOAT|BOOL> replacement.strings)
 ```
@@ -320,11 +317,10 @@ str:fillTemplate("This is {{1}} for the {{2}} function", 'an example', 'fillTemp
 ```
 <p style="word-wrap: break-word">In this example, the template is 'This is {{1}} for the {{2}} function'.Here, the templated string {{1}} is replaced with the 1st string value provided, which is 'an example'.<br>{{2}} is replaced with the 2nd string provided, which is 'fillTemplate'<br>The complete return string is 'This is an example for the fillTemplate function'.</p>
 
-### hex *<a target="_blank" href="http://siddhi.io/documentation/siddhi-5.x/query-guide-5.x/#function">(Function)</a>*
-
+### hex *<a target="_blank" href="http://siddhi.io/en/v5.0/docs/query-guide/#function">(Function)</a>*
 <p style="word-wrap: break-word">This function returns a hexadecimal string by converting each byte of each character in the input string to two hexadecimal digits.</p>
-
 <span id="syntax" class="md-typeset" style="display: block; font-weight: bold;">Syntax</span>
+
 ```
 <STRING> str:hex(<STRING> input.string)
 ```
@@ -356,11 +352,10 @@ hex("MySQL")
 ```
 <p style="word-wrap: break-word">This returns the hexadecimal value of the input.string. In this scenario, the output is "4d7953514c".</p>
 
-### length *<a target="_blank" href="http://siddhi.io/documentation/siddhi-5.x/query-guide-5.x/#function">(Function)</a>*
-
+### length *<a target="_blank" href="http://siddhi.io/en/v5.0/docs/query-guide/#function">(Function)</a>*
 <p style="word-wrap: break-word">Returns the length of the input string.</p>
-
 <span id="syntax" class="md-typeset" style="display: block; font-weight: bold;">Syntax</span>
+
 ```
 <INT> str:length(<STRING> input.string)
 ```
@@ -392,11 +387,10 @@ length("Hello World")
 ```
 <p style="word-wrap: break-word">This outputs the length of the provided string. In this scenario, the, output is <code>11</code> .</p>
 
-### lower *<a target="_blank" href="http://siddhi.io/documentation/siddhi-5.x/query-guide-5.x/#function">(Function)</a>*
-
+### lower *<a target="_blank" href="http://siddhi.io/en/v5.0/docs/query-guide/#function">(Function)</a>*
 <p style="word-wrap: break-word">Converts the capital letters in the input string to the equivalent simple letters.</p>
-
 <span id="syntax" class="md-typeset" style="display: block; font-weight: bold;">Syntax</span>
+
 ```
 <STRING> str:lower(<STRING> input.string)
 ```
@@ -428,11 +422,10 @@ lower("WSO2 cep ")
 ```
 <p style="word-wrap: break-word">This converts the capital letters in the input.string to the equivalent simple letters. In this scenario, the output is "wso2 cep ".</p>
 
-### regexp *<a target="_blank" href="http://siddhi.io/documentation/siddhi-5.x/query-guide-5.x/#function">(Function)</a>*
-
+### regexp *<a target="_blank" href="http://siddhi.io/en/v5.0/docs/query-guide/#function">(Function)</a>*
 <p style="word-wrap: break-word">Returns a boolean value based on the matchability of the input string and the given regular expression.</p>
-
 <span id="syntax" class="md-typeset" style="display: block; font-weight: bold;">Syntax</span>
+
 ```
 <BOOL> str:regexp(<STRING> input.string, <STRING> regex)
 ```
@@ -472,11 +465,10 @@ regexp("WSO2 abcdh", "WSO(.*h)")
 ```
 <p style="word-wrap: break-word">This returns a boolean value after matching regular expression with the given string. In this scenario, it returns "true" as the output.</p>
 
-### repeat *<a target="_blank" href="http://siddhi.io/documentation/siddhi-5.x/query-guide-5.x/#function">(Function)</a>*
-
+### repeat *<a target="_blank" href="http://siddhi.io/en/v5.0/docs/query-guide/#function">(Function)</a>*
 <p style="word-wrap: break-word">Repeats the input string for a specified number of times.</p>
-
 <span id="syntax" class="md-typeset" style="display: block; font-weight: bold;">Syntax</span>
+
 ```
 <STRING> str:repeat(<STRING> input.string, <INT> times)
 ```
@@ -516,11 +508,10 @@ repeat("StRing 1", 3)
 ```
 <p style="word-wrap: break-word">This returns a string value by repeating the string for a specified number of times. In this scenario, the output is "StRing 1StRing 1StRing 1".</p>
 
-### replaceAll *<a target="_blank" href="http://siddhi.io/documentation/siddhi-5.x/query-guide-5.x/#function">(Function)</a>*
-
+### replaceAll *<a target="_blank" href="http://siddhi.io/en/v5.0/docs/query-guide/#function">(Function)</a>*
 <p style="word-wrap: break-word">Finds all the substrings of the input string that matches with the given expression, and replaces them with the given replacement string.</p>
-
 <span id="syntax" class="md-typeset" style="display: block; font-weight: bold;">Syntax</span>
+
 ```
 <STRING> str:replaceAll(<STRING> input.string, <STRING> regex, <STRING> replacement.string)
 ```
@@ -568,11 +559,10 @@ replaceAll("hello hi hello",  'hello', 'test')
 ```
 <p style="word-wrap: break-word">This returns a string after replacing the substrings of the input string with the replacement string. In this scenario, the output is "test hi test" .</p>
 
-### replaceFirst *<a target="_blank" href="http://siddhi.io/documentation/siddhi-5.x/query-guide-5.x/#function">(Function)</a>*
-
+### replaceFirst *<a target="_blank" href="http://siddhi.io/en/v5.0/docs/query-guide/#function">(Function)</a>*
 <p style="word-wrap: break-word">Finds the first substring of the input string that matches with the given regular expression, and replaces itwith the given replacement string.</p>
-
 <span id="syntax" class="md-typeset" style="display: block; font-weight: bold;">Syntax</span>
+
 ```
 <STRING> str:replaceFirst(<STRING> input.string, <STRING> regex, <STRING> replacement.string)
 ```
@@ -620,11 +610,10 @@ replaceFirst("hello WSO2 A hello",  'WSO2(.*)A', 'XXXX')
 ```
 <p style="word-wrap: break-word">This returns a string after replacing the first substring with the given replacement string. In this scenario, the output is "hello XXXX hello".</p>
 
-### reverse *<a target="_blank" href="http://siddhi.io/documentation/siddhi-5.x/query-guide-5.x/#function">(Function)</a>*
-
+### reverse *<a target="_blank" href="http://siddhi.io/en/v5.0/docs/query-guide/#function">(Function)</a>*
 <p style="word-wrap: break-word">Returns the input string in the reverse order character-wise and string-wise.</p>
-
 <span id="syntax" class="md-typeset" style="display: block; font-weight: bold;">Syntax</span>
+
 ```
 <STRING> str:reverse(<STRING> input.string)
 ```
@@ -656,11 +645,10 @@ reverse("Hello World")
 ```
 <p style="word-wrap: break-word">This outputs a string value by reversing the incoming <code>input.string</code>. In this scenario, the output is "dlroW olleH".</p>
 
-### split *<a target="_blank" href="http://siddhi.io/documentation/siddhi-5.x/query-guide-5.x/#function">(Function)</a>*
-
+### split *<a target="_blank" href="http://siddhi.io/en/v5.0/docs/query-guide/#function">(Function)</a>*
 <p style="word-wrap: break-word">Splits the  <code>input.string</code> into substrings using the value parsed in the <code>split.string</code> and returns the substring at the position specified in the <code>group.number</code>.</p>
-
 <span id="syntax" class="md-typeset" style="display: block; font-weight: bold;">Syntax</span>
+
 ```
 <STRING> str:split(<STRING> input.string, <STRING> split.string, <INT> group.number)
 ```
@@ -708,11 +696,10 @@ split("WSO2,ABM,NSFT", ",", 0)
 ```
 <p style="word-wrap: break-word">This splits the given <code>input.string</code> by given <code>split.string</code> and returns the string in the index given by group.number. In this scenario, the output will is "WSO2".</p>
 
-### strcmp *<a target="_blank" href="http://siddhi.io/documentation/siddhi-5.x/query-guide-5.x/#function">(Function)</a>*
-
+### strcmp *<a target="_blank" href="http://siddhi.io/en/v5.0/docs/query-guide/#function">(Function)</a>*
 <p style="word-wrap: break-word">Compares two strings lexicographically and returns an integer value. If both strings are equal, 0 is returned. If  the first string is lexicographically greater than the second string, a positive value is returned. If the first string is lexicographically greater than the second string, a negative value is returned.</p>
-
 <span id="syntax" class="md-typeset" style="display: block; font-weight: bold;">Syntax</span>
+
 ```
 <INT> str:strcmp(<STRING> arg1, <STRING> arg2)
 ```
@@ -752,11 +739,10 @@ strcmp("AbCDefghiJ KLMN", 'Hello')
 ```
 <p style="word-wrap: break-word">This compares two strings lexicographically and outputs an integer value.</p>
 
-### substr *<a target="_blank" href="http://siddhi.io/documentation/siddhi-5.x/query-guide-5.x/#function">(Function)</a>*
-
+### substr *<a target="_blank" href="http://siddhi.io/en/v5.0/docs/query-guide/#function">(Function)</a>*
 <p style="word-wrap: break-word">Returns a substring of the input string by considering a subset or all of the following factors: starting index, length, regular expression, and regex group number.</p>
-
 <span id="syntax" class="md-typeset" style="display: block; font-weight: bold;">Syntax</span>
+
 ```
 <STRING> str:substr(<STRING> input.string, <INT> begin.index, <INT> length, <STRING> regex, <INT> group.number)
 ```
@@ -838,11 +824,10 @@ substr("WSO2 cep WSO2 XX E hi hA WSO2 heAllo",  'WSO2(.*)A(.*)',  2)
 ```
 <p style="word-wrap: break-word">This outputs the substring by applying the regex and considering the <code>group.number</code>. In this scenario, the output is " ello".</p>
 
-### trim *<a target="_blank" href="http://siddhi.io/documentation/siddhi-5.x/query-guide-5.x/#function">(Function)</a>*
-
+### trim *<a target="_blank" href="http://siddhi.io/en/v5.0/docs/query-guide/#function">(Function)</a>*
 <p style="word-wrap: break-word">Returns a copy of the input string without the leading and trailing whitespace (if any).</p>
-
 <span id="syntax" class="md-typeset" style="display: block; font-weight: bold;">Syntax</span>
+
 ```
 <STRING> str:trim(<STRING> input.string)
 ```
@@ -874,11 +859,10 @@ trim("  AbCDefghiJ KLMN  ")
 ```
 <p style="word-wrap: break-word">This returns a copy of the <code>input.string</code> with the leading and/or trailing white-spaces omitted. In this scenario, the output is "AbCDefghiJ KLMN".</p>
 
-### unhex *<a target="_blank" href="http://siddhi.io/documentation/siddhi-5.x/query-guide-5.x/#function">(Function)</a>*
-
+### unhex *<a target="_blank" href="http://siddhi.io/en/v5.0/docs/query-guide/#function">(Function)</a>*
 <p style="word-wrap: break-word">Returns a string by converting the hexadecimal characters in the input string.</p>
-
 <span id="syntax" class="md-typeset" style="display: block; font-weight: bold;">Syntax</span>
+
 ```
 <STRING> str:unhex(<STRING> input.string)
 ```
@@ -910,11 +894,10 @@ unhex("4d7953514c")
 ```
 <p style="word-wrap: break-word">This converts the hexadecimal value to string.</p>
 
-### upper *<a target="_blank" href="http://siddhi.io/documentation/siddhi-5.x/query-guide-5.x/#function">(Function)</a>*
-
+### upper *<a target="_blank" href="http://siddhi.io/en/v5.0/docs/query-guide/#function">(Function)</a>*
 <p style="word-wrap: break-word">Converts the simple letters in the input string to the equivalent capital/block letters.</p>
-
 <span id="syntax" class="md-typeset" style="display: block; font-weight: bold;">Syntax</span>
+
 ```
 <STRING> str:upper(<STRING> input.string)
 ```
@@ -946,11 +929,10 @@ upper("Hello World")
 ```
 <p style="word-wrap: break-word">This converts the simple letters in the <code>input.string</code> to theequivalent capital letters. In this scenario, the output is "HELLO WORLD".</p>
 
-### tokenize *<a target="_blank" href="http://siddhi.io/documentation/siddhi-5.x/query-guide-5.x/#stream-processor">(Stream Processor)</a>*
-
+### tokenize *<a target="_blank" href="http://siddhi.io/en/v5.0/docs/query-guide/#stream-processor">(Stream Processor)</a>*
 <p style="word-wrap: break-word">This function splits the input string into tokens using a given regular expression and returns the split tokens.</p>
-
 <span id="syntax" class="md-typeset" style="display: block; font-weight: bold;">Syntax</span>
+
 ```
 str:tokenize(<STRING> input.string, <STRING> regex, <BOOL> distinct)
 ```
