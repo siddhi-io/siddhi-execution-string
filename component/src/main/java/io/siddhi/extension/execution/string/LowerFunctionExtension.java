@@ -21,6 +21,7 @@ package io.siddhi.extension.execution.string;
 import io.siddhi.annotation.Example;
 import io.siddhi.annotation.Extension;
 import io.siddhi.annotation.Parameter;
+import io.siddhi.annotation.ParameterOverload;
 import io.siddhi.annotation.ReturnAttribute;
 import io.siddhi.annotation.util.DataType;
 import io.siddhi.core.config.SiddhiQueryContext;
@@ -50,7 +51,11 @@ import static io.siddhi.query.api.definition.Attribute.Type.STRING;
                 @Parameter(name = "input.string",
                         description = "The input string to convert to the lower case (i.e., equivalent simple " +
                                 "letters).",
-                        type = {DataType.STRING})
+                        type = {DataType.STRING},
+                        dynamic = true)
+        },
+        parameterOverloads = {
+                @ParameterOverload(parameterNames = {"input.string"})
         },
         returnAttributes = @ReturnAttribute(
                 description = "Returns a string value in lower case by converting the input.string .",

@@ -21,6 +21,7 @@ package io.siddhi.extension.execution.string;
 import io.siddhi.annotation.Example;
 import io.siddhi.annotation.Extension;
 import io.siddhi.annotation.Parameter;
+import io.siddhi.annotation.ParameterOverload;
 import io.siddhi.annotation.ReturnAttribute;
 import io.siddhi.annotation.util.DataType;
 import io.siddhi.core.config.SiddhiQueryContext;
@@ -60,19 +61,30 @@ import static io.siddhi.query.api.definition.Attribute.Type.STRING;
         parameters = {
                 @Parameter(name = "input.string",
                         description = "The input string to be processed.",
-                        type = {DataType.STRING}),
+                        type = {DataType.STRING},
+                        dynamic = true),
                 @Parameter(name = "begin.index",
                         description = "Starting index to consider for the substring.",
-                        type = {DataType.INT}),
+                        type = {DataType.INT},
+                        dynamic = true),
                 @Parameter(name = "length",
                         description = "The length of the substring.",
-                        type = {DataType.INT}),
+                        type = {DataType.INT},
+                        dynamic = true),
                 @Parameter(name = "regex",
                         description = "The regular expression that should be matched with the input string.",
-                        type = {DataType.STRING}),
+                        type = {DataType.STRING},
+                        dynamic = true),
                 @Parameter(name = "group.number",
                         description = "The regex group number",
-                        type = {DataType.INT})
+                        type = {DataType.INT},
+                        dynamic = true)
+        },
+        parameterOverloads = {
+                @ParameterOverload(parameterNames = {"input.string", "begin.index"}),
+                @ParameterOverload(parameterNames = {"input.string", "begin.index", "length"}),
+                @ParameterOverload(parameterNames = {"input.string", "regex"}),
+                @ParameterOverload(parameterNames = {"input.string", "regex", "group.number"})
         },
         returnAttributes = @ReturnAttribute(
                 description = "This returns a new string that is a substring of the `input.string`.",

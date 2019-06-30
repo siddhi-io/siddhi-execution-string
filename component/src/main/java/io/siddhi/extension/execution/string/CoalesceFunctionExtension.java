@@ -21,6 +21,7 @@ package io.siddhi.extension.execution.string;
 import io.siddhi.annotation.Example;
 import io.siddhi.annotation.Extension;
 import io.siddhi.annotation.Parameter;
+import io.siddhi.annotation.ParameterOverload;
 import io.siddhi.annotation.ReturnAttribute;
 import io.siddhi.annotation.util.DataType;
 import io.siddhi.core.config.SiddhiQueryContext;
@@ -50,7 +51,11 @@ import io.siddhi.query.api.exception.SiddhiAppValidationException;
                                 " However, all the specified " +
                                 "parameters are required to be of the same type.",
                         type = {DataType.INT, DataType.LONG, DataType.DOUBLE, DataType.FLOAT,
-                                DataType.STRING, DataType.BOOL, DataType.OBJECT})
+                                DataType.STRING, DataType.BOOL, DataType.OBJECT},
+                        dynamic = true)
+        },
+        parameterOverloads = {
+                @ParameterOverload(parameterNames = {"argn", "..."})
         },
         returnAttributes = @ReturnAttribute(
                 description = "This holds the first input parameter that is not null.",
