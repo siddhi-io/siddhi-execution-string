@@ -1,10 +1,10 @@
-# API Docs - v4.0.13-SNAPSHOT
+# API Docs - v5.0.3
 
 ## Str
 
-### groupConcat *<a target="_blank" href="https://wso2.github.io/siddhi/documentation/siddhi-4.0/#aggregate-function">(Aggregate Function)</a>*
+### groupConcat *<a target="_blank" href="http://siddhi.io/documentation/siddhi-5.x/query-guide-5.x/#aggregate-function">(Aggregate Function)</a>*
 
-<p style="word-wrap: break-word">Returns concated string keys by aggregating all the events separating them by the given separator.</p>
+<p style="word-wrap: break-word">This function aggregates the received events by concatenating the keys in those events using a separator, e.g.,a comma (,) or a hyphen (-), and returns the concatenated key string.</p>
 
 <span id="syntax" class="md-typeset" style="display: block; font-weight: bold;">Syntax</span>
 ```
@@ -23,7 +23,7 @@
     </tr>
     <tr>
         <td style="vertical-align: top">key</td>
-        <td style="vertical-align: top; word-wrap: break-word">The string that need to be aggregated.</td>
+        <td style="vertical-align: top; word-wrap: break-word">The string that needs to be aggregated.</td>
         <td style="vertical-align: top"></td>
         <td style="vertical-align: top">STRING</td>
         <td style="vertical-align: top">No</td>
@@ -31,7 +31,7 @@
     </tr>
     <tr>
         <td style="vertical-align: top">separator</td>
-        <td style="vertical-align: top; word-wrap: break-word">The separator that separates each string key getting aggregated.</td>
+        <td style="vertical-align: top; word-wrap: break-word">The separator that separates each string key after concatenating the keys.</td>
         <td style="vertical-align: top">,</td>
         <td style="vertical-align: top">STRING</td>
         <td style="vertical-align: top">Yes</td>
@@ -39,7 +39,7 @@
     </tr>
     <tr>
         <td style="vertical-align: top">distinct</td>
-        <td style="vertical-align: top; word-wrap: break-word">To only have distinct string keys in the the aggregation.</td>
+        <td style="vertical-align: top; word-wrap: break-word">This is used to only have distinct values in the concatenated string that is returned.</td>
         <td style="vertical-align: top">false</td>
         <td style="vertical-align: top">STRING</td>
         <td style="vertical-align: top">Yes</td>
@@ -47,7 +47,7 @@
     </tr>
     <tr>
         <td style="vertical-align: top">order</td>
-        <td style="vertical-align: top; word-wrap: break-word">Accepts 'ASC' or 'DESC' strings to sort the string keys by ascending or descending order.</td>
+        <td style="vertical-align: top; word-wrap: break-word">This parameter accepts 'ASC' or 'DESC' strings to sort the string keys in either ascending or descending order respectively.</td>
         <td style="vertical-align: top">No order</td>
         <td style="vertical-align: top">STRING</td>
         <td style="vertical-align: top">Yes</td>
@@ -62,7 +62,7 @@ from InputStream#window.time(5 min)
 select str:groupConcat("key") as groupedKeys
 input OutputStream;
 ```
-<p style="word-wrap: break-word">This returns a string that is the result of the concatenated keys separated by the given separator. <br>When we send events having values for the <code>key</code> <code>'A'</code>, <code>'B'</code>, <code>'S'</code>, <code>'C'</code>, <code>'A'</code>, it will return <code>"A,B,S,C,A"</code> as the output</p>
+<p style="word-wrap: break-word">When we input events having values for the <code>key</code> as <code>'A'</code>, <code>'B'</code>, <code>'S'</code>, <code>'C'</code>, <code>'A'</code>, it returns <code>"A,B,S,C,A"</code> to the 'OutputStream'.</p>
 
 <span id="example-2" class="md-typeset" style="display: block; color: rgba(0, 0, 0, 0.54); font-size: 12.8px; font-weight: bold;">EXAMPLE 2</span>
 ```
@@ -70,11 +70,11 @@ from InputStream#window.time(5 min)
 select groupConcat("key","-",true,"ASC") as groupedKeys
 input OutputStream;
 ```
-<p style="word-wrap: break-word">This returns a string that is the result of the concatenated keys separated by the given separator. <br>When we send events having values for the <code>key</code> <code>'A'</code>, <code>'B'</code>, <code>'S'</code>, <code>'C'</code>, <code>'A'</code>, it will return <code>"A-B-C-S"</code> as the output</p>
+<p style="word-wrap: break-word">When we input events having values for the <code>key</code> as <code>'A'</code>, <code>'B'</code>, <code>'S'</code>, <code>'C'</code>, <code>'A'</code>, specify the seperator as hyphen and choose the order to be ascending, the function returns <code>"A-B-C-S"</code> to the 'OutputStream'.</p>
 
-### charAt *<a target="_blank" href="https://wso2.github.io/siddhi/documentation/siddhi-4.0/#function">(Function)</a>*
+### charAt *<a target="_blank" href="http://siddhi.io/documentation/siddhi-5.x/query-guide-5.x/#function">(Function)</a>*
 
-<p style="word-wrap: break-word">Returns the char value as a string value at the specified index.</p>
+<p style="word-wrap: break-word">This function returns the 'char' value that is present at the given index position. of the input string.</p>
 
 <span id="syntax" class="md-typeset" style="display: block; font-weight: bold;">Syntax</span>
 ```
@@ -93,7 +93,7 @@ input OutputStream;
     </tr>
     <tr>
         <td style="vertical-align: top">input.value</td>
-        <td style="vertical-align: top; word-wrap: break-word">The input string that used to find the character.</td>
+        <td style="vertical-align: top; word-wrap: break-word">The input string of which the char value at the given position needs to be returned.</td>
         <td style="vertical-align: top"></td>
         <td style="vertical-align: top">STRING</td>
         <td style="vertical-align: top">No</td>
@@ -101,7 +101,7 @@ input OutputStream;
     </tr>
     <tr>
         <td style="vertical-align: top">index</td>
-        <td style="vertical-align: top; word-wrap: break-word">The variable that specifies the index.</td>
+        <td style="vertical-align: top; word-wrap: break-word">The variable that specifies the index of the char value that needs to be returned.</td>
         <td style="vertical-align: top"></td>
         <td style="vertical-align: top">INT</td>
         <td style="vertical-align: top">No</td>
@@ -114,11 +114,11 @@ input OutputStream;
 ```
 charAt("WSO2", 1)
 ```
-<p style="word-wrap: break-word">This will output the character that exists at index 1. In this case, it will output 'S'.</p>
+<p style="word-wrap: break-word">In this case, the functiion returns the character that exists at index 1. Hence, it returns 'S'.</p>
 
-### coalesce *<a target="_blank" href="https://wso2.github.io/siddhi/documentation/siddhi-4.0/#function">(Function)</a>*
+### coalesce *<a target="_blank" href="http://siddhi.io/documentation/siddhi-5.x/query-guide-5.x/#function">(Function)</a>*
 
-<p style="word-wrap: break-word">Returns the value of the first of its input parameters that is not null</p>
+<p style="word-wrap: break-word"> This returns the first input parameter value of the given argument, that is not null.</p>
 
 <span id="syntax" class="md-typeset" style="display: block; font-weight: bold;">Syntax</span>
 ```
@@ -137,7 +137,7 @@ charAt("WSO2", 1)
     </tr>
     <tr>
         <td style="vertical-align: top">argn</td>
-        <td style="vertical-align: top; word-wrap: break-word">It can have one or more input parameters in any data type. All the specified parameters should be of the same type.</td>
+        <td style="vertical-align: top; word-wrap: break-word">It can have one or more input parameters in any data type. However, all the specified parameters are required to be of the same type.</td>
         <td style="vertical-align: top"></td>
         <td style="vertical-align: top">INT<br>LONG<br>DOUBLE<br>FLOAT<br>STRING<br>BOOL<br>OBJECT</td>
         <td style="vertical-align: top">No</td>
@@ -150,11 +150,11 @@ charAt("WSO2", 1)
 ```
 coalesce(null, "BBB", "CCC")
 ```
-<p style="word-wrap: break-word">This returns the first input parameter that is not null. In this example, it returns "BBB"</p>
+<p style="word-wrap: break-word">This returns the first input parameter that is not null. In this example, it returns "BBB".</p>
 
-### concat *<a target="_blank" href="https://wso2.github.io/siddhi/documentation/siddhi-4.0/#function">(Function)</a>*
+### concat *<a target="_blank" href="http://siddhi.io/documentation/siddhi-5.x/query-guide-5.x/#function">(Function)</a>*
 
-<p style="word-wrap: break-word">Returns a string that is the result of concatenating two or more string values.</p>
+<p style="word-wrap: break-word">This function returns a string value that is obtained as a result of concatenating two or more input string values.</p>
 
 <span id="syntax" class="md-typeset" style="display: block; font-weight: bold;">Syntax</span>
 ```
@@ -173,7 +173,7 @@ coalesce(null, "BBB", "CCC")
     </tr>
     <tr>
         <td style="vertical-align: top">argn</td>
-        <td style="vertical-align: top; word-wrap: break-word">It can have two or more <code>string</code> type input parameters.</td>
+        <td style="vertical-align: top; word-wrap: break-word">This can have two or more <code>string</code> type input parameters.</td>
         <td style="vertical-align: top"></td>
         <td style="vertical-align: top">STRING</td>
         <td style="vertical-align: top">No</td>
@@ -186,11 +186,11 @@ coalesce(null, "BBB", "CCC")
 ```
 concat("D533", "8JU^", "XYZ")
 ```
-<p style="word-wrap: break-word">This returns a string value by concatenating the given arguments. In this case, it will return "D5338JU^XYZ" as the output</p>
+<p style="word-wrap: break-word">This returns a string value by concatenating two or more given arguments. In the example shown above, it returns "D5338JU^XYZ".</p>
 
-### contains *<a target="_blank" href="https://wso2.github.io/siddhi/documentation/siddhi-4.0/#function">(Function)</a>*
+### contains *<a target="_blank" href="http://siddhi.io/documentation/siddhi-5.x/query-guide-5.x/#function">(Function)</a>*
 
-<p style="word-wrap: break-word">This method returns <code>true</code> if the<code>input.string</code> contains the specified sequence of char values in the <code>search.string</code>. </p>
+<p style="word-wrap: break-word">This function returns <code>true</code> if the<code>input.string</code> contains the specified sequence of char values in the <code>search.string</code>. </p>
 
 <span id="syntax" class="md-typeset" style="display: block; font-weight: bold;">Syntax</span>
 ```
@@ -232,9 +232,9 @@ contains("21 products are produced by WSO2 currently", "WSO2")
 ```
 <p style="word-wrap: break-word">This returns a boolean value as the output. In this case, it returns<code>true</code>.</p>
 
-### equalsIgnoreCase *<a target="_blank" href="https://wso2.github.io/siddhi/documentation/siddhi-4.0/#function">(Function)</a>*
+### equalsIgnoreCase *<a target="_blank" href="http://siddhi.io/documentation/siddhi-5.x/query-guide-5.x/#function">(Function)</a>*
 
-<p style="word-wrap: break-word">Compares two strings lexicographically.</p>
+<p style="word-wrap: break-word">This returns a boolean value by comparing two strings lexicographically without considering the letter case.</p>
 
 <span id="syntax" class="md-typeset" style="display: block; font-weight: bold;">Syntax</span>
 ```
@@ -276,9 +276,53 @@ equalsIgnoreCase("WSO2", "wso2")
 ```
 <p style="word-wrap: break-word">This returns a boolean value as the output. In this scenario, it returns "true". </p>
 
-### hex *<a target="_blank" href="https://wso2.github.io/siddhi/documentation/siddhi-4.0/#function">(Function)</a>*
+### fillTemplate *<a target="_blank" href="http://siddhi.io/documentation/siddhi-5.x/query-guide-5.x/#function">(Function)</a>*
 
-<p style="word-wrap: break-word">Returns a hexadecimal string representation of str,<br>&nbsp;where each byte of each character in str is converted to two hexadecimal digits</p>
+<p style="word-wrap: break-word">This extension replaces the templated positions that are marked with an index value in a specified template with the strings provided.</p>
+
+<span id="syntax" class="md-typeset" style="display: block; font-weight: bold;">Syntax</span>
+```
+<STRING> str:fillTemplate(<STRING> template, <STRING|INT|LONG|DOUBLE|FLOAT|BOOL> replacement.strings)
+```
+
+<span id="query-parameters" class="md-typeset" style="display: block; color: rgba(0, 0, 0, 0.54); font-size: 12.8px; font-weight: bold;">QUERY PARAMETERS</span>
+<table>
+    <tr>
+        <th>Name</th>
+        <th style="min-width: 20em">Description</th>
+        <th>Default Value</th>
+        <th>Possible Data Types</th>
+        <th>Optional</th>
+        <th>Dynamic</th>
+    </tr>
+    <tr>
+        <td style="vertical-align: top">template</td>
+        <td style="vertical-align: top; word-wrap: break-word">The string with templated fields that needs to be filled with the given strings. The format of the templated fields should be as follows:<br>{{INDEX}} where 'INDEX' is an integer. <br>This index is used to map the strings that are used to replace the templated fields.</td>
+        <td style="vertical-align: top"></td>
+        <td style="vertical-align: top">STRING</td>
+        <td style="vertical-align: top">No</td>
+        <td style="vertical-align: top">No</td>
+    </tr>
+    <tr>
+        <td style="vertical-align: top">replacement.strings</td>
+        <td style="vertical-align: top; word-wrap: break-word">The strings with which the templated positions in the template need to be replaced.<br>The minimum of two arguments need to be included in the execution string. There is no upper limit on the number of arguments allowed to be included.</td>
+        <td style="vertical-align: top"></td>
+        <td style="vertical-align: top">STRING<br>INT<br>LONG<br>DOUBLE<br>FLOAT<br>BOOL</td>
+        <td style="vertical-align: top">No</td>
+        <td style="vertical-align: top">No</td>
+    </tr>
+</table>
+
+<span id="examples" class="md-typeset" style="display: block; font-weight: bold;">Examples</span>
+<span id="example-1" class="md-typeset" style="display: block; color: rgba(0, 0, 0, 0.54); font-size: 12.8px; font-weight: bold;">EXAMPLE 1</span>
+```
+str:fillTemplate("This is {{1}} for the {{2}} function", 'an example', 'fillTemplate')
+```
+<p style="word-wrap: break-word">In this example, the template is 'This is {{1}} for the {{2}} function'.Here, the templated string {{1}} is replaced with the 1st string value provided, which is 'an example'.<br>{{2}} is replaced with the 2nd string provided, which is 'fillTemplate'<br>The complete return string is 'This is an example for the fillTemplate function'.</p>
+
+### hex *<a target="_blank" href="http://siddhi.io/documentation/siddhi-5.x/query-guide-5.x/#function">(Function)</a>*
+
+<p style="word-wrap: break-word">This function returns a hexadecimal string by converting each byte of each character in the input string to two hexadecimal digits.</p>
 
 <span id="syntax" class="md-typeset" style="display: block; font-weight: bold;">Syntax</span>
 ```
@@ -312,9 +356,9 @@ hex("MySQL")
 ```
 <p style="word-wrap: break-word">This returns the hexadecimal value of the input.string. In this scenario, the output is "4d7953514c".</p>
 
-### length *<a target="_blank" href="https://wso2.github.io/siddhi/documentation/siddhi-4.0/#function">(Function)</a>*
+### length *<a target="_blank" href="http://siddhi.io/documentation/siddhi-5.x/query-guide-5.x/#function">(Function)</a>*
 
-<p style="word-wrap: break-word">Returns the length of this string.</p>
+<p style="word-wrap: break-word">Returns the length of the input string.</p>
 
 <span id="syntax" class="md-typeset" style="display: block; font-weight: bold;">Syntax</span>
 ```
@@ -348,7 +392,7 @@ length("Hello World")
 ```
 <p style="word-wrap: break-word">This outputs the length of the provided string. In this scenario, the, output is <code>11</code> .</p>
 
-### lower *<a target="_blank" href="https://wso2.github.io/siddhi/documentation/siddhi-4.0/#function">(Function)</a>*
+### lower *<a target="_blank" href="http://siddhi.io/documentation/siddhi-5.x/query-guide-5.x/#function">(Function)</a>*
 
 <p style="word-wrap: break-word">Converts the capital letters in the input string to the equivalent simple letters.</p>
 
@@ -384,9 +428,9 @@ lower("WSO2 cep ")
 ```
 <p style="word-wrap: break-word">This converts the capital letters in the input.string to the equivalent simple letters. In this scenario, the output is "wso2 cep ".</p>
 
-### regexp *<a target="_blank" href="https://wso2.github.io/siddhi/documentation/siddhi-4.0/#function">(Function)</a>*
+### regexp *<a target="_blank" href="http://siddhi.io/documentation/siddhi-5.x/query-guide-5.x/#function">(Function)</a>*
 
-<p style="word-wrap: break-word">Returns whether  this 'string' matches the given regular expression 'regex' or not.</p>
+<p style="word-wrap: break-word">Returns a boolean value based on the matchability of the input string and the given regular expression.</p>
 
 <span id="syntax" class="md-typeset" style="display: block; font-weight: bold;">Syntax</span>
 ```
@@ -428,9 +472,9 @@ regexp("WSO2 abcdh", "WSO(.*h)")
 ```
 <p style="word-wrap: break-word">This returns a boolean value after matching regular expression with the given string. In this scenario, it returns "true" as the output.</p>
 
-### repeat *<a target="_blank" href="https://wso2.github.io/siddhi/documentation/siddhi-4.0/#function">(Function)</a>*
+### repeat *<a target="_blank" href="http://siddhi.io/documentation/siddhi-5.x/query-guide-5.x/#function">(Function)</a>*
 
-<p style="word-wrap: break-word">Repeats a string for a specified number of times.</p>
+<p style="word-wrap: break-word">Repeats the input string for a specified number of times.</p>
 
 <span id="syntax" class="md-typeset" style="display: block; font-weight: bold;">Syntax</span>
 ```
@@ -472,9 +516,9 @@ repeat("StRing 1", 3)
 ```
 <p style="word-wrap: break-word">This returns a string value by repeating the string for a specified number of times. In this scenario, the output is "StRing 1StRing 1StRing 1".</p>
 
-### replaceAll *<a target="_blank" href="https://wso2.github.io/siddhi/documentation/siddhi-4.0/#function">(Function)</a>*
+### replaceAll *<a target="_blank" href="http://siddhi.io/documentation/siddhi-5.x/query-guide-5.x/#function">(Function)</a>*
 
-<p style="word-wrap: break-word">Replaces each substring of this string that matches the given expression with the given replacement.</p>
+<p style="word-wrap: break-word">Finds all the substrings of the input string that matches with the given expression, and replaces them with the given replacement string.</p>
 
 <span id="syntax" class="md-typeset" style="display: block; font-weight: bold;">Syntax</span>
 ```
@@ -509,7 +553,7 @@ repeat("StRing 1", 3)
     </tr>
     <tr>
         <td style="vertical-align: top">replacement.string</td>
-        <td style="vertical-align: top; word-wrap: break-word">The striing with which each substring that matches the given expression should be replaced.</td>
+        <td style="vertical-align: top; word-wrap: break-word">The string with which each substring that matches the given expression should be replaced.</td>
         <td style="vertical-align: top"></td>
         <td style="vertical-align: top">STRING</td>
         <td style="vertical-align: top">No</td>
@@ -524,9 +568,9 @@ replaceAll("hello hi hello",  'hello', 'test')
 ```
 <p style="word-wrap: break-word">This returns a string after replacing the substrings of the input string with the replacement string. In this scenario, the output is "test hi test" .</p>
 
-### replaceFirst *<a target="_blank" href="https://wso2.github.io/siddhi/documentation/siddhi-4.0/#function">(Function)</a>*
+### replaceFirst *<a target="_blank" href="http://siddhi.io/documentation/siddhi-5.x/query-guide-5.x/#function">(Function)</a>*
 
-<p style="word-wrap: break-word">Replaces the first substring of this string that matches the given expression, with the given replacement.</p>
+<p style="word-wrap: break-word">Finds the first substring of the input string that matches with the given regular expression, and replaces itwith the given replacement string.</p>
 
 <span id="syntax" class="md-typeset" style="display: block; font-weight: bold;">Syntax</span>
 ```
@@ -576,9 +620,9 @@ replaceFirst("hello WSO2 A hello",  'WSO2(.*)A', 'XXXX')
 ```
 <p style="word-wrap: break-word">This returns a string after replacing the first substring with the given replacement string. In this scenario, the output is "hello XXXX hello".</p>
 
-### reverse *<a target="_blank" href="https://wso2.github.io/siddhi/documentation/siddhi-4.0/#function">(Function)</a>*
+### reverse *<a target="_blank" href="http://siddhi.io/documentation/siddhi-5.x/query-guide-5.x/#function">(Function)</a>*
 
-<p style="word-wrap: break-word">Returns the reverse ordered string of the input.</p>
+<p style="word-wrap: break-word">Returns the input string in the reverse order character-wise and string-wise.</p>
 
 <span id="syntax" class="md-typeset" style="display: block; font-weight: bold;">Syntax</span>
 ```
@@ -612,9 +656,9 @@ reverse("Hello World")
 ```
 <p style="word-wrap: break-word">This outputs a string value by reversing the incoming <code>input.string</code>. In this scenario, the output is "dlroW olleH".</p>
 
-### split *<a target="_blank" href="https://wso2.github.io/siddhi/documentation/siddhi-4.0/#function">(Function)</a>*
+### split *<a target="_blank" href="http://siddhi.io/documentation/siddhi-5.x/query-guide-5.x/#function">(Function)</a>*
 
-<p style="word-wrap: break-word">Splits the source string by <code>split.string</code> and returns the substring specified via the <code>group.number</code>.</p>
+<p style="word-wrap: break-word">Splits the  <code>input.string</code> into substrings using the value parsed in the <code>split.string</code> and returns the substring at the position specified in the <code>group.number</code>.</p>
 
 <span id="syntax" class="md-typeset" style="display: block; font-weight: bold;">Syntax</span>
 ```
@@ -664,9 +708,9 @@ split("WSO2,ABM,NSFT", ",", 0)
 ```
 <p style="word-wrap: break-word">This splits the given <code>input.string</code> by given <code>split.string</code> and returns the string in the index given by group.number. In this scenario, the output will is "WSO2".</p>
 
-### strcmp *<a target="_blank" href="https://wso2.github.io/siddhi/documentation/siddhi-4.0/#function">(Function)</a>*
+### strcmp *<a target="_blank" href="http://siddhi.io/documentation/siddhi-5.x/query-guide-5.x/#function">(Function)</a>*
 
-<p style="word-wrap: break-word">Compares two strings lexicographically.</p>
+<p style="word-wrap: break-word">Compares two strings lexicographically and returns an integer value. If both strings are equal, 0 is returned. If  the first string is lexicographically greater than the second string, a positive value is returned. If the first string is lexicographically greater than the second string, a negative value is returned.</p>
 
 <span id="syntax" class="md-typeset" style="display: block; font-weight: bold;">Syntax</span>
 ```
@@ -706,11 +750,11 @@ split("WSO2,ABM,NSFT", ",", 0)
 ```
 strcmp("AbCDefghiJ KLMN", 'Hello')
 ```
-<p style="word-wrap: break-word">This compares two strings lexicographically and outputs an integer value</p>
+<p style="word-wrap: break-word">This compares two strings lexicographically and outputs an integer value.</p>
 
-### substr *<a target="_blank" href="https://wso2.github.io/siddhi/documentation/siddhi-4.0/#function">(Function)</a>*
+### substr *<a target="_blank" href="http://siddhi.io/documentation/siddhi-5.x/query-guide-5.x/#function">(Function)</a>*
 
-<p style="word-wrap: break-word">This returns a new string that is a substring of this string</p>
+<p style="word-wrap: break-word">Returns a substring of the input string by considering a subset or all of the following factors: starting index, length, regular expression, and regex group number.</p>
 
 <span id="syntax" class="md-typeset" style="display: block; font-weight: bold;">Syntax</span>
 ```
@@ -753,7 +797,7 @@ strcmp("AbCDefghiJ KLMN", 'Hello')
     </tr>
     <tr>
         <td style="vertical-align: top">regex</td>
-        <td style="vertical-align: top; word-wrap: break-word">The regular expression that should be matched with the input string..</td>
+        <td style="vertical-align: top; word-wrap: break-word">The regular expression that should be matched with the input string.</td>
         <td style="vertical-align: top"></td>
         <td style="vertical-align: top">STRING</td>
         <td style="vertical-align: top">No</td>
@@ -794,9 +838,9 @@ substr("WSO2 cep WSO2 XX E hi hA WSO2 heAllo",  'WSO2(.*)A(.*)',  2)
 ```
 <p style="word-wrap: break-word">This outputs the substring by applying the regex and considering the <code>group.number</code>. In this scenario, the output is " ello".</p>
 
-### trim *<a target="_blank" href="https://wso2.github.io/siddhi/documentation/siddhi-4.0/#function">(Function)</a>*
+### trim *<a target="_blank" href="http://siddhi.io/documentation/siddhi-5.x/query-guide-5.x/#function">(Function)</a>*
 
-<p style="word-wrap: break-word">Returns a copy of the string with leading and trailing whitespace omitted</p>
+<p style="word-wrap: break-word">Returns a copy of the input string without the leading and trailing whitespace (if any).</p>
 
 <span id="syntax" class="md-typeset" style="display: block; font-weight: bold;">Syntax</span>
 ```
@@ -830,9 +874,9 @@ trim("  AbCDefghiJ KLMN  ")
 ```
 <p style="word-wrap: break-word">This returns a copy of the <code>input.string</code> with the leading and/or trailing white-spaces omitted. In this scenario, the output is "AbCDefghiJ KLMN".</p>
 
-### unhex *<a target="_blank" href="https://wso2.github.io/siddhi/documentation/siddhi-4.0/#function">(Function)</a>*
+### unhex *<a target="_blank" href="http://siddhi.io/documentation/siddhi-5.x/query-guide-5.x/#function">(Function)</a>*
 
-<p style="word-wrap: break-word"><code>unhex(str)</code> interprets each pair of characters in the argument as a hexadecimal number<br>&nbsp;and converts it to the byte represented by the number</p>
+<p style="word-wrap: break-word">Returns a string by converting the hexadecimal characters in the input string.</p>
 
 <span id="syntax" class="md-typeset" style="display: block; font-weight: bold;">Syntax</span>
 ```
@@ -864,9 +908,9 @@ trim("  AbCDefghiJ KLMN  ")
 ```
 unhex("4d7953514c")
 ```
-<p style="word-wrap: break-word">This converts the hexadecimal value to string</p>
+<p style="word-wrap: break-word">This converts the hexadecimal value to string.</p>
 
-### upper *<a target="_blank" href="https://wso2.github.io/siddhi/documentation/siddhi-4.0/#function">(Function)</a>*
+### upper *<a target="_blank" href="http://siddhi.io/documentation/siddhi-5.x/query-guide-5.x/#function">(Function)</a>*
 
 <p style="word-wrap: break-word">Converts the simple letters in the input string to the equivalent capital/block letters.</p>
 
@@ -902,13 +946,13 @@ upper("Hello World")
 ```
 <p style="word-wrap: break-word">This converts the simple letters in the <code>input.string</code> to theequivalent capital letters. In this scenario, the output is "HELLO WORLD".</p>
 
-### tokenize *<a target="_blank" href="https://wso2.github.io/siddhi/documentation/siddhi-4.0/#stream-processor">(Stream Processor)</a>*
+### tokenize *<a target="_blank" href="http://siddhi.io/documentation/siddhi-5.x/query-guide-5.x/#stream-processor">(Stream Processor)</a>*
 
-<p style="word-wrap: break-word">This splits a string into words</p>
+<p style="word-wrap: break-word">This function splits the input string into tokens using a given regular expression and returns the split tokens.</p>
 
 <span id="syntax" class="md-typeset" style="display: block; font-weight: bold;">Syntax</span>
 ```
-str:tokenize(<STRING> input.string, <STRING> regex)
+str:tokenize(<STRING> input.string, <STRING> regex, <BOOL> distinct)
 ```
 
 <span id="query-parameters" class="md-typeset" style="display: block; color: rgba(0, 0, 0, 0.54); font-size: 12.8px; font-weight: bold;">QUERY PARAMETERS</span>
@@ -923,7 +967,7 @@ str:tokenize(<STRING> input.string, <STRING> regex)
     </tr>
     <tr>
         <td style="vertical-align: top">input.string</td>
-        <td style="vertical-align: top; word-wrap: break-word">The input text which should be split.</td>
+        <td style="vertical-align: top; word-wrap: break-word">The input string which needs to be split.</td>
         <td style="vertical-align: top"></td>
         <td style="vertical-align: top">STRING</td>
         <td style="vertical-align: top">No</td>
@@ -931,11 +975,32 @@ str:tokenize(<STRING> input.string, <STRING> regex)
     </tr>
     <tr>
         <td style="vertical-align: top">regex</td>
-        <td style="vertical-align: top; word-wrap: break-word">The string value to be used to tokenize the 'input.string'.</td>
+        <td style="vertical-align: top; word-wrap: break-word">The string value which is used to tokenize the 'input.string'.</td>
         <td style="vertical-align: top"></td>
         <td style="vertical-align: top">STRING</td>
         <td style="vertical-align: top">No</td>
         <td style="vertical-align: top">No</td>
+    </tr>
+    <tr>
+        <td style="vertical-align: top">distinct</td>
+        <td style="vertical-align: top; word-wrap: break-word">This flag is used to return only distinct values.</td>
+        <td style="vertical-align: top">false</td>
+        <td style="vertical-align: top">BOOL</td>
+        <td style="vertical-align: top">Yes</td>
+        <td style="vertical-align: top">No</td>
+    </tr>
+</table>
+<span id="extra-return-attributes" class="md-typeset" style="display: block; font-weight: bold;">Extra Return Attributes</span>
+<table>
+    <tr>
+        <th>Name</th>
+        <th style="min-width: 20em">Description</th>
+        <th>Possible Types</th>
+    </tr>
+    <tr>
+        <td style="vertical-align: top">token</td>
+        <td style="vertical-align: top; word-wrap: break-word">The attribute which contains a single token.</td>
+        <td style="vertical-align: top">STRING</td>
     </tr>
 </table>
 
@@ -944,9 +1009,9 @@ str:tokenize(<STRING> input.string, <STRING> regex)
 ```
 define stream inputStream (str string);
 @info(name = 'query1')
-from inputStream#str:tokenize(str , regex)
+from inputStream#str:tokenize(str , ',')
 select text
 insert into outputStream;
 ```
-<p style="word-wrap: break-word">This query performs tokenization for the given string.</p>
+<p style="word-wrap: break-word">This query performs tokenization on the given string. If the str is "Android,Windows8,iOS", then the string is split into 3 events containing the <code>token</code> attribute values, i.e., <code>Android</code>, <code>Windows8</code> and <code>iOS</code>.</p>
 
