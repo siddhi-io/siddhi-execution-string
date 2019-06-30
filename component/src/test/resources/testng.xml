@@ -20,26 +20,27 @@
 <suite name="Siddhi-Execution-String_Test-Suite">
     <test name="siddhi-execution-string-unit-tests" preserve-order="true" parallel="false">
         <classes>
-            <class name="org.wso2.extension.siddhi.execution.string.CharAtFunctionExtensionTestCase" />
-            <class name="org.wso2.extension.siddhi.execution.string.CoalesceFunctionExtensionTestCase" />
-            <class name="org.wso2.extension.siddhi.execution.string.ConcatFunctionExtensionTestCase" />
-            <class name="org.wso2.extension.siddhi.execution.string.ContainsFunctionExtensionTestCase" />
-            <class name="org.wso2.extension.siddhi.execution.string.EqualsIgnoreCaseFunctionExtensionTestCase" />
-            <class name="org.wso2.extension.siddhi.execution.string.HexFunctionExtensionTestCase" />
-            <class name="org.wso2.extension.siddhi.execution.string.LengthFunctionExtensionTestCase" />
-            <class name="org.wso2.extension.siddhi.execution.string.LowerFunctionExtensionTestCase" />
-            <class name="org.wso2.extension.siddhi.execution.string.RegexpFunctionExtensionTestCase" />
-            <class name="org.wso2.extension.siddhi.execution.string.RepeatFunctionExtensionTestCase" />
-            <class name="org.wso2.extension.siddhi.execution.string.ReplaceAllFunctionExtensionTestCase" />
-            <class name="org.wso2.extension.siddhi.execution.string.ReplaceFirstFunctionExtensionTestCase" />
-            <class name="org.wso2.extension.siddhi.execution.string.ReverseFunctionExtensionTestCase" />
-            <class name="org.wso2.extension.siddhi.execution.string.SplitFunctionExtensionTestCase" />
-            <class name="org.wso2.extension.siddhi.execution.string.StrcmpFunctionExtensionTestCase" />
-            <class name="org.wso2.extension.siddhi.execution.string.SubstrFunctionExtensionTestCase" />
-            <class name="org.wso2.extension.siddhi.execution.string.TokenizerStreamProcessorExtensionTestCase" />
-            <class name="org.wso2.extension.siddhi.execution.string.TrimFunctionExtensionTestCase" />
-            <class name="org.wso2.extension.siddhi.execution.string.UnhexFunctionExtensionTestCase" />
-            <class name="org.wso2.extension.siddhi.execution.string.UpperFunctionExtensionTestCase" />
+            <class name="io.siddhi.extension.execution.string.CharAtFunctionExtensionTestCase" />
+            <class name="io.siddhi.extension.execution.string.CoalesceFunctionExtensionTestCase" />
+            <class name="io.siddhi.extension.execution.string.ConcatFunctionExtensionTestCase" />
+            <class name="io.siddhi.extension.execution.string.ContainsFunctionExtensionTestCase" />
+            <class name="io.siddhi.extension.execution.string.EqualsIgnoreCaseFunctionExtensionTestCase" />
+            <class name="io.siddhi.extension.execution.string.HexFunctionExtensionTestCase" />
+            <class name="io.siddhi.extension.execution.string.LengthFunctionExtensionTestCase" />
+            <class name="io.siddhi.extension.execution.string.LowerFunctionExtensionTestCase" />
+            <class name="io.siddhi.extension.execution.string.RegexpFunctionExtensionTestCase" />
+            <class name="io.siddhi.extension.execution.string.RepeatFunctionExtensionTestCase" />
+            <class name="io.siddhi.extension.execution.string.ReplaceAllFunctionExtensionTestCase" />
+            <class name="io.siddhi.extension.execution.string.ReplaceFirstFunctionExtensionTestCase" />
+            <class name="io.siddhi.extension.execution.string.ReverseFunctionExtensionTestCase" />
+            <class name="io.siddhi.extension.execution.string.SplitFunctionExtensionTestCase" />
+            <class name="io.siddhi.extension.execution.string.StrcmpFunctionExtensionTestCase" />
+            <class name="io.siddhi.extension.execution.string.SubstrFunctionExtensionTestCase" />
+            <class name="io.siddhi.extension.execution.string.TokenizerStreamProcessorExtensionTestCase" />
+            <class name="io.siddhi.extension.execution.string.TrimFunctionExtensionTestCase" />
+            <class name="io.siddhi.extension.execution.string.UnhexFunctionExtensionTestCase" />
+            <class name="io.siddhi.extension.execution.string.UpperFunctionExtensionTestCase" />
+            <class name="io.siddhi.extension.execution.string.GroupConcatFunctionExtensionTestCase" />
         </classes>
     </test>
 </suite>

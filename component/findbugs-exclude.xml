@@ -17,11 +17,16 @@
 
 <FindBugsFilter>
     <Match>
-        <Class name="org.wso2.extension.siddhi.execution.string.LowerFunctionExtensionTestCase"/>
+        <Class name="io.siddhi.extension.execution.string.LowerFunctionExtensionTestCase"/>
         <Bug pattern="DM_CONVERT_CASE"/>
     </Match>
     <Match>
-        <Class name="org.wso2.extension.siddhi.execution.string.UpperFunctionExtension"/>
+        <Class name="io.siddhi.extension.execution.string.UpperFunctionExtension"/>
         <Bug pattern="DM_CONVERT_CASE"/>
+    </Match>
+    <Match>
+        <Class name="io.siddhi.extension.execution.string.GroupConcatFunctionExtension" />
+        <Method name="init" />
+        <Bug pattern="SF_SWITCH_FALLTHROUGH" />
     </Match>
 </FindBugsFilter>

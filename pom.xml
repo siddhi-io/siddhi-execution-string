@@ -25,9 +25,9 @@
         <version>5</version>
     </parent>
 
-    <groupId>org.wso2.extension.siddhi.execution.string</groupId>
+    <groupId>io.siddhi.extension.execution.string</groupId>
     <artifactId>siddhi-execution-string-parent</artifactId>
-    <version>4.0.13-SNAPSHOT</version>
+    <version>5.0.4-SNAPSHOT</version>
     <packaging>pom</packaging>
     <name>Siddhi Execution String Extension Parent</name>
     <url>http://wso2.org</url>
@@ -45,13 +45,14 @@
     </profiles>
 
     <properties>
-        <siddhi.version>4.1.38</siddhi.version>
+        <siddhi.version>5.0.0</siddhi.version>
         <log4j.version>1.2.17.wso2v1</log4j.version>
         <testng.version>6.11</testng.version>
         <jacoco.version>0.7.9</jacoco.version>
         <mavan.findbugsplugin.exclude.file>findbugs-exclude.xml</mavan.findbugsplugin.exclude.file>
         <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+        <siddhi.import.version.range>[5.0.0, 6.0.0)</siddhi.import.version.range>
     </properties>
 
     <scm>
@@ -65,12 +66,12 @@
     <dependencyManagement>
         <dependencies>
             <dependency>
-                <groupId>org.wso2.siddhi</groupId>
+                <groupId>io.siddhi</groupId>
                 <artifactId>siddhi-core</artifactId>
                 <version>${siddhi.version}</version>
             </dependency>
             <dependency>
-                <groupId>org.wso2.siddhi</groupId>
+                <groupId>io.siddhi</groupId>
                 <artifactId>siddhi-query-api</artifactId>
                 <version>${siddhi.version}</version>
             </dependency>
@@ -170,7 +171,7 @@
                 <plugin>
                     <groupId>org.apache.felix</groupId>
                     <artifactId>maven-bundle-plugin</artifactId>
-                    <version>2.3.5</version>
+                    <version>3.3.0</version>
                     <extensions>true</extensions>
                     <configuration>
                         <obrRepository>NONE</obrRepository>
