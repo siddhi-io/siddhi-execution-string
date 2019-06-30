@@ -20,6 +20,7 @@ package io.siddhi.extension.execution.string;
 import io.siddhi.annotation.Example;
 import io.siddhi.annotation.Extension;
 import io.siddhi.annotation.Parameter;
+import io.siddhi.annotation.ParameterOverload;
 import io.siddhi.annotation.ReturnAttribute;
 import io.siddhi.annotation.util.DataType;
 import io.siddhi.core.config.SiddhiQueryContext;
@@ -60,18 +61,25 @@ import static io.siddhi.query.api.definition.Attribute.Type.STRING;
         parameters = {
                 @Parameter(name = "key",
                         description = "The string that needs to be aggregated.",
-                        type = {DataType.STRING}),
+                        type = {DataType.STRING},
+                        dynamic = true),
                 @Parameter(name = "separator",
                         description = "The separator that separates each string key after concatenating the keys.",
-                        type = {DataType.STRING}, optional = true, defaultValue = ","),
+                        type = {DataType.STRING}, optional = true, defaultValue = ",", dynamic = true),
                 @Parameter(name = "distinct",
                         description = "This is used to only have distinct values in the concatenated " +
                                 "string that is returned.",
-                        type = {DataType.STRING}, optional = true, defaultValue = "false"),
+                        type = {DataType.BOOL}, optional = true, defaultValue = "false", dynamic = true),
                 @Parameter(name = "order",
                         description = "This parameter accepts 'ASC' or 'DESC' strings to sort the string keys " +
                                 "in either ascending or descending order respectively.",
-                        type = {DataType.STRING}, optional = true, defaultValue = "No order"),
+                        type = {DataType.STRING}, optional = true, defaultValue = "No order", dynamic = true),
+        },
+        parameterOverloads = {
+                @ParameterOverload(parameterNames = {"key"}),
+                @ParameterOverload(parameterNames = {"key", "..."}),
+                @ParameterOverload(parameterNames = {"key", "separator", "distinct"}),
+                @ParameterOverload(parameterNames = {"key", "separator", "distinct", "order"})
         },
         returnAttributes = @ReturnAttribute(
                 description = "This returns a string,with keys from multiple events concatenated and, " +
