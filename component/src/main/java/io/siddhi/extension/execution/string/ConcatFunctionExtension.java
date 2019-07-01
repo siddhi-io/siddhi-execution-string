@@ -48,13 +48,13 @@ import static io.siddhi.query.api.definition.Attribute.Type.STRING;
         description = "This function returns a string value that is obtained as a result of " +
                 "concatenating two or more input string values.",
         parameters = {
-                @Parameter(name = "argn",
+                @Parameter(name = "arg",
                         description = "This can have two or more `string` type input parameters.",
                         type = {DataType.STRING},
                         dynamic = true)
         },
         parameterOverloads = {
-                @ParameterOverload(parameterNames = {"argn", "..."})
+                @ParameterOverload(parameterNames = {"arg", "..."})
         },
         returnAttributes = @ReturnAttribute(
                 description = "This is the string that is returned on concatenating the given input arguments.",

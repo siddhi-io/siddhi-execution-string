@@ -66,19 +66,23 @@ import static io.siddhi.query.api.definition.Attribute.Type.STRING;
                 @Parameter(name = "begin.index",
                         description = "Starting index to consider for the substring.",
                         type = {DataType.INT},
-                        dynamic = true),
+                        dynamic = true,
+                        optional = true),
                 @Parameter(name = "length",
                         description = "The length of the substring.",
                         type = {DataType.INT},
-                        dynamic = true),
+                        dynamic = true,
+                        optional = true),
                 @Parameter(name = "regex",
                         description = "The regular expression that should be matched with the input string.",
                         type = {DataType.STRING},
-                        dynamic = true),
+                        dynamic = true,
+                        optional = true),
                 @Parameter(name = "group.number",
                         description = "The regex group number",
                         type = {DataType.INT},
-                        dynamic = true)
+                        dynamic = true,
+                        optional = true)
         },
         parameterOverloads = {
                 @ParameterOverload(parameterNames = {"input.string", "begin.index"}),
@@ -118,8 +122,8 @@ public class SubstrFunctionExtension extends FunctionExecutor {
 
     @Override
     protected StateFactory<State> init(ExpressionExecutor[] expressionExecutors,
-                                                ConfigReader configReader,
-                                                SiddhiQueryContext siddhiQueryContext) {
+                                       ConfigReader configReader,
+                                       SiddhiQueryContext siddhiQueryContext) {
         int executorsCount = expressionExecutors.length;
 
         ExpressionExecutor executor1 = expressionExecutors[0];
