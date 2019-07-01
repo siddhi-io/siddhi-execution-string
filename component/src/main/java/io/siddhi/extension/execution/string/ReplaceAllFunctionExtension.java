@@ -73,8 +73,7 @@ import static io.siddhi.query.api.definition.Attribute.Type.STRING;
         examples = @Example(
                 syntax = "replaceAll(\"hello hi hello\",  'hello', 'test')",
                 description = "This returns a string after replacing the substrings of the input string" +
-                " with the replacement string. In this scenario, the output is \"test hi test\" ."
-                )
+                        " with the replacement string. In this scenario, the output is \"test hi test\" .")
 )
 public class ReplaceAllFunctionExtension extends FunctionExecutor {
 
@@ -82,8 +81,8 @@ public class ReplaceAllFunctionExtension extends FunctionExecutor {
 
     @Override
     protected StateFactory<State> init(ExpressionExecutor[] expressionExecutors,
-                                                ConfigReader configReader,
-                                                SiddhiQueryContext siddhiQueryContext) {
+                                       ConfigReader configReader,
+                                       SiddhiQueryContext siddhiQueryContext) {
         int executorsCount = expressionExecutors.length;
 
         if (executorsCount != 3) {

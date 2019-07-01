@@ -46,7 +46,7 @@ import io.siddhi.query.api.exception.SiddhiAppValidationException;
         namespace = "str",
         description = " This returns the first input parameter value of the given argument, that is not null.",
         parameters = {
-                @Parameter(name = "argn",
+                @Parameter(name = "arg",
                         description = "It can have one or more input parameters in any data type." +
                                 " However, all the specified " +
                                 "parameters are required to be of the same type.",
@@ -55,7 +55,7 @@ import io.siddhi.query.api.exception.SiddhiAppValidationException;
                         dynamic = true)
         },
         parameterOverloads = {
-                @ParameterOverload(parameterNames = {"argn", "..."})
+                @ParameterOverload(parameterNames = {"arg", "..."})
         },
         returnAttributes = @ReturnAttribute(
                 description = "This holds the first input parameter that is not null.",

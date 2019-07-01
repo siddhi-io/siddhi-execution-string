@@ -4,8 +4,8 @@ Siddhi Execution String
   [![Jenkins Build Status](https://wso2.org/jenkins/job/siddhi/job/siddhi-execution-string/badge/icon)](https://wso2.org/jenkins/job/siddhi/job/siddhi-execution-string/)
   [![GitHub (pre-)Release](https://img.shields.io/github/release/siddhi-io/siddhi-execution-string/all.svg)](https://github.com/siddhi-io/siddhi-execution-string/releases)
   [![GitHub (Pre-)Release Date](https://img.shields.io/github/release-date-pre/siddhi-io/siddhi-execution-string.svg)](https://github.com/siddhi-io/siddhi-execution-string/releases)
-  [![GitHub Open Issues](https://img.shields.io/github/issues-raw/siddhi-io/siddhi-execution-string.svg)](https://github.com/siddhi-io/siddhi-execution-string/commits/master)
-  [![GitHub Last Commit](https://img.shields.io/github/last-commit/siddhi-io/siddhi-execution-string.svg)](https://github.com/siddhi-io/siddhi-execution-string/issues)
+  [![GitHub Open Issues](https://img.shields.io/github/issues-raw/siddhi-io/siddhi-execution-string.svg)](https://github.com/siddhi-io/siddhi-execution-string/issues)
+  [![GitHub Last Commit](https://img.shields.io/github/last-commit/siddhi-io/siddhi-execution-string.svg)](https://github.com/siddhi-io/siddhi-execution-string/commits/master)
   [![License](https://img.shields.io/badge/License-Apache%202.0-blue.svg)](https://opensource.org/licenses/Apache-2.0)
 
 The **siddhi-execution-string extension** is a <a target="_blank" href="https://siddhi.io/">Siddhi</a> extension that provides basic string handling capabilities such as concat, length, replace all, etc.
