@@ -27,7 +27,7 @@
 
     <artifactId>siddhi-execution-string</artifactId>
     <packaging>bundle</packaging>
-    <name>WSO2 Siddhi Execution String Extension</name>
+    <name>Siddhi Execution String Extension</name>
     <url>http://wso2.org</url>
 
     <dependencies>
