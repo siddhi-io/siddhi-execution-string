@@ -41,6 +41,7 @@
             <class name="io.siddhi.extension.execution.string.UnhexFunctionExtensionTestCase" />
             <class name="io.siddhi.extension.execution.string.UpperFunctionExtensionTestCase" />
             <class name="io.siddhi.extension.execution.string.GroupConcatFunctionExtensionTestCase" />
+            <class name="io.siddhi.extension.execution.string.FillTemplateFunctionExtensionTestCase" />
         </classes>
     </test>
 </suite>

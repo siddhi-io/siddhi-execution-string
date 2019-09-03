@@ -53,6 +53,7 @@
         <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <siddhi.import.version.range>[5.0.0, 6.0.0)</siddhi.import.version.range>
+        <siddhi-extension-map.version>5.0.4</siddhi-extension-map.version>
     </properties>
 
     <scm>
@@ -74,6 +75,12 @@
                 <groupId>io.siddhi</groupId>
                 <artifactId>siddhi-query-api</artifactId>
                 <version>${siddhi.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>io.siddhi.extension.execution.map</groupId>
+                <artifactId>siddhi-execution-map</artifactId>
+                <version>${siddhi-extension-map.version}</version>
+                <scope>test</scope>
             </dependency>
             <dependency>
                 <groupId>org.apache.log4j.wso2</groupId>
