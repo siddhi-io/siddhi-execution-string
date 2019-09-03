@@ -25,6 +25,7 @@ import io.siddhi.core.exception.SiddhiAppCreationException;
 import io.siddhi.core.query.output.callback.QueryCallback;
 import io.siddhi.core.stream.input.InputHandler;
 import io.siddhi.core.util.EventPrinter;
+import io.siddhi.extension.execution.map.CreateFunctionExtension;
 import io.siddhi.extension.execution.string.test.util.SiddhiTestHelper;
 import org.apache.log4j.Logger;
 import org.testng.AssertJUnit;
@@ -48,14 +49,17 @@ public class FillTemplateFunctionExtensionTestCase {
     public void testFillTemplate1() throws InterruptedException {
         LOGGER.info("FillTemplateFunctionExtension TestCase, where the arguments are valid strings");
         SiddhiManager siddhiManager = new SiddhiManager();
+        siddhiManager.setExtension("map:create", CreateFunctionExtension.class);
 
         String inStreamDefinition = "define stream inputStream (template string, symbol string, volume string, " +
                 "price string);";
 
-        String template = "The stock price of {{1}}. Volume of {{1}} is {{3}} and the stock price is {{2}}";
+        String template = "The stock price of {{symbol}}. Volume of {{symbol}} is " +
+                "{{volume}} and the stock price is {{price}}";
         String query = (
                 "@info(name = 'query1') from inputStream select " +
-                        "str:fillTemplate(template, symbol, price, volume) as msg " +
+                        "str:fillTemplate(template, " +
+                        "map:create('symbol', symbol, 'volume', volume, 'price', price)) as msg " +
                         "insert into outputStream;"
         );
 
@@ -103,13 +107,16 @@ public class FillTemplateFunctionExtensionTestCase {
         LOGGER.info("FillTemplateFunctionExtension TestCase, where the arguments are valid strings");
         SiddhiManager siddhiManager = new SiddhiManager();
 
+        siddhiManager.setExtension("map:create", CreateFunctionExtension.class);
+
         String inStreamDefinition = "define stream inputStream (template string, symbol string, volume long, " +
                 "price float);";
-
-        String template = "The stock price of {{1}}. Volume of {{1}} is {{3}} and the stock price is {{2}}";
+        String template = "The stock price of {{symbol}}. Volume of {{symbol}} is " +
+                "{{volume}} and the stock price is {{price}}";
         String query = (
                 "@info(name = 'query1') from inputStream select " +
-                        "str:fillTemplate(template, symbol, price, volume) as msg " +
+                        "str:fillTemplate(template, " +
+                        "map:create('symbol', symbol, 'volume', volume, 'price', price)) as msg " +
                         "insert into outputStream;"
         );
 
@@ -122,7 +129,8 @@ public class FillTemplateFunctionExtensionTestCase {
                 for (Event event : inEvents) {
                     count.incrementAndGet();
                     if (count.get() == 1) {
-                        AssertJUnit.assertEquals("The stock price of WSO2. Volume of WSO2 is 100 and the stock price " +
+                        AssertJUnit.assertEquals("The stock price of WSO2. Volume of " +
+                                "WSO2 is 100 and the stock price " +
                                 "is " + "111.11", event.getData(0));
                         eventArrived = true;
                     }
@@ -171,21 +179,20 @@ public class FillTemplateFunctionExtensionTestCase {
         siddhiAppRuntime.shutdown();
     }
 
-    @Test
+    @Test(expectedExceptions = SiddhiAppCreationException.class)
     public void testFillTemplate4() throws InterruptedException {
-        LOGGER.info("FillTemplateFunctionExtension TestCase, indexes in template are invalid");
+        LOGGER.info("FillTemplateFunctionExtension TestCase, the arguments types are invalid");
         SiddhiManager siddhiManager = new SiddhiManager();
 
         String inStreamDefinition = "define stream inputStream (template string, symbol string, volume string, " +
                 "price string);";
-
+        String template = "The stock price of {{symbol}}. Volume of {{symbol}} is " +
+                "{{volume}} and the stock price is {{price}}";
         String query = (
                 "@info(name = 'query1') from inputStream select " +
-                        "str:fillTemplate(template, symbol, price, volume) as msg " +
+                        "str:fillTemplate(template, symbol) as msg " +
                         "insert into outputStream;"
         );
-
-        String template = "The stock price of {{1}}. Volume of {{1}} is {{4}} and the stock price is {{2}}";
 
         SiddhiAppRuntime siddhiAppRuntime = siddhiManager.createSiddhiAppRuntime(inStreamDefinition + query);
         InputHandler inputHandler = siddhiAppRuntime.getInputHandler("inputStream");

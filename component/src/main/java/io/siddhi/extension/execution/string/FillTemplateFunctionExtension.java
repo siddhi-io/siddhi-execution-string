@@ -34,9 +34,12 @@ import io.siddhi.core.util.snapshot.state.StateFactory;
 import io.siddhi.query.api.definition.Attribute;
 import io.siddhi.query.api.exception.SiddhiAppValidationException;
 
+import java.util.HashMap;
+import java.util.Map;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+import static io.siddhi.query.api.definition.Attribute.Type.OBJECT;
 import static io.siddhi.query.api.definition.Attribute.Type.STRING;
 
 /**
@@ -49,49 +52,45 @@ import static io.siddhi.query.api.definition.Attribute.Type.STRING;
 @Extension(
         name = "fillTemplate",
         namespace = "str",
-        description = "This extension replaces the templated positions that are marked with an index value in a" +
-                " specified template with the strings provided.",
+        description = "This extension replaces the templated positions that are marked as " +
+                "{{KEY}} from a VALUE. This VALUE retrieved from the given map object. " +
+                "The VALUE corresponding to the KEY in the given map.",
         parameters = {
                 @Parameter(name = "template",
                         description = "The string with templated fields that needs to be filled with the given " +
                                 "strings. The format of the templated fields should be as follows:\n" +
-                                "{{INDEX}} where 'INDEX' is an integer. \n" +
-                                "This index is used to map the strings that are used to replace the templated fields.",
+                                "{{KEY}} where 'KEY' is a STRING. \n" +
+                                "This KEY is used to map the strings that are given in the map object.",
                         type = {DataType.STRING},
                         dynamic = true),
-                @Parameter(name = "replacement.string",
-                        description = "The strings with which the templated positions in the template need to be" +
-                                " replaced.\n" +
-                                "The minimum of two arguments need to be included in the execution string. There is" +
-                                " no upper limit on the number of arguments allowed to be included.",
-                        type = {DataType.STRING, DataType.INT, DataType.LONG, DataType.DOUBLE,
-                                DataType.FLOAT, DataType.BOOL},
+                @Parameter(name = "replacement.map",
+                        description = "A map with key-value pairs to be replaced.",
+                        type = {DataType.OBJECT},
                         dynamic = true),
         },
         parameterOverloads = {
-                @ParameterOverload(parameterNames = {"template", "replacement.string", "..."})
+                @ParameterOverload(parameterNames = {"template", "replacement.map"})
         },
         returnAttributes =
-            @ReturnAttribute(
+        @ReturnAttribute(
                 description = "The string that is returned after the templated positions are filled with the given" +
                         " values.",
                 type = DataType.STRING),
         examples =
-            @Example(
-                    syntax = "str:fillTemplate(\"This is {{1}} for the {{2}} function\", " +
-                            "'an example', 'fillTemplate')",
-                    description = "" +
-                        "In this example, the template is 'This is {{1}} for the {{2}} function'." +
-                        "Here, the templated string {{1}} is replaced with the 1st " +
-                        "string value provided, which is 'an example'.\n" +
-                        "{{2}} is replaced with the 2nd string provided, which is 'fillTemplate'\n" +
-                        "The complete return string is 'This is an example for the fillTemplate function'.")
+        @Example(
+                syntax = "str:map(\"{{prize}} > 100 && {{salary}} < 10000\", " +
+                        "map:create('prize', 300, 'salary', 10000))",
+                description = "" +
+                        "In this example, the template is '{{prize}} > 100'." +
+                        "Here, the templated string {{prize}} is replaced with the value corresponding " +
+                        "to the 'prize' key in the given map.\n" +
+                        "Likewise salary replace with the salary value of the map")
 )
 public class FillTemplateFunctionExtension extends FunctionExecutor {
 
-    private Pattern indexPattern = Pattern.compile("\\d+");
+    private Pattern indexPattern = Pattern.compile("\\w+");
 
-    private Pattern templatePattern = Pattern.compile("(\\{\\{\\d+}})");
+    private Pattern templatePattern = Pattern.compile("(\\{\\{\\w+}})");
 
     @Override
     protected StateFactory<State> init(ExpressionExecutor[] expressionExecutors,
@@ -99,15 +98,22 @@ public class FillTemplateFunctionExtension extends FunctionExecutor {
                                                 SiddhiQueryContext siddhiQueryContext) {
         int executorsCount = expressionExecutors.length;
 
-        if (executorsCount <= 1) {
+        if (executorsCount != 2) {
             throw new SiddhiAppValidationException("Invalid number of arguments passed to "
-                    + "str:fillTemplate() function. Required at least 2, but found " + executorsCount);
+                    + "str:map() function. Required exactly 2, but found " + executorsCount);
         }
         ExpressionExecutor executor1 = expressionExecutors[0];
+        ExpressionExecutor executor2 = expressionExecutors[1];
 
         if (executor1.getReturnType() != STRING) {
             throw new SiddhiAppValidationException("Invalid parameter type found for the first argument of "
-                    + "str:fillTemplate() function, required " + STRING.toString() + ", but found "
+                    + "str:map() function, required " + STRING.toString() + ", but found "
+                    + executor1.getReturnType().toString());
+
+        }
+        if (executor2.getReturnType() != OBJECT) {
+            throw new SiddhiAppValidationException("Invalid parameter type found for the first argument of "
+                    + "str:map() function, required " + OBJECT.toString() + ", but found "
                     + executor1.getReturnType().toString());
 
         }
@@ -118,21 +124,27 @@ public class FillTemplateFunctionExtension extends FunctionExecutor {
     @Override
     protected Object execute(Object[] objects, State state) {
         String sourceString = (String) objects[0];
+        Map<String, Object> valueMap = null;
+        if (objects[1] instanceof HashMap) {
+            valueMap = (HashMap<String, Object>) objects[1];
+        }
         Matcher templateMatcher = templatePattern.matcher(sourceString);
         String match;
         Matcher indexMatcher;
-        int index;
+        String key = "";
         while (templateMatcher.find()) {
             match = templateMatcher.group(0);
             indexMatcher = indexPattern.matcher(match);
             if (indexMatcher.find()) {
-                index = Integer.parseInt(indexMatcher.group(0));
-                if (index < 1 || index >= objects.length) {
-                    throw new SiddhiAppRuntimeException("Index given for template elements "
-                            + "should be greater than 0 and less than '" + objects.length + "'. But found "
-                            + index + " in" + " the template '" + sourceString + "'.");
+                key = indexMatcher.group(0);
+                if (key == null || key.equals("")) {
+                    throw new SiddhiAppRuntimeException("Key given for template elements "
+                            + "should be greater not null or empty. But found "
+                            + " in" + " the template '" + sourceString + "'.");
                 }
-                sourceString = sourceString.replace(match, objects[index].toString());
+                if (valueMap != null && valueMap.get(key) != null) {
+                    sourceString = sourceString.replace(match, valueMap.get(key).toString());
+                }
             }
         }
         return sourceString;

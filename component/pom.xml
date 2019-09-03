@@ -48,6 +48,11 @@
             <artifactId>testng</artifactId>
             <scope>test</scope>
         </dependency>
+        <dependency>
+            <groupId>io.siddhi.extension.execution.map</groupId>
+            <artifactId>siddhi-execution-map</artifactId>
+            <scope>test</scope>
+        </dependency>
     </dependencies>
     <profiles>
         <profile>
