@@ -78,7 +78,7 @@ import static io.siddhi.query.api.definition.Attribute.Type.STRING;
                 type = DataType.STRING),
         examples =
         @Example(
-                syntax = "str:map(\"{{prize}} > 100 && {{salary}} < 10000\", " +
+                syntax = "str:fillTemplate(\"{{prize}} > 100 && {{salary}} < 10000\", " +
                         "map:create('prize', 300, 'salary', 10000))",
                 description = "" +
                         "In this example, the template is '{{prize}} > 100'." +
@@ -100,20 +100,20 @@ public class FillTemplateFunctionExtension extends FunctionExecutor {
 
         if (executorsCount != 2) {
             throw new SiddhiAppValidationException("Invalid number of arguments passed to "
-                    + "str:map() function. Required exactly 2, but found " + executorsCount);
+                    + "str:fillTemplate() function. Required exactly 2, but found " + executorsCount);
         }
         ExpressionExecutor executor1 = expressionExecutors[0];
         ExpressionExecutor executor2 = expressionExecutors[1];
 
         if (executor1.getReturnType() != STRING) {
             throw new SiddhiAppValidationException("Invalid parameter type found for the first argument of "
-                    + "str:map() function, required " + STRING.toString() + ", but found "
+                    + "str:fillTemplate() function, required " + STRING.toString() + ", but found "
                     + executor1.getReturnType().toString());
 
         }
         if (executor2.getReturnType() != OBJECT) {
             throw new SiddhiAppValidationException("Invalid parameter type found for the first argument of "
-                    + "str:map() function, required " + OBJECT.toString() + ", but found "
+                    + "str:fillTemplate() function, required " + OBJECT.toString() + ", but found "
                     + executor1.getReturnType().toString());
 
         }
