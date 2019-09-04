@@ -43,9 +43,9 @@ import static io.siddhi.query.api.definition.Attribute.Type.OBJECT;
 import static io.siddhi.query.api.definition.Attribute.Type.STRING;
 
 /**
- * replaceAll(string, regex, replacement)
+ * fillTemplate(string, replacement)
  * Replaces each substring of this string that matches the given expression with the given replacement.
- * Accept Type(s): (STRING,STRING,STRING)
+ * Accept Type(s): (STRING,STRING,STRING) or (STRING,OBJECT)
  * Return Type(s): STRING
  */
 
@@ -63,13 +63,14 @@ import static io.siddhi.query.api.definition.Attribute.Type.STRING;
                                 "This KEY is used to map the strings that are given in the map object.",
                         type = {DataType.STRING},
                         dynamic = true),
-                @Parameter(name = "replacement.map",
+                @Parameter(name = "replacement",
                         description = "A map with key-value pairs to be replaced.",
-                        type = {DataType.OBJECT},
+                        type = {DataType.OBJECT, DataType.STRING, DataType.INT, DataType.LONG, DataType.DOUBLE,
+                                DataType.FLOAT, DataType.BOOL},
                         dynamic = true),
         },
         parameterOverloads = {
-                @ParameterOverload(parameterNames = {"template", "replacement.map"})
+                @ParameterOverload(parameterNames = {"template", "replacement", "..."})
         },
         returnAttributes =
         @ReturnAttribute(
@@ -89,7 +90,6 @@ import static io.siddhi.query.api.definition.Attribute.Type.STRING;
 public class FillTemplateFunctionExtension extends FunctionExecutor {
 
     private Pattern indexPattern = Pattern.compile("\\w+");
-
     private Pattern templatePattern = Pattern.compile("(\\{\\{\\w+}})");
 
     @Override
@@ -98,9 +98,9 @@ public class FillTemplateFunctionExtension extends FunctionExecutor {
                                                 SiddhiQueryContext siddhiQueryContext) {
         int executorsCount = expressionExecutors.length;
 
-        if (executorsCount != 2) {
+        if (executorsCount < 2) {
             throw new SiddhiAppValidationException("Invalid number of arguments passed to "
-                    + "str:fillTemplate() function. Required exactly 2, but found " + executorsCount);
+                    + "str:fillTemplate() function. Required at least 2, but found " + executorsCount);
         }
         ExpressionExecutor executor1 = expressionExecutors[0];
         ExpressionExecutor executor2 = expressionExecutors[1];
@@ -111,10 +111,10 @@ public class FillTemplateFunctionExtension extends FunctionExecutor {
                     + executor1.getReturnType().toString());
 
         }
-        if (executor2.getReturnType() != OBJECT) {
-            throw new SiddhiAppValidationException("Invalid parameter type found for the first argument of "
-                    + "str:fillTemplate() function, required " + OBJECT.toString() + ", but found "
-                    + executor1.getReturnType().toString());
+        if (executor2.getReturnType() == OBJECT && executorsCount > 2) {
+            throw new SiddhiAppValidationException("Invalid parameter type found for the second argument of "
+                    + "str:fillTemplate() function, only allowed str:fillTemplate(STRING, MAP) or " +
+                    "str:fillTemplate(STRING, STRING, ...) formats.");
 
         }
 
@@ -125,28 +125,44 @@ public class FillTemplateFunctionExtension extends FunctionExecutor {
     protected Object execute(Object[] objects, State state) {
         String sourceString = (String) objects[0];
         Map<String, Object> valueMap = null;
-        if (objects[1] instanceof HashMap) {
-            valueMap = (HashMap<String, Object>) objects[1];
-        }
         Matcher templateMatcher = templatePattern.matcher(sourceString);
         String match;
         Matcher indexMatcher;
-        String key = "";
-        while (templateMatcher.find()) {
-            match = templateMatcher.group(0);
-            indexMatcher = indexPattern.matcher(match);
-            if (indexMatcher.find()) {
-                key = indexMatcher.group(0);
-                if (key == null || key.equals("")) {
-                    throw new SiddhiAppRuntimeException("Key given for template elements "
-                            + "should be greater not null or empty. But found "
-                            + " in" + " the template '" + sourceString + "'.");
+        if (objects[1] instanceof HashMap) {
+            valueMap = (HashMap<String, Object>) objects[1];
+            String key = "";
+            while (templateMatcher.find()) {
+                match = templateMatcher.group(0);
+                indexMatcher = indexPattern.matcher(match);
+                if (indexMatcher.find()) {
+                    key = indexMatcher.group(0);
+                    if (key == null || key.equals("")) {
+                        throw new SiddhiAppRuntimeException("Key given for template elements "
+                                + "should be greater not null or empty. But found "
+                                + " in" + " the template '" + sourceString + "'.");
+                    }
+                    if (valueMap.get(key) != null) {
+                        sourceString = sourceString.replace(match, valueMap.get(key).toString());
+                    }
                 }
-                if (valueMap != null && valueMap.get(key) != null) {
-                    sourceString = sourceString.replace(match, valueMap.get(key).toString());
+            }
+        } else {
+            int index;
+            while (templateMatcher.find()) {
+                match = templateMatcher.group(0);
+                indexMatcher = indexPattern.matcher(match);
+                if (indexMatcher.find()) {
+                    index = Integer.parseInt(indexMatcher.group(0));
+                    if (index < 1 || index >= objects.length) {
+                        throw new SiddhiAppRuntimeException("Index given for template elements "
+                                + "should be greater than 0 and less than '" + objects.length + "'. But found "
+                                + index + " in" + " the template '" + sourceString + "'.");
+                    }
+                    sourceString = sourceString.replace(match, objects[index].toString());
                 }
             }
         }
+
         return sourceString;
     }
 
