@@ -309,4 +309,27 @@ public class FillTemplateFunctionExtensionTestCase {
         inputHandler.send(new Object[]{template, "WSO2", "100", "111.11"});
         siddhiAppRuntime.shutdown();
     }
+
+    @Test
+    public void testFillTemplate7() throws InterruptedException {
+        LOGGER.info("FillTemplateFunctionExtension TestCase, indexes in template are invalid");
+        SiddhiManager siddhiManager = new SiddhiManager();
+
+        String inStreamDefinition = "define stream inputStream (template string, symbol string, volume string, " +
+                "price string);";
+
+        String query = (
+                "@info(name = 'query1') from inputStream select " +
+                        "str:fillTemplate(template, symbol, price, volume) as msg " +
+                        "insert into outputStream;"
+        );
+
+        String template = "The stock price of {{1}}. Volume of {{1}} is {{4}} and the stock price is {{2}}";
+
+        SiddhiAppRuntime siddhiAppRuntime = siddhiManager.createSiddhiAppRuntime(inStreamDefinition + query);
+        InputHandler inputHandler = siddhiAppRuntime.getInputHandler("inputStream");
+        siddhiAppRuntime.start();
+        inputHandler.send(new Object[]{template, "WSO2", "100", "111.11"});
+        siddhiAppRuntime.shutdown();
+    }
 }
