@@ -42,7 +42,7 @@ import static io.siddhi.query.api.definition.Attribute.Type.STRING;
 /**
  * fillTemplate(string, replacement)
  * Replaces each substring of this string that matches the given expression with the given replacement.
- * Accept Type(s): (STRING,STRING/INT/LONG/FLOAT/DOUBLE/BOOL,STRING/INT/LONG/FLOAT/DOUBLE/BOOL ...)
+ * Accept Type(s): (STRING,STRING|INT|LONG|FLOAT|DOUBLE|BOOL,STRING|INT|LONG|FLOAT|DOUBLE|BOOL, ...)
  * or (STRING,OBJECT)
  * Return Type(s): STRING
  */
@@ -62,8 +62,8 @@ import static io.siddhi.query.api.definition.Attribute.Type.STRING;
                         type = {DataType.STRING},
                         dynamic = true),
                 @Parameter(name = "replacement.type",
-                        description = "A map with key-value pairs to be replaced or set of values.",
-                        type = {DataType.OBJECT, DataType.STRING, DataType.INT, DataType.LONG, DataType.DOUBLE,
+                        description = "A set of arguments with any type string|int|long|double|float|bool.",
+                        type = {DataType.STRING, DataType.INT, DataType.LONG, DataType.DOUBLE,
                                 DataType.FLOAT, DataType.BOOL},
                         dynamic = true,
                         optional = true,
@@ -111,7 +111,8 @@ import static io.siddhi.query.api.definition.Attribute.Type.STRING;
 public class FillTemplateFunctionExtension extends FunctionExecutor {
 
     private boolean isTemplateConstant = false;
-    private String[] constantSplitTemplate;
+    private String[] templateSplitArray;
+    private static final String SPLIT_TEMPLATE = "\\{\\{|}}";
 
     @Override
     protected StateFactory<State> init(ExpressionExecutor[] expressionExecutors,
@@ -124,16 +125,15 @@ public class FillTemplateFunctionExtension extends FunctionExecutor {
                     + "str:fillTemplate() function. Required at least 2, but found " + executorsCount);
         } else {
             if (expressionExecutors[0].getReturnType() != STRING) {
-                if (attributeExpressionExecutors[0] instanceof ConstantExpressionExecutor) {
-                    isTemplateConstant = true;
-                    ConstantExpressionExecutor constantExpressionExecutor =
-                            (ConstantExpressionExecutor) attributeExpressionExecutors[0];
-                    String constantTemplate = String.valueOf(constantExpressionExecutor.getValue());
-                    constantSplitTemplate = constantTemplate.split("\\{\\{");
-                }
                 throw new SiddhiAppValidationException("Invalid parameter type found for the first argument of "
                         + "str:fillTemplate() function, required " + STRING.toString() + ", but found "
                         + expressionExecutors[0].getReturnType().toString());
+            } else if (attributeExpressionExecutors[0] instanceof ConstantExpressionExecutor) {
+                isTemplateConstant = true;
+                ConstantExpressionExecutor constantExpressionExecutor =
+                        (ConstantExpressionExecutor) attributeExpressionExecutors[0];
+                String constantTemplate = String.valueOf(constantExpressionExecutor.getValue());
+                templateSplitArray = constantTemplate.split(SPLIT_TEMPLATE);
             }
             if (expressionExecutors[1].getReturnType() == OBJECT && executorsCount > 2) {
                 throw new SiddhiAppValidationException("Invalid parameter type found for the second argument of "
@@ -147,31 +147,49 @@ public class FillTemplateFunctionExtension extends FunctionExecutor {
     @Override
     protected Object execute(Object[] objects, State state) {
         String sourceString = (String) objects[0];
+        int index;
+        String key;
+        StringBuilder stringBuilder = new StringBuilder();
         if (isTemplateConstant) {
-            for (int i = 0; i < constantSplitTemplate.length; i++) {
-                for (int j = 1; j < objects.length; j++) {
-                    String keyEntry = i + "}}";
-                    if (constantSplitTemplate[i].trim().equals(keyEntry)) {
-                        constantSplitTemplate[i] = String.valueOf(objects[j]);
-                        break;
+            if (objects[1] instanceof Map) {
+                Map<String, Object> valueMap = (Map<String, Object>) objects[1];
+                for (int i = 1; i < templateSplitArray.length; i = i + 2) {
+                    key = templateSplitArray[i].trim();
+                    if (valueMap.get(key) != null) {
+                        templateSplitArray[i] = String.valueOf(valueMap.get(key));
+                    }
+                }
+            } else {
+                for (int i = 1; i < templateSplitArray.length; i = i + 2) {
+                    index = Integer.parseInt(templateSplitArray[i].trim());
+                    if (objects[index] != null) {
+                        templateSplitArray[i] = String.valueOf(objects[index]);
                     }
                 }
             }
         } else {
+            templateSplitArray = sourceString.split(SPLIT_TEMPLATE);
             if (objects[1] instanceof Map) {
                 Map<String, Object> valueMap = (Map<String, Object>) objects[1];
-                for (Map.Entry<String, Object> entry : valueMap.entrySet()) {
-                    String keyEntry = "\\{\\{" + entry.getKey() + "}}";
-                    sourceString = sourceString.replaceAll(keyEntry, String.valueOf(entry.getValue()));
+                for (int i = 1; i < templateSplitArray.length; i = i + 2) {
+                    key = templateSplitArray[i].trim();
+                    if (valueMap.get(key) != null) {
+                        templateSplitArray[i] = String.valueOf(valueMap.get(key));
+                    }
                 }
             } else {
-                for (int i = 1; i < objects.length; i++) {
-                    String keyEntry = "\\{\\{" + i + "}}";
-                    sourceString = sourceString.replaceAll(keyEntry, String.valueOf(objects[i]));
+                for (int i = 1; i < templateSplitArray.length; i = i + 2) {
+                    index = Integer.parseInt(templateSplitArray[i].trim());
+                    if (objects[index] != null) {
+                        templateSplitArray[i] = String.valueOf(objects[index]);
+                    }
                 }
             }
         }
-        return sourceString;
+        for (String s: templateSplitArray) {
+            stringBuilder.append(s);
+        }
+        return stringBuilder.toString();
     }
 
     @Override
