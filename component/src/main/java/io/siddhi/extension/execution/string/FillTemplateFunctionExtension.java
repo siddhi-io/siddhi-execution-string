@@ -150,39 +150,22 @@ public class FillTemplateFunctionExtension extends FunctionExecutor {
         int index;
         String key;
         StringBuilder stringBuilder = new StringBuilder();
-        if (isTemplateConstant) {
-            if (objects[1] instanceof Map) {
-                Map<String, Object> valueMap = (Map<String, Object>) objects[1];
-                for (int i = 1; i < templateSplitArray.length; i = i + 2) {
-                    key = templateSplitArray[i].trim();
-                    if (valueMap.get(key) != null) {
-                        templateSplitArray[i] = String.valueOf(valueMap.get(key));
-                    }
-                }
-            } else {
-                for (int i = 1; i < templateSplitArray.length; i = i + 2) {
-                    index = Integer.parseInt(templateSplitArray[i].trim());
-                    if (objects[index] != null) {
-                        templateSplitArray[i] = String.valueOf(objects[index]);
-                    }
+        if (!isTemplateConstant) {
+            templateSplitArray = sourceString.split(SPLIT_TEMPLATE);
+        }
+        if (objects[1] instanceof Map) {
+            Map<String, Object> valueMap = (Map<String, Object>) objects[1];
+            for (int i = 1; i < templateSplitArray.length; i = i + 2) {
+                key = templateSplitArray[i].trim();
+                if (valueMap.get(key) != null) {
+                    templateSplitArray[i] = String.valueOf(valueMap.get(key));
                 }
             }
         } else {
-            templateSplitArray = sourceString.split(SPLIT_TEMPLATE);
-            if (objects[1] instanceof Map) {
-                Map<String, Object> valueMap = (Map<String, Object>) objects[1];
-                for (int i = 1; i < templateSplitArray.length; i = i + 2) {
-                    key = templateSplitArray[i].trim();
-                    if (valueMap.get(key) != null) {
-                        templateSplitArray[i] = String.valueOf(valueMap.get(key));
-                    }
-                }
-            } else {
-                for (int i = 1; i < templateSplitArray.length; i = i + 2) {
-                    index = Integer.parseInt(templateSplitArray[i].trim());
-                    if (objects[index] != null) {
-                        templateSplitArray[i] = String.valueOf(objects[index]);
-                    }
+            for (int i = 1; i < templateSplitArray.length; i = i + 2) {
+                index = Integer.parseInt(templateSplitArray[i].trim());
+                if (objects[index] != null) {
+                    templateSplitArray[i] = String.valueOf(objects[index]);
                 }
             }
         }
