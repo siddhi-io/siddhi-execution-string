@@ -25,7 +25,7 @@ import io.siddhi.annotation.ParameterOverload;
 import io.siddhi.annotation.ReturnAttribute;
 import io.siddhi.annotation.util.DataType;
 import io.siddhi.core.config.SiddhiQueryContext;
-import io.siddhi.core.exception.SiddhiAppRuntimeException;
+import io.siddhi.core.executor.ConstantExpressionExecutor;
 import io.siddhi.core.executor.ExpressionExecutor;
 import io.siddhi.core.executor.function.FunctionExecutor;
 import io.siddhi.core.util.config.ConfigReader;
@@ -34,64 +34,85 @@ import io.siddhi.core.util.snapshot.state.StateFactory;
 import io.siddhi.query.api.definition.Attribute;
 import io.siddhi.query.api.exception.SiddhiAppValidationException;
 
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
+import java.util.Map;
 
+import static io.siddhi.query.api.definition.Attribute.Type.OBJECT;
 import static io.siddhi.query.api.definition.Attribute.Type.STRING;
 
 /**
- * replaceAll(string, regex, replacement)
+ * fillTemplate(string, replacement)
  * Replaces each substring of this string that matches the given expression with the given replacement.
- * Accept Type(s): (STRING,STRING,STRING)
+ * Accept Type(s): (STRING,STRING|INT|LONG|FLOAT|DOUBLE|BOOL,STRING|INT|LONG|FLOAT|DOUBLE|BOOL, ...)
+ * or (STRING,OBJECT)
  * Return Type(s): STRING
  */
 
 @Extension(
         name = "fillTemplate",
         namespace = "str",
-        description = "This extension replaces the templated positions that are marked with an index value in a" +
-                " specified template with the strings provided.",
+        description = "fillTemplate(string, map) will replace all the keys in the string using values in the map. " +
+                "fillTemplate(string, r1, r2 ..) replace all the entries {{1}}, {{2}}, {{3}} with r1 , r2, r3.",
         parameters = {
                 @Parameter(name = "template",
                         description = "The string with templated fields that needs to be filled with the given " +
                                 "strings. The format of the templated fields should be as follows:\n" +
-                                "{{INDEX}} where 'INDEX' is an integer. \n" +
-                                "This index is used to map the strings that are used to replace the templated fields.",
+                                "{{KEY}} where 'KEY' is a STRING if you are using fillTemplate(string, map)\n" +
+                                "{{KEY}} where 'KEY' is an INT if you are using fillTemplate(string, r1, r2 ..)\n" +
+                                "This KEY is used to map the values",
                         type = {DataType.STRING},
                         dynamic = true),
-                @Parameter(name = "replacement.string",
-                        description = "The strings with which the templated positions in the template need to be" +
-                                " replaced.\n" +
-                                "The minimum of two arguments need to be included in the execution string. There is" +
-                                " no upper limit on the number of arguments allowed to be included.",
+                @Parameter(name = "replacement.type",
+                        description = "A set of arguments with any type string|int|long|double|float|bool.",
                         type = {DataType.STRING, DataType.INT, DataType.LONG, DataType.DOUBLE,
                                 DataType.FLOAT, DataType.BOOL},
-                        dynamic = true),
+                        dynamic = true,
+                        optional = true,
+                        defaultValue = "-"
+                ),
+                @Parameter(name = "map",
+                        description = "A map with key-value pairs to be replaced.",
+                        type = {DataType.OBJECT},
+                        dynamic = true,
+                        optional = true,
+                        defaultValue = "-"
+                ),
         },
         parameterOverloads = {
-                @ParameterOverload(parameterNames = {"template", "replacement.string", "..."})
+                @ParameterOverload(parameterNames = {"template", "replacement.type", "..."}),
+                @ParameterOverload(parameterNames = {"template", "map"})
         },
         returnAttributes =
-            @ReturnAttribute(
+        @ReturnAttribute(
                 description = "The string that is returned after the templated positions are filled with the given" +
                         " values.",
                 type = DataType.STRING),
-        examples =
-            @Example(
-                    syntax = "str:fillTemplate(\"This is {{1}} for the {{2}} function\", " +
-                            "'an example', 'fillTemplate')",
-                    description = "" +
-                        "In this example, the template is 'This is {{1}} for the {{2}} function'." +
-                        "Here, the templated string {{1}} is replaced with the 1st " +
-                        "string value provided, which is 'an example'.\n" +
-                        "{{2}} is replaced with the 2nd string provided, which is 'fillTemplate'\n" +
-                        "The complete return string is 'This is an example for the fillTemplate function'.")
+        examples = {
+                @Example(
+                        syntax = "str:fillTemplate(\"{{prize}} > 100 && {{salary}} < 10000\", " +
+                                "map:create('prize', 300, 'salary', 10000))",
+                        description = "" +
+                                "In this example, the template is '{{prize}} > 100 && {{salary}} < 10000\'." +
+                                "Here, the templated string {{prize}} is replaced with the value corresponding " +
+                                "to the 'prize' key in the given map.\n" +
+                                "Likewise salary replace with the salary value of the map"
+                ),
+                @Example(
+                syntax = "str:fillTemplate(\"{{1}} > 100 && {{2}} < 10000\", " +
+                        "200, 300)",
+                description = "" +
+                        "In this example, the template is '{{1}} > 100 && {{2}} < 10000'." +
+                        "Here, the templated string {{1}} is replaced with the corresponding " +
+                        "1st value 200.\n" +
+                        "Likewise {{2}} replace with the 300"
+                )
+        }
+
 )
 public class FillTemplateFunctionExtension extends FunctionExecutor {
 
-    private Pattern indexPattern = Pattern.compile("\\d+");
-
-    private Pattern templatePattern = Pattern.compile("(\\{\\{\\d+}})");
+    private boolean isTemplateConstant = false;
+    private String[] templateSplitArray;
+    private static final String SPLIT_TEMPLATE = "\\{\\{|}}";
 
     @Override
     protected StateFactory<State> init(ExpressionExecutor[] expressionExecutors,
@@ -99,43 +120,59 @@ public class FillTemplateFunctionExtension extends FunctionExecutor {
                                                 SiddhiQueryContext siddhiQueryContext) {
         int executorsCount = expressionExecutors.length;
 
-        if (executorsCount <= 1) {
+        if (executorsCount < 2) {
             throw new SiddhiAppValidationException("Invalid number of arguments passed to "
                     + "str:fillTemplate() function. Required at least 2, but found " + executorsCount);
+        } else {
+            if (expressionExecutors[0].getReturnType() != STRING) {
+                throw new SiddhiAppValidationException("Invalid parameter type found for the first argument of "
+                        + "str:fillTemplate() function, required " + STRING.toString() + ", but found "
+                        + expressionExecutors[0].getReturnType().toString());
+            } else if (attributeExpressionExecutors[0] instanceof ConstantExpressionExecutor) {
+                isTemplateConstant = true;
+                ConstantExpressionExecutor constantExpressionExecutor =
+                        (ConstantExpressionExecutor) attributeExpressionExecutors[0];
+                String constantTemplate = String.valueOf(constantExpressionExecutor.getValue());
+                templateSplitArray = constantTemplate.split(SPLIT_TEMPLATE);
+            }
+            if (expressionExecutors[1].getReturnType() == OBJECT && executorsCount > 2) {
+                throw new SiddhiAppValidationException("Invalid parameter type found for the second argument of "
+                            + "str:fillTemplate() function, only allowed str:fillTemplate(STRING, MAP) or " +
+                            "str:fillTemplate(STRING, STRING, ...) formats.");
+            }
         }
-        ExpressionExecutor executor1 = expressionExecutors[0];
-
-        if (executor1.getReturnType() != STRING) {
-            throw new SiddhiAppValidationException("Invalid parameter type found for the first argument of "
-                    + "str:fillTemplate() function, required " + STRING.toString() + ", but found "
-                    + executor1.getReturnType().toString());
-
-        }
-
         return null;
     }
 
     @Override
     protected Object execute(Object[] objects, State state) {
         String sourceString = (String) objects[0];
-        Matcher templateMatcher = templatePattern.matcher(sourceString);
-        String match;
-        Matcher indexMatcher;
         int index;
-        while (templateMatcher.find()) {
-            match = templateMatcher.group(0);
-            indexMatcher = indexPattern.matcher(match);
-            if (indexMatcher.find()) {
-                index = Integer.parseInt(indexMatcher.group(0));
-                if (index < 1 || index >= objects.length) {
-                    throw new SiddhiAppRuntimeException("Index given for template elements "
-                            + "should be greater than 0 and less than '" + objects.length + "'. But found "
-                            + index + " in" + " the template '" + sourceString + "'.");
+        String key;
+        StringBuilder stringBuilder = new StringBuilder();
+        if (!isTemplateConstant) {
+            templateSplitArray = sourceString.split(SPLIT_TEMPLATE);
+        }
+        if (objects[1] instanceof Map) {
+            Map<String, Object> valueMap = (Map<String, Object>) objects[1];
+            for (int i = 1; i < templateSplitArray.length; i = i + 2) {
+                key = templateSplitArray[i].trim();
+                if (valueMap.get(key) != null) {
+                    templateSplitArray[i] = String.valueOf(valueMap.get(key));
                 }
-                sourceString = sourceString.replace(match, objects[index].toString());
+            }
+        } else {
+            for (int i = 1; i < templateSplitArray.length; i = i + 2) {
+                index = Integer.parseInt(templateSplitArray[i].trim());
+                if (objects[index] != null) {
+                    templateSplitArray[i] = String.valueOf(objects[index]);
+                }
             }
         }
-        return sourceString;
+        for (String s: templateSplitArray) {
+            stringBuilder.append(s);
+        }
+        return stringBuilder.toString();
     }
 
     @Override
