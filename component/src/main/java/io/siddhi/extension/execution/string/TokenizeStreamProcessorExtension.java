@@ -148,10 +148,13 @@ public class TokenizeStreamProcessorExtension extends StreamProcessor<TokenizeSt
 
             for (String word : words) {
                 Object[] data = {word};
-                complexEventPopulater.populateComplexEvent(event, data);
-                processor.process(complexEventChunk);
+                StreamEvent clonedEvent = streamEventCloner.copyStreamEvent(event);
+                complexEventPopulater.populateComplexEvent(clonedEvent, data);
+                complexEventChunk.insertBeforeCurrent(clonedEvent);
             }
+            complexEventChunk.remove();
         }
+        processor.process(complexEventChunk);
     }
 
     /**
