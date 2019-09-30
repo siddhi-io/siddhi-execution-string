@@ -98,7 +98,7 @@ import static io.siddhi.query.api.definition.Attribute.Type.STRING;
                 syntax = "define stream inputStream (str string);\n" +
                         "@info(name = 'query1')\n" +
                         "from inputStream#str:tokenize(str , ',')\n" +
-                        "select text\n" +
+                        "select token\n" +
                         "insert into outputStream;",
                 description = "This query performs tokenization on the given string. If the str is " +
                         "\"Android,Windows8,iOS\", then the string is split into 3 events " +
