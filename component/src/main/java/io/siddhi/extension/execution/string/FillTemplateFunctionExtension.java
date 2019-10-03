@@ -153,23 +153,24 @@ public class FillTemplateFunctionExtension extends FunctionExecutor {
         if (!isTemplateConstant) {
             templateSplitArray = sourceString.split(SPLIT_TEMPLATE);
         }
+        String[] templateSplitArrayClone = templateSplitArray.clone();
         if (objects[1] instanceof Map) {
             Map<String, Object> valueMap = (Map<String, Object>) objects[1];
-            for (int i = 1; i < templateSplitArray.length; i = i + 2) {
-                key = templateSplitArray[i].trim();
+            for (int i = 1; i < templateSplitArrayClone.length; i = i + 2) {
+                key = templateSplitArrayClone[i].trim();
                 if (valueMap.get(key) != null) {
-                    templateSplitArray[i] = String.valueOf(valueMap.get(key));
+                    templateSplitArrayClone[i] = String.valueOf(valueMap.get(key));
                 }
             }
         } else {
-            for (int i = 1; i < templateSplitArray.length; i = i + 2) {
-                index = Integer.parseInt(templateSplitArray[i].trim());
+            for (int i = 1; i < templateSplitArrayClone.length; i = i + 2) {
+                index = Integer.parseInt(templateSplitArrayClone[i].trim());
                 if (objects[index] != null) {
-                    templateSplitArray[i] = String.valueOf(objects[index]);
+                    templateSplitArrayClone[i] = String.valueOf(objects[index]);
                 }
             }
         }
-        for (String s: templateSplitArray) {
+        for (String s: templateSplitArrayClone) {
             stringBuilder.append(s);
         }
         return stringBuilder.toString();
