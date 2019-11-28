@@ -42,6 +42,7 @@
             <class name="io.siddhi.extension.execution.string.UpperFunctionExtensionTestCase" />
             <class name="io.siddhi.extension.execution.string.GroupConcatFunctionExtensionTestCase" />
             <class name="io.siddhi.extension.execution.string.FillTemplateFunctionExtensionTestCase" />
+            <class name="io.siddhi.extension.execution.string.CharFrequencyExtensionTestCase" />
         </classes>
     </test>
 </suite>
