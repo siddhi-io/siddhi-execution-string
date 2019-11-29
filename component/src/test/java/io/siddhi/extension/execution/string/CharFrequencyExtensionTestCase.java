@@ -137,7 +137,7 @@ public class CharFrequencyExtensionTestCase {
         siddhiAppRuntime.shutdown();
     }
 
-    @Test(enabled = false)
+    @Test
     public void testCharFrequencyFunctionExtensionInvalidChar() throws InterruptedException {
         LOGGER.info("CharFrequencyFunctionExtension TestCase for InvalidChar case");
         SiddhiManager siddhiManager = new SiddhiManager();
@@ -155,14 +155,14 @@ public class CharFrequencyExtensionTestCase {
                 "insert into ErrorStream;");
         SiddhiAppRuntime siddhiAppRuntime = siddhiManager.createSiddhiAppRuntime(inStreamDefinition + query);
 
-        siddhiAppRuntime.addCallback("ErrorStream", new StreamCallback() {
+        siddhiAppRuntime.addCallback("!inputStream", new StreamCallback() {
             @Override
             public void receive(Event[] events) {
                 EventPrinter.print(events);
                 for (Event event : events) {
                     count.incrementAndGet();
                     if (count.get() == 1) {
-                        AssertJUnit.assertEquals(0L, event.getData(1));
+                        AssertJUnit.assertEquals("IBM", event.getData(0));
                         eventArrived = true;
                     }
                 }
@@ -172,7 +172,7 @@ public class CharFrequencyExtensionTestCase {
 
         InputHandler inputHandler = siddhiAppRuntime.getInputHandler("inputStream");
         siddhiAppRuntime.start();
-        inputHandler.send(new Object[]{"IBM", 700f, 100L, 1});
+        inputHandler.send(new Object[]{"IBM", 700f, 100L});
 
         SiddhiTestHelper.waitForEvents(100, 1, count, 60000);
         AssertJUnit.assertTrue(eventArrived);
