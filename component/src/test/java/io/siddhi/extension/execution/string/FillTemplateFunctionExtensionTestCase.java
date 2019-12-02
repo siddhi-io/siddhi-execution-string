@@ -68,21 +68,19 @@ public class FillTemplateFunctionExtensionTestCase {
                 EventPrinter.print(timeStamp, inEvents, removeEvents);
                 for (Event event : inEvents) {
                     count.incrementAndGet();
+                    eventArrived = true;
                     if (count.get() == 1) {
                         AssertJUnit.assertEquals("The stock price of WSO2. Volume of WSO2 is 100 and the stock price " +
                                 "is " + "111.11", event.getData(0));
-                        eventArrived = true;
                     }
                     if (count.get() == 2) {
                         AssertJUnit.assertEquals("The stock price of IBM. Volume of IBM is 200 and the stock price " +
                                 "is " + "222.22", event.getData(0));
-                        eventArrived = true;
                     }
                     if (count.get() == 3) {
                         AssertJUnit.assertEquals("The stock price of GOOGLE. Volume of GOOGLE is 300 and the stock " +
                                 "price " +
                                 "is " + "333.33", event.getData(0));
-                        eventArrived = true;
                     }
                 }
             }
@@ -122,21 +120,19 @@ public class FillTemplateFunctionExtensionTestCase {
                 EventPrinter.print(timeStamp, inEvents, removeEvents);
                 for (Event event : inEvents) {
                     count.incrementAndGet();
+                    eventArrived = true;
                     if (count.get() == 1) {
                         AssertJUnit.assertEquals("The stock price of WSO2. Volume of WSO2 is 100 and the stock price " +
                                 "is " + "111.11", event.getData(0));
-                        eventArrived = true;
                     }
                     if (count.get() == 2) {
                         AssertJUnit.assertEquals("The stock price of IBM. Volume of IBM is 200 and the stock price " +
                                 "is " + "222.22", event.getData(0));
-                        eventArrived = true;
                     }
                     if (count.get() == 3) {
                         AssertJUnit.assertEquals("The stock price of GOOGLE. Volume of GOOGLE is 300 and the stock " +
                                 "price " +
                                 "is " + "333.33", event.getData(0));
-                        eventArrived = true;
                     }
                 }
             }
@@ -179,21 +175,19 @@ public class FillTemplateFunctionExtensionTestCase {
                 EventPrinter.print(timeStamp, inEvents, removeEvents);
                 for (Event event : inEvents) {
                     count.incrementAndGet();
+                    eventArrived = true;
                     if (count.get() == 1) {
                         AssertJUnit.assertEquals("The stock price of WSO2. Volume of WSO2 is 100 and the stock price " +
                                 "is " + "111.11", event.getData(0));
-                        eventArrived = true;
                     }
                     if (count.get() == 2) {
                         AssertJUnit.assertEquals("The stock price of IBM. Volume of IBM is 200 and the stock price " +
                                 "is " + "222.22", event.getData(0));
-                        eventArrived = true;
                     }
                     if (count.get() == 3) {
                         AssertJUnit.assertEquals("The stock price of GOOGLE. Volume of GOOGLE is 300 and the stock " +
                                 "price " +
                                 "is " + "333.33", event.getData(0));
-                        eventArrived = true;
                     }
                 }
             }
@@ -236,22 +230,20 @@ public class FillTemplateFunctionExtensionTestCase {
                 EventPrinter.print(timeStamp, inEvents, removeEvents);
                 for (Event event : inEvents) {
                     count.incrementAndGet();
+                    eventArrived = true;
                     if (count.get() == 1) {
                         AssertJUnit.assertEquals("The stock price of WSO2. Volume of " +
                                 "WSO2 is 100 and the stock price " +
                                 "is " + "111.11", event.getData(0));
-                        eventArrived = true;
                     }
                     if (count.get() == 2) {
                         AssertJUnit.assertEquals("The stock price of IBM. Volume of IBM is 200 and the stock price " +
                                 "is " + "222.22", event.getData(0));
-                        eventArrived = true;
                     }
                     if (count.get() == 3) {
                         AssertJUnit.assertEquals("The stock price of GOOGLE. Volume of GOOGLE is 300 and the stock " +
                                 "price " +
                                 "is " + "333.33", event.getData(0));
-                        eventArrived = true;
                     }
                 }
             }
