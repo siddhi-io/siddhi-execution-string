@@ -124,11 +124,7 @@ public class FillTemplateFunctionExtension extends FunctionExecutor {
             throw new SiddhiAppValidationException("Invalid number of arguments passed to "
                     + "str:fillTemplate() function. Required at least 2, but found " + executorsCount);
         } else {
-            if (expressionExecutors[0].getReturnType() != STRING) {
-                throw new SiddhiAppValidationException("Invalid parameter type found for the first argument of "
-                        + "str:fillTemplate() function, required " + STRING.toString() + ", but found "
-                        + expressionExecutors[0].getReturnType().toString());
-            } else if (attributeExpressionExecutors[0] instanceof ConstantExpressionExecutor) {
+            if (attributeExpressionExecutors[0] instanceof ConstantExpressionExecutor) {
                 isTemplateConstant = true;
                 ConstantExpressionExecutor constantExpressionExecutor =
                         (ConstantExpressionExecutor) attributeExpressionExecutors[0];
