@@ -88,6 +88,90 @@ public class ConcatFunctionExtensionTestCase {
         siddhiAppRuntime.shutdown();
     }
 
+    @Test
+    public void testConcatWithIntegers() throws InterruptedException {
+        LOGGER.info("ConcatFunctionExtension TestCase");
+        SiddhiManager siddhiManager = new SiddhiManager();
+
+        String inStreamDefinition = "define stream inputStream (symbol1 string, symbol2 int, symbol3 string);";
+        String query = ("@info(name = 'query1') from inputStream select symbol1 , " +
+                "str:concat(symbol1,symbol2,symbol3) as concatString " +
+                "insert into outputStream;");
+        SiddhiAppRuntime siddhiAppRuntime = siddhiManager.createSiddhiAppRuntime(inStreamDefinition + query);
+
+        siddhiAppRuntime.addCallback("query1", new QueryCallback() {
+            @Override
+            public void receive(long timeStamp, Event[] inEvents, Event[] removeEvents) {
+                EventPrinter.print(timeStamp, inEvents, removeEvents);
+                for (Event event : inEvents) {
+                    count.incrementAndGet();
+                    if (count.get() == 1) {
+                        AssertJUnit.assertEquals("AAACCC", event.getData(1));
+                        eventArrived = true;
+                    }
+                    if (count.get() == 2) {
+                        AssertJUnit.assertEquals("123123789", event.getData(1));
+                        eventArrived = true;
+                    }
+                    if (count.get() == 3) {
+                        AssertJUnit.assertEquals("D533456XYZ", event.getData(1));
+                        eventArrived = true;
+                    }
+                }
+            }
+        });
+
+        InputHandler inputHandler = siddhiAppRuntime.getInputHandler("inputStream");
+        siddhiAppRuntime.start();
+        inputHandler.send(new Object[]{"AAA", null, "CCC"});
+        inputHandler.send(new Object[]{"123", 123, "789"});
+        inputHandler.send(new Object[]{"D533", 456, "XYZ"});
+        SiddhiTestHelper.waitForEvents(100, 3, count, 60000);
+        AssertJUnit.assertEquals(3, count.get());
+        AssertJUnit.assertTrue(eventArrived);
+        siddhiAppRuntime.shutdown();
+    }
+
+    @Test
+    public void testConcatWithIntDoubleLongFloat() throws InterruptedException {
+        LOGGER.info("ConcatFunctionExtension TestCase");
+        SiddhiManager siddhiManager = new SiddhiManager();
+
+        String inStreamDefinition = "define stream inputStream (symbol1 int, symbol2 double, symbol3 float, " +
+                "symbol4 long);";
+        String query = ("@info(name = 'query1') from inputStream select symbol1 , " +
+                "str:concat(symbol1,symbol2,symbol3,symbol4) as concatString " +
+                "insert into outputStream;");
+        SiddhiAppRuntime siddhiAppRuntime = siddhiManager.createSiddhiAppRuntime(inStreamDefinition + query);
+
+        siddhiAppRuntime.addCallback("query1", new QueryCallback() {
+            @Override
+            public void receive(long timeStamp, Event[] inEvents, Event[] removeEvents) {
+                EventPrinter.print(timeStamp, inEvents, removeEvents);
+                for (Event event : inEvents) {
+                    count.incrementAndGet();
+                    if (count.get() == 1) {
+                        AssertJUnit.assertEquals("100101.121132.541000000", event.getData(1));
+                        eventArrived = true;
+                    }
+                    if (count.get() == 2) {
+                        AssertJUnit.assertEquals("1011011321000000", event.getData(1));
+                        eventArrived = true;
+                    }
+                }
+            }
+        });
+
+        InputHandler inputHandler = siddhiAppRuntime.getInputHandler("inputStream");
+        siddhiAppRuntime.start();
+        inputHandler.send(new Object[]{100, 101.121, 132.54f, 1000000L});
+        inputHandler.send(new Object[]{101, 101, 132, 1000000L});
+        SiddhiTestHelper.waitForEvents(100, 2, count, 60000);
+        AssertJUnit.assertEquals(2, count.get());
+        AssertJUnit.assertTrue(eventArrived);
+        siddhiAppRuntime.shutdown();
+    }
+
     @Test(expectedExceptions = SiddhiAppCreationException.class)
     public void testCoalesceFunctionExtensionWithOneArgument() throws InterruptedException {
         LOGGER.info("ConcatFunctionExtension TestCase");

@@ -50,7 +50,7 @@ import static io.siddhi.query.api.definition.Attribute.Type.STRING;
         parameters = {
                 @Parameter(name = "arg",
                         description = "This can have two or more `string` type input parameters.",
-                        type = {DataType.STRING},
+                        type = {DataType.STRING, DataType.INT, DataType.DOUBLE, DataType.FLOAT, DataType.LONG},
                         dynamic = true)
         },
         parameterOverloads = {
