@@ -1,5 +1,5 @@
 /*
- * Copyright (c)  2016, WSO2 Inc. (http://www.wso2.org) All Rights Reserved.
+ * Copyright (c)  2020, WSO2 Inc. (http://www.wso2.org) All Rights Reserved.
  *
  * WSO2 Inc. licenses this file to you under the Apache License,
  * Version 2.0 (the "License"); you may not use this file except
@@ -38,9 +38,9 @@ import static io.siddhi.query.api.definition.Attribute.Type.INT;
 import static io.siddhi.query.api.definition.Attribute.Type.STRING;
 
 /**
- * strcmp(string, compareTo)
- * Compares two strings lexicographically.
- * Accept Type(s): (STRING,STRING)
+ * locate(string, string, int)
+ * Check the a particular string exists in a given string. Optionally a starting point to start the search can be given.
+ * Accept Type(s): (STRING,STRING, INT)
  * Return Type(s): INT
  */
 
