@@ -38,7 +38,7 @@ import static io.siddhi.query.api.definition.Attribute.Type.INT;
 import static io.siddhi.query.api.definition.Attribute.Type.STRING;
 
 /**
- * locate(string, string, int)
+ * locate(string, strin)
  * Check the a particular string exists in a given string. Optionally a starting point to start the search can be given.
  * Accept Type(s): (STRING,STRING, INT)
  * Return Type(s): INT
