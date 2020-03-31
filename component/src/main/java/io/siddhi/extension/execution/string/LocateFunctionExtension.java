@@ -50,12 +50,12 @@ import static io.siddhi.query.api.definition.Attribute.Type.STRING;
         description = "This function returns the position of one string within another. " +
                 "Optionally, the user can give the starting index to be search from.",
         parameters = {
-                @Parameter(name = "string.to.search",
-                        description = "The string to be searched.",
+                @Parameter(name = "string.to.search.for",
+                        description = "The string to be searched for. eg: @wso2.com",
                         type = {DataType.STRING},
                         dynamic = true),
-                @Parameter(name = "string.to.search.for",
-                        description = "The string to be searched for.",
+                @Parameter(name = "string.to.search.in",
+                        description = "The string to be searched in. eg: john@wso2.com",
                         type = {DataType.STRING},
                         dynamic = true),
                 @Parameter(name = "searching.start.position",
@@ -66,8 +66,8 @@ import static io.siddhi.query.api.definition.Attribute.Type.STRING;
                         dynamic = true)
         },
         parameterOverloads = {
-                @ParameterOverload(parameterNames = {"string.to.search", "string.to.search.for"}),
-                @ParameterOverload(parameterNames = {"string.to.search", "string.to.search.for",
+                @ParameterOverload(parameterNames = {"string.to.search.for", "string.to.search.in"}),
+                @ParameterOverload(parameterNames = {"string.to.search.for", "string.to.search.in",
                         "searching.start.position"})
         },
         returnAttributes = @ReturnAttribute(
