@@ -146,11 +146,6 @@ public class LocateFunctionExtension extends FunctionExecutor {
         return stringToBeSearched.indexOf(stringToBeSearchedFor);
     }
 
-    public static void main(String[] args) {
-        String str = "asdfghjkl";
-        System.out.println(str.substring(2));
-    }
-
     @Override
     protected Object execute(Object o, State state) {
         return null;
