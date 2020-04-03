@@ -105,7 +105,7 @@ public class LocateFunctionExtensionTestCase {
                 for (Event event : inEvents) {
                     count.incrementAndGet();
                     if (count.get() == 1) {
-                        AssertJUnit.assertEquals(13, event.getData(0));
+                        AssertJUnit.assertEquals(22, event.getData(0));
                         eventArrived = true;
                     }
                     if (count.get() == 2) {

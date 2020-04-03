@@ -141,8 +141,14 @@ public class LocateFunctionExtension extends FunctionExecutor {
         if (objects.length == 3) {
             positionInTheStringToBeginSearch = (Integer) objects[2];
             stringToBeSearched = stringToBeSearched.substring(positionInTheStringToBeginSearch);
+            return stringToBeSearched.indexOf(stringToBeSearchedFor) + positionInTheStringToBeginSearch;
         }
         return stringToBeSearched.indexOf(stringToBeSearchedFor);
+    }
+
+    public static void main(String[] args) {
+        String str = "asdfghjkl";
+        System.out.println(str.substring(2));
     }
 
     @Override
