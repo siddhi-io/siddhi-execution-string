@@ -33,7 +33,8 @@ import io.siddhi.core.util.snapshot.state.State;
 import io.siddhi.core.util.snapshot.state.StateFactory;
 import io.siddhi.query.api.definition.Attribute;
 import io.siddhi.query.api.exception.SiddhiAppValidationException;
-import org.apache.log4j.Logger;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 import static io.siddhi.query.api.definition.Attribute.Type.BOOL;
 import static io.siddhi.query.api.definition.Attribute.Type.STRING;
@@ -78,7 +79,7 @@ import static io.siddhi.query.api.definition.Attribute.Type.STRING;
 )
 public class ContainsFunctionExtension extends FunctionExecutor {
 
-    private static final Logger LOGGER = Logger.getLogger(ContainsFunctionExtension.class);
+    private static final Logger LOGGER = LogManager.getLogger(ContainsFunctionExtension.class);
 
     Attribute.Type returnType = BOOL;
 

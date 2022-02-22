@@ -49,8 +49,10 @@ import static io.siddhi.query.api.definition.Attribute.Type.STRING;
                 "concatenating two or more input string values.",
         parameters = {
                 @Parameter(name = "arg",
-                        description = "This can have two or more `string` type input parameters.",
-                        type = {DataType.STRING},
+                        description = "This can have two or more STRING, DOUBLE, BOOL, FLOAT, INT, LONG typed" +
+                                " input parameters.",
+                        type = {DataType.STRING, DataType.DOUBLE, DataType.BOOL,
+                                DataType.FLOAT, DataType.INT, DataType.LONG},
                         dynamic = true)
         },
         parameterOverloads = {

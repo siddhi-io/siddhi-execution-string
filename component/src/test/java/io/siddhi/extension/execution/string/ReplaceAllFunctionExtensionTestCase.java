@@ -26,7 +26,8 @@ import io.siddhi.core.query.output.callback.QueryCallback;
 import io.siddhi.core.stream.input.InputHandler;
 import io.siddhi.core.util.EventPrinter;
 import io.siddhi.extension.execution.string.test.util.SiddhiTestHelper;
-import org.apache.log4j.Logger;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.testng.AssertJUnit;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
@@ -34,7 +35,7 @@ import org.testng.annotations.Test;
 import java.util.concurrent.atomic.AtomicInteger;
 
 public class ReplaceAllFunctionExtensionTestCase {
-    static final Logger LOGGER = Logger.getLogger(ReplaceAllFunctionExtensionTestCase.class);
+    private static final Logger LOGGER = LogManager.getLogger(ReplaceAllFunctionExtensionTestCase.class);
     private AtomicInteger count = new AtomicInteger(0);
     private volatile boolean eventArrived;
 
@@ -66,28 +67,28 @@ public class ReplaceAllFunctionExtensionTestCase {
                 for (Event event : inEvents) {
                     count.incrementAndGet();
                     if (count.get() == 1) {
-                        AssertJUnit.assertEquals("test hi test", event.getData(1));
+                        AssertJUnit.assertEquals("{ \"id\": \"test-test-test\",\"commodities\":[\"oil\",\"gas\"]}",
+                                event.getData(1));
                         eventArrived = true;
                     }
-                    if (count.get() == 2) {
-                        AssertJUnit.assertEquals("WSO2 hi test", event.getData(1));
-                        eventArrived = true;
-                    }
-                    if (count.get() == 3) {
-                        AssertJUnit.assertEquals("WSO2 cep", event.getData(1));
-                        eventArrived = true;
-                    }
+//                    if (count.get() == 2) {
+//                        AssertJUnit.assertEquals("WSO2 hi test", event.getData(1));
+//                        eventArrived = true;
+//                    }
+//                    if (count.get() == 3) {
+//                        AssertJUnit.assertEquals("WSO2 cep", event.getData(1));
+//                        eventArrived = true;
+//                    }
                 }
             }
         });
 
         InputHandler inputHandler = siddhiAppRuntime.getInputHandler("inputStream");
         siddhiAppRuntime.start();
-        inputHandler.send(new Object[]{"hello hi hello", 700f, 100L});
-        inputHandler.send(new Object[]{"WSO2 hi hello", 60.5f, 200L});
-        inputHandler.send(new Object[]{"WSO2 cep", 60.5f, 200L});
-        SiddhiTestHelper.waitForEvents(100, 3, count, 60000);
-        AssertJUnit.assertEquals(3, count.get());
+        inputHandler.send(new Object[]{"{ \"id\": \"test-test-test\",\"commodities\":[\"oil\",\"gas\"]}", 700f, 100L});
+
+        SiddhiTestHelper.waitForEvents(100, 1, count, 60000);
+        AssertJUnit.assertEquals(1, count.get());
         AssertJUnit.assertTrue(eventArrived);
         siddhiAppRuntime.shutdown();
     }
