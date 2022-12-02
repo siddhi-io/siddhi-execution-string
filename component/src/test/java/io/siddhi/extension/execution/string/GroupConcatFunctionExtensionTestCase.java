@@ -141,8 +141,8 @@ public class GroupConcatFunctionExtensionTestCase {
         inputHandler.send(new Object[]{"BBB", "8JU^", "XYZ"});
         inputHandler.send(new Object[]{"BBB", "8JU^", "XYZ"});
         inputHandler.send(new Object[]{"CCC", "8JU^", "XYZ"});
-        SiddhiTestHelper.waitForEvents(100, 5, count, 60000);
-        AssertJUnit.assertEquals(5, count.get());
+        SiddhiTestHelper.waitForEvents(100, 2, count, 60000);
+        AssertJUnit.assertEquals(2, count.get());
         AssertJUnit.assertTrue(eventArrived);
         siddhiAppRuntime.shutdown();
     }
@@ -365,19 +365,6 @@ public class GroupConcatFunctionExtensionTestCase {
         AssertJUnit.assertEquals(5, count.get());
         AssertJUnit.assertTrue(eventArrived);
         siddhiAppRuntime.shutdown();
-    }
-
-    @Test(expectedExceptions = SiddhiAppCreationException.class)
-    public void testFunctionExtension7() throws InterruptedException {
-        LOGGER.info("testFunctionExtension7 TestCase");
-        SiddhiManager siddhiManager = new SiddhiManager();
-
-        String inStreamDefinition = "define stream inputStream (symbol1 string, symbol2 string, symbol3 string);";
-        String query = ("@info(name = 'query1') " +
-                "from inputStream#window.length(2)" +
-                "select symbol1, str:groupConcat(symbol1, '-', false, 'ASC1') as concatString1 " +
-                "insert into outputStream;");
-        siddhiManager.createSiddhiAppRuntime(inStreamDefinition + query);
     }
 
     @Test(expectedExceptions = SiddhiAppCreationException.class)
