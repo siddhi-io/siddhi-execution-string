@@ -107,10 +107,8 @@ public class GroupConcatFunctionExtension
         extends AttributeAggregatorExecutor<GroupConcatFunctionExtension.ExtensionState> {
 
     private static final String KEY_DATA_MAP = "dataMap";
-
-    private Map<Object, Integer> dataMap = new LinkedHashMap<>();
-
     private boolean distinct = false;
+    private String order = null;
 
     @Override
     @SuppressWarnings("fallthrough")
@@ -143,18 +141,7 @@ public class GroupConcatFunctionExtension
                     throw new SiddhiAppValidationException("str:groupConcat() function's forth attribute `order` "
                             + "should be a constant having `'ASC'` or `'DESC'`, but found a variable attribute.");
                 }
-                String value = ((String) ((ConstantExpressionExecutor) executor).getValue()).toUpperCase();
-                switch (value) {
-                    case "ASC":
-                        dataMap = new TreeMap<>();
-                        break;
-                    case "DESC":
-                        dataMap = new TreeMap<>(Collections.reverseOrder());
-                        break;
-                    default:
-                        throw new SiddhiAppValidationException("str:groupConcat() function's forth attribute `order` "
-                                + "should be a constant `'ASC'` or `'DESC'`, but found '" + value + "'.");
-                }
+                order = ((String) ((ConstantExpressionExecutor) executor).getValue()).toUpperCase();
             }
             /* Fall through */
             case 3: {
@@ -195,53 +182,53 @@ public class GroupConcatFunctionExtension
         if (o == null) {
             return extensionState.currentValue();
         }
-        addString(String.valueOf(o));
-        return constructConcatString(",");
+        addString(String.valueOf(o), extensionState);
+        return constructConcatString(",", extensionState);
     }
 
     @Override
     public Object processAdd(Object[] objects, ExtensionState extensionState) {
-        addString(String.valueOf(objects[0]));
-        return constructConcatString(String.valueOf(objects[1]));
+        addString(String.valueOf(objects[0]), extensionState);
+        return constructConcatString(String.valueOf(objects[1]), extensionState);
     }
 
     @Override
     public Object processRemove(Object o, ExtensionState extensionState) {
-        removeString(String.valueOf(o));
-        return constructConcatString(",");
+        removeString(String.valueOf(0), extensionState);
+        return constructConcatString(",", extensionState);
     }
 
     @Override
     public Object processRemove(Object[] objects, ExtensionState extensionState) {
-        removeString(String.valueOf(objects[0]));
-        return constructConcatString(String.valueOf(objects[1]));
+        removeString(String.valueOf(objects[0]), extensionState);
+        return constructConcatString(String.valueOf(objects[1]), extensionState);
     }
 
-    private void addString(String data) {
-        Integer count = dataMap.get(data);
-        dataMap.put(data, (count == null) ? 1 : count + 1);
+    private void addString(String data, ExtensionState extensionState) {
+        Integer count = extensionState.dataMap.get(data);
+        extensionState.dataMap.put(data, (count == null) ? 1 : count + 1);
     }
 
-    private void removeString(String data) {
-        Integer count = dataMap.get(data);
+    private void removeString(String data, ExtensionState extensionState) {
+        Integer count = extensionState.dataMap.get(data);
         if (count == 1) {
-            dataMap.remove(data);
+            extensionState.dataMap.remove(data);
         } else if (count > 1) {
-            dataMap.put(data, count - 1);
+            extensionState.dataMap.put(data, count - 1);
         }
     }
 
-    private Object constructConcatString(String separator) {
+    private Object constructConcatString(String separator, ExtensionState extensionState) {
         StringJoiner joiner = new StringJoiner(separator);
 
         if (distinct) {
-            for (Object key : dataMap.keySet()) {
+            for (Object key : extensionState.dataMap.keySet()) {
                 joiner.add(String.valueOf(key));
             }
             return joiner.toString();
         }
 
-        for (Map.Entry<Object, Integer> entry : dataMap.entrySet()) {
+        for (Map.Entry<Object, Integer> entry : extensionState.dataMap.entrySet()) {
             for (int i = 0; i < entry.getValue(); i++) {
                 joiner.add(String.valueOf(entry.getKey()));
             }
@@ -252,7 +239,7 @@ public class GroupConcatFunctionExtension
 
     @Override
     public Object reset(ExtensionState extensionState) {
-        dataMap.clear();
+        extensionState.dataMap.clear();
         return "";
     }
 
@@ -263,9 +250,25 @@ public class GroupConcatFunctionExtension
 
     class ExtensionState extends State {
 
-        private final Map<String, Object> state = new HashMap<>();
+        private final Map<String, Object> state;
+        private Map<Object, Integer> dataMap;
 
         private ExtensionState() {
+            this.state = new HashMap<>();
+            this.dataMap = new LinkedHashMap<>();
+            if (order != null) {
+                switch (order) {
+                    case "ASC":
+                        this.dataMap = new TreeMap<>();
+                        break;
+                    case "DESC":
+                        dataMap = new TreeMap<>(Collections.reverseOrder());
+                        break;
+                    default:
+                        throw new SiddhiAppValidationException("str:groupConcat() function's forth attribute `order` "
+                                + "should be a constant `'ASC'` or `'DESC'`, but found '" + order + "'.");
+                }
+            }
             state.put(KEY_DATA_MAP, dataMap);
         }
 
@@ -288,7 +291,7 @@ public class GroupConcatFunctionExtension
             if (dataMap.isEmpty()) {
                 return "";
             }
-            return constructConcatString(",");
+            return constructConcatString(",", this);
         }
     }
 }
